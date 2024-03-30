@@ -1,0 +1,711 @@
+{
+  "EXTI": [
+    {
+      "name": "RTSR1",
+      "description": "rising trigger selection register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Rising trigger event configuration bit of Configurable Event input x.(1) 0: Rising trigger disabled (for Event and Interrupt) for input line1: Rising trigger enabled (for Event and Interrupt) for input line 1. The Configurable event inputs are edge triggered, no glitch must be generated on these inputs.If a rising edge on the Configurable event input occurs during wr iting of the register, the associated pending bit will not be set.Rising and falling edge triggers can be set for the same Co nfigurable Event input. In this case, both edges generate a trigger.",
+          "values": [],
+          "mask": "0b1111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FTSR1",
+      "description": "falling trigger selection register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Falling trigger event configuration bit of Configurable Event input x.(1) 0: Falling trigger disabled (for Event and Interrupt) for input line1: Falling trigger enabled (for Event and Interrupt) for input line. 1. The Configurable event inputs are edge triggered, no glitch must be generated on these inputs.If a falling edge on the Configurable event input occurs during wr iting of the register, the associated pending bit will not be set.Rising and falling edge triggers can be set for the same Co nfigurable Event input. In this case, both edges generate a trigger.",
+          "values": [],
+          "mask": "0b1111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SWIER1",
+      "description": "software interrupt event register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "SWIERx",
+          "description": "Software interrupt on line xWill alway return 0 when read. 0: Writing 0 has no effect. 1: Writing a 1 to this bit will trigger an event on line x. This bit is auto cleared by HW.",
+          "values": [],
+          "mask": "0b1111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "D3PMR1",
+      "description": "D3 pending mask register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x",
+          "values": [
+            ["0", "D3 Pending request from Line x is masked. Writing this bit to 0 will also clear the D3 Pending request."],
+            ["1", "D3 Pending request from Line x is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared."]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x 0: D3 Pending request from Line x is masked. Writing this bit to 0 will also clear the D3 Pending request.1: D3 Pending request from Line x is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111101110001110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR1L",
+      "description": "D3 pending clear selection register low",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal se lection on Event input x = truncate (n/2) 00: DMA ch6 event selected as D3 domain pendclear source 01: DMA ch7 event selected as D3 domain pendclear source10: LPTIM4 out selected as D3 domain pendclear source11: LPTIM5 out selected as D3 domain pendclear source",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR1H",
+      "description": "D3 pending clear selection register high",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "1",
+          "description": "1931 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. PCS25 Res. Res. rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9 87654321 0 Res. Res. Res. Res. PCS21 PCS20 PCS19 Res. Res. Res. Res. Res. Res. rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal selection on Event input x = truncate ((n+32)/2)",
+          "values": [
+            ["00", "DMA ch6 event selected as D3 domain pendclear source"],
+            ["01", "DMA ch7 event selected as D3 domain pendclear source"],
+            ["10", "LPTIM4 out selected as D3 domain pendclear source"],
+            ["11", "LPTIM5 out selected as D3 domain pendclear source"]
+          ],
+          "mask": "0b11000000000000000000"
+        },
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal selection on Event input x = truncate ((n+32)/2) 00: DMA ch6 event selected as D3 domain pendclear source 01: DMA ch7 event selected as D3 domain pendclear source10: LPTIM4 out selected as D3 domain pendclear source11: LPTIM5 out selected as D3 domain pendclear source",
+          "values": [],
+          "mask": "0b111111000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111000000111111"
+        }
+      ]
+    },
+    {
+      "name": "RTSR2",
+      "description": "rising trigger selection register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Rising trigger event configuration bit of Configurable Event input x+32.(1)",
+          "values": [
+            ["0", "Rising trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Rising trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TRx",
+          "description": "Rising trigger event configuration bit of Configurable Event input x+32.(1)",
+          "values": [
+            ["0", "Rising trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Rising trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111001011111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "FTSR2",
+      "description": "falling trigger selection register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Falling trigger event configuration bi t of Configurable Event input x+32.(1)",
+          "values": [
+            ["0", "Falling trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Falling trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TRx",
+          "description": "Falling trigger event configuration bi t of Configurable Event input x+32.(1)",
+          "values": [
+            ["0", "Falling trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Falling trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111101011111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "SWIER2",
+      "description": "software interrupt event register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "SWIERx",
+          "description": "Software interrupt on line x+32Will alway return 0 when read.",
+          "values": [
+            ["0", "Writing 0 has no effect."],
+            ["1", "Writing a 1 to this bit will trigger an event on line x. This bit is auto cleared by HW."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "SWIERx",
+          "description": "Software interrupt on line x+32Will alway return 0 when read.",
+          "values": [
+            ["0", "Writing 0 has no effect."],
+            ["1", "Writing a 1 to this bit will trigger an event on line x. This bit is auto cleared by HW."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100011111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "D3PMR2",
+      "description": "D3 pending mask register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x+32 0: D3 Pending request from Line x+32 is masked. Writing this bit to 0 will also clear the D3 Pending request.1: D3 Pending request from Line x+32 is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared.",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x+32",
+          "values": [
+            ["0", "D3 Pending request from Line x+32 is masked. Writing this bit to 0 will also clear the D3 Pending request."],
+            ["1", "D3 Pending request from Line x+32 is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x+32 0: D3 Pending request from Line x+32 is masked. Writing this bit to 0 will also clear the D3 Pending request.1: D3 Pending request from Line x+32 is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared.",
+          "values": [],
+          "mask": "0b1100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110001001111110111110011"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR2L",
+      "description": "D3 pending clear selection register low",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal sele ction on Event input x = truncate ((n+64)/2)",
+          "values": [
+            ["00", "DMA ch6 event selected as D3 domain pendclear source"],
+            ["01", "DMA ch7 event selected as D3 domain pendclear source"],
+            ["10", "LPTIM4 out selected as D3 domain pendclear source"],
+            ["11", "LPTIM5 out selected as D3 domain pendclear source"]
+          ],
+          "mask": "0b11000000000000000000"
+        },
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal sele ction on Event input x= truncate ((n+64)/2) 00: DMA ch6 event selected as D3 domain pendclear source 01: DMA ch7 event selected as D3 domain pendclear source10: LPTIM4 out selected as D3 domain pendclear source11: LPTIM5 out selected as D3 domain pendclear source",
+          "values": [],
+          "mask": "0b11110000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100111111111100001111"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR2H",
+      "description": "D3 pending clear selection register high",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal sele ction on Event input x= truncate ((n+96)/2) 00: DMA ch6 event selected as D3 domain pendclear source 01: DMA ch7 event selected as D3 domain pendclear source10: LPTIM4 out selected as D3 domain pendclear source11: LPTIM5 out selected as D3 domain pendclear source",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "RTSR3",
+      "description": "rising trigger selection register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Rising trigger event configuration bit of Configurable Event input x+64.(1) 0: Rising trigger disabled (for Event and Interrupt) for input line1: Rising trigger enabled (for Event and Interrupt) for input line",
+          "values": [],
+          "mask": "0b11100000000000000000000"
+        },
+        {
+          "name": "TRx",
+          "description": "Rising trigger event configuration bit of Configurable Event input x+64.(1)",
+          "values": [
+            ["0", "Rising trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Rising trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100010111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "FTSR3",
+      "description": "falling trigger selection register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "TRx",
+          "description": "Falling trigger event configuration bi t of Configurable Event input x+64.(1) 0: Falling trigger disabled (for Event and Interrupt) for input line1: Falling trigger enabled (for Event and Interrupt) for input line",
+          "values": [],
+          "mask": "0b11100000000000000000000"
+        },
+        {
+          "name": "TRx",
+          "description": "Falling trigger event configuration bi t of Configurable Event input x+64.(1)",
+          "values": [
+            ["0", "Falling trigger disabled (for Event and Interrupt) for input line"],
+            ["1", "Falling trigger enabled (for Event and Interrupt) for input line"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "SWIER3",
+      "description": "software interrupt event register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "SWIERx",
+          "description": "Software interrupt on line x+64Will alway return 0 when read. 0: Writing 0 has no effect. 1: Writing a 1 to this bit will trigger an event on line x. This bit is auto cleared by HW.",
+          "values": [],
+          "mask": "0b11100000000000000000000"
+        },
+        {
+          "name": "SWIERx",
+          "description": "Software interrupt on line x+64Will alway return 0 when read.",
+          "values": [
+            ["0", "Writing 0 has no effect."],
+            ["1", "Writing a 1 to this bit will trigger an event on line x. This bit is auto cleared by HW."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100010111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "D3PMR3",
+      "description": "D3 pending mask register",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "D3 Pending Mask on Event input x+64",
+          "values": [
+            ["0", "D3 Pending request from Line x+64 is masked. Writing this bit to 0 will also clear the D3 Pending request."],
+            ["1", "D3 Pending request from Line x+64 is unmasked. The D3 domain pending signal when triggered will keep D3 domain wakeup active until cleared."]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000001111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR3L",
+      "description": "D3 pending clear selection register low",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "D3PCR3H",
+      "description": "D3 pending clear selection register high",
+      "offset": "0x54",
+      "fields": [
+        {
+          "name": "PCSx",
+          "description": "D3 Pending request clear input signal selection on Event input x= truncate ((n+160)/2)",
+          "values": [
+            ["00", "DMA ch6 event selected as D3 domain pendclear source"],
+            ["01", "DMA ch7 event selected as D3 domain pendclear source"],
+            ["10", "LPTIM4 out selected as D3 domain pendclear source"],
+            ["11", "LPTIM5 out selected as D3 domain pendclear source"]
+          ],
+          "mask": "0b110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111101111111001111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CPUIMR1",
+      "description": "interrupt mask register",
+      "offset": "0x80",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Direct Event input x(1) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Configurable Event input x (2) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked 1. The reset value for Direct Event inputs is set to \u20181\u2019 in order to enable the interrupt by default. 2. The reset value for Configurable Event inputs is set to \u20180\u2019 in order to disable the interrupt by default.",
+          "values": [],
+          "mask": "0b1111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CPUEMR1",
+      "description": "event mask register",
+      "offset": "0x84",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPUEvent mask on Event input x 0: Event request from Line x is masked1: Event request from Line x is unmasked",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CPUPR1",
+      "description": "pending register",
+      "offset": "0x88",
+      "fields": [
+        {
+          "name": "PRx",
+          "description": "Configurable event inputs x Pending bit 0: No trigger request occurred 1: selected trigger request occurredThis bit is set when the selected edge event arri ves on the external interrupt line. This bit is cleared by writing a 1 into the bit or by changing the sensitivity of the edge detector.",
+          "values": [],
+          "mask": "0b1111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPUIMR2",
+      "description": "interrupt mask register",
+      "offset": "0x90",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPU Interrupt Mask on Direct Event input x+32(1) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Configurable Event input x+32 (2)",
+          "values": [
+            ["0", "Interrupt request from Line x is masked"],
+            ["1", "Interrupt request from Line x is unmasked"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU Interrupt Mask on Direct Event input x+32 (1)",
+          "values": [
+            ["0", "Interrupt request from Line x is masked"],
+            ["1", "Interrupt request from Line x is unmasked"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Configurable Event input x+32 (2)",
+          "values": [
+            ["0", "Interrupt request from Line x is masked"],
+            ["1", "Interrupt request from Line x is unmasked MRx: CPU Interrupt Mask on Direct Event input x+32 (1)"],
+            ["0", "Interrupt request from Line x is masked"],
+            ["1", "Interrupt request from Line x is unmasked"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU Interrupt Mask on Direct Event input x+32 (1) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked 1. The reset value for Direct Event inputs is set to \u20181\u2019 in order to enable the interrupt by default. 2. The reset value for Configurable Event inputs is set to \u20180\u2019 in order to disable the interrupt by default.",
+          "values": [],
+          "mask": "0b1111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPUEMR2",
+      "description": "event mask register",
+      "offset": "0x94",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPUEvent mask on Event input x+32 0: Event request from Line x is masked1: Event request from Line x is unmasked",
+          "values": [],
+          "mask": "0b11111111111111111100000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPUEvent mask on Event input x+32 0: Event request from Line x is masked1: Event request from Line x is unmasked",
+          "values": [],
+          "mask": "0b1111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPUPR2",
+      "description": "pending register",
+      "offset": "0x98",
+      "fields": [
+        {
+          "name": "6",
+          "description": "1431 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. PR51 Res. PR49 Res. rc1 rc1 1 5 1 4 1 3 1 2 1 1 1 0 9 87654321 0 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "PRx",
+          "description": "Configurable event inputs x+32 Pending bit",
+          "values": [
+            ["0", "No trigger request occurred"],
+            ["1", "selected trigger request occurredThis bit is set when the selected edge event arri ves on the external interrupt line. This bit is cleared by writing a 1 into the bit or by changing the sensitivity of the edge detector."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "PRx",
+          "description": "Configurable event inputs x+32 Pending bit",
+          "values": [
+            ["0", "No trigger request occurred"],
+            ["1", "selected trigger request occurredThis bit is set when the selected edge event arri ves on the external interrupt line. This bit is cleared by writing a 1 into the bit or by changing the sensitivity of the edge detector."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1011111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CPUIMR3",
+      "description": "interrupt mask register",
+      "offset": "0xA0",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPU Interrupt Mask on Direct Event input x+64 (1) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked",
+          "values": [],
+          "mask": "0b1100000000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Configurable Event input x+64 (2) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked",
+          "values": [],
+          "mask": "0b11100000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU interrupt Mask on Configurable Event input x+64 (2)",
+          "values": [
+            ["0", "Interrupt request from Line x is masked"],
+            ["1", "Interrupt request from Line x is unmasked"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MRx",
+          "description": "CPU Interrupt Mask on Direct Event input x+64 (1) 0: Interrupt request from Line x is masked1: Interrupt request from Line x is unmasked 1. The reset value for Direct Event inputs is set to \u20181\u2019 in order to enable the interrupt by default. 2. The reset value for Configurable Event inputs is set to \u20180\u2019 in order to disable the interrupt by default.",
+          "values": [],
+          "mask": "0b11111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111101111110100000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPUEMR3",
+      "description": "event mask register",
+      "offset": "0xA4",
+      "fields": [
+        {
+          "name": "MRx",
+          "description": "CPUEvent mask on Event input x+64 0: Event request from Line x is masked1: Event request from Line x is unmasked",
+          "values": [],
+          "mask": "0b1111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPUPR3",
+      "description": "pending register",
+      "offset": "0xA8",
+      "fields": [
+        {
+          "name": "PRx",
+          "description": "Configurable event inputs x+64 Pending bit 0: No trigger request occurred1: selected trigger request occurredThis bit is set when the selected edge event arri ves on the external interrupt line. This bit is cleared by writing a 1 into the bit or by changing the sensitivity of the edge detector.",
+          "values": [],
+          "mask": "0b11100000000000000000000"
+        },
+        {
+          "name": "PRx",
+          "description": "Configurable event inputs x+64 Pending bit",
+          "values": [
+            ["0", "No trigger request occurred"],
+            ["1", "selected trigger request occurredThis bit is set when the selected edge event arri ves on the external interrupt line. This bit is cleared by writing a 1 into the bit or by changing the sensitivity of the edge detector."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100010111111111111111111"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "OPAMP2": [
+    {
+      "name": "CSR",
+      "description": "control/status register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "CALOUT",
+          "description": "Operational amplifier calibration output OPAMP output status flag. During the calibra tion mode, OPAMP is used as comparator.",
+          "values": [
+            ["0", "Non-inverting < inverting"],
+            ["1", "Non-inverting > inverting"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TSTREF",
+          "description": "OPAMP calibration reference voltage output control (re served for test)",
+          "values": [
+            ["0", "INTVREF of OPAMP is not output"],
+            ["1", "INTVREF of OPAMP is output"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "USERTRIM",
+          "description": "User trimming enable This bit allows to switch from \u2018factory\u2019 AOP offs et trimmed values to \u2018user\u2019 AOP offset trimmed values This bit is active for both mode normal and high-power.",
+          "values": [
+            ["0", "\u2018factory\u2019 trim code used"],
+            ["1", "\u2018user\u2019 trim code used"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "PGA_GAIN",
+          "description": "Operational amplifier Programmable amplifier gain value",
+          "values": [
+            ["0000", "Non-inverting internal Gain 2, VREF- referenced"],
+            ["0001", "Non-inverting internal Gain 4, VREF- referenced"],
+            ["0010", "Non-inverting internal Gain 8, VREF- referenced"],
+            ["0011", "Non-inverting internal Gain 16, VREF- referenced"],
+            ["0100", "Non-inverting internal Gain 2 wit h filtering on INM0, VREF- referenced"],
+            ["0101", "Non-inverting internal Gain 4 wit h filtering on INM0, VREF- referenced"],
+            ["0110", "Non-inverting internal Gain 8 with filtering on INMINM0, VREF- referenced"],
+            ["0111", "Non-inverting internal Gain 16 with filtering on INM0, VREF- referenced"],
+            ["1000", "Inverting gain=-1/ Non-inverting gain =2 with INM0 node for input or bias"],
+            ["1001", "Inverting gain=-3/ Non-inverting gain =4 with INM0 node for input or bias"],
+            ["1010", "Inverting gain=-7/ Non-inverting gain =8 with INM0 node for input or bias"],
+            ["1011", "Inverting gain=-15/ Non-inverting gain =16 with INM0 node for input or bias"],
+            ["1100", "Inverting gain=-1/ Non-inverting gain =2 with INM0 node for input or bias, INM1 node for filtering"],
+            ["1101", "Inverting gain=-3/ Non-inverting gain =4 with INM0 node for input or bias, INM1 node for filtering"],
+            ["1110", "Inverting gain=-7/ Non-inverting gain =8 with INM0 node for input or bias, INM1 node for filtering"],
+            ["1111", "Inverting gain=-15/ Non-inverting gain =16 with INM0 node for input or bias, INM1 node for filtering"]
+          ],
+          "mask": "0b111100000000000000"
+        },
+        {
+          "name": "CALSEL",
+          "description": "Calibration selection It is used to select the offset calibration bus used to generate the internal reference voltage when CALON = 1 or FORCE_VP= 1.",
+          "values": [
+            ["00", "0.033*VDDA applied on OPAMP inputs"],
+            ["01", "0.1*VDDA applied on OPAMP inputs (for PMOS calibration)"],
+            ["10", "0.5*VDDA applied on OPAMP inputs"],
+            ["11", "0.9*VDDA applied on OPAMP inputs (for NMOS calibration)"]
+          ],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "CALON",
+          "description": "Calibration mode enabled",
+          "values": [
+            ["0", "Normal mode"],
+            ["1", "Calibration mode (all switches opened by HW)"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "VM_SEL",
+          "description": "Inverting input selection",
+          "values": [
+            ["00", "INM0 connected to OPAMP INM input"],
+            ["01", "INM1 connected to OPAMP INM input"],
+            ["10", "Feedback resistor is connected to OPAM P INM input (PGA mode), Inverting input selection is depends on the PGA_GAIN setting"],
+            ["11", "opamp_out connected to OPAMP INM input (Follower mode)"]
+          ],
+          "mask": "0b1100000"
+        },
+        {
+          "name": "VP_SEL",
+          "description": "Non inverted input selection",
+          "values": [
+            ["00", "GPIO connected to OPAMPx_VINP"],
+            ["01", "DAC connected to OPAMPx_VINP"],
+            ["10", "Reserved"],
+            ["11", "Reserved"]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "FORCE_VP",
+          "description": "Force internal reference on VP(reserved for test)",
+          "values": [
+            ["0", "Normal operating mode. Non-inve rting input connected to inputs."],
+            ["1", "Calibration verification mode: Non-invertin g input connected to calibration reference voltage."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "OPAEN",
+          "description": "Operational amplifier Enable If OPAMP2 is unconnected in a specific package, it must remain disabled (keep OPAMP2_CSR register default value).",
+          "values": [
+            ["0", "operational amplifier disabled"],
+            ["1", "operational amplifier enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10011111111110000000011010010000"
+        }
+      ]
+    },
+    {
+      "name": "OTR",
+      "description": "trimming register in normal mode",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "TRIMOFFSETP",
+          "description": "Trim for PMOS differential pairs",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "TRIMOFFSETN",
+          "description": "Trim for NMOS differential pairs",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111110000011100000"
+        }
+      ]
+    },
+    {
+      "name": "HSOTR",
+      "description": "trimming register in high-speed mode",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "TRIMHSOFFSETP",
+          "description": "High-speed mode trim for PMOS differential pairs",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "TRIMHSOFFSETN",
+          "description": "High-speed mode trim for NMOS differential pairs",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111110000011100000"
+        }
+      ]
+    }
+  ]
+}

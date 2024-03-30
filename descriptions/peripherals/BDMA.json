@@ -1,0 +1,704 @@
+{
+  "BDMA": [
+    {
+      "name": "ISR",
+      "description": "interrupt status register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "TEIF7",
+          "description": "transfer error (TE) flag for channel 7",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "HTIF7",
+          "description": "half transfer (HT) flag for channel 7",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TCIF7",
+          "description": "transfer complete (TC) flag for channel 7",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "GIF7",
+          "description": "global interrupt flag for channel 7",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "TEIF6",
+          "description": "transfer error (TE) flag for channel 6",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "HTIF6",
+          "description": "half transfer (HT) flag for channel 6",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "TCIF6",
+          "description": "transfer complete (TC) flag for channel 6",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "GIF6",
+          "description": "global interrupt flag for channel 6",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TEIF5",
+          "description": "transfer error (TE) flag for channel 5",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "HTIF5",
+          "description": "half transfer (HT) flag for channel 5",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TCIF5",
+          "description": "transfer complete (TC) flag for channel 5",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "GIF5",
+          "description": "global interrupt flag for channel 5",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TEIF4",
+          "description": "transfer error (TE) flag for channel 4",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "HTIF4",
+          "description": "half transfer (HT) flag for channel 4",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TCIF4",
+          "description": "transfer complete (TC) flag for channel 4",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "GIF4",
+          "description": "global interrupt flag for channel 4",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TEIF3",
+          "description": "transfer error (TE) flag for channel 3",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "HTIF3",
+          "description": "half transfer (HT) flag for channel 3",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TCIF3",
+          "description": "transfer complete (TC) flag for channel 3",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "GIF3",
+          "description": "global interrupt flag for channel 3",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TEIF2",
+          "description": "transfer error (TE) flag for channel 2",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "HTIF2",
+          "description": "half transfer (HT) flag for channel 2",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TCIF2",
+          "description": "transfer complete (TC) flag for channel 2",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "GIF2",
+          "description": "global interrupt flag for channel 2",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TEIF1",
+          "description": "transfer error (TE) flag for channel 1",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "HTIF1",
+          "description": "half transfer (HT) flag for channel 1",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TCIF1",
+          "description": "transfer complete (TC) flag for channel 1",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "GIF1",
+          "description": "global interrupt flag for channel 1",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TEIF0",
+          "description": "transfer error (TE) flag for channel 0",
+          "values": [
+            ["0", "no TE event"],
+            ["1", "a TE event occurred"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "HTIF0",
+          "description": "half transfer (HT) flag for channel 0",
+          "values": [
+            ["0", "no HT event"],
+            ["1", "a HT event occurred"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TCIF0",
+          "description": "transfer complete (TC) flag for channel 0",
+          "values": [
+            ["0", "no TC event"],
+            ["1", "a TC event occurred"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "GIF0",
+          "description": "global interrupt flag for channel 0",
+          "values": [
+            ["0", "no TE, HT or TC event"],
+            ["1", "a TE, HT or TC event occurred"]
+          ],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "IFCR",
+      "description": "interrupt flag clear register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "CTEIF7",
+          "description": "transfer error flag clear for channel 7",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "CHTIF7",
+          "description": "half transfer flag clear for channel 7",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "CTCIF7",
+          "description": "transfer complete flag clear for channel 7",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "CGIF7",
+          "description": "global interrupt flag clear for channel 7",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "CTEIF6",
+          "description": "transfer error flag clear for channel 6",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "CHTIF6",
+          "description": "half transfer flag clear for channel 6",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "CTCIF6",
+          "description": "transfer complete flag clear for channel 6",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "CGIF6",
+          "description": "global interrupt flag clear for channel 6",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "CTEIF5",
+          "description": "transfer error flag clear for channel 5",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "CHTIF5",
+          "description": "half transfer flag clear for channel 5",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "CTCIF5",
+          "description": "transfer complete flag clear for channel 5",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "CGIF5",
+          "description": "global interrupt flag clear for channel 5",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "CTEIF4",
+          "description": "transfer error flag clear for channel 4",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "CHTIF4",
+          "description": "half transfer flag clear for channel 4",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CTCIF4",
+          "description": "transfer complete flag clear for channel 4",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CGIF4",
+          "description": "global interrupt flag clear for channel 4",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CTEIF3",
+          "description": "transfer error flag clear for channel 3",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "CHTIF3",
+          "description": "half transfer flag clear for channel 3",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "CTCIF3",
+          "description": "transfer complete flag clear for channel 3 CGIF3 : global interrupt flag clear for channel 3",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "CTEIF2",
+          "description": "transfer error flag clear for channel 2",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "CHTIF2",
+          "description": "half transfer flag clear for channe2",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "CTCIF2",
+          "description": "transfer complete flag clear for channel 2",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CGIF2",
+          "description": "global interrupt flag clear for channel 2",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CTEIF1",
+          "description": "transfer error flag clear for channel 1",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CHTIF1",
+          "description": "half transfer flag clear for channel 1",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "CTCIF1",
+          "description": "transfer complete flag clear for channel 1",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "CGIF1",
+          "description": "global interrupt flag clear for channel 0",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CTEIF0",
+          "description": "transfer error flag clear for channel 0",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CHTIF0",
+          "description": "half transfer flag clear for channel 0",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "CTCIF0",
+          "description": "transfer complete flag clear for channel 0",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CGIF0",
+          "description": "global interrupt flag clear for channel 0",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "CHANNEL",
+      "description": "Channel registers for BDMA",
+      "type": "CHANNEL",
+      "size": 20,
+      "offset": "0x08",
+      "array": [8]
+    }
+  ],
+  "CHANNEL": [
+    {
+      "name": "CCR",
+      "description": "channel x configuration register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "CT",
+          "description": "current target memo ry of DMA transfer in double-buffer mode This bit is toggled by hardware at the end of each channel transfer in double-buffer mode. this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "memory 0 (addressed by the BDMA_CM0AR pointer)"],
+            ["1", "memory 1 (addressed by the BDMA_CM1AR pointer)"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "DBM",
+          "description": "double-buffer mode This bit must be set only in memory-to-peripheral and peripheral-to-memory transfers (MEM2MEM=0). The CIRC bit must also be set in double buffer mode. this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled (no memory address switch at the end of the BDMA transfer)"],
+            ["1", "enabled (memory address switched at the end of the BDMA transfer)"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "MEM2MEM",
+          "description": "memory-to-memory mode this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "PL",
+          "description": "priority level this field is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["00", "low"],
+            ["01", "medium"],
+            ["10", "high"],
+            ["11", "very high"]
+          ],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "MSIZE",
+          "description": "memory size Defines the data size of each DMA transfer to the identified memory. In memory-to-memory mode, this field identi fies the memory source if DIR = 1 and the memory destination if DIR = 0. In peripheral-to-peripheral mode, this field iden tifies the peripheral source if DIR = 1 and the peripheral destination if DIR = 0. this field is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["00", "8 bits"],
+            ["01", "16 bits"],
+            ["10", "32 bits"],
+            ["11", "reserved"]
+          ],
+          "mask": "0b110000000000"
+        },
+        {
+          "name": "PSIZE",
+          "description": "peripheral size Defines the data size of each DMA transfer to the identified peripheral. In memory-to-memory mode, this field identifi es the memory destination if DIR = 1 and the memory source if DIR = 0. In peripheral-to-peripheral mode, this field iden tifies the peripheral destination if DIR = 1 and the peripheral source if DIR = 0. this field is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["00", "8 bits"],
+            ["01", "16 bits"],
+            ["10", "32 bits"],
+            ["11", "reserved"]
+          ],
+          "mask": "0b1100000000"
+        },
+        {
+          "name": "MINC",
+          "description": "memory increment mode Defines the increment mode for each DM A transfer to the identified memory. In memory-to-memory mode, this field identi fies the memory source if DIR = 1 and the memory destination if DIR = 0. In peripheral-to-peripheral mode, this field iden tifies the peripheral source if DIR = 1 and the peripheral destination if DIR = 0. this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "PINC",
+          "description": "peripheral increment mode Defines the increment mode for each DMA transfer to the identified peripheral. n memory-to-memory mode, this field identifie s the memory destination if DIR = 1 and the memory source if DIR = 0. In peripheral-to-peripheral mode, this field iden tifies the peripheral destination if DIR = 1 and the peripheral source if DIR = 0. this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "CIRC",
+          "description": "circular mode this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "DIR",
+          "description": "data transfer direction This bit must be set only in memory-to-peripheral and peripheral-to-memory modes. this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "read from peripheral \u2013 Source attributes are defined by PSIZE and PINC, plus the BDMA_CPARx register. This is still valid in a memory-to-memory mode. \u2013 Destination attributes ar e defined by MSIZE and MINC, plus the BDMA_CM0/1ARx register. This is still valid in a peripheral-to-peripheral mode."],
+            ["1", "read from memory \u2013 Destination attributes ar e defined by PSIZE and PINC, plus the BDMA_CPARx register. This is still valid in a memory-to-memory mode. \u2013 Source attributes are defined by MSIZE and MINC, plus the BDMA_CM0/1ARx register. This is still valid in a peripheral-to-peripheral mode."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TEIE",
+          "description": "transfer error interrupt enable this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "HTIE",
+          "description": "half transfer interrupt enable this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TCIE",
+          "description": "transfer complete interrupt enable this bit is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "EN",
+          "description": "channel enable When a channel transfer error occurs, this bit is cleared by hardware. It can not be set again by software (channel x re-activated) until the TEIFx bit of the BDMA_ISR register is cleared (by setting the CTEIFx bit of the BDMA_IFCR register). this bit is set and cleared by software.",
+          "values": [
+            ["0", "disabled"],
+            ["1", "enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111100000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CNDTR",
+      "description": "channel x number of data to transfer register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "NDT",
+          "description": "number of data to transfer (0 to 216 - 1) This field is updated by hardware when the channel is enabled: \u2013 It is decremented after each single BDMA \u2018read followed by write\u2019 transfer, indicating the remaining amount of data items to transfer. \u2013 It is kept at zero when the programmed amount of data to transfer is reached, if the channel is not in circular mode (CIRC = 0 in the BDMA_CCRx register). \u2013 It is reloaded automatically by the prev iously programmed value, when the transfer is complete, if the channel is in circular mode (CIRC = 1). If this field is zero, no transfer can be se rved whatever the channel status (enabled or not). this field is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is read-only when the channel is enabled (EN = 1).",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPAR",
+      "description": "channel x peripheral address register",
+      "offset": "0x08",
+      "fields": []
+    },
+    {
+      "name": "CM0AR",
+      "description": "channel x memory 0 address register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 MA[3",
+          "values": [["1", "16] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 MA[15:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw"]],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MA",
+          "description": "peripheral address It contains the base address of the memory from/to which the da ta is read/written. When MSIZE[1:0] = 01 (16 bits), bit 0 of MA[31: 0] is ignored. Access is automatically aligned to a half-word address. When MSIZE = 10 (32 bits), bits 1 and 0 of MA [31:0] are ignored. Access is automatically aligned to a word address. In memory-to-memory mode, this register iden tifies the memory source address if DIR = 1 and the memory destination address if DIR = 0. In peripheral-to-peripheral mode , this register identifies the peripheral source address DIR = 1 and the peripheral des tination address if DIR = 0. this register is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CM1AR",
+      "description": "channel x memory 1 address register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "MA",
+          "description": "peripheral address It contains the base address of the memory from/to which the da ta is read/written. When MSIZE[1:0] = 01 (16 bits), bit 0 of MA[31: 0] is ignored. Access is automatically aligned to a half-word address. When MSIZE = 10 (32 bits), bits 1 and 0 of MA [31:0] are ignored. Access is automatically aligned to a word address. In memory-to-memory mode, this register iden tifies the memory source address if DIR = 1 and the memory destination address if DIR = 0. In peripheral-to-peripheral mode , this register identifies the peripheral source address DIR = 1 and the peripheral des tination address if DIR = 0. this register is set and cleared by software.It must not be written when the channel is enabled (EN = 1).It is not read-only when the channel is enabled (EN = 1).",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    }
+  ]
+}

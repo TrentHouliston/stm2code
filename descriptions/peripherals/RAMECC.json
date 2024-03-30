@@ -1,0 +1,191 @@
+{
+  "RAMECC": [
+    {
+      "name": "IER",
+      "description": "interrupt enable register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "GECCDEBWIE",
+          "description": "Global ECC double error on byte write (BW) interrupt enable When GECCDEBWIE bit is set to 1, an interru pt is generated when an ECC double detection error occurs during a byte write operation to RAM (incomplete word write).",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs on byte write"],
+            ["1", "interrupt generated if an ECC double detection error occurs on byte write"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "GECCDEIE",
+          "description": "Global ECC double error interrupt enable When GECCDEIE bit is set to 1, an interrupt is generated when an ECC double detection error occurs during a read operation from RAM.",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs"],
+            ["1", "interrupt generated if an E CC double detection error occurs"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "GECCSEIE",
+          "description": "Global ECC single error interrupt enable When GECCSEIE bit is set to 1, an interrupt is generated when an ECC single error occurs during a read operation from RAM.",
+          "values": [
+            ["0", "no interrupt generated when an ECC single error occurs"],
+            ["1", "interrupt generated when an ECC single error occurs"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "GIE",
+          "description": "Global interrupt enable When GIE bit is set to 1, an interrupt is generated when an enabled global ECC error (GECCDEBWIE, GECCDEIE or GECCSEIE) occurs.",
+          "values": [
+            ["0", "no interrupt generated when an ECC error occurs"],
+            ["1", "interrupt generated when an ECC error occurs"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "MONITOR",
+      "description": "Monitor registers for RAMECC",
+      "type": "MONITOR",
+      "size": 32,
+      "offset": "0x20",
+      "array": [5]
+    }
+  ],
+  "MONITOR": [
+    {
+      "name": "MCR",
+      "description": "monitor x configuration register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "ECCELEN",
+          "description": "ECC error latching enable When ECCELEN bit is set to 1, if an ECC error occurs (both for single error correction or double detection) during a read operation, the context (address, data and ECC code) that generated the error are latched to their respective registers.",
+          "values": [
+            ["0", "no error context preserved when an ECC error occurs"],
+            ["1", "error context preserved when an ECC error occurs"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ECCDEBWIE",
+          "description": "ECC double error on byte write (BW) interrupt enable When ECCDEBWIE bit is set to 1, monitor x generates an interrupt when an ECC double detection error occurs during a byte write operation to RAM.",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs on byte write"],
+            ["1", "interrupt generated if an ECC double detection error occurs on byte write"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ECCDEIE",
+          "description": "ECC double error interrupt enable When ECCDEIE bit is set to 1, monitor x generates an interrupt when an ECC double detection error occurs during a read operation from RAM.",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs"],
+            ["1", "interrupt generated if an E CC double detection error occurs"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ECCSEIE",
+          "description": "ECC single error interrupt enable When ECCSEIE bit is set to 1, monitor x ge nerates an interrupt when an ECC single error occurs during a read operation from RAM.",
+          "values": [
+            ["0", "no interrupt generated when an ECC single error occurs"],
+            ["1", "interrupt generated when an ECC single error occurs"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000011"
+        }
+      ]
+    },
+    {
+      "name": "MSR",
+      "description": "monitor x status register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "DEBWDF",
+          "description": "ECC double error on byte write (BW) detected flag This bit is set by hardware. It is cleared by software by writing a 0",
+          "values": [
+            ["0", "no error detected"],
+            ["1", "error detected"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "DEDF",
+          "description": "ECC double error detected flag This bit is set by hardware. It is cleared by software by writing a 0",
+          "values": [
+            ["0", "no error detected"],
+            ["1", "error detected"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SEDCF",
+          "description": "ECC single error detected and corrected flag This bit is set by hardware. It is cleared by software by writing a 0",
+          "values": [
+            ["0", "no error detected and corrected"],
+            ["1", "error detected and corrected"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000000000000000001000"
+        }
+      ]
+    },
+    {
+      "name": "MFAR",
+      "description": "monitor x failing address register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "FADD",
+          "description": "ECC error failing address When an ECC error occurs the FADD bitfield contains the address that generated the ECC error.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "MFDRL",
+      "description": "monitor x failing data low register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "FDATAL",
+          "description": "Failing data low When an ECC error occurs the FDATAL bitfiel d contains the LSB part of the data that generated the error. For 32-bit word SRAM, this bitfield contains the full memory word that generated the error.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "MFDRH",
+      "description": "monitor x failing data high register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "FDATAH",
+          "description": "Failing data high (64-bit memory) When an ECC error occurs the FDATAH bitfield contains the MSB pa rt of the data that generated the error.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    }
+  ]
+}

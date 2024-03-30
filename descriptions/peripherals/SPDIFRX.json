@@ -1,0 +1,513 @@
+{
+  "SPDIFRX": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "INSEL",
+          "description": "SPDIFRX input selection(1)",
+          "values": [
+            ["000", "SPDIFRX_IN1 selected"],
+            ["001", "SPDIFRX_IN2 selected"],
+            ["010", "SPDIFRX_IN3 selected"],
+            ["011", "SPDIFRX_IN4 selected"],
+            ["other", "reserved"]
+          ],
+          "mask": "0b1110000000000000000"
+        },
+        {
+          "name": "WFA",
+          "description": "Wait for activity(1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The SPDIFRX waits for activity on SPDIFRX_ IN line (4 transitions) before performing the synchronization."],
+            ["0", "The SPDIFRX does not wait for activi ty on SPDIFRX_IN line before performing the synchronization."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "NBTR",
+          "description": "Maximum allowed re-tries during synchronization phase(1)",
+          "values": [
+            ["00", "No re-try is allowed (only one attempt)"],
+            ["01", "3 re-tries allowed"],
+            ["10", "15 re-tries allowed"],
+            ["11", "63 re-tries allowed"]
+          ],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "CHSEL",
+          "description": "Channel selection (1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The control flow takes the channel status from channel B."],
+            ["0", "The control flow takes the channel status from channel A."]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "CBDMAEN",
+          "description": "Control buffer DMA enable for control flow (1) This bit is set/reset by software. When this bit is set, the DMA request is made whenever the CSRNE flag is set.",
+          "values": [
+            ["1", "DMA mode is enabled for reception of channel status and used data information."],
+            ["0", "DMA mode is disabled for reception of channel status and used data information."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "PTMSK",
+          "description": "Mask of preamble type bits(1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The preamble type bits are not copied into the SPDIFRX_FMTx_DR, zeros are written instead."],
+            ["0", "The preamble type bits are copied into the SPDIFRX_FMTx_DR."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CUMSK",
+          "description": "Mask of channel status and user bits(1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The channel status and user bits are not copied into the SPDIFRX_FMTx_DR, zeros are written instead."],
+            ["0", "The channel status and user bits are copied into the SPDIFRX_FMTx_DR."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "VMSK",
+          "description": "Mask of validity bit(1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The validity bit is not copied into the SPDIFRX_FMTx_DR, a zero is written instead."],
+            ["0", "The validity bit is copied into the SPDIFRX_FMTx_DR."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "PMSK",
+          "description": "Mask parity error bit(1) This bit is set/reset by software.",
+          "values": [
+            ["1", "The parity error bit is not copied into t he SPDIFRX_FMTx_DR, a zero is written instead."],
+            ["0", "The parity error bit is copied into the SPDIFRX_FMTx_DR."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "DRFMT",
+          "description": "RX data format(1) This bit is set/reset by software. This bit is used in case of overrun situation in order to handle misalignment.",
+          "values": [
+            ["11", "reserved"],
+            ["10", "Data sample are packed by setting two 16-bit sample into a 32-bit word."],
+            ["01", "Data samples are aligned in the left (MSB)"],
+            ["00", "Data samples are aligned in the right (LSB). RXSTEO : Stereo mode(1) This bit is set/reset by software. 1: The peripheral is in stereo mode.0: The peripheral is in mono mode."]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "RXDMAEN",
+          "description": "Receiver DMA enable for data flow (1) This bit is set/reset by software. When this bit is set, the DMA reques t is made whenever the RXNE flag is set.",
+          "values": [
+            ["1", "DMA mode is enabled for reception."],
+            ["0", "DMA mode is disabled for reception."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SPDIFRXEN",
+          "description": "Peripheral block enable (1) This field is modified by software. It must be used to change the peripheral phase among the three possible states: STATE_IDLE, STATE_SYNC and STATE_RCV. It is not possible to transition from STATE_ RCV to STATE_SYNC, the user must first go the STATE_IDLE.it is possible to transition from STATE_IDLE to STATE_RCV: in that case the peripheral transitions from STATE_IDLE to STATE_SYNC and as soon as the synchronization is performed goes to STATE_RCV.1. Refer to Section 52.3.13: Register protection for additional information on fields properties.",
+          "values": [
+            ["00", "Disable SPDIFRX (STATE_IDLE)."],
+            ["01", "Enable SPDIFRX synchronization only."],
+            ["10", "Reserved"],
+            ["11", "Enable SPDIF receiver."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "IMR",
+      "description": "interrupt mask register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "IFEIE",
+          "description": "Serial interface e rror interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever SERR = 1, TERR = 1, or FERR = 1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "SYNCDIE",
+          "description": "Synchronization done This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever SYNCD = 1 in the SPDIFRX_SR register. SBLKIE : Synchronization block detected interrupt enable This bit is set and cleared by software."],
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever SBD = 1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "OVRIE",
+          "description": "Overrun error interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever OVR=1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "PERRIE",
+          "description": "Parity error interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever PERR=1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "CSRNEIE",
+          "description": "Control buffer ready interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated w henever CSRNE = 1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RXNEIE",
+          "description": "RXNE interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited."],
+            ["1", "A SPDIFRX interface interrupt is generated whenever RXNE=1 in the SPDIFRX_SR register."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111110000000"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "WIDTH5",
+          "description": "duration of 5 symbols counted with spdifrx_ker_ck This value represents the amount of spdifrx_ker_ ck clock periods contained on a length of 5 consecutive symbols. This value can be used to estimate the S/PDIF symbol rate. Its accuracy is limited by the frequency of spdifrx_ker_ck. For example if the spdifrx_ker_ck is fixed to 84 MHz, and WIDTH5 = 147d. The estimated sampling rate of the S/PDIF stream is: Fs = 5 x Fspdifrx_ker_ck / (WIDTH5 x 64) ~ 44.6 kHz, so the closest standard sampling rate is 44.1 kHz. Note that WIDTH5 is updated by the hardware when SYNCD goes high, and then every frame.",
+          "values": [],
+          "mask": "0b1111111111111110000000000000000"
+        },
+        {
+          "name": "TERR",
+          "description": "Time-out error This bit is set by hardware when the counter TRCNT reaches its max value. It indicates that the time interval between two transitions is too long. It g enerally indicates that there is no valid signal on SPDIFRX_IN input. This flag is cleared by writing SPDIFRXEN to 0.An interrupt is generated if IFEIE=1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No sequence error is detected."],
+            ["1", "Sequence error is detected."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "SERR",
+          "description": "Synchronization error This bit is set by hardware when the synchronization fails due to amount of re-tries for NBTR. This flag is cleared by writing SPDIFRXEN to 0.An interrupt is generated if IFEIE = 1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No synchronization error is detected."],
+            ["1", "Synchronization error is detected."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "FERR",
+          "description": "Framing error This bit is set by hardware when an error occurs during data reception: such as preamble not at the expected place, short transition not grouped by pairs. This is set by the hardware only if the synchronization is completed (SYNCD = 1). This flag is cleared by writing SPDIFRXEN to 0.An interrupt is generated if IFEIE=1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No Manchester violation detected"],
+            ["1", "Manchester violation detected"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "SYNCD",
+          "description": "Synchronization done This bit is set by hardware when the initial synchronization phase is properly completed. This flag is cleared by writing a 1 to its corresponding bit on SPDIFRX_IFCR register.An interrupt is generated if SYNCDI E = 1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "Synchronization is pending."],
+            ["1", "Synchronization is completed."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "SBD",
+          "description": "Synchronization block detected This bit is set by hardware when a \u201cB\u201d preamble is detected. This flag is cleared by writing a 1 to its corresponding bit on SPDIFRX_IFCR register. An interrupt is generated if SBLKIE = 1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No \u201cB\u201d preamble is detected."],
+            ["1", "\u201cB\u201d preamble is detected."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "OVR",
+          "description": "Overrun error This bit is set by hardware when a receiv ed data is ready to be transferred in the SPDIFRX_FMTx_DR register while RXNE = 1 and both SPDIFRX_FMTx_DR and RX_BUF are full. This flag is cleared by writing a 1 to its corresponding bit on SPDIFRX_IFCR register.An interrupt is generated if OVRI E=1 in the SPDIFRX_IMR register. When this bit is set, the SPDIFRX_FMTx_DR regi ster content is not lost but the last data received are. PERR : Parity error This bit is set by hardware when the data and st atus bits of the sub-frame received contain an odd number of 0 and 1. This flag is cleared by writing a 1 to its corresponding bit on SPDIFRX_IFCR register.An interrupt is generated if PIE = 1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No overrun error"],
+            ["1", "Overrun error is detected."],
+            ["0", "No parity error"],
+            ["1", "Parity error"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CSRNE",
+          "description": "Control buffer register not empty This bit is set by hardware when a valid control information is ready. This flag is cleared when reading SPDIFRX_CSR register.An interrupt is generated if CBRDYIE = 1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "No control word available on SPDIFRX_CSR register"],
+            ["1", "A control word is available on SPDIFRX_CSR register."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RXNE",
+          "description": "Read data register not empty This bit is set by hardware when a valid data is available into SPDIFRX_FMTx_DR register. This flag is cleared by reading the SPDIFRX_FMTx_DR register.An interrupt is generated if RXNEIE=1 in the SPDIFRX_IMR register.",
+          "values": [
+            ["0", "Data is not received."],
+            ["1", "Received data is ready to be read."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000001111111000000000"
+        }
+      ]
+    },
+    {
+      "name": "IFCR",
+      "description": "interrupt flag clear register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "SYNCDCF",
+          "description": "clears the synchronization done flag Writing 1 in this bit clears the fl ag SYNCD in the SPDIFRX_SR register. Reading this bit always returns the value 0.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "SBDCF",
+          "description": "clears the synchronization block detected flag Writing 1 in this bit clears the flag SBD in the SPDIFRX_SR register. Reading this bit always returns the value 0.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "OVRCF",
+          "description": "clears the overrun error flag Writing 1 in this bit clears the flag OVR in the SPDIFRX_SR register. Reading this bit always returns the value 0.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "PERRCF",
+          "description": "clears the parity error flag Writing 1 in this bit clears the flag PERR in the SPDIFRX_SR register. Reading this bit always returns the value 0.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000011"
+        }
+      ]
+    },
+    {
+      "name": "FMT0_DR",
+      "description": "data input register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "PT",
+          "description": "preamble type These bits indicate the preamble received.",
+          "values": [
+            ["00", "not used"],
+            ["01", "Preamble B received"],
+            ["10", "Preamble M received"],
+            ["11", "Preamble W receivedNote that if PTMSK = 1, this field is forced to zero"]
+          ],
+          "mask": "0b110000000000000000000000000000"
+        },
+        {
+          "name": "C",
+          "description": "channel status bit Contains the received channel status bit, if CUMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "U",
+          "description": "user bit Contains the received user bit, if CU MSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "V",
+          "description": "validity bit Contains the received validity bit if VMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "PE",
+          "description": "parity error bit Contains a copy of PERR bit if PMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "DR",
+          "description": "data value Contains the 24 received data bits, aligned on D[23]",
+          "values": [],
+          "mask": "0b111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FMT1_DR",
+      "description": "data input register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "PT",
+          "description": "preamble type These bits indicate the preamble received.",
+          "values": [
+            ["00", "not used"],
+            ["01", "preamble B received"],
+            ["10", "preamble M received"],
+            ["11", "preamble W receivedNote that if PTMSK = 1, this field is forced to zero"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "C",
+          "description": "channel Status bit Contains the received channel status bit, if CUMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "U",
+          "description": "user bit Contains the received user bit, if CU MSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "V",
+          "description": "validity bit Contains the received validity bit if VMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "PE",
+          "description": "parity error bit Contains a copy of PERR bit if PMSK = 0, otherwise it is forced to 0",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000"
+        }
+      ]
+    },
+    {
+      "name": "FMT2_DR",
+      "description": "data input register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "1",
+          "description": "831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 DRNL2[15:0] rrrrrrrrrrrrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 DRNL1[15:0] rrrrrrrrrrrrrrrr",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "DRNL2",
+          "description": "data value This field contains the channel A",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "DRNL1",
+          "description": "data value This field contains the channel B",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CSR",
+      "description": "channel status register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "SOB",
+          "description": "start of block This bit indicates if the bit CS[0] corresponds to the first bit of a new block",
+          "values": [
+            ["0", "CS[0] is not the first bit of a new block"],
+            ["1", "CS[0] is the first bit of a new block"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "CS",
+          "description": "channel A status information Bit CS[0] is the oldest value",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "USR",
+          "description": "user data information Bit USR[0] is the oldest value, and come s from channel A, USR[1] comes channel B. So USR[n] bits come from channel A is n is even, otherwise they come from channel B.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DIR",
+      "description": "debug information register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "TLO",
+          "description": "threshold LOW (TLO = 1.5 x UI / Tspdifrx_ker_ck ) This field contains the current threshold LOW estimation. This value can be used to estimate the sampling rate of the received stream. The accu racy of TLO is limited to a period of the spdifrx_ker_ck. The sampling rate can be estimated as follow: Sampling Rate = [2 x TLO x Tspdifrx_ker_ck +/- Tspdifrx_ker_ck ] x 2/3 Note that TLO is updated by the hardware when SYNCD goes high, and then every frame.",
+          "values": [],
+          "mask": "0b11111111111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000001110000000000000"
+        }
+      ]
+    }
+  ]
+}

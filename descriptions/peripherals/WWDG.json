@@ -1,0 +1,85 @@
+{
+  "WWDG": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "WDGA",
+          "description": "Activation bit This bit is set by software and only cleared by hardware after a reset. When WDGA = 1, the watchdog can generate a reset.",
+          "values": [
+            ["0", "Watchdog disabled"],
+            ["1", "Watchdog enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "T",
+          "description": "7-bit counter (MSB to LSB) These bits contain the va lue of the watchdog coun ter, decremented every(4096 x 2WDGTB [2:0]) PCLK cycles. A reset is produced wh en it is decremented from 0x40 to 0x3F (T6 becomes cleared).",
+          "values": [],
+          "mask": "0b1111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CFR",
+      "description": "configuration register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "WDGTB",
+          "description": "Timer base The timebase of the prescaler can be modified as follows:",
+          "values": [
+            ["000", "CK counter clock (PCLK div 4096) div 1"],
+            ["001", "CK counter clock (PCLK div 4096) div 2"],
+            ["010", "CK counter clock (PCLK div 4096) div 4"],
+            ["011", "CK counter clock (PCLK div 4096) div 8"],
+            ["100", "CK counter clock (PCLK div 4096) div 16"],
+            ["101", "CK counter clock (PCLK div 4096) div 32"],
+            ["110", "CK counter clock (PCLK div 4096) div 64"],
+            ["111", "CK counter clock (PCLK div 4096) div 128"]
+          ],
+          "mask": "0b11100000000000"
+        },
+        {
+          "name": "W",
+          "description": "7-bit window value These bits contain the window value to be compared with the down-counter.",
+          "values": [],
+          "mask": "0b1111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111100010110000000"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "EWIF",
+          "description": "Early wake-up interrupt flag This bit is set by hardware when the counter ha s reached the value 0x40. It must be cleared by software by writing 0. Writing 1 has no effec t. This bit is also set if the interrupt is not enabled.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111110"
+        }
+      ]
+    }
+  ]
+}

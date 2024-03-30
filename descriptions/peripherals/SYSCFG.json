@@ -1,0 +1,943 @@
+{
+  "SYSCFG": [
+    {
+      "name": "PMCR",
+      "description": "peripheral mode configuration register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "PC3SO",
+          "description": "PC3 Switch Open This bit controls the analog switch between PC3 and PC3_C (dual pad)",
+          "values": [
+            ["0", "Analog switch closed (pads are connected through the analog switch)"],
+            ["1", "Analog switch ope n (2 separated pads)"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "PC2SO",
+          "description": "PC2 Switch Open This bit controls the analog switch between PC2 and PC2_C (dual pad)",
+          "values": [
+            ["0", "Analog switch closed (pads are connected through the analog switch)"],
+            ["1", "Analog switch ope n (2 separated pads)"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "PA1SO",
+          "description": "PA1 Switch Open This bit controls the analog switch between PA1 and PA1_C (dual pad)",
+          "values": [
+            ["0", "Analog switch closed (pads are connected through the analog switch)"],
+            ["1", "Analog switch ope n (2 separated pads)"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "PA0SO",
+          "description": "PA0 Switch Open This bit controls the analog switch between PA0 and PA0_C (dual pad)",
+          "values": [
+            ["0", "Analog switch closed (pads are connected through the analog switch)"],
+            ["1", "Analog switch ope n (2 separated pads)"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EPIS",
+          "description": "Ethernet PHY Interface Selection These bits select the Ethernet PHY interface.",
+          "values": [
+            ["000", "MII"],
+            ["001", "Reserved"],
+            ["010", "Reserved"],
+            ["011", "Reserved"],
+            ["100", "RMII"],
+            ["101", "Reserved"],
+            ["110", "Reserved"],
+            ["111", "Reserved"]
+          ],
+          "mask": "0b111000000000000000000000"
+        },
+        {
+          "name": "BOOSTVDDSEL",
+          "description": "Analog switch supply voltage selection (V DD/VDDA/booster) To avoid current consumption due to booster activation when VDDA < 2.7 V and VDD > 2.7 V, VDD can be selected as supply voltage for analog switches. In this case, the BOOSTE bit should be cleared to avoid unwanted power consumption. When both VDD < 2.7 V and VDDA < 2.7 V, the booster is still needed to obtain full AC performances from I/O analog switches. This bit is available only on devices revision X and higher.",
+          "values": [
+            ["0", "VDDA selected as analog switch supply voltage (when BOOSTE bit is cleared)"],
+            ["1", "VDD selected as analog switch supply voltage"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BOOSTE",
+          "description": "Booster Enable This bit enables the booster to reduce t he total harmonic distortion of the analog switch when the supply voltage is lower than 2.7 V. Activating the booster allows to guaranty the analog switch AC performance when the supply voltage is below 2.7 V: in this case, the analog switch performance is the same on the full voltage range.",
+          "values": [
+            ["0", "Booster disabled"],
+            ["1", "Booster enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "PB9FMP",
+          "description": "PB(9) Fm+ This bit enables I2C Fm+ on PB(9).",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "PB8FMP",
+          "description": "PB(8) Fm+ This bit enables I2C Fm+ on PB(8).",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "PB7FMP",
+          "description": "PB(7) Fm+ this bit enables I2C Fm+ on PB(7).",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "PB6FMP",
+          "description": "PB(6) Fm+ This bit enables I2C Fm+ on PB(6).",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "I2C4FMP",
+          "description": "I2C4 Fm+ This bit enables Fm+ on I2C4.",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "I2C3FMP",
+          "description": "I2C3 Fm+ This bit enables Fm+ on I2C3.",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "I2C2FMP",
+          "description": "I2C2 Fm+ This bit enables Fm+ on I2C2.",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "I2C1FMP",
+          "description": "I2C1 Fm+ This bit enables Fm+ on I2C1.",
+          "values": [
+            ["0", "Fm+ disabled"],
+            ["1", "Fm+ enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "EXTICR1",
+      "description": "external interrupt configuration register 1",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "EXTIx",
+          "description": "EXTI x configuration (x = 0 to 3) These bits are written by software to se lect the source input for the EXTI input for external interrupt / event detection. 0000: PA[x] pin0001: PB[x] pin0010: PC[x] pin0011: PD[x] pin0100: PE[x] pin0101: PF[x] pin0110: PG[x] pin0111: PH[x] pin1000: PI[x] pin 1001: PJ[x] pin1010: PK[x] pin",
+          "values": [["Otherconfigurations", "reserved"]],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "EXTICR2",
+      "description": "external interrupt configuration register 2",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "EXTIx",
+          "description": "EXTI x configuration (x = 4 to 7) These bits are written by software to select the source input for the EXTI input for external interrupt / event detection.0000: PA[x] pin0001: PB[x] pin0010: PC[x] pin0011: PD[x] pin0100: PE[x] pin0101: PF[x] pin0110: PG[x] pin0111: PH[x] pin1000: PI[x] pin 1001: PJ[x] pin1010: PK[x] pin",
+          "values": [["Otherconfigurations", "reserved"]],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "EXTICR3",
+      "description": "external interrupt configuration register 3",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "EXTIx",
+          "description": "EXTI x configuration (x = 8 to 11) These bits are written by software to sele ct the source input for the EXTI input for external interrupt / event detection. 0000: PA[x] pin0001: PB[x] pin0010: PC[x] pin0011: PD[x] pin0100: PE[x] pin0101: PF[x] pin0110: PG[x] pin0111: PH[x] pin1000: PI[x] pin 1001: PJ[x] pin1010: PK[x] pin PK[11:8] are not used",
+          "values": [["Otherconfigurations", "reserved"]],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "EXTICR4",
+      "description": "external interrupt configuration register 4",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "EXTIx",
+          "description": "EXTI x configuration (x = 12 to 15) These bits are written by software to select the source input for the EXTI input for external interrupt / event detection. 0000: PA[x] pin0001: PB[x] pin0010: PC[x] pin0011: PD[x] pin0100: PE[x] pin0101: PF[x] pin0110: PG[x] pin0111: PH[x] pin 1000: PI[x] pin1001: PJ[x] pin1010: PK[x] pin PK[15:12] are not used.",
+          "values": [["Otherconfigurations", "reserved"]],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CFGR",
+      "description": "configuration register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "AXISRAML",
+          "description": "D1 AXI-SRAM double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the AXI-SRAM double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "AXI-SRAM double ECC error flag disco nnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "AXI-SRAM double ECC error flag connec ted to TIM1/8/15/ 16/17/HRTIMER Break inputs."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ITCML",
+          "description": "D1 ITCM double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the ITCM double ECC error fl ag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "ITCM double ECC error flag disconnect ed from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "ITCM double ECC error flag connected to TIM1/8/15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DTCML",
+          "description": "D1 DTCM double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the DTCM double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "DTCM double ECC error flag disconnec ted from TIM1/8/15/ 16/17/HRTIMER Break inputs"],
+            ["1", "DTCM double ECC error flag connected to TIM1/8/15/16/17/HR TIMER Break inputs"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "SRAM1L",
+          "description": "D2 SRAM1 double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the D2 SRAM1 double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "D2 SRAM1 double ECC error flag disc onnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "D2 SRAM1 double ECC error flag con nected to TIM1/8/15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "SRAM2L",
+          "description": "D2 SRAM2 double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the D2 SRAM2 double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "D2 SRAM2 double ECC error flag disc onnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "D2 SRAM2 double ECC error flag con nected to TIM1/8/15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "SRAM3L",
+          "description": "D2 SRAM3 double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the D2 SRAM3 double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "D2 SRAM3 double ECC error flag disc onnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "D2 SRAM3 double ECC error flag con nected to TIM1/8/15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SRAM4L",
+          "description": "D3 SRAM4 double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the D3 SRAM4 double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "D3 SRAM4 double ECC error flag disc onnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "D3 SRAM4 double ECC error flag con nected to TIM1/8/15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BKRAML",
+          "description": "Backup SRAM double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the Backup SRAM double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "Backup SRAM double ECC error flag disconnected from TIM1/8/15/16/17/HRTI MER Break inputs"],
+            ["1", "Backup SRAM double ECC error flag c onnected to TIM1/8 /15/16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CM7L",
+          "description": "Arm\u00ae Cortex\u00ae-M7 LOCKUP (HardFault) output enable bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the connection of the Arm\u00ae Cortex\u00ae-M7 LOCKUP (HardFault) output to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "Arm\u00ae Cortex\u00ae-M7 LOCKUP output disconnected from TIM1/8/15/16/17/HRTIMER Break inputs"],
+            ["1", "Arm\u00ae Cortex\u00ae-M7 LOCKUP output connected to TIM1/8/15/16/17/ HRTIMER Break inputs"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "FLASHL",
+          "description": "FLASH double ECC error lock bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the FLASH double ECC error flag connection to TIM1/8/15/16/17 and HRTIMER Break inputs.",
+          "values": [
+            ["0", "FLASH double ECC error flag disconnec ted from TIM1/8/15/ 16/17/HRTIMER Break inputs"],
+            ["1", "FLASH double ECC error flag connec ted to TIM1/8/15/ 16/17/HRTIMER Break inputs"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "PVDL",
+          "description": "PVD lock enable bit This bit is set by software and cleared only by a system reset. It can be used to enable and lock the PVD connection to TIM1/8/15/16/17 and HRTIMER Break inputs, as well as the PVDE and PLS[2:0] in the PWR_CR1 register.",
+          "values": [
+            ["0", "PVD signal disconnected from TIM1/8/15/16/17/HRTI MER Break inputs"],
+            ["1", "PVD signal connected to TIM1 /8/15/16/17/HRTI MER Break inputs"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000100110011"
+        }
+      ]
+    },
+    {
+      "name": "CCCSR",
+      "description": "compensation cell control/status register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "HSLV",
+          "description": "High-speed at low-voltage This bit is written by software to optimize the I/O speed when the product voltage is low. This bit is active only if IO_HSLV user opt ion bit is set. It must be used only if the product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V might be destructive.",
+          "values": [
+            ["0", "No I/O speed optimization"],
+            ["1", "I/O speed optimization"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "READY",
+          "description": "Compensation cell ready flag This bit provides the status of the compensation cell. The CSI clock is required for the compensation cell to work properly. The compensation cell ready bit ( READY) is not set if the CSI clock is not enabled.",
+          "values": [
+            ["0", "I/O compensation cell not ready"],
+            ["1", "I/O compensation cell ready"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CS",
+          "description": "Code selection This bit selects the code to be applied for the I/O compensation cell.",
+          "values": [
+            ["0", "Code from the cell (available in the SYSCFG_CCVR)"],
+            ["1", "Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "EN",
+          "description": "Enable This bit enables the I/O compensation cell.",
+          "values": [
+            ["0", "I/O compensation cell disabled"],
+            ["1", "I/O compensation cell enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111011111100"
+        }
+      ]
+    },
+    {
+      "name": "CCVR",
+      "description": "compensation cell value register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "PCV",
+          "description": "PMOS compensation value This value is provided by the cell and can be used by the CPU to compute an I/O compensation cell code for PMOS transistors. This code is applied to the I/O compensation cell when the CS bit of the SYSCFG_CCCSR is reset.",
+          "values": [],
+          "mask": "0b11110000"
+        },
+        {
+          "name": "NCV",
+          "description": "NMOS compensation value This value is provided by the cell and can be used by the CPU to compute an I/O compensation cell code for NMOS transistors. This code is applied to the I/O compensation cell when the CS bit of the SYSCFG_CCCSR is reset.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CCCR",
+      "description": "compensation cell code register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "PCC",
+          "description": "PMOS compensation code These bits are written by software to de fine an I/O compensation cell code for PMOS transistors. This code is applied to the I/O co mpensation cell when the CS bit of the SYSCFG_CCCSR is set.",
+          "values": [],
+          "mask": "0b11110000"
+        },
+        {
+          "name": "NCC",
+          "description": "NMOS compensation code These bits are written by software to define an I/O compensation cell code for NMOS transistors. This code is applied to the I/O co mpensation cell when the CS bit of the SYSCFG_CCCSR is set.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "PWRCR",
+      "description": "power control register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "ODEN",
+          "description": "Overdrive enable, this bit allows to ac tivate the LDO regulator overdrive mode. This bit must be written only in VOS1 voltage scaling mode. VOS0 must be activated only in VOS1 mode. It must be disabled by software before entering low-power mode (execution of WFE/WFI instruction).",
+          "values": [
+            ["0", "Overdrive mode disabled"],
+            ["1", "Overdrive mode enabled (the LDO generates VOS0 for V CORE )"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "CM4PRESENT",
+          "description": "Arm\u00ae Cortex\u00ae -M4 core This bit indicates that the Arm\u00ae Cortex\u00ae -M4 core is present.",
+          "values": [
+            ["0", "Arm\u00ae Cortex\u00ae -M4 core not present"],
+            ["1", "Arm\u00ae Cortex\u00ae -M4 core present"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111101111111111111101"
+        }
+      ]
+    },
+    {
+      "name": "PKGR",
+      "description": "package register",
+      "offset": "0x124",
+      "fields": [
+        {
+          "name": "PKG",
+          "description": "Package These bits indicate the device package.",
+          "values": [
+            ["0000", "LQFP100"],
+            ["0010", "TQFP144"],
+            ["0101", "TQFP176/UFBGA176"],
+            ["1000", "LQFP208/TFBGA240"],
+            ["Otherconfigurations", "all pads enabled"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "UR0",
+      "description": "user register 0",
+      "offset": "0x300",
+      "fields": [
+        {
+          "name": "RDP",
+          "description": "Readout protection These bits indicate the readout protection level.",
+          "values": [
+            ["0xAA", "Level 0 (no protection)"],
+            ["0xCC", "Level 2 (Flash memory readout protecte d, full debug features, boot from SRAM and boundary scan disabled)"],
+            ["Otherconfigurations", "Level 1 (Flash me mory readout protec ted, limited debug features and boundary scan enabled)"]
+          ],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "BKS",
+          "description": "Bank Swap This bit indicates Flash memory bank mapping.",
+          "values": [
+            ["0", "Flash memory bank addresses are inverted"],
+            ["1", "Flash memory banks are mapped to their original addresses"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000001111111111111110"
+        }
+      ]
+    },
+    {
+      "name": "UR2",
+      "description": "user register 2",
+      "offset": "0x308",
+      "fields": [
+        {
+          "name": "BORH",
+          "description": "BOR_LVL Brownout Reset Threshold Level These bits indicate the Brownout reset high level.",
+          "values": [
+            ["0x11", "BOR Level 3"],
+            ["0x10", "BOR Level 2"],
+            ["0x01", "BOR Level 1"],
+            ["0x00", "BOR OFF (Level 0)"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "UR3",
+      "description": "user register 3",
+      "offset": "0x30C",
+      "fields": [
+        {
+          "name": "BOOT_ADD1",
+          "description": "Boot Address 1 These bits define the MSB of the core boot address when BOOT pin is high.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "UR4",
+      "description": "user register 4",
+      "offset": "0x310",
+      "fields": [
+        {
+          "name": "1",
+          "description": "1631 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Re s. Res. Res. Res. Res. Res. Res. Res. MEPAD_1 r 1 5 1 4 1 3 1 2 1 1 1 09 8 7 654321 0 Res. Res. Res. Res. Res. Re s. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MEPAD_1",
+          "description": "Mass Erase Protected Area Disabled for bank 1 This bit indicates if the flash protected ar ea (Bank 1) is affected by a mass erase.",
+          "values": [
+            ["0", "When a mass erase occurs the protected area is erased"],
+            ["1", "When a mass erase occurs the protected area is not erased"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "UR5",
+      "description": "user register 5",
+      "offset": "0x314",
+      "fields": [
+        {
+          "name": "WRPN_1",
+          "description": "Write protection for flash bank 1 WRPN[i] bit indicates if the sector i of the Flash memory bank 1 is protected. 0: Write protection is active on sector i 1: Write protection is not active on sector i",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "MESAD_1",
+          "description": "Mass erase secured area disabled for bank 1 This bit indicates if the flash secured area (bank 1) is affected by a mass erase.",
+          "values": [
+            ["0", "When a mass erase occurs the secured area is erased"],
+            ["1", "When a mass erase occurs the secured area is not erased"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000001111111111111110"
+        }
+      ]
+    },
+    {
+      "name": "UR6",
+      "description": "user register 6",
+      "offset": "0x318",
+      "fields": [
+        {
+          "name": "PA_END_1",
+          "description": "Protected area end address for bank 1 End address for bank 1 protected area.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "PA_BEG_1",
+          "description": "Protected area start address for bank 1 Start address for bank 1 protected area.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "UR7",
+      "description": "user register 7",
+      "offset": "0x31C",
+      "fields": [
+        {
+          "name": "SA_END_1",
+          "description": "Secured area end address for bank 1 End address for bank 1 secured area.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "SA_BEG_1",
+          "description": "Secured area start address for bank 1 Start address for bank 1 secured area.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "UR8",
+      "description": "user register 8",
+      "offset": "0x320",
+      "fields": [
+        {
+          "name": "MESAD_2",
+          "description": "Mass erase secured area disabled for bank 2 This bit indicates if the Flash memory secured area (Bank 2) is affected by a mass erase.",
+          "values": [
+            ["0", "When a mass erase occurs the secured area is erased"],
+            ["1", "When a mass erase occurs the secured area is not erased"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "MEPAD_2",
+          "description": "Mass erase protected area disabled for bank 2 This bit indicates if the Flash memory protected area (Bank 2) is affected by a mass erase.",
+          "values": [
+            ["0", "When a mass erase occurs the protected area is erased"],
+            ["1", "When a mass erase occurs the protected area is not erased"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111110"
+        }
+      ]
+    },
+    {
+      "name": "UR9",
+      "description": "user register 9",
+      "offset": "0x324",
+      "fields": [
+        {
+          "name": "PA_BEG_2",
+          "description": "Protected area start address for bank 2 Start address for bank 2 protected area.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "WRPN_2",
+          "description": "Write protection for flash bank 2 WRPN[i] bit indicates if the sector i of the Flash memory bank 2 is protected. 0: Write protection is active on sector i1: Write protection is not active on sector i",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "UR10",
+      "description": "user register 10",
+      "offset": "0x328",
+      "fields": [
+        {
+          "name": "SA_BEG_2",
+          "description": "Secured area start address for bank 2 Start address for bank 2 secured area.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "PA_END_2",
+          "description": "Protected area end address for bank 2 End address for bank 2 protected area.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "UR11",
+      "description": "user register 11",
+      "offset": "0x32C",
+      "fields": [
+        {
+          "name": "IWDG1M",
+          "description": "Independent Watchdog 1 mode This bit indicates the control mode of the Independent Watchdog 1 (IWDG1).",
+          "values": [
+            ["0", "IWDG1 controlled by hardware"],
+            ["1", "IWDG1 controlled by software"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "SA_END_2",
+          "description": "Secured area end address for bank 2 End address for bank 2 secured area.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "UR12",
+      "description": "user register 12",
+      "offset": "0x330",
+      "fields": [
+        {
+          "name": "SECURE",
+          "description": "Secure mode This bit indicates th e Secure mode status.",
+          "values": [
+            ["0", "Secure mode disabled"],
+            ["1", "Secure mode enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "UR13",
+      "description": "user register 13",
+      "offset": "0x334",
+      "fields": [
+        {
+          "name": "D1SBRST",
+          "description": "D1 Standby reset This bit indicates if a reset is generated when D1 domain enters DStandby mode.",
+          "values": [
+            ["0", "A reset is generated by entering D1 Standby mode"],
+            ["1", "D1 Standby mode is entered without reset generation"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "SDRS",
+          "description": "Secured DTCM RAM Size These bits indicates the size of the secured DTCM RAM.",
+          "values": [
+            ["00", "2 Kbytes"],
+            ["01", "4 Kbytes"],
+            ["10", "8 Kbytes"],
+            ["11", "16 Kbytes"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "UR14",
+      "description": "user register 14",
+      "offset": "0x338",
+      "fields": [
+        {
+          "name": "D1STPRST",
+          "description": "D1 Stop Reset This bit indicates if a reset is generated when D1 domain enters in DStop mode.",
+          "values": [
+            ["0", "A reset is generated entering D1 Stop mode"],
+            ["1", "D1 Stop mode is entered without reset generation"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111110"
+        }
+      ]
+    },
+    {
+      "name": "UR15",
+      "description": "user register 15",
+      "offset": "0x33C",
+      "fields": [
+        {
+          "name": "FZIWDGSTB",
+          "description": "Freeze independent watchdog in Standby mode This bit indicates if the independent watchdog is frozen in Standby mode.",
+          "values": [
+            ["0", "Independent Watchdog frozen in Standby mode"],
+            ["1", "Independent Watchdog r unning in Standby mode"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "UR16",
+      "description": "user register 16",
+      "offset": "0x340",
+      "fields": [
+        {
+          "name": "PKP",
+          "description": "Private key programmed This bit indicates if the device private key is programmed.",
+          "values": [
+            ["0", "Private key not programmed"],
+            ["1", "Private key programmed"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "FZIWDGSTP",
+          "description": "Freeze independent watchdog in Stop mode This bit indicates if the independent watchdog is frozen in Stop mode.",
+          "values": [
+            ["0", "Independent Watchdog frozen in Stop mode"],
+            ["1", "Independent Watchdog running in Stop mode"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111101111111111111110"
+        }
+      ]
+    },
+    {
+      "name": "UR17",
+      "description": "user register 17",
+      "offset": "0x344",
+      "fields": [
+        {
+          "name": "IO_HSLV",
+          "description": "I/O high speed / low voltage This bit indicates that t he IOHSLV option bit is set.",
+          "values": [
+            ["0", "Product is working on the full voltage range"],
+            ["1", "Product is working below 2.7 V"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111110"
+        }
+      ]
+    }
+  ]
+}

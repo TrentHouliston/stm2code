@@ -1,0 +1,120 @@
+{
+  "IWDG": [
+    {
+      "name": "KR",
+      "description": "key register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "KEY",
+          "description": "Key value (write only, read 0x0000) These bits must be written by software at regular intervals with the key value 0xAAAA, otherwise the watchdog generates a re set when the counter reaches 0. Writing the key value 0x5555 to enable access to the IWDG_PR, IWDG_RLR and IWDG_WINR registers (see Section 45.3.6: Register access protection ) Writing the key value 0xCCCC starts the watchdog (except if the hardware watchdog option is selected)",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PR",
+      "description": "prescaler register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "PR",
+          "description": "Prescaler divider These bits are write access protected see Section 45.3.6: Regist er access protection . They are written by software to select the prescale r divider feeding the counter clock. PVU bit of the IWDG status register (IWDG_SR) must be reset in order to be able to change the prescaler divider. Reading this register returns the prescaler value from the VDD voltage domain. This value may not be up to date/valid if a write operation to this register is ongoing. For this reason the value read from this register is valid only when the PVU bit in the IWDG status register (IWDG_SR) is reset.",
+          "values": [
+            ["000", "divider /4"],
+            ["001", "divider /8"],
+            ["010", "divider /16"],
+            ["011", "divider /32"],
+            ["100", "divider /64"],
+            ["101", "divider /128"],
+            ["110", "divider /256"],
+            ["111", "divider /256"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "RLR",
+      "description": "reload register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "RL",
+          "description": "Watchdog counter reload value These bits are write access protected see Register access protection . They are written by software to define the value to be loaded in the watchdog counter each time the value 0xAAAA is written in the IWDG key register (IWDG_KR) . The watchdog counter counts down from this value. The timeout period is a f unction of this value and the clock prescaler. Refer to the datasheet for the timeout information. The RVU bit in the IWDG status register (IWDG_SR) must be reset to be able to change the reload value. Reading this register returns the reload value from the VDD voltage domain. This value may not be up to date/valid if a write operatio n to this register is ongoing on it. For this reason the value read from this register is valid only when the RVU bit in the IWDG status register (IWDG_SR) is reset.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "WVU",
+          "description": "Watchdog counter window value update This bit is set by hardware to indicate that an update of the window value is ongoing. It is reset by hardware when the reload value update operation is completed in the VDD voltage domain (takes up to five RC 40 kHz cycles). Window value can be updated only when WVU bit is reset.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "RVU",
+          "description": "Watchdog counter reload value update This bit is set by hardware to indicate that an update of the reload value is ongoing. It is reset by hardware when the reload value update operation is completed in the VDD voltage domain (takes up to five RC 40 kHz cycles). Reload value can be updated only when RVU bit is reset.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "PVU",
+          "description": "Watchdog prescaler value update This bit is set by hardware to indicate that an update of the prescaler value is ongoing. It is reset by hardware when the prescaler update operation is completed in the VDD voltage domain (takes up to five RC 40 kHz cycles). Prescaler value can be updated only when PVU bit is reset.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "WINR",
+      "description": "window register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "WIN",
+          "description": "Watchdog counter window value These bits are write access protected, see Section 45.3.6 , they contain the high limit of the window value to be compared with the downcounter. To prevent a reset, the downcounter must be reloaded when its value is lower than the window register value and greater than 0x0 The WVU bit in the IWDG status register (IWDG_SR) must be reset in order to be able to change the reload value. Reading this register returns the reload value from the VDD voltage domain. This value may not be valid if a write oper ation to this register is ongoing. For this reason the value read from this register is valid only when the WVU bit in the IWDG status register (IWDG_SR) is reset.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    }
+  ]
+}

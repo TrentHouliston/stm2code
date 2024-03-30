@@ -1,0 +1,4802 @@
+{
+  "HRTIM": [
+    {
+      "name": "MCR",
+      "description": "Master Timer Control Register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "BRSTDMA",
+          "description": "Burst DMA UpdateThese bits define how the update occurs relatively to a burst DMA transaction.",
+          "values": [
+            ["00", "Update done independently from the DMA burst transfer completion"],
+            ["01", "Update done when the DMA burst transfer is completed"],
+            ["10", "Update done on master timer roll-over follo wing a DMA burst transfer completion. This mode only works in continuous mode."],
+            ["11", "reserved"]
+          ],
+          "mask": "0b11000000000000000000000000000000"
+        },
+        {
+          "name": "MREPU",
+          "description": "Master Timer Repetition updateThis bit defines whether an update occurs when the master timer repetition period is completed (either due to roll-over or reset events). MREP U can be set only if BRSTDMA[",
+          "values": [
+            ["1", "0] = 00 or 01."],
+            ["0", "Update on repetition disabled"],
+            ["1", "Update on repetition enabled"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "PREEN",
+          "description": "Preload enableThis bit enables the registers preload mechanism and defines whether the write accesses to the memory mapped registers are done into HRTIM active or preload registers.",
+          "values": [
+            ["0", "Preload disabled: the write access is directly done into the active register"],
+            ["1", "Preload enabled: the write acce ss is done into the preload register"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "6",
+          "description": "25 DACSYNC[",
+          "values": [
+            ["1", "0]DAC SynchronizationA DAC synchronization event can be enabled and gen erated when the master timer update occurs. These bits are defining on which output the DAC synchroni zation is sent (refer to Section 37.3.19: DAC triggers for connections details). 0"],
+            ["0", "No DAC trigger generated0"],
+            ["1", "Trigger generated on hrtim_dac_trg1 1"],
+            ["0", "Trigger generated on hrtim_dac_trg2 1"],
+            ["1", "Trigger generated on hrtim_dac_trg3"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TECEN",
+          "description": "Timer E counter enableThis bit starts the Timer E counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Timer E counter disabled"],
+            ["1", "Timer E counter enabled"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TDCEN",
+          "description": "Timer D counter enableThis bit starts the Timer D counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Timer D counter disabled"],
+            ["1", "Timer D counter enabled"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TCCEN",
+          "description": "Timer C counter enableThis bit starts the Timer C counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Timer C counter disabled"],
+            ["1", "Timer C counter enabled"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TBCEN",
+          "description": "Timer B counter enableThis bit starts the Timer B counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Timer B counter disabled"],
+            ["1", "Timer B counter enabled"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TACEN",
+          "description": "Timer A counter enableThis bit starts the Timer A counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Timer A counter disabled"],
+            ["1", "Timer A counter enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "MCEN",
+          "description": "Master timer counter enableThis bit starts the Master timer counter. This bit must not be changed within a minimum of 8 cycles of f HRTIM clock.",
+          "values": [
+            ["0", "Master counter disabled"],
+            ["1", "Master counter enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "SYNCSRC",
+          "description": "Synchronization sourceThese bits define the source and event to be sent on the synchronization outputs SYNCOUT[2:1]",
+          "values": [
+            ["00", "Master timer Start"],
+            ["01", "Master timer Compare 1 event"],
+            ["10", "Timer A start/reset"],
+            ["11", "Timer A Compare 1 event"]
+          ],
+          "mask": "0b1100000000000000"
+        },
+        {
+          "name": "SYNCOUT",
+          "description": "Synchronization outputThese bits define the routing and conditio ning of the synchronization output event. This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["00", "disabled"],
+            ["01", "Reserved."],
+            ["10", "Positive pulse on HRTIM_SCOUT output (16x f HRTIM clock cycles)"],
+            ["11", "Negative pulse on HRTIM_SCOUT output (16x fHRTIM clock cycles)"]
+          ],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "SYNCSTRTM",
+          "description": "Synchronization Starts MasterThis bit enables the Master timer start when receiving a synchronization input event:",
+          "values": [
+            ["0", "No effect on the Master timer"],
+            ["1", "A synchronization input even t starts the Master timer"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "SYNCRSTM",
+          "description": "Synchronization Resets MasterThis bit enables the Master timer reset when receiving a synchronization input event:",
+          "values": [
+            ["0", "No effect on the Master timer"],
+            ["1", "A synchronization input event resets the Master timer"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "9",
+          "description": "8 SYNCIN[1 This parameter cannot be changed once the impacted timers are enabled.",
+          "values": [
+            ["", "0]Synchronization inputThese bits are defining the synchronization input source. 00"],
+            ["", "disabled. HRTIM is not synchronized and runs in standalone mode.01"],
+            ["", "Reserved.10"],
+            ["", "Internal event"],
+            ["", "the HRTIM is sy nchronized with the on-chip timer (see Synchronization input ). 11"],
+            ["", "External event (input pin). A positive pul se on HRTIM_SCIN inpu t triggers the HRTIM."]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "HALF",
+          "description": "Half modeThis bit enables the half duty-cycle mode: the HR TIM_MCMP1xR active regi ster is automatically updated with HRTIM_MPER/2 value when HRTIM_MPER register is written.",
+          "values": [
+            ["0", "Half mode disabled"],
+            ["1", "Half mode enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RETRIG",
+          "description": "Re-triggerable modeThis bit defines the behavior of the mast er timer counter in single-shot mode.",
+          "values": [
+            ["0", "The timer is not re-triggerable: a counter rese t can be done only if the counter is stopped (period elapsed)"],
+            ["1", "The timer is re-triggerable: a counter reset is done whatever the co unter state (running or stopped)"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CONT",
+          "description": "Continuous mode",
+          "values": [
+            ["0", "The timer operates in si ngle-shot mode and stops when it reaches the MPER value"],
+            ["1", "The timer operates in continu ous (free-running) mode and rolls ov er to zero when it reaches the MPER value"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CKPSC",
+          "description": "Clock prescalerThese bits define the master timer clock prescaler ratio. The counter clock equivalent frequency (f COUNTER ) is equal to fHRCK / 2(CKPSC[2:0]-5). The prescaling ratio cannot be modified once the timer is enabled.",
+          "values": [
+            ["000", "Reserved"],
+            ["001", "Reserved"],
+            ["010", "Reserved"],
+            ["011", "Reserved"],
+            ["100", "Reserved"],
+            ["101", "f COUNTER = fHRTIM"],
+            ["110", "fCOUNTER = fHRTIM / 2"],
+            ["111", "fCOUNTER = fHRTIM / 4"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10001110000000000000011000000"
+        }
+      ]
+    },
+    {
+      "name": "TIMxCR",
+      "description": "Timerx Control Register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "UPDGAT",
+          "description": "Update GatingThese bits define how the update occurs relatively to the burst DMA transaction and the external update request on update enable inputs 1 to 3 (see Table 314: Update enable inputs and sources ) The update events, as mentioned below, can be: MSTU, TEU, TDU, TCU, TBU, TAU, TxRSTU, TxREPU. This bitfield must be reset before programming a new value. For UPDGAT[3:0] values equal to 0001, 0011, 0100, 0101, it is possible to have multiple concurrent update source (for instance RSTU and DMA burst).",
+          "values": [
+            ["0000", "the update occurs independent ly from the DMA burst transfer"],
+            ["0001", "the update occurs when the DMA burst transfer is completed"],
+            ["0010", "the update occurs on the update event following the DMA burst transfer completion"],
+            ["0011", "the update occurs on a rising edge of HRTIM update enable input 1 (hrtim_upd_en1)"],
+            ["0100", "the update occurs on a rising edge of HRTIM update enable input 2 (hrtim_upd_en2)"],
+            ["0101", "the update occurs on a rising edge of HRTIM update enable input 3 (hrtim_upd_en3)"],
+            ["0110", "the update occurs on the update event foll owing a rising edge of HRTIM update enable input 1 (hrtim_upd_en1)"],
+            ["0111", "the update occurs on the update event followin g a rising edge of HRTIM update enable input 2 (hrtim_upd_en2)"],
+            ["1000", "the update occurs on the update event follow ing a rising edge of HRTIM update enable input 3 (hrtim_upd_en3) Other codes: reserved"]
+          ],
+          "mask": "0b11110000000000000000000000000000"
+        },
+        {
+          "name": "PREEN",
+          "description": "Preload enableThis bit enables the registers preload mechanism and defines whether a write access into a preload- able register is done into the active or the preload register.",
+          "values": [
+            ["0", "Preload disabled: the write access is directly done into the active register"],
+            ["1", "Preload enabled: the write access is done into the preload register"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "6",
+          "description": "25 DACSYNC[",
+          "values": [
+            ["1", "0]DAC SynchronizationA DAC synchronization event is generated when the timer update occurs. These bits are defining on which output the DAC synchronization is sent (refer to Section 37.3.19: DAC triggers for connections details). 0"],
+            ["0", "No DAC trigger generated0"],
+            ["1", "Trigger generated on hrtim_dac_trg1 1"],
+            ["0", "Trigger generated on hrtim_dac_trg2 1"],
+            ["1", "Trigger generated on hrtim_dac_trg3"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "MSTU",
+          "description": "Master Timer updateRegister update is triggered by the master timer update.",
+          "values": [
+            ["0", "Update by master timer disabled"],
+            ["1", "Update by master timer enabled Bit 23 In HRTIM_TIMACR, HRTIM_TI MBCR, HRTIM_TIMCCR, HRTIM_TIMDCR:TEU: Timer E updateRegister update is triggered by the timer E update"],
+            ["0", "Update by timer E disabled"],
+            ["1", "Update by timer E enabled In HRTIM_TIMECR: Reserved, must be ke pt at reset value Bit 22 In HRTIM_TIMACR, HRTIM_TI MBCR, HRTIM_TIMCCR, HRTIM_TIMECR:TDU: Timer D updateRegister update is triggered by the timer D update"],
+            ["0", "Update by timer D disabled"],
+            ["1", "Update by timer D enabled In HRTIM_TIMDCR: Reserved, must be ke pt at reset value Bit 21 In HRTIM_TIMACR, HRTIM_TI MBCR, HRTIM_TIMDCR, HRTIM_TIMECR:TCU: Timer C updateRegister update is triggered by the timer C update"],
+            ["0", "Update by timer C disabled"],
+            ["1", "Update by timer C enabled In HRTIM_TIMCCR: Reserved, must be ke pt at reset value Bit 20 In HRTIM_TIMACR, HRTIM_TI MCCR, HRTIM_TIM DCR, HRTIM_TIMECR:TBU: Timer B updateRegister update is triggered by the timer B update"],
+            ["0", "Update by timer B disabled"],
+            ["1", "Update by timer B enabled In HRTIM_TIMBCR: Reserved, must be ke pt at reset value Bit 19 In HRTIM_TIMBCR, HRTIM_TI MCCR, HRTIM_TIM DCR, HRTIM_TIMECR:TAU: Timer A updateRegister update is triggered by the timer A update"],
+            ["0", "Update by timer A disabled"],
+            ["1", "Update by timer A enabled In HRTIM_TIMACR: Reserved, must be k ept at reset value"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TxRSTU",
+          "description": "Timerx reset updateRegister update is triggered by Timerx counter rese t or roll-over to 0 after reaching the period value in continuous mode.",
+          "values": [
+            ["0", "Update by timer x re set / roll-over disabled"],
+            ["1", "Update by timer x reset / roll-over enabled"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TxREPU",
+          "description": "Timer x Repetition updateRegister update is triggered when the counter rolls over and HRTIM_REPx = 0",
+          "values": [
+            ["0", "Update on repetition disabled"],
+            ["1", "Update on repetition enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "DELCMP4",
+          "description": "CMP4 auto-delayed modeThis bitfield defines whether the compare regist er is behaving in standard mode (compare match issued as soon as counter equal compare), or in auto-delayed mode (see Auto-delayed mode ). This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["00", "CMP4 register is always active (standard compare mode)"],
+            ["01", "CMP4 value is recomputed and is active following a capture 2 event"],
+            ["10", "CMP4 value is recomputed and is active follo wing a capture 2 event, or is recomputed and active after Compare 1 match (timeout function if capture 2 event is missing)"],
+            ["11", "CMP4 value is recomputed and is active following a capture event, or is recomputed and active after Compare 3 match (timeout function if capture event is missing)"]
+          ],
+          "mask": "0b1100000000000000"
+        },
+        {
+          "name": "DELCMP2",
+          "description": "CMP2 auto-delayed modeThis bitfield defines whether the compare regist er is behaving in standard mode (compare match issued as soon as counter equal compare), or in auto-delayed mode (see Auto-delayed mode ). This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["00", "CMP2 register is always active (standard compare mode)"],
+            ["01", "CMP2 value is recomputed and is active following a capture 1 event"],
+            ["10", "CMP2 value is recomputed and is active follo wing a capture 1 event, or is recomputed and active after Compare 1 match (timeout function if capture event is missing)"],
+            ["11", "CMP2 value is recomputed and is active followin g a capture 1 event, or is recomputed and active after Compare 3 match (timeout function if capture event is missing)"]
+          ],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "SYNCSTRTx",
+          "description": "Synchronization Starts Timer xThis bit defines the Timer x behavior following the synchronization event:",
+          "values": [
+            ["0", "No effect on Timer x"],
+            ["1", "A synchronization input event starts the Timer x"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "SYNCRSTx",
+          "description": "Synchronization Resets Timer xThis bit defines the Timer x behavior following the synchronization event:",
+          "values": [
+            ["0", "No effect on Timer x"],
+            ["1", "A synchronization input event resets the Timer x"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "PSHPLL",
+          "description": "Push-Pull mode enableThis bit enables the push-pull mode. This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["0", "Push-Pull mode disabled"],
+            ["1", "Push-Pull mode enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "HALF",
+          "description": "Half mode enableThis bit enables the hal f duty-cycle mode: the HRTIM_CMP1xR active re gister is automatically updated with HRTIM_PERxR/2 value when HRTIM_PERxR register is written.",
+          "values": [
+            ["0", "Half mode disabled"],
+            ["1", "Half mode enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RETRIG",
+          "description": "Re-triggerable modeThis bit defines the counter behavior in single shot mode.",
+          "values": [
+            ["0", "The timer is not re-triggerable: a counter reset is done if the counter is stopped (period elapsed in single-shot mode or counter stopped in continuous mode)"],
+            ["1", "The timer is re-triggerable: a counter reset is done whatever the counter state."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CONT",
+          "description": "Continuous modeThis bit defines the timer operating mode.",
+          "values": [
+            ["0", "The timer operates in single-shot mode and stops when it reaches TIMxPER value"],
+            ["1", "The timer operates in continuous mode and roll s over to zero when it reaches TIMxPER value"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CKPSCx",
+          "description": "HRTIM Timer x Clock prescalerThese bits define the master timer clock prescaler ratio. The counter clock equivalent frequency (f COUNTER ) is equal to fHRCK / 2(CKPSC[2:0]-5). The prescaling ratio cannot be modified once the timer is enabled.",
+          "values": [
+            ["000", "Reserved"],
+            ["001", "Reserved"],
+            ["010", "Reserved"],
+            ["011", "Reserved"],
+            ["100", "Reserved"],
+            ["101", "f COUNTER = fHRTIM"],
+            ["110", "fCOUNTER = fHRTIM / 2"],
+            ["111", "fCOUNTER = fHRTIM / 4"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000001110000000"
+        }
+      ]
+    },
+    {
+      "name": "MISR",
+      "description": "Master Timer Interrupt Status Register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "MUPD",
+          "description": "Master Update Interrupt Flag This bit is set by hardware when the Master timer registers are updated.",
+          "values": [
+            ["0", "No Master Update interrupt occurred"],
+            ["1", "Master Update interrupt occurred"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "SYNC",
+          "description": "Sync Input Interrupt Flag This bit is set by hardware when a synchronization input event is received.",
+          "values": [
+            ["0", "No Sync input interrupt occurred"],
+            ["1", "Sync input interrupt occurred"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "MREP",
+          "description": "Master Repetition Interrupt Flag This bit is set by hardware when the Master timer repetition period has elapsed.",
+          "values": [
+            ["0", "No Master Repeti tion interrupt occurred"],
+            ["1", "Master Repetition interrupt occurred"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "MCMP4",
+          "description": "Master Compare 4 Interrupt Flag Refer to MCMP1 description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MCMP3",
+          "description": "Master Compare 3 Interrupt Flag Refer to MCMP1 description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "MCMP2",
+          "description": "Master Compare 2 Interrupt Flag Refer to MCMP1 description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "MCMP1",
+          "description": "Master Compare 1 Interrupt Flag This bit is set by hardware when the Master timer counter matches the value programmed in the master Compare 1 register.",
+          "values": [
+            ["0", "No Master Compare 1 interrupt occurred"],
+            ["1", "Master Compare 1 interrupt occurred"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111110000000"
+        }
+      ]
+    },
+    {
+      "name": "TIMxISR",
+      "description": "Timerx Interrupt Status Register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "O2CPY",
+          "description": "Output 2 Copy This status bit is a raw copy of the output 2 st ate, before the output st age (chopper, polarity). It allows to check the current output state before re-enabling the output after a delayed protection.",
+          "values": [
+            ["0", "Output 2 is inactive"],
+            ["1", "Output 2 is active"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "O1CPY",
+          "description": "Output 1 Copy This status bit is a raw copy of the output 1 st ate, before the output st age (chopper, polarity). It allows to check the current output state before re-enabling the output after a delayed protection.",
+          "values": [
+            ["0", "Output 1 is inactive"],
+            ["1", "Output 1 is active"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "O2STAT",
+          "description": "Output 2 Status This status bit indicates the output 2 state when t he delayed idle protection was triggered. This bit is updated upon any new delayed protection entry. Th is bit is not updated in balanced idle.",
+          "values": [
+            ["0", "Output 2 was inactive"],
+            ["1", "Output 2 was active"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "O1STAT",
+          "description": "Output 1 Status This status bit indicates the output 1 state when t he delayed idle protection was triggered. This bit is updated upon any new delayed protection entry. Th is bit is not updated in balanced idle.",
+          "values": [
+            ["0", "Output 1 was inactive"],
+            ["1", "Output 1 was active"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "IPPSTAT",
+          "description": "Idle Push Pull Status This status bit indicates on which output the sig nal was applied, in push-pull mode balanced fault mode or delayed idle mode, when t he protection was triggered (whate ver the output state, active or inactive).",
+          "values": [
+            ["0", "Protection occurred when the output 1 was active and output 2 forced inactive"],
+            ["1", "Protection occurred when the output 2 was active and output 1 forced inactive"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CPPSTAT",
+          "description": "Current Push Pull Status This status bit indicates on which output the signal is currently applied, in pu sh-pull mode. It is only significant in this configuration.",
+          "values": [
+            ["0", "Signal applied on output 1 and output 2 forced inactive"],
+            ["1", "Signal applied on output 2 and output 1 forced inactive Bit 15 Reserved"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "DLYPRT",
+          "description": "Delayed Protection Flag This bit indicates delayed idle or the balanced idle mode entry.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "RST",
+          "description": "Reset and/or roll- over Interrupt Flag This bit is set by hardware when the timer x co unter is reset or rolls over in continuous mode.",
+          "values": [
+            ["0", "No TIMx counter reset/ roll-over inte rrupt occurred"],
+            ["1", "TIMX counter reset/ro ll-over interru pt occurred"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "RSTx2",
+          "description": "Output 2 Reset Interrupt Flag Refer to RSTx1 description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "SETx2",
+          "description": "Output 2 Set Interrupt Flag Refer to SETx1 description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "RSTx1",
+          "description": "Output 1 Reset Interrupt Flag This bit is set by hardware when the Tx1 output is reset (goes from active to inactive mode).",
+          "values": [
+            ["0", "No Tx1 output re set interrupt occurred"],
+            ["1", "Tx1 output reset interrupt occurred"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SETx1",
+          "description": "Output 1 Set Interrupt Flag This bit is set by hardware when the Tx1 output is set (goes from inactive to active mode).",
+          "values": [
+            ["0", "No Tx1 output set interrupt occurred"],
+            ["1", "Tx1 output set interrupt occurred"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CPT2",
+          "description": "Capture2 Interrupt Flag Refer to CPT1 description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CPT1",
+          "description": "Capture1 Interrupt Flag This bit is set by hardware when the timer x capture 1 event occurs.",
+          "values": [
+            ["0", "No timer x Capture 1 reset interrupt occurred"],
+            ["1", "Timer x output 1 re set interrupt occurred"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "UPD",
+          "description": "Update Interrupt Flag This bit is set by hardware when the timer x update event occurs.",
+          "values": [
+            ["0", "No timer x update interrupt occurred"],
+            ["1", "Timer x update interrupt occurred"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "REP",
+          "description": "Repetition Interrupt Flag This bit is set by hardware when the timer x repetition period has elapsed.",
+          "values": [
+            ["0", "No timer x repetition interrupt occurred"],
+            ["1", "Timer x repetiti on interrupt occurred"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CMP4",
+          "description": "Compare 4 Interrupt Flag Refer to CMP1 description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CMP3",
+          "description": "Compare 3 Interrupt Flag Refer to CMP1 description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "CMP2",
+          "description": "Compare 2 Interrupt Flag Refer to CMP1 description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CMP1",
+          "description": "Compare 1 Interrupt Flag This bit is set by hardware when the timer x counter matches the value programmed in the Compare 1 register.",
+          "values": [
+            ["0", "No Compare 1 interrupt occurred"],
+            ["1", "Compare 1 interrupt occurred"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000100000"
+        }
+      ]
+    },
+    {
+      "name": "MICR",
+      "description": "Master Timer Interrupt Clear Register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "MUPDC",
+          "description": "Master update Interrupt flag clear Writing 1 to this bit clears the MUPDC flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "SYNCC",
+          "description": "Sync Input Interrupt flag clear Writing 1 to this bit clears the SYNC flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "MREPC",
+          "description": "Repetition Interrupt flag clear Writing 1 to this bit clears the MREP flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "MCMP4C",
+          "description": "Master Compare 4 Interrupt flag clear Writing 1 to this bit clears the MCMP4 flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MCMP3C",
+          "description": "Master Compare 3 Interrupt flag clear Writing 1 to this bit clears the MCMP3 flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "MCMP2C",
+          "description": "Master Compare 2 Interrupt flag clear Writing 1 to this bit clears the MCMP2 flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "MCMP1C",
+          "description": "Master Compare 1 Interrupt flag clear Writing 1 to this bit clears the MCMP1 flag in HRTIM_MISR register",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111110000000"
+        }
+      ]
+    },
+    {
+      "name": "TIMxICR",
+      "description": "Timerx Interrupt Clear Register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "DLYPRTC",
+          "description": "Delayed Protection Flag Clear Writing 1 to this bit clears the DLYPRT flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "RSTC",
+          "description": "Reset Interrupt flag Clear Writing 1 to this bit clears the RST flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "RSTx2C",
+          "description": "Output 2 Reset flag Clear Writing 1 to this bit clears the RSTx2 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "SETx2C",
+          "description": "Output 2 Set flag Clear Writing 1 to this bit clears the SETx2 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "RSTx1C",
+          "description": "Output 1 Reset flag Clear Writing 1 to this bit clears the RSTx1 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SETx1C",
+          "description": "Output 1 Set flag Clear Writing 1 to this bit clears the SETx1 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CPT2C",
+          "description": "Capture2 Interrupt flag Clear Writing 1 to this bit clears the CP T2 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CPT1C",
+          "description": "Capture1 Interrupt flag Clear Writing 1 to this bit clears the CP T1 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "UPDC",
+          "description": "Update Interrupt flag Clear Writing 1 to this bit clears the UPD flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "REPC",
+          "description": "Repetition Interrupt flag Clear Writing 1 to this bit clears the REP flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CMP4C",
+          "description": "Compare 4 Interrupt flag Clear Writing 1 to this bit clears the CMP4 flag in HRTIM_TIMxISR register Bit 2 CMP 3C : Compare 3 Interrupt flag Clear Writing 1 to this bit clears the CMP3 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CMP2C",
+          "description": "Compare 2 Interrupt flag Clear Writing 1 to this bit clears the CMP2 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CMP1C",
+          "description": "Compare 1 Interrupt flag Clear Writing 1 to this bit clears the CMP1 flag in HRTIM_TIMxISR register",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111000000000100000"
+        }
+      ]
+    },
+    {
+      "name": "MDIER",
+      "description": "Master Timer DMA / Interrupt Enable Register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "MUPDDE",
+          "description": "Master Update DMA request Enable This bit is set and cleared by software to enable/disable the Master update DMA requests.",
+          "values": [
+            ["0", "Master update DMA request disabled"],
+            ["1", "Master update DMA request enabled"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "SYNCDE",
+          "description": "Sync Input DMA request Enable This bit is set and cleared by software to enable/disable the Sync input DMA requests.",
+          "values": [
+            ["0", "Sync input DMA request disabled"],
+            ["1", "Sync input DMA request enabled"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "MREPDE",
+          "description": "Master Repetition DMA request Enable This bit is set and cleared by software to enabl e/disable the Master timer repetition DMA requests.",
+          "values": [
+            ["0", "Repetition DMA request disabled"],
+            ["1", "Repetition DMA request enabled"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "MCMP4DE",
+          "description": "Master Compare 4 DMA request Enable Refer to MCMP1DE description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "MCMP3DE",
+          "description": "Master Compare 3 DMA request Enable Refer to MCMP1DE description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MCMP2DE",
+          "description": "Master Compare 2 DMA request Enable Refer to MCMP1DE description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "MCMP1DE",
+          "description": "Master Compare 1 DMA request Enable This bit is set and cleared by software to enabl e/disable the Master timer Compare 1 DMA requests.",
+          "values": [
+            ["0", "Compare 1 DMA request disabled"],
+            ["1", "Compare 1 DMA request enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "MUPDIE",
+          "description": "Master Update Interrupt Enable This bit is set and cleared by software to enable/disable the Master timer registers update interrupts",
+          "values": [
+            ["0", "Master update interrupts disabled"],
+            ["1", "Master update interrupts enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "SYNCIE",
+          "description": "Sync Input Interrupt Enable This bit is set and cleared by software to enable/disable the Sync input interrupts",
+          "values": [
+            ["0", "Sync input interrupts disabled"],
+            ["1", "Sync input interrupts enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "MREPIE",
+          "description": "Master Repetition Interrupt Enable This bit is set and cleared by software to en able/disable the Master timer repetition interrupts",
+          "values": [
+            ["0", "Master repetition interrupt disabled"],
+            ["1", "Master repetition interrupt enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "MCMP4IE",
+          "description": "Master Compare 4 Interrupt Enable Refer to MCMP1IE description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MCMP3IE",
+          "description": "Master Compare 3 Interrupt Enable Refer to MCMP1IE description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "MCMP2IE",
+          "description": "MAster Compare 2 Interrupt Enable Refer to MCMP1IE description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "MCMP1IE",
+          "description": "Master Compare 1 Interrupt Enable This bit is set and cleared by software to enable/disable the Master timer Compare 1 interrupt",
+          "values": [
+            ["0", "Compare 1 interrupt disabled"],
+            ["1", "Compare 1 interrupt enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000001111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "TIMxDIER",
+      "description": "Timerx DMA / Interrupt Enable Register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "DLYPRTDE",
+          "description": "Delayed Protection DMA request Enable This bit is set and cleared by software to en able/disable DMA requests on delayed protection.",
+          "values": [
+            ["0", "Delayed protection DMA request disabled"],
+            ["1", "Delayed protection DMA request enabled"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "RSTDE",
+          "description": "Reset/roll-over DMA request Enable This bit is set and cleared by software to enable/disable DMA requests on timer x counter reset or roll-over in continuous mode.",
+          "values": [
+            ["0", "Timer x counter reset/ro ll-over DMA request disabled"],
+            ["1", "Timer x counter reset/ro ll-over DMA request enabled"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "RSTx2DE",
+          "description": "Output 2 Reset DMA request Enable Refer to RSTx1DE description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "SETx2DE",
+          "description": "Output 2 Set DMA request Enable Refer to SETx1DE description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "RSTx1DE",
+          "description": "Output 1 Reset DMA request Enable This bit is set and cleared by software to enable/disable Tx1 output reset DMA requests.",
+          "values": [
+            ["0", "Tx1 output reset DMA request disabled"],
+            ["1", "Tx1 output reset DMA request enabled"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "SETx1DE",
+          "description": "Output 1 Set DMA request Enable This bit is set and cleared by software to enable/disable Tx1 output set DMA requests.",
+          "values": [
+            ["0", "Tx1 output set DMA request disabled"],
+            ["1", "Tx1 output set DMA request enabled"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "CPT2DE",
+          "description": "Capture 2 DMA request Enable Refer to CPT1DE description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "CPT1DE",
+          "description": "Capture 1 DMA request Enable This bit is set and cleared by software to enable/disable Capture 1 DMA requests.",
+          "values": [
+            ["0", "Capture 1 DMA request disabled"],
+            ["1", "Capture 1 DMA request enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "UPDDE",
+          "description": "Update DMA request Enable This bit is set and cleared by software to enable/disable DMA requests on update event.",
+          "values": [
+            ["0", "Update DMA request disabled"],
+            ["1", "Update DMA request enabled"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "REPDE",
+          "description": "Repetition DMA request Enable This bit is set and cleared by software to enable/disable DMA requests on repetition event.",
+          "values": [
+            ["0", "Repetition DMA request disabled"],
+            ["1", "Repetition DMA request enabled"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "CMP4DE",
+          "description": "Compare 4 DMA request Enable Refer to CMP1DE description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "CMP3DE",
+          "description": "Compare 3 DMA request Enable Refer to CMP1DE description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CMP2DE",
+          "description": "Compare 2 DMA request Enable Refer to CMP1DE description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CMP1DE",
+          "description": "Compare 1 DMA request Enable This bit is set and cleared by software to enable/disable the Compare 1 DMA requests.",
+          "values": [
+            ["0", "Compare 1 DMA request disabled"],
+            ["1", "Compare 1 DMA request enabled Bit 15 Reserved"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "DLYPRTIE",
+          "description": "Delayed Protection Interrupt Enable This bit is set and cleared by software to enable/disable interrupts on delayed protection.",
+          "values": [
+            ["0", "Delayed protection interrupts disabled"],
+            ["1", "Delayed protection interrupts enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "RSTIE",
+          "description": "Reset/roll-over Interrupt Enable This bit is set and cleared by software to enable/disable interrupts on timer x counter reset or roll- over in continuous mode.",
+          "values": [
+            ["0", "Timer x counter reset/ro ll-over interrupt disabled"],
+            ["1", "Timer x counter reset/ roll-over interrupt enabled"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "RSTx2IE",
+          "description": "Output 2 Reset Interrupt Enable Refer to RSTx1IE description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "SETx2IE",
+          "description": "Output 2 Set Interrupt Enable Refer to SETx1IE description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "RSTx1IE",
+          "description": "Output 1 Reset Interrupt Enable This bit is set and cleared by software to enable/disable Tx1 output reset interrupts.",
+          "values": [
+            ["0", "Tx1 output reset interrupts disabled"],
+            ["1", "Tx1 output reset interrupts enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SETx1IE",
+          "description": "Output 1 Set Interrupt Enable This bit is set and cleared by software to enable/disable Tx1 output set interrupts.",
+          "values": [
+            ["0", "Tx1 output set interrupts disabled"],
+            ["1", "Tx1 output set interrupts enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CPT2IE",
+          "description": "Capture Interrupt Enable Refer to CPT1IE description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CPT1IE",
+          "description": "Capture Interrupt Enable This bit is set and cleared by software to enable/disable Capture 1 interrupts.",
+          "values": [
+            ["0", "Capture 1 interrupts disabled"],
+            ["1", "Capture 1 interrupts enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "UPDIE",
+          "description": "Update Interrupt Enable This bit is set and cleared by software to enable/disable update event interrupts.",
+          "values": [
+            ["0", "Update interrupts disabled"],
+            ["1", "Update interrupts enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "REPIE",
+          "description": "Repetition Interrupt Enable This bit is set and cleared by software to enable/disable repet ition event interrupts.",
+          "values": [
+            ["0", "Repetition interrupts disabled"],
+            ["1", "Repetition interrupts enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CMP4IE",
+          "description": "Compare 4 Interrupt Enable Refer to CMP1IE description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CMP3IE",
+          "description": "Compare 3 Interrupt Enable Refer to CMP1IE description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "CMP2IE",
+          "description": "Compare 2 Interrupt Enable Refer to CMP1IE description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CMP1IE",
+          "description": "Compare 1 Interrupt Enable This bit is set and cleared by software to enable/disable the Compare 1 interrupts.",
+          "values": [
+            ["0", "Compare 1 interrupt disabled"],
+            ["1", "Compare 1 interrupt enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000000000000000100000"
+        }
+      ]
+    },
+    {
+      "name": "MCNTR",
+      "description": "Master Timer Counter Register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "MCNT",
+          "description": "Counter valueHolds the master timer co unter value. This register can only be written when the master timer is stopped (MCEN = 0 in HRTIM_MCR). The timer behavior is not guaranteed if th e counter value is set above the HRTIM_MPER register value.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CNTxR",
+      "description": "Timerx Counter Register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "CNTx",
+          "description": "Timerx Counter valueThis register holds the Timerx counter value. It can only be written when the timer is stopped (TxCEN = 0 in HRTIM_TIMxCR). The timer behavior is not guaranteed if the counter value is above the HRTIM_PERxR register value.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MPER",
+      "description": "Master Timer Period Register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "MPER",
+          "description": "Master Timer Period valueThis register defines the counter overflow value. The period value must be above or equal to 3 periods of the fHRTIM clock. The maximum value is 0x0000 FFDF.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PERxR",
+      "description": "Timerx Period Register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "PERx",
+          "description": "Timerx Period valueThis register holds timer x period value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The period value must be above or equal to 3 periods of the fHRTIM clock. The maximum value is 0x0000 FFDF.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MREP",
+      "description": "Master Timer Repetition Register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "MREP",
+          "description": "Master Timer Repetition period valueThis register holds the repetition period value for the master counter. It is either the preload register or the active register if preload is disabled.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "REPxR",
+      "description": "Timerx Repetition Register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "REPx",
+          "description": "Timerx Repetition period valueThis register holds the repetition period value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "MCMP1R",
+      "description": "Master Timer Compare 1 Register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "MCMP1",
+          "description": "Master Timer Compare 1 valueThis register holds the master timer Compare 1 value. It is either the preload register or the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CMP1xR",
+      "description": "Timerx Compare 1 Register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "CMP1x",
+          "description": "Timerx Compare 1 valueThis register holds the compare 1 value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CMP1CxR",
+      "description": "Timerx Compare 1 Compound Register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "REPx",
+          "description": "Timerx Repetition value (aliased from HRTIM_REPx register)This bitfield is an alias from the REPx[7:0] bitfield in the HRTIMx_REPxR register.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "CMP1x",
+          "description": "Timerx Compare 1 valueThis bitfield is an alias from the CMP1x[15: 0] bitfield in the HR TIMx_CMP1xR register.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MCMP2R",
+      "description": "Master Timer Compare 2 Register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "MCMP2",
+          "description": "Master Timer Compare 2 valueThis register holds the master timer Compare 2 value. It is either the preload register or the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CMP2xR",
+      "description": "Timerx Compare 2 Register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "CMP2x",
+          "description": "Timerx Compare 2 valueThis register holds the Compare 2 value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock. This register can behave as an auto-delayed compar e register, if enabled with DELCMP2[1:0] bits in HRTIM_TIMxCR.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MCMP3R",
+      "description": "Master Timer Compare 3 Register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "MCMP3",
+          "description": "Master Timer Compare 3 valueThis register holds the master timer Compare 3 value. It is either the preload register or the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CMP3xR",
+      "description": "Timerx Compare 3 Register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "CMP3x",
+          "description": "Timerx Compare 3 valueThis register holds the Compare 3 value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MCMP4R",
+      "description": "Master Timer Compare 4 Register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "MCMP4",
+          "description": "Master Timer Compare 4 valueThis register holds the master timer Compare 4 value. It is either the preload register or the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CMP4xR",
+      "description": "Timerx Compare 4 Register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "CMP4x",
+          "description": "Timerx Compare 4 valueThis register holds the Compare 4 value. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The compare value must be above or equal to 3 periods of the fHRTIM clock. This register can behave as an auto-delayed compar e register, if enabled with DELCMP4[1:0] bits in HRTIM_TIMxCR.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPT1xR",
+      "description": "Timerx Capture 1 Register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "CPT1x",
+          "description": "Timerx Capture 1 valueThis register holds the counter val ue when the capture 1 event occurred.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPT2xR",
+      "description": "Timerx Capture 2 Register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "CPT2x",
+          "description": "Timerx Capture 2 valueThis register holds the counter val ue when the capture 2 event occurred.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DTxR",
+      "description": "Timerx Deadtime Register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "DTFLKx",
+          "description": "Deadtime Falling LockThis write-once bit prevents the deadtime (sign and value) to be modified, if enabled. This bit is not preloaded",
+          "values": [
+            ["0", "Deadtime falling value and sign is writable"],
+            ["1", "Deadtime falling value and sign is read-only"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "DTFSLKx",
+          "description": "Deadtime Falling Sign LockThis write-once bit prevents the sign of falling deadtime to be modified, if enabled. This bit is not preloaded",
+          "values": [
+            ["0", "Deadtime falling sign is writable"],
+            ["1", "Deadtime falling sign is read-only"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "SDTFx",
+          "description": "Sign Deadtime Falling valueThis register determines whether the deadtime is positive (signals not overlapping) or negative (signals overlapping).",
+          "values": [
+            ["0", "Positive deadtime on falling edge"],
+            ["1", "Negative deadtime on falling edge"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "DTFx",
+          "description": "Deadtime Falling valueThis register holds the value of the deadtime following a falling edge of reference PWM signal. t DTF = DTFx[8:0] x tDTG",
+          "values": [],
+          "mask": "0b1111111110000000000000000"
+        },
+        {
+          "name": "DTRLKx",
+          "description": "Deadtime Rising LockThis write-once bit prevents the deadtime (sign and value) to be modified, if enabled This bit is not preloaded",
+          "values": [
+            ["0", "Deadtime rising value and sign is writable"],
+            ["1", "Deadtime rising value and sign is read-only"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "DTRSLKx",
+          "description": "Deadtime Rising Sign LockThis write-once bit prevents the sign of deadtime to be modified, if enabled This bit is not preloaded",
+          "values": [
+            ["0", "Deadtime rising sign is writable"],
+            ["1", "Deadtime rising sign is read-only"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DTPRSC",
+          "description": "Deadtime PrescalerThis register holds the value of the deadtime clock prescaler. tDTG = (2(DTPRSC[2:0]-3)) x tHRTIM",
+          "values": [
+            ["000", "Reserved"],
+            ["001", "Reserved"],
+            ["010", "Reserved"],
+            ["011", "tDTG= t HRTIM"],
+            ["100", "tDTG= tHRTIM x 2"],
+            ["101", "tDTG= tHRTIM x 4"],
+            ["110", "tDTG= tHRTIM x 8"],
+            ["111", "tDTG= tHRTIM x 16 This bitfield is read-only as soon as any of the lock bit is enabled (DTFLKs, DTFSLKx, DTRLKx, DTRSLKx)."]
+          ],
+          "mask": "0b1110000000000"
+        },
+        {
+          "name": "SDTRx",
+          "description": "Sign Deadtime Rising valueThis register determines whether the deadtime is positive or negative (overlapping signals)",
+          "values": [
+            ["0", "Positive deadtime on rising edge"],
+            ["1", "Negative deadtime on rising edge"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "DTRx",
+          "description": "Deadtime Rising valueThis register holds the value of the deadtime following a rising edge of reference PWM signal. t DTR = DTRx[8:0] x tDTG",
+          "values": [],
+          "mask": "0b111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111100000000000010000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SETx1R",
+      "description": "Timerx Output1 Set Register",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "UPDATE",
+          "description": "Registers update (transfer preload to active)Register update event forces th e output to its active state.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT10",
+          "description": "External Event 10Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT9",
+          "description": "External Event 9Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT8",
+          "description": "External Event 8Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT7",
+          "description": "External Event 7Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT6",
+          "description": "External Event 6Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT5",
+          "description": "External Event 5Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT4",
+          "description": "External Event 4Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT3",
+          "description": "External Event 3Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT2",
+          "description": "External Event 2Refer to EXTEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "EXTEVNT1",
+          "description": "External Event 1External event 1 forces the output to its active state.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TIMEVNT9",
+          "description": "Timer Event 9Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TIMEVNT8",
+          "description": "Timer Event 8Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TIMEVNT7",
+          "description": "Timer Event 7Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TIMEVNT6",
+          "description": "Timer Event 6Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TIMEVNT5",
+          "description": "Timer Event 5Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TIMEVNT4",
+          "description": "Timer Event 4Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TIMEVNT3",
+          "description": "Timer Event 3Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TIMEVNT2",
+          "description": "Timer Event 2Refer to TIMEVNT1 description",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TIMEVNT1",
+          "description": "Timer Event 1Timers event 1 forces the output to its active state (refer to Table 307 for Timer Events assignments)",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "MSTCMP4",
+          "description": "Master Compare 4Master Timer Compare 4 event forces the output to it s active state.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "MSTCMP3",
+          "description": "Master Compare 3Master Timer Compare 3 event forces the output to it s active state.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "MSTCMP2",
+          "description": "Master Compare 2Master Timer Compare 2 event forces the output to it s active state.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "MSTCMP1",
+          "description": "Master Compare 1Master Timer compare 1 event forces the output to its active state.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "MSTPER",
+          "description": "Master PeriodThe master timer counter roll-over in continuous mo de, or to the master timer reset in single-shot mode forces the output to its active state.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CMP4",
+          "description": "Timer x Compare 4Timer A compare 4 event forces the output to its active state.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "CMP3",
+          "description": "Timer x Compare 3Timer A compare 3 event forces the output to its active state.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "CMP2",
+          "description": "Timer x Compare 2Timer A compare 2 event forces the output to its active state.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CMP1",
+          "description": "Timer x Compare 1Timer A compare 1 event forces the output to its active state.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "PER",
+          "description": "Timer x PeriodTimer A Period event forces the output to its active state.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "RESYNC",
+          "description": "Timer A resynchronizationTimer A reset event coming solely from software or SYNC input forces the output to its active state. Other timer reset are not affecting the output when RESYNC=1",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "SST",
+          "description": "Software Set triggerThis bit forces the output to its active state. This bit can only be set by software and is reset by hardware. This bit is not preloaded",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "RSTx1R",
+      "description": "Timerx Output1 Reset Register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 Refer to HRTIM_ SETx1R bits description. These bits are defining the source which can force the Tx1 output to its inactive state.",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "SETx2R",
+      "description": "Timerx Output2 Set Register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 Refer to HRTIM_ SETx1R bits description. These bits are defining the source which ca n force the Tx2 output to its active state.",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "RSTx2R",
+      "description": "Timerx Output2 Reset Register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 Refer to HRTIM_ SETx1R bits description. These bits are defining the source which can force the Tx2 output to its inactive state.",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "EEFxR1",
+      "description": "Timerx External Event Filtering Register 1",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "EE5FLTR",
+          "description": "External Event 5 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000000000000000"
+        },
+        {
+          "name": "EE5LTCH",
+          "description": "External Event 5 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EE4FLTR",
+          "description": "External Event 4 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000000000"
+        },
+        {
+          "name": "EE4LTCH",
+          "description": "External Event 4 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EE3FLTR",
+          "description": "External Event 3 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000"
+        },
+        {
+          "name": "EE3LTCH",
+          "description": "External Event 3 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "EE2FLTR",
+          "description": "External Event 2 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000"
+        },
+        {
+          "name": "EE2LTCH",
+          "description": "External Event 2 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "EE1FLTR",
+          "description": "External Event 1 filter Whenever a compare register is used for filtering, the value mu st be strictly above 0. This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["0000", "No filtering"],
+            ["0001", "Blanking from counter reset/roll-over to Compare 1"],
+            ["0010", "Blanking from counter reset/roll-over to Compare 2"],
+            ["0011", "Blanking from counter reset/roll-over to Compare 3"],
+            ["0100", "Blanking from counter reset/roll-over to Compare 4"],
+            ["0101", "Blanking from another timing unit: TIMFLTR1 source (see Table 311 for details)"],
+            ["0110", "Blanking from another timing unit: TIMFLTR2 source (see Table 311 for details)"],
+            ["0111", "Blanking from another timing unit: TIMFLTR3 source (see Table 311 for details)"],
+            ["1000", "Blanking from another timing unit: TIMFLTR4 source (see Table 311 for details)"],
+            ["1001", "Blanking from another timing unit: TIMFLTR5 source (see Table 311 for details)"],
+            ["1010", "Blanking from another timing unit: TIMFLTR6 source (see Table 311 for details)"],
+            ["1011", "Blanking from another timing unit: TIMFLTR7 source (see Table 311 for details)"],
+            ["1100", "Blanking from another timing unit: TIMFLTR8 source (see Table 311 for details)"],
+            ["1101", "Windowing from counter reset/roll-over to Compare 2"],
+            ["1110", "Windowing from counter reset/roll-over to Compare 3"],
+            ["1111", "Windowing from another timing unit: TIMWIN source (see Table 312 for details)"]
+          ],
+          "mask": "0b11110"
+        },
+        {
+          "name": "EE1LTCH",
+          "description": "External Event 1 latch A timeout event is generated in window mode (EE1FLTR[3:0]=1101, 1110, 1111) if EE1LTCH = 0, except if the External event is programmed in fast mode (EExFAST = 1). This bitfield must not be modified once the counter is enabled (TxCEN bit set)",
+          "values": [
+            ["0", "Event 1 is ignored if it happens duri ng a blank, or passed through during a window."],
+            ["1", "Event 1 is latched and delayed till th e end of the blanking or windowing period."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000100000"
+        }
+      ]
+    },
+    {
+      "name": "EEFxR2",
+      "description": "Timerx External Event Filtering Register 2",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "EE10FLTR",
+          "description": "External Event 10 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000000000000000"
+        },
+        {
+          "name": "EE10LTCH",
+          "description": "External Event 10 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EE9FLTR",
+          "description": "External Event 9 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000000000"
+        },
+        {
+          "name": "EE9LTCH",
+          "description": "External Event 9 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EE8FLTR",
+          "description": "External Event 8 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000000000"
+        },
+        {
+          "name": "EE8LTCH",
+          "description": "External Event 8 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "EE7FLTR",
+          "description": "External Event 7 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110000000"
+        },
+        {
+          "name": "EE7LTCH",
+          "description": "External Event 7 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "EE6FLTR",
+          "description": "External Event 6 filterRefer to EE1FLTR[3:0] description",
+          "values": [],
+          "mask": "0b11110"
+        },
+        {
+          "name": "EE6LTCH",
+          "description": "External Event 6 latchRefer to EE1LTCH description",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000100000"
+        }
+      ]
+    },
+    {
+      "name": "CHPxR",
+      "description": "Timerx Chopper Register",
+      "offset": "0x58",
+      "fields": [
+        {
+          "name": "STRPW",
+          "description": "Timerx start pulsewidthThis register defines the in itial pulsewidth following a rising edge on output signal. This bitfield cannot be modified when one of the CHPx bits is set.t 1STPW = (STRPW[3:0]+1) x 16 x tHRTIM .",
+          "values": [
+            ["0000", "40 ns (1/25 MHz) ..."],
+            ["1111", "640 ns (16/25 MHz)"]
+          ],
+          "mask": "0b11110000000"
+        },
+        {
+          "name": "CARDTY",
+          "description": "Timerx chopper duty cycle valueThis register defines the duty cycl e of the carrier signal. This bitfield cannot be modified when one of the CHPx bits is set.",
+          "values": [
+            ["000", "0/8 (i.e. only 1st pulse is present)..."],
+            ["111", "7/8"]
+          ],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "CARFRQ",
+          "description": "Timerx carrier frequency valueThis register defines the carrier frequency F CHPFRQ = fHRTIM / (16 x (CARFRQ[3:0]+1)). This bitfield cannot be modified when one of the CHPx bits is set.",
+          "values": [
+            ["0000", "25 MHz (f HRTIM / 16) ..."],
+            ["1111", "1.56 MHz (f HRTIM / 256)"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPT1xCR",
+      "description": "Timerx Capture 1 Control Register",
+      "offset": "0x5C",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 Refer to HRTIM_CPT2xCR bit description",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "CPT2xCR",
+      "description": "Timerx Capture 2 Control Register",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "TECMP2",
+          "description": "Timer E Compare 2 Refer to TACMP1 description This bit is reserved for Timer E",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "TECMP1",
+          "description": "Timer E Compare 1 Refer to TACMP1 description This bit is reserved for Timer E",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TE1RST",
+          "description": "Timer E output 1 Reset Refer to TA1RST description This bit is reserved for Timer E",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "TE1SET",
+          "description": "Timer E output 1 Set Refer to TA1SET description This bit is reserved for Timer E",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "TDCMP2",
+          "description": "Timer D Compare 2 Refer to TACMP1 description This bit is reserved for Timer D",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "TDCMP1",
+          "description": "Timer D Compare 1 Refer to TACMP1 description This bit is reserved for Timer D",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "TD1RST",
+          "description": "Timer D output 1 Reset Refer to TA1RST description This bit is reserved for Timer D",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "TD1SET",
+          "description": "Timer D output 1 Set Refer to TA1SET description This bit is reserved for Timer D",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TCCMP2",
+          "description": "Timer C Compare 2 Refer to TACMP1 description This bit is reserved for Timer C",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "TCCMP1",
+          "description": "Timer C Compare 1 Refer to TACMP1 description This bit is reserved for Timer C",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TC1RST",
+          "description": "Timer C output 1 Reset Refer to TA1RST description This bit is reserved for Timer C",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TC1SET",
+          "description": "Timer C output 1 Set Refer to TA1SET description This bit is reserved for Timer C",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TBCMP2",
+          "description": "Timer B Compare 2 Refer to TACMP1 description This bit is reserved for Timer B",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TBCMP1",
+          "description": "Timer B Compare 1 Refer to TACMP1 description This bit is reserved for Timer B",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TB1RST",
+          "description": "Timer B output 1 Reset Refer to TA1RST description This bit is reserved for Timer B",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TB1SET",
+          "description": "Timer B output 1 Set Refer to TA1SET description This bit is reserved for Timer B",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TACMP2",
+          "description": "Timer A Compare 2 Timer A Compare 2 triggers Capture 2. This bit is reserved for Timer A",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TACMP1",
+          "description": "Timer A Compare 1 Timer A Compare 1 triggers Capture 2. This bit is reserved for Timer A",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TA1RST",
+          "description": "Timer B output 1 Reset Capture 2 is triggered by HRTIM_CHA1 output active to inactive transition. This bit is reserved for Timer A",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TA1SET",
+          "description": "Timer B output 1 Set Capture 2 is triggered by HRTIM_CHA1 output inactive to active transition. This bit is reserved for Timer A",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "EXEV10CPT",
+          "description": "External Event 10 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "EXEV9CPT",
+          "description": "External Event 9 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "EXEV8CPT",
+          "description": "External Event 8 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "EXEV7CPT",
+          "description": "External Event 7 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "EXEV6CPT",
+          "description": "External Event 6 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "EXEV5CPT",
+          "description": "External Event 5 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "EXEV4CPT",
+          "description": "External Event 4 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "EXEV3CPT",
+          "description": "External Event 3 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "EXEV2CPT",
+          "description": "External Event 2 CaptureRefer to EXEV1CPT description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "EXEV1CPT",
+          "description": "External Event 1 CaptureThe External event 1 triggers the Capture 2.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "UPDCPT",
+          "description": "Update CaptureThe update event triggers the Capture 2.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "SWCPT",
+          "description": "Software CaptureThis bit forces the Capture 2 by software. This bit is set only, reset by hardware",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "OUTxR",
+      "description": "Timerx Output Register",
+      "offset": "0x64",
+      "fields": [
+        {
+          "name": "DIDL2",
+          "description": "Output 2 Deadtime upon burst mode Idle entryThis bit can delay the idle mode entry by forcing a deadtime insertion before switching the outputs to their idle state. This setting only applies when entering in idle state du ring a burst mode operation. This parameter cannot be changed once the timer x is enabled. DIDL=1 can be set only if one of the outputs is active during the burst mode (IDLES=1), and with positive deadtimes (S DTR/SDTF set to 0).",
+          "values": [
+            ["0", "The programmed Idle state is appl ied immediately to the Output 2"],
+            ["1", "Deadtime (inactive level) is inserted on ou tput 2 before entering the idle mode. The deadtime value is set by DTFx[8:0]."]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "CHP2",
+          "description": "Output 2 Chopper enableThis bit enables the chopper on output 2 This parameter cannot be changed once the timer x is enabled.",
+          "values": [
+            ["0", "Output signal is not altered"],
+            ["1", "Output signal is chopped by a carrier signal"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "FAULT2",
+          "description": "Output 2 Fault stateThese bits select the output 2 state after a fault event This parameter cannot be changed once the timer x is enabled (TxCEN bit set), if FLTENx bit is set or if the output is in FAULT state.",
+          "values": [
+            ["00", "No action: the output is not affected by the fault input and stays in run mode."],
+            ["01", "Active"],
+            ["10", "Inactive"],
+            ["11", "High-Z"]
+          ],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "IDLES2",
+          "description": "Output 2 Idle StateThis bit selects the output 2 idle state This parameter must be set prior to have the HRTIM controlling the outputs.",
+          "values": [
+            ["0", "Inactive"],
+            ["1", "Active"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "IDLEM2",
+          "description": "Output 2 Idle modeThis bit selects the output 2 idle mode This bit is preloaded and can be changed during run-time, but must not be changed while the burst mode is active.",
+          "values": [
+            ["0", "No action: the output is not affected by the burst mode operation"],
+            ["1", "The output is in idle state when requested by the burst mode controller."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "POL2",
+          "description": "Output 2 polarityThis bit selects the output 2 polarity This parameter cannot be changed once the timer x is enabled.",
+          "values": [
+            ["0", "positive polarity (output active high)"],
+            ["1", "negative polarity (output active low)"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "DLYPRT",
+          "description": "Delayed ProtectionThese bits define the source and outputs on wh ich the delayed protection schemes are applied. In HRTIM_OUTAR, HRTIM_OUTBR, HRTIM_OUTCR: This bitfield must not be modified once the delayed protection is enabled (DLYPRTEN bit set)",
+          "values": [
+            ["000", "Output 1 delayed Idle on external Event 6"],
+            ["001", "Output 2 delayed Idle on external Event 6"],
+            ["010", "Output 1 and output 2 delay ed Idle on external Event 6"],
+            ["011", "Balanced Idle on external Event 6"],
+            ["100", "Output 1 delayed Idle on external Event 7"],
+            ["101", "Output 2 delayed Idle on external Event 7"],
+            ["110", "Output 1 and output 2 delayed Idle on external Event 7"],
+            ["111", "Balanced Idle on external Event 7 In HRTIM_OUTDR, HRTIM_OUTER:"],
+            ["000", "Output 1 delayed Idle on external Event 8"],
+            ["001", "Output 2 delayed Idle on external Event 8"],
+            ["010", "Output 1 and output 2 delay ed Idle on external Event 8"],
+            ["011", "Balanced Idle on external Event 8"],
+            ["100", "Output 1 delayed Idle on external Event 9"],
+            ["101", "Output 2 delayed Idle on external Event 9"],
+            ["110", "Output 1 and output 2 delayed Idle on external Event 9"],
+            ["111", "Balanced Idle on external Event 9"]
+          ],
+          "mask": "0b1110000000000"
+        },
+        {
+          "name": "DLYPRTEN",
+          "description": "Delayed Protection EnableThis bit enables the delayed protection scheme This parameter cannot be changed once the timer x is enabled (TxEN bit set).",
+          "values": [
+            ["0", "No action"],
+            ["1", "Delayed protection is enabl ed, as per DLYPRT[2:0] bits"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "DTEN",
+          "description": "Deadtime enableThis bit enables the deadtime insertion on output 1 and output 2 This parameter cannot be changed once the timer is operating (TxEN bit set) or if its outputs are enabled and set/reset by another timer.",
+          "values": [
+            ["0", "Output 1 and output 2 signals are independent."],
+            ["1", "Deadtime is inserted between ou tput 1 and output 2 (reference signal is output 1 signal generator)"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "DIDL1",
+          "description": "Output 1 Deadtime upon burst mode Idle entryThis bit can delay the idle mode entry by forcing a deadtime insertion before switching the outputs to their idle state. This setting only applies when ent ering the idle state durin g a burst mode operation. This parameter cannot be changed once the timer x is enabled. DIDL=1 can be set only if one of the outputs is active during the burst mode (IDLES=1), and with positive deadtimes (S DTR/SDTF set to 0).",
+          "values": [
+            ["0", "The programmed Idle state is appl ied immediately to the Output 1"],
+            ["1", "Deadtime (inactive level) is inserted on ou tput 1 before entering the idle mode. The deadtime value is set by DTRx[8:0]."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CHP1",
+          "description": "Output 1 Chopper enableThis bit enables the chopper on output 1 This parameter cannot be changed once the timer x is enabled.",
+          "values": [
+            ["0", "Output signal is not altered"],
+            ["1", "Output signal is chopped by a carrier signal"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "FAULT1",
+          "description": "Output 1 Fault stateThese bits select the output 1 state after a fault event This parameter cannot be changed once the timer x is enabled (TxCEN bit set), if FLTENx bit is set or if the output is in FAULT state.",
+          "values": [
+            ["00", "No action: the output is not affected by the fault input and stays in run mode."],
+            ["01", "Active"],
+            ["10", "Inactive"],
+            ["11", "High-Z"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "IDLES1",
+          "description": "Output 1 Idle StateThis bit selects the output 1 idle state This parameter must be set prior to HRTIM controlling the outputs.",
+          "values": [
+            ["0", "Inactive"],
+            ["1", "Active"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "IDLEM1",
+          "description": "Output 1 Idle modeThis bit selects the output 1 idle mode This bit is preloaded and can be changed during runtime, but must not be changed while burst mode is active.",
+          "values": [
+            ["0", "No action: the output is not affected by the burst mode operation"],
+            ["1", "The output is in idle state when requested by the burst mode controller."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "POL1",
+          "description": "Output 1 polarityThis bit selects the output 1 polarity This parameter cannot be changed once the timer x is enabled.Bit 0 Reserved",
+          "values": [
+            ["0", "positive polarity (output active high)"],
+            ["1", "negative polarity (output active low)"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000011111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTxR",
+      "description": "Timerx Fault Register",
+      "offset": "0x68",
+      "fields": [
+        {
+          "name": "FLTLCK",
+          "description": "Fault sources Lock",
+          "values": [
+            ["0", "FLT1EN..FLT5EN bits are read/write"],
+            ["1", "FLT1EN..FLT5EN bits are read onlyThe FLTLCK bit is write-once. On ce it has been set, it cannot be modi fied till the nex t system reset."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "FLT5EN",
+          "description": "Fault 5 enable",
+          "values": [
+            ["0", "Fault 5 input ignored"],
+            ["1", "Fault 5 input is active and can disable HRTIM outputs."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "FLT4EN",
+          "description": "Fault 4 enable",
+          "values": [
+            ["0", "Fault 4 input ignored"],
+            ["1", "Fault 4 input is active and can disable HRTIM outputs."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FLT3EN",
+          "description": "Fault 3 enable",
+          "values": [
+            ["0", "Fault 3 input ignored"],
+            ["1", "Fault 3 input is active and can disable HRTIM outputs."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT2EN",
+          "description": "Fault 2 enable",
+          "values": [
+            ["0", "Fault 2 input ignored"],
+            ["1", "Fault 2 input is active and can disable HRTIM outputs."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT1EN",
+          "description": "Fault 1 enable",
+          "values": [
+            ["0", "Fault 1 input ignored"],
+            ["1", "Fault 1 input is active and can disable HRTIM outputs."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "RSTxR",
+      "description": "Timerx Reset Register",
+      "offset": "0xD4",
+      "fields": [
+        {
+          "name": "TECPM4",
+          "description": "Timer E Compare 4The timer A counter is reset upon timer E Compare 4 event.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TECMP2",
+          "description": "Timer E Compare 2The timer A counter is reset upon timer E Compare 2 event.",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "TECMP1",
+          "description": "Timer E Compare 1The timer A counter is reset upon timer E Compare 1 event.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "TDCMP4",
+          "description": "Timer D Compare 4The timer A counter is reset upon timer D Compare 4 event.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "TDCMP2",
+          "description": "Timer D Compare 2The timer A counter is reset upon timer D Compare 2 event.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "TDCMP1",
+          "description": "Timer D Compare 1The timer A counter is reset upon timer D Compare 1 event.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "TCCMP4",
+          "description": "Timer C Compare 4The timer A counter is reset upon timer C Compare 4 event.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TCCMP2",
+          "description": "Timer C Compare 2The timer A counter is reset upon timer C Compare 2 event.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "TCCMP1",
+          "description": "Timer C Compare 1The timer A counter is reset upon timer C Compare 1 event.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TBCMP4",
+          "description": "Timer B Compare 4The timer A counter is reset upon timer B Compare 4 event.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TBCMP2",
+          "description": "Timer B Compare 2The timer A counter is reset upon timer B Compare 2 event.",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TBCMP1",
+          "description": "Timer B Compare 1The timer A counter is reset upon timer B Compare 1 event.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "EXTEVNT10",
+          "description": "External Event The timer A counter is reset upon external event 10.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EXTEVNT9",
+          "description": "External Event 9The timer A counter is reset upon external event 9.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EXTEVNT8",
+          "description": "External Event 8The timer A counter is reset upon external event 8.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "EXTEVNT7",
+          "description": "External Event 7The timer A counter is reset upon external event 7.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "EXTEVNT6",
+          "description": "External Event 6The timer A counter is reset upon external event 6.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "EXTEVNT5",
+          "description": "External Event 5The timer A counter is reset upon external event 5.",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "EXTEVNT4",
+          "description": "External Event 4The timer A counter is reset upon external event 4.",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "EXTEVNT3",
+          "description": "External Event 3The timer A counter is reset upon external event 3.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "EXTEVNT2",
+          "description": "External Event 2The timer A counter is reset upon external event 2.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "EXTEVNT1",
+          "description": "External Event 1The timer A counter is reset upon external event 1.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "MSTCMP4",
+          "description": "Master compare 4The timer A counter is reset up on master timer Compare 4 event.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "MSTCMP3",
+          "description": "Master compare 3The timer A counter is reset up on master timer Compare 3 event.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "MSTCMP2",
+          "description": "Master compare 2The timer A counter is reset up on master timer Compare 2 event.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "MSTCMP1",
+          "description": "Master compare 1The timer A counter is reset up on master timer Compare 1 event. Bit 4 MSTPERMaster timer PeriodThe timer A counter is reset upon master timer period event.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "CMP4",
+          "description": "Timer A compare 4 resetThe timer A counter is reset upon Timer A Compare 4 event.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CMP2",
+          "description": "Timer A compare 2 resetThe timer A counter is reset upon Timer A Compare 2 event.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "UPDT",
+          "description": "Timer A Update resetThe timer A counter is reset upon update event.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "0",
+          "description": "1 Refer to HRTIM_RSTAR bits description.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "19 differ (reset signals co me from TIMA, TIMC, TIMD and TIME) 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res.TIME CMP4TIME CMP2TIME CMP1TIMD CMP4TIMD CMP2TIMD CMP1TIMB CMP4TIMB CMP2TIMB CMP1TIMA CMP4TIMA CMP2TIMA CMP1EXTEV NT10EXTEV NT9EXTEV NT8 rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 EXTEV NT7EXTEV NT6EXTEV NT5EXTEV NT4EXTEV NT3EXTEV NT2EXTEV NT1MSTC MP4MSTC MP3MSTC MP2MSTC MP1MSTPE RCMP4 CMP2 UPDT Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "1 Refer to HRTIM_RSTAR bits description.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "19 differ (reset signals co me from TIMA, TIMB, TIMD and TIME) 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res.TIME CMP4TIME CMP2TIME CMP1TIMC CMP4TIMC CMP2TIMC CMP1TIMB CMP4TIMB CMP2TIMB CMP1TIMA CMP4TIMA CMP2TIMA CMP1EXTEV NT10EXTEV NT9EXTEV NT8 rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 EXTEV NT7EXTEV NT6EXTEV NT5EXTEV NT4EXTEV NT3EXTEV NT2EXTEV NT1MSTC MP4MSTC MP3MSTC MP2MSTC MP1MSTPE RCMP4 CMP2 UPDT Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "1 Refer to HRTIM_RSTAR bits description.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "19 differ (reset signals co me from TIMA, TIMB, TIMC and TIME) HRTIM Timerx Reset Register (HRTIM_RSTER)Address offset: 0x2D4h Reset value: 0x0000 0000Res.TIMD CMP4TIMD CMP2TIMD CMP1TIMC CMP4TIMC CMP2TIMC CMP1TIMB CMP4TIMB CMP2TIMB CMP1TIMA CMP4TIMA CMP2TIMA CMP1EXTEV NT10EXTEV NT9EXTEV NT8 rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 EXTEV NT7EXTEV NT6EXTEV NT5EXTEV NT4EXTEV NT3EXTEV NT2EXTEV NT1MSTC MP4MSTC MP3MSTC MP2MSTC MP1MSTPE RCMP4 CMP2 UPDT Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "1 Refer to HRTIM_RSTAR bits description.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "0",
+          "description": "19 differ (reset signals come from TIMA, TIMB, TIMC and TIMD)",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "name": "CR1",
+      "description": "Control Register 1",
+      "offset": "0x380",
+      "fields": [
+        {
+          "name": "AD4USRC",
+          "description": "ADC Trigger 4 Update Source Refer to AD1USRC[2:0] description",
+          "values": [],
+          "mask": "0b1110000000000000000000000000"
+        },
+        {
+          "name": "AD3USRC",
+          "description": "ADC Trigger 3 Update SourceRefer to AD1USRC[2:0] description",
+          "values": [],
+          "mask": "0b1110000000000000000000000"
+        },
+        {
+          "name": "AD2USRC",
+          "description": "ADC Trigger 2 Update SourceRefer to AD1USRC[2:0] description",
+          "values": [],
+          "mask": "0b1110000000000000000000"
+        },
+        {
+          "name": "AD1USRC",
+          "description": "ADC Trigger 1 Update SourceThese bits define the source which will trigger th e update of the HRTIM_ADC1R register (transfer from preload to active register). It only defines the source timer. The precise condition is defined within the timer itself, in HRTIM_MCR or HRTIM_TIMxCR.",
+          "values": [
+            ["000", "Master Timer"],
+            ["001", "Timer A"],
+            ["010", "Timer B"],
+            ["011", "Timer C"],
+            ["100", "Timer D"],
+            ["101", "Timer E110,"],
+            ["111", "Reserved"]
+          ],
+          "mask": "0b1110000000000000000"
+        },
+        {
+          "name": "TEUDIS",
+          "description": "Timer E Update DisableRefer to TAUDIS description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TDUDIS",
+          "description": "Timer D Update DisableRefer to TAUDIS description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TCUDIS",
+          "description": "Timer C Update DisableRefer to TAUDIS description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TBUDIS",
+          "description": "Timer B Update DisableRefer to TAUDIS description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TAUDIS",
+          "description": "Timer A Update DisableThis bit is set and cleared by software to enabl e/disable an update event gen eration temporarily on Timer A.",
+          "values": [
+            ["0", "update enabled. The update occurs up on generation of the selected source."],
+            ["1", "update disabled. The updates are temporarily di sabled to allow the software to write multiple registers that have to be simultaneously taken into account."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "MUDIS",
+          "description": "Master Update DisableThis bit is set and cleared by software to en able/disable an update event generation temporarily.",
+          "values": [
+            ["0", "update enabled."],
+            ["1", "update disabled. The updates are temporarily di sabled to allow the software to write multiple registers that have to be simultaneously taken into account."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "CR2",
+      "description": "Control Register 2",
+      "offset": "0x384",
+      "fields": [
+        {
+          "name": "TERST",
+          "description": "Timer E counter software resetRefer to TARST description",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TDRST",
+          "description": "Timer D counter software resetRefer to TARST description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TCRST",
+          "description": "Timer C counter software resetRefer to TARST description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TBRST",
+          "description": "Timer B counter software resetRefer to TARST description",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TARST",
+          "description": "Timer A counter software resetSetting this bit resets the TimerA counter. The bit is automatically reset by hardware.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "MRST",
+          "description": "Master Counter software resetSetting this bit resets the Master timer counter. The bit is automatically reset by hardware.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TESWU",
+          "description": "Timer E Software UpdateRefer to TASWU description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TDSWU",
+          "description": "Timer D Software UpdateRefer to TASWU description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TCSWU",
+          "description": "Timer C Software UpdateRefer to TASWU description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TBSWU",
+          "description": "Timer B Software UpdateRefer to TASWU description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TASWU",
+          "description": "Timer A Software updateThis bit is set by software and automatically reset by hardware. It forces an immediate transfer from the preload to the active register and any pending update request is cancelled.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "MSWU",
+          "description": "Master Timer Software updateThis bit is set by software and automatically reset by hardware. It forces an immediate transfer from the preload to the active register in the master timer and any pending update request is cancelled.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111100000011000000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "Interrupt Status Register",
+      "offset": "0x388",
+      "fields": [
+        {
+          "name": "BMPER",
+          "description": "Burst mode Period Interrupt Flag This bit is set by hardware when a single-shot burst mode operation is completed or at the end of a burst mode period in continuous mode. It is cleared by software writing it at 1.",
+          "values": [
+            ["0", "No Burst mode period interrupt occurred"],
+            ["1", "Burst mode period interrupt occurred"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "SYSFLT",
+          "description": "System Fault Interrupt Flag Refer to FLT1 description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "FLT5",
+          "description": "Fault 5 Interrupt Flag Refer to FLT1 description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "FLT4",
+          "description": "Fault 4 Interrupt Flag Refer to FLT1 description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FLT3",
+          "description": "Fault 3 Interrupt Flag Refer to FLT1 description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT2",
+          "description": "Fault 2 Interrupt Flag Refer to FLT1 description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT1",
+          "description": "Fault 1 Interrupt Flag This bit is set by hardware when Fault 1 event o ccurs. It is cleared by software writing it at 1.",
+          "values": [
+            ["0", "No Fault 1 interrupt occurred"],
+            ["1", "Fault 1 interrupt occurred"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111011111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "Interrupt Clear Register",
+      "offset": "0x38C",
+      "fields": [
+        {
+          "name": "BMPERC",
+          "description": "Burst mode period flag Clear Writing 1 to this bit clears the BMPER flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "SYSFLTC",
+          "description": "System Fault Interrupt Flag Clear Writing 1 to this bit clears the SYSFLT flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "FLT5C",
+          "description": "Fault 5 Interrupt Flag Clear Writing 1 to this bit clears the FLT5 flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "FLT4C",
+          "description": "Fault 4 Interrupt Flag Clear Writing 1 to this bit clears the FLT4 flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FLT3C",
+          "description": "Fault 3 Interrupt Flag Clear Writing 1 to this bit clears the FLT3 flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT2C",
+          "description": "Fault 2 Interrupt Flag Clear Writing 1 to this bit clears the FLT2 flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT1C",
+          "description": "Fault 1 Interrupt Flag Clear Writing 1 to this bit clears the FLT1 flag in HRTIM_ISR register.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111011111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "IER",
+      "description": "Interrupt Enable Register",
+      "offset": "0x390",
+      "fields": [
+        {
+          "name": "BMPERIE",
+          "description": "Burst mode period Interrupt Enable This bit is set and cleared by software to enable/disable the Burst mode period interrupt.",
+          "values": [
+            ["0", "Burst mode period interrupt disabled"],
+            ["1", "Burst mode period interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "SYSFLTIE",
+          "description": "System Fault Interrupt Enable Refer to FLT1IE description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "FLT5IE",
+          "description": "Fault 5 Interrupt Enable Refer to FLT1IE description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "FLT4IE",
+          "description": "Fault 4 Interrupt Enable Refer to FLT1IE description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FLT3IE",
+          "description": "Fault 3 Interrupt Enable Refer to FLT1IE description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT2IE",
+          "description": "Fault 2 Interrupt Enable Refer to FLT1IE description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT1IE",
+          "description": "Fault 1 Interrupt Enable This bit is set and cleared by software to enable/disable the Fault 1 interrupt.",
+          "values": [
+            ["0", "Fault 1 interrupt disabled"],
+            ["1", "Fault 1 interrupt enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111011111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "OENR",
+      "description": "Output Enable Register",
+      "offset": "0x394",
+      "fields": [
+        {
+          "name": "TE2OEN",
+          "description": "Timer E Output 2 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TE1OEN",
+          "description": "Timer E Output 1 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TD2OEN",
+          "description": "Timer D Output 2 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TD1OEN",
+          "description": "Timer D Output 1 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TC2OEN",
+          "description": "Timer C Output 2 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TC1OEN",
+          "description": "Timer C Output 1 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TB2OEN",
+          "description": "Timer B Output 2 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TB1OEN",
+          "description": "Timer B Output 1 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TA2OEN",
+          "description": "Timer A Output 2 Enable Refer to TA1OEN description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TA1OEN",
+          "description": "Timer A Output 1 (HRTIM_CHA1) Enable Setting this bit enables the Timer A output 1. Writing \u201c0\u201d has no effect. Reading the bit returns the output enable/disable status.This bit is cleared asynchronously by hardware as soon as the timer-related fault input(s) is (are) active. The disable status corresponds to both idle an d fault states. The output disable status is given by TA1ODS bit in the HRTIM_ODSR register.",
+          "values": [
+            ["0", "output HRTIM_CHA1 disabled. The outpu t is either in Fault or Idle state."],
+            ["1", "output HRTIM_CHA1 enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "ODISR",
+      "description": "Output Disable Register",
+      "offset": "0x398",
+      "fields": [
+        {
+          "name": "TE2ODIS",
+          "description": "Timer E Output 2 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TE1ODIS",
+          "description": "Timer E Output 1 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TD2ODIS",
+          "description": "Timer D Output 2 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TD1ODIS",
+          "description": "Timer D Output 1 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TC2ODIS",
+          "description": "Timer C Output 2 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TC1ODIS",
+          "description": "Timer C Output 1 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TB2ODIS",
+          "description": "Timer B Output 2 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TB1ODIS",
+          "description": "Timer B Output 1 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TA2ODIS",
+          "description": "Timer A Output 2 disable Refer to TA1ODIS description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TA1ODIS",
+          "description": "Timer A Output 1 (HRTIM_CHA1) disable Setting this bit disables the Timer A output 1. The ou tput enters the idle state, either from the run state or from the fault state. Writing \u201c0\u201d has no effect.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "ODSR",
+      "description": "Output Disable Status Register",
+      "offset": "0x39C",
+      "fields": [
+        {
+          "name": "TE2ODS",
+          "description": "Timer E Output 2 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TE1ODS",
+          "description": "Timer E Output 1 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TD2ODS",
+          "description": "Timer D Output 2 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TD1ODS",
+          "description": "Timer D Output 1 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TC2ODS",
+          "description": "Timer C Output 2 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TC1ODS",
+          "description": "Timer C Output 1 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TB2ODS",
+          "description": "Timer B Output 2 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TB1ODS",
+          "description": "Timer B Output 1 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TA2ODS",
+          "description": "Timer A Output 2 disable status Refer to TA1ODS description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TA1ODS",
+          "description": "Timer A Output 1 disable status Reading the bit returns the output disable status. It is not significant when the output is active (Tx1OEN or Tx2OEN = 1).",
+          "values": [
+            ["0", "output HRTIM_CHA1 disabled, in Idle state."],
+            ["1", "output HRTIM_CHA1 disabled, in Fault state."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "BMCR",
+      "description": "Burst Mode Control Register",
+      "offset": "0x3A0",
+      "fields": [
+        {
+          "name": "BMSTAT",
+          "description": "Burst Mode StatusThis bit gives the current operating state.",
+          "values": [
+            ["0", "Normal operation"],
+            ["1", "Burst operation on-going. Writing this bit to 0 causes a burst mode early termination."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "TEBM",
+          "description": "Timer E Burst ModeRefer to TABM description",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TDBM",
+          "description": "Timer D Burst ModeRefer to TABM description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TCBM",
+          "description": "Timer C Burst ModeRefer to TABM description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TBBM",
+          "description": "Timer B Burst ModeRefer to TABM description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TABM",
+          "description": "Timer A Burst ModeThis bit defines how the timer behaves during a bu rst mode operation. Th is bitfield cannot be changed while the burst mode is enabled. This bit must not be set when the balanc ed idle mode is active (DLYPRT[2:0] = 0x11)",
+          "values": [
+            ["0", "Timer A counter clock is maintained and the timer operates normally"],
+            ["1", "Timer A counter clock is stopped and the counter is reset"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "MTBM",
+          "description": "Master Timer Burst ModeThis bit defines how the timer behaves during a bu rst mode operation. Th is bitfield cannot be changed while the burst mode is enabled.",
+          "values": [
+            ["0", "Master Timer counter clock is main tained and the timer operates normally"],
+            ["1", "Master Timer counter clock is stopped and the counter is reset"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "BMPREN",
+          "description": "Burst Mode Preload EnableThis bit enables the registers preload mechanism and defines whether a write access into a preload- able register (HRTIM_BMCMPR, HRTIM_BMPER) is done into the active or the preload register.",
+          "values": [
+            ["0", "Preload disabled: the write access is directly done into active registers"],
+            ["1", "Preload enabled: the write access is done into preload registers"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "BMPRSC",
+          "description": "Burst Mode PrescalerDefines the prescaling ratio of the fHRTIM clock for the burst mode controller. This bitfield cannot be changed while the burst mode is enabled.",
+          "values": [
+            ["0000", "Clock not divided"],
+            ["0001", "Division by 2"],
+            ["0010", "Division by 4"],
+            ["0011", "Division by 8"],
+            ["0100", "Division by 16"],
+            ["0101", "Division by 32"],
+            ["0110", "Division by 64"],
+            ["0111", "Division by 128"],
+            ["1000", "Division by 256"],
+            ["1001", "Division by 512"],
+            ["1010", "Division by 1024"],
+            ["1011", "Division by 2048"],
+            ["1100", "Division by 4096"],
+            ["1101", "Division by 8192"],
+            ["1110", "Division by 16384"],
+            ["1111", "Division by 32768"]
+          ],
+          "mask": "0b1111000000"
+        },
+        {
+          "name": "BMCLK",
+          "description": "Burst Mode Clock sourceThis bitfield defines the clock source for the burst mode counter. It cannot be changed while the burst mode is enabled (refer to Table 321 for on-chip events 1..4 connections details).",
+          "values": [
+            ["0000", "Master timer co unter reset/roll-over"],
+            ["0001", "Timer A counter reset/roll-over"],
+            ["0010", "Timer B counte r reset/roll-over"],
+            ["0011", "Timer C counte r reset/roll-over"],
+            ["0100", "Timer D counter reset/roll-over"],
+            ["0101", "Timer E counte r reset/roll-over"],
+            ["0110", "On-chip Event 1 (hrtim_bm_ck1), acting as a burst mode counter clock"],
+            ["0111", "On-chip Event 2 (hrtim_bm_ck2) acting as a burst mode counter clock"],
+            ["1000", "On-chip Event 3 (hrtim_bm_ck3) acting as a burst mode counter clock"],
+            ["1001", "On-chip Event 4 (hrtim_bm_ck4) acting as a burst mode counter clock"],
+            ["1010", "Prescaled f HRTIM clock (as per BMPRSC[3:0] setting) Other codes reserved"]
+          ],
+          "mask": "0b111100"
+        },
+        {
+          "name": "BMOM",
+          "description": "Burst Mode operating modeThis bit defines if the burst mode is entere d once or if it is c ontinuously operating.",
+          "values": [
+            ["0", "Single-shot mode"],
+            ["1", "Continuous operation"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "BME",
+          "description": "Burst Mode enableThis bit starts the burst mode controller whic h becomes ready to receive the start trigger. Writing this bit to 0 causes a burst mode early termination.",
+          "values": [
+            ["0", "Burst mode disabled"],
+            ["1", "Burst mode enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111110000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "BMTRGR",
+      "description": "Burst Mode Trigger Register",
+      "offset": "0x3A4",
+      "fields": [
+        {
+          "name": "OCHPEV",
+          "description": "On-chip EventA rising edge on an on-chip Event (see Section : Burst mode triggers ) triggers a burst mode entry.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "EEV8",
+          "description": "External Event 8 (TIMD filters applied)The external event 8 conditioned by TIMD filters is starting t he burst mode operation.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "EEV7",
+          "description": "External Event 7 (TIMA filters applied)The external event 7 conditioned by TIMA f ilters is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "TDEEV8",
+          "description": "Timer D period following External Event 8The timer D period following an external event 8 (cond itioned by TIMD filters) is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "TAEEV7",
+          "description": "Timer A period following External Event 7The timer A period following an external event 7 (con ditioned by TIMA filters) is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "TECMP2",
+          "description": "Timer E Compare 2 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "TECMP1",
+          "description": "Timer E Compare 1 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "TEREP",
+          "description": "Timer E repetitionRefer to TAREP description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TERST",
+          "description": "Timer E counter reset or roll-overRefer to TARST description",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "TDCMP2",
+          "description": "Timer D Compare 2 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TDCMP1",
+          "description": "Timer D Compare 1 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TDREP",
+          "description": "Timer D repetitionRefer to TAREP description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TDRST",
+          "description": "Timer D reset or roll-overRefer to TARST description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TCCMP2",
+          "description": "Timer C Compare 2 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TCCMP1",
+          "description": "Timer C Compare 1 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TCREP",
+          "description": "Timer C repetitionRefer to TAREP description",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TCRST",
+          "description": "Timer C reset or roll-overRefer to TARST description",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TBCMP2",
+          "description": "Timer B Compare 2 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TBCMP1",
+          "description": "Timer B Compare 1 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TBREP",
+          "description": "Timer B repetitionRefer to TAREP description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TBRST",
+          "description": "Timer B reset or roll-overRefer to TARST description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TACMP2",
+          "description": "Timer A Compare 2 eventRefer to TACMP1 description",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TACMP1",
+          "description": "Timer A Compare 1 eventThe timer A compare 1 event is st arting the burst mode operation.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TAREP",
+          "description": "Timer A repetitionThe Timer A repetition event is st arting the burst mode operation.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TARST",
+          "description": "Timer A reset or roll-overThe Timer A reset or roll-over event is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "MSTCMP4",
+          "description": "Master Compare 4Refer to MSTCMP1 description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "MSTCMP3",
+          "description": "Master Compare 3Refer to MSTCMP1 description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "MSTCMP2",
+          "description": "Master Compare 2Refer to MSTCMP1 description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "MSTCMP1",
+          "description": "Master Compare 1The master timer Compare 1 event is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MSTREP",
+          "description": "Master repetitionThe master timer repetition event is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "MSTRST",
+          "description": "Master reset or roll-overThe master timer reset and roll-over ev ent is starting the burst mode operation.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "SW",
+          "description": "Software startThis bit is set by software a nd automatically reset by hardware. When set, It starts the burst mode operation immediately.This bit is not active if the burst mode is not enabled (BME bit is reset).",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "BMCMPR",
+      "description": "Burst Mode Compare Register",
+      "offset": "0x3A8",
+      "fields": [
+        {
+          "name": "BMCMP",
+          "description": "Burst mode compare valueDefines the number of periods during whic h the selected timers are in idle state. This register holds either the content of the preload register or the cont ent of the active register if the preload is disabled. BMCMP[15:0] cannot be se t to 0x0000 when using the fHRTIM clock without a prescaler as the burst mode clock source (BMCLK[3:0] = 1010 and BMPRESC[3:0] = 0000).",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "BMPER",
+      "description": "Burst Mode Period Register",
+      "offset": "0x3AC",
+      "fields": [
+        {
+          "name": "BMPER",
+          "description": "Burst mode PeriodDefines the burst mode repetition period. This register holds either the cont ent of the preload register or the c ontent of the active register if preload is disabled. The BMPER[15:0] must not be nul l when the burst mode is enabled.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "EECR1",
+      "description": "Timer External Event Control Register 1",
+      "offset": "0x3B0",
+      "fields": [
+        {
+          "name": "EE5FAST",
+          "description": "External Event 5 Fast modeRefer to EE1FAST description",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "EE5SNS",
+          "description": "External Event 5 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000000000"
+        },
+        {
+          "name": "EE5POL",
+          "description": "External Event 5 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "EE5SRC",
+          "description": "External Event 5 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000000"
+        },
+        {
+          "name": "EE4FAST",
+          "description": "External Event 4 Fast modeRefer to EE1FAST description",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "EE4SNS",
+          "description": "External Event 4 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000"
+        },
+        {
+          "name": "EE4POL",
+          "description": "External Event 4 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "EE4SRC",
+          "description": "External Event 4 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000"
+        },
+        {
+          "name": "EE3FAST",
+          "description": "External Event 3 Fast modeRefer to EE1FAST description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EE3SNS",
+          "description": "External Event 3 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000"
+        },
+        {
+          "name": "EE3POL",
+          "description": "External Event 3 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "EE3SRC",
+          "description": "External Event 3 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "EE2FAST",
+          "description": "External Event 2 Fast modeRefer to EE1FAST description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "EE2SNS",
+          "description": "External Event 2 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000"
+        },
+        {
+          "name": "EE2POL",
+          "description": "External Event 2 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "EE2SRC",
+          "description": "External Event 2 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "EE1FAST",
+          "description": "External Event 1 Fast mode This bit must not be modified once the counte r in which the event is used is enabled (TxCEN bit set)",
+          "values": [
+            ["0", "External Event 1 is re-synch ronized by the HRTIM logic before acting on outputs, which adds a fHRTIM clock-rela ted latency"],
+            ["1", "External Event 1 is acting asynchronously on outputs (low latency mode)"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "EE1SNS",
+          "description": "External Event 1 Sensitivity",
+          "values": [
+            ["00", "On active level defined by EE1POL bit"],
+            ["01", "Rising edge, whatever EE1POL bit value"],
+            ["10", "Falling edge, whatever EE1POL bit value"],
+            ["11", "Both edges, whatever EE1POL bit value"]
+          ],
+          "mask": "0b11000"
+        },
+        {
+          "name": "EE1POL",
+          "description": "External Event 1 PolarityThis bit is only significant if EE1SNS[ This parameter cannot be changed once the timer x is enabled. It must be configured prior to setting EE1FAST bit.",
+          "values": [
+            ["1", "0] = 00."],
+            ["0", "External event is active high"],
+            ["1", "External event is active low"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "EE1SRC",
+          "description": "External Event 1 Source This parameter cannot be changed once the timer x is enabled. It must be configured prior to setting EE1FAST bit.",
+          "values": [
+            ["00", "hrtim_evt11"],
+            ["01", "hrtim_evt12"],
+            ["10", "hrtim_evt13"],
+            ["11", "hrtim_evt14"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "EECR2",
+      "description": "Timer External Event Control Register 2",
+      "offset": "0x3B4",
+      "fields": [
+        {
+          "name": "EE10SNS",
+          "description": "External Event 10 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000000000"
+        },
+        {
+          "name": "EE10POL",
+          "description": "External Event 10 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "EE10SRC",
+          "description": "External Event 10 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000000"
+        },
+        {
+          "name": "EE9SNS",
+          "description": "External Event 9 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000000"
+        },
+        {
+          "name": "EE9POL",
+          "description": "External Event 9 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "EE9SRC",
+          "description": "External Event 9 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000000"
+        },
+        {
+          "name": "EE8SNS",
+          "description": "External Event 8 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000000"
+        },
+        {
+          "name": "EE8POL",
+          "description": "External Event 8 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "EE8SRC",
+          "description": "External Event 8 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "EE7SNS",
+          "description": "External Event 7 SensitivityRefer to EE1SNS[1:0] description",
+          "values": [],
+          "mask": "0b11000000000"
+        },
+        {
+          "name": "EE7POL",
+          "description": "External Event 7 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "EE7SRC",
+          "description": "External Event 7 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "EE6POL",
+          "description": "External Event 6 PolarityRefer to EE1POL description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "EE6SRC",
+          "description": "External Event 6 SourceRefer to EE1SRC[1:0] description",
+          "values": [],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000100000"
+        }
+      ]
+    },
+    {
+      "name": "EECR3",
+      "description": "Timer External Event Control Register 3",
+      "offset": "0x3B8",
+      "fields": [
+        {
+          "name": "4",
+          "description": "331 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 EEVSD[1",
+          "values": [
+            ["", "0] Res. Res. EE10F[3"],
+            ["", "0] Res. Res. EE9F[3"],
+            ["", "0] Res. Res. rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 EE8F[3"],
+            ["", "0] Res. Res. EE7F[3"],
+            ["", "0] Res. Res. EE6F[3"],
+            ["", "0] rw rw rw rw rw rw rw rw rw rw rw rw"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "EEVSD",
+          "description": "External Event Samp ling clock division This bitfield indicates the division ra tio between the timer clock frequency (fHRTIM ) and the External Event signal sampling clock (fEEVS ) used by the digital filters.",
+          "values": [
+            ["00", "fEEVS =fHRTIM"],
+            ["01", "fEEVS =fHRTIM / 2"],
+            ["10", "fEEVS =fHRTIM / 4"],
+            ["11", "fEEVS =fHRTIM / 8"]
+          ],
+          "mask": "0b11000000000000000000000000000000"
+        },
+        {
+          "name": "EE10F",
+          "description": "External Event 10 filter Refer to EE6F[3:0] description",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "EE9F",
+          "description": "External Event 9 filter Refer to EE6F[3:0] description",
+          "values": [],
+          "mask": "0b1111000000000000000000"
+        },
+        {
+          "name": "EE8F",
+          "description": "External Event 8 filter Refer to EE6F[3:0] description",
+          "values": [],
+          "mask": "0b1111000000000000"
+        },
+        {
+          "name": "EE6F",
+          "description": "External Event 6 filter This bitfield defines the frequency used to sample External Event 6 input and the length of the digital filter applied to hrtim_evt 6. The digital filter is made of a counter in which N valid samples are needed to validate a transition on the output.",
+          "values": [
+            ["0000", "Filter disabled"],
+            ["0001", "f SAMPLING = fHRTIM , N=2"],
+            ["0010", "fSAMPLING = fHRTIM , N=4"],
+            ["0011", "fSAMPLING = fHRTIM , N=8"],
+            ["0100", "fSAMPLING = fEEVS /2, N=6"],
+            ["0101", "fSAMPLING = fEEVS /2, N=8"],
+            ["0110", "fSAMPLING = fEEVS /4, N=6"],
+            ["0111", "fSAMPLING = fEEVS /4, N=8"],
+            ["1000", "fSAMPLING = fEEVS /8, N=6"],
+            ["1001", "fSAMPLING = fEEVS /8, N=8"],
+            ["1010", "fSAMPLING = fEEVS /16, N=5"],
+            ["1011", "fSAMPLING = fEEVS /16, N=6"],
+            ["1100", "fSAMPLING = fEEVS /16, N=8"],
+            ["1101", "fSAMPLING = fEEVS /32, N=5"],
+            ["1110", "fSAMPLING = fEEVS /32, N=6"],
+            ["1111", "fSAMPLING = fEEVS /32, N=8"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b110000110000110000110000110000"
+        }
+      ]
+    },
+    {
+      "name": "ADC1R",
+      "description": "ADC Trigger 1 Register",
+      "offset": "0x3BC",
+      "fields": [
+        {
+          "name": "9",
+          "description": "631 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 AD1TE PERAD1TE C4AD1TE C3AD1TE C2AD1TD PERAD1TD C4AD1TD C3AD1TD C2AD1TC PERAD1TC C4AD1TC C3AD1TC C2AD1TB RSTAD1TB PERAD1TB C4AD1TB C3 rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 AD1TB C2AD1TA RSTAD1TA PERAD1TA C4AD1TA C3AD1TA C2AD1EE V5AD1EE V4AD1EE V3AD1EE V2AD1EE V1AD1MP ERAD1MC 4AD1MC 3AD1MC 2AD1MC 1 rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b0"
+        },
+        {
+          "name": "1",
+          "description": "0 These bits select the trigger source for th ADC Trigger 1 output (hrtim_adc_trg1). Refer to HRTIM_ADC3R bits description for details",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "ADC2R",
+      "description": "ADC Trigger 2 Register",
+      "offset": "0x3C0",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 These bits select the trigger source for th ADC Trigger 2 output (hrtim_adc_trg2). Refer to HRTIM_ADC4R bits description for details",
+          "values": [],
+          "mask": "0b1000"
+        }
+      ]
+    },
+    {
+      "name": "ADC3R",
+      "description": "ADC Trigger 3 Register",
+      "offset": "0x3C4",
+      "fields": [
+        {
+          "name": "ADC3TEPER",
+          "description": "ADC trigger 3 on Timer E PeriodRefer to ADC3TAPER description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "ADC3TEC4",
+          "description": "ADC trigger 3 on Timer E Compare 4Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "ADC3TEC3",
+          "description": "ADC trigger 3 on Timer E Compare 3Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "ADC3TEC2",
+          "description": "ADC trigger 3 on Timer E Compare 2Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "ADC3TDPER",
+          "description": "ADC trigger 3 on Timer D PeriodRefer to ADC3TAPER description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "ADC3TDC4",
+          "description": "ADC trigger 3 on Timer D Compare 4Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "ADC3TDC3",
+          "description": "ADC trigger 3 on Timer D Compare 3Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "ADC3TDC2",
+          "description": "ADC trigger 3 on Timer D Compare 2Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "ADC3TCPER",
+          "description": "ADC trigger 3 on Timer C PeriodRefer to ADC3TAPER description",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ADC3TCC4",
+          "description": "ADC trigger 3 on Timer C Compare 4Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "ADC3TCC3",
+          "description": "ADC trigger 3 on Timer C Compare 3Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "ADC3TCC2",
+          "description": "ADC trigger 3 on Timer C Compare 2Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "ADC3TBRST",
+          "description": "ADC trigger 3 on Timer B Reset and counter roll-overRefer to ADC3TBRST description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "ADC3TBPER",
+          "description": "ADC trigger 3 on Timer B PeriodRefer to ADC3TAPER description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "ADC3TBC4",
+          "description": "ADC trigger 3 on Timer B Compare 4Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "ADC3TBC3",
+          "description": "ADC trigger 3 on Timer B Compare 3Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "ADC3TBC2",
+          "description": "ADC trigger 3 on Timer B Compare 2Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ADC3TARST",
+          "description": "ADC trigger 3 on Timer A Reset and counter roll-overThis bit enables the generation of an ADC Trigger upon Timer A reset and roll-over event, on ADC Trigger 1 output.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ADC3TAPER",
+          "description": "ADC trigger 3 on Timer A PeriodThis bit enables the generation of an ADC Trigger upon Timer A period event, on ADC Trigger 3 output (hrtim_adc_trg3).",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "ADC3TAC4",
+          "description": "ADC trigger 3 on Timer A Compare 4Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "ADC3TAC3",
+          "description": "ADC trigger 3 on Timer A Compare 3Refer to ADC3TAC2 description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "ADC3TAC2",
+          "description": "ADC trigger 3 on Timer A Compare 2This bit enables the generation of an ADC Trigger upon Timer A Compare 2 event, on ADC Trigger 3 output (hrtim_adc_trg3).",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ADC3EEV5",
+          "description": "ADC trigger 3 on External Event 5Refer to ADC3EEV1 description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "ADC3EEV4",
+          "description": "ADC trigger 3 on External Event 4Refer to ADC3EEV1 description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "ADC3EEV3",
+          "description": "ADC trigger 3 on External Event 3Refer to ADC3EEV1 description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "ADC3EEV2",
+          "description": "ADC trigger 3 on External Event 2Refer to ADC3EEV1 description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "ADC3EEV1",
+          "description": "ADC trigger 3 on External Event 1This bit enables the generation of an ADC Trigge r upon External event 1, on ADC Trigger 3 output (hrtim_adc_trg3).",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ADC3MPER",
+          "description": "ADC trigger 3 on Master PeriodThis bit enables the generation of an ADC Trigger upon Master timer period event, on ADC Trigger 3 output (hrtim_adc_trg3).",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ADC3MC4",
+          "description": "ADC trigger 3 on Master Compare 4Refer to ADC3MC1 description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ADC3MC3",
+          "description": "ADC trigger 3 on Master Compare 3Refer to ADC3MC1 description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "ADC3MC2",
+          "description": "ADC trigger 3 on Master Compare 2Refer to ADC3MC1 description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADC3MC1",
+          "description": "ADC trigger 3 on Master Compare 1This bit enables the generation of an ADC Trigge r upon Master Compare 1 event, on ADC Trigger 3 output (hrtim_adc_trg3).",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "ADC4R",
+      "description": "ADC Trigger 4 Register",
+      "offset": "0x3C8",
+      "fields": [
+        {
+          "name": "ADC4TERST",
+          "description": "ADC trigger 4 on Timer E Reset and counter roll-over (1)Refer to ADC4TCRST description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "ADC4TEC4",
+          "description": "ADC trigger 4 on Timer E Compare 4Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "ADC4TEC3",
+          "description": "ADC trigger 4 on Timer E Compare 3Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "ADC4TEC2",
+          "description": "ADC trigger 4 on Timer E Compare 2Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "ADC4TDRST",
+          "description": "ADC trigger 4 on Timer D Re set and counter roll-over (1)Refer to ADC4TCRST description",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "ADC4TDPER",
+          "description": "ADC trigger 4 on Timer D PeriodRefer to ADC4TAPER description",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "ADC4TDC4",
+          "description": "ADC trigger 4 on Timer D Compare 4Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "ADC4TDC3",
+          "description": "ADC trigger 4 on Timer D Compare 3Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "ADC4TDC2",
+          "description": "ADC trigger 2 on Timer D Compare 2Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ADC4TCRST",
+          "description": "ADC trigger 4 on Timer C Re set and counter roll-over (1)This bit enables the generation of an ADC Trigger upon Timer C reset and roll-over event, on ADC Trigger 4 output (hrtim_adc_trg4).",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "ADC4TCPER",
+          "description": "ADC trigger 4 on Timer C PeriodRefer to ADC4TAPER description",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "ADC4TCC4",
+          "description": "ADC trigger 4 on Timer C Compare 4Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "ADC4TCC3",
+          "description": "ADC trigger 4 on Timer C Compare 3Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "ADC4TCC2",
+          "description": "ADC trigger 4 on Timer C Compare 2Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "ADC4TBPER",
+          "description": "ADC trigger 4 on Timer B PeriodRefer to ADC4TAPER description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "ADC4TBC4",
+          "description": "ADC trigger 4 on Timer B Compare 4Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "ADC4TBC3",
+          "description": "ADC trigger 4 on Timer B Compare 3Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ADC4TBC2",
+          "description": "ADC trigger 4 on Timer B Compare 2Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ADC4TAPER",
+          "description": "ADC trigger 4 on Timer A PeriodThis bit enables the generation of an ADC Trigger upon Timer A event, on ADC Trigger 4 output (hrtim_adc_trg4).",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "ADC4TAC4",
+          "description": "ADC trigger 4 on Timer A Compare 4Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "ADC4TAC3",
+          "description": "ADC trigger 4 on Timer A Compare 3Refer to ADC4TAC2 description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "ADC4TAC2",
+          "description": "ADC trigger 4 on Timer A Compare 2This bit enables the generation of an ADC Trigger upon Timer A Compare 2, on ADC Trigger 4 output (hrtim_adc_trg4).",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ADC4EEV10",
+          "description": "ADC trigger 4 on External Event 10 (1)Refer to ADC4EEV6 description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "ADC4EEV9",
+          "description": "ADC trigger 4 on External Event 9 (1)Refer to ADC4EEV6 description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "ADC4EEV8",
+          "description": "ADC trigger 4 on External Event 8 (1)Refer to ADC4EEV6 description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "ADC4EEV7",
+          "description": "ADC trigger 4 on External Event 7 (1)Refer to ADC4EEV6 description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "ADC4EEV6",
+          "description": "ADC trigger 4 on External Event 6 (1)This bit enables the generation of an ADC Trigge r upon external event 6, on ADC Trigger 4 output (hrtim_adc_trg4).",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ADC4MPER",
+          "description": "ADC trigger 4 on Master PeriodThis bit enables the generation of an ADC Trigger upon Master period event, on ADC Trigger 4 output (hrtim_adc_trg4).",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ADC4MC4",
+          "description": "ADC trigger 4 on Master Compare 4Refer to ADC4MC1 description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ADC4MC3",
+          "description": "ADC trigger 4 on Master Compare 3Refer to ADC4MC1 description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "ADC4MC2",
+          "description": "ADC trigger 4 on Master Compare 2Refer to ADC4MC1 description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADC4MC1",
+          "description": "ADC trigger 4 on Master Compare 1This bit enables the generation of an ADC Trigge r upon Master Compare 1 event, on ADC Trigger 4 output (hrtim_adc_trg4). 1. These triggers are differing from HRTIM_ADC1R/HRTIM_ADC3R to HRTIM_ADC2R/HRTIM_ADC4R.",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "FLTINR1",
+      "description": "Fault Input Register 1",
+      "offset": "0x3D0",
+      "fields": [
+        {
+          "name": "FLT4LCK",
+          "description": "Fault 4 Lock Refer to FLT5LCK description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "FLT4F",
+          "description": "Fault 4 filter Refer to FLT5F[3:0] description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1111000000000000000000000000000"
+        },
+        {
+          "name": "FLT4SRC",
+          "description": "Fault 4 source Refer to FLT5SRC description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "FLT4P",
+          "description": "Fault 4 polarity Refer to FLT5P description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "FLT4E",
+          "description": "Fault 4 enable Refer to FLT5E description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "FLT3LCK",
+          "description": "Fault 3 Lock Refer to FLT5LCK description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "FLT3F",
+          "description": "Fault 3 filter Refer to FLT5F[3:0] description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b11110000000000000000000"
+        },
+        {
+          "name": "FLT3SRC",
+          "description": "Fault 3 source Refer to FLT5SRC description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "FLT3P",
+          "description": "Fault 3 polarity Refer to FLT5P description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "FLT3E",
+          "description": "Fault 3 enable Refer to FLT5E description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "FLT2LCK",
+          "description": "Fault 2 Lock Refer to FLT5LCK description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "FLT2F",
+          "description": "Fault 2 filter Refer to FLT5F[3:0] description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b111100000000000"
+        },
+        {
+          "name": "FLT2SRC",
+          "description": "Fault 2 source Refer to FLT5SRC description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "FLT2P",
+          "description": "Fault 2 polarity Refer to FLT2P description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "FLT2E",
+          "description": "Fault 2 enable Refer to FLT5E description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "FLT1LCK",
+          "description": "Fault 1 Lock Refer to FLT5LCK description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "FLT1F",
+          "description": "Fault 1 filter Refer to FLT5F[3:0] description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1111000"
+        },
+        {
+          "name": "FLT1SRC",
+          "description": "Fault 1 source Refer to FLT5SRC description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT1P",
+          "description": "Fault 1 polarity Refer to FLT5P description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT1E",
+          "description": "Fault 1 enable Refer to FLT5E description in HRTIM_FLTINR2 register",
+          "values": [],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "FLTINR2",
+      "description": "Fault Input Register 2",
+      "offset": "0x3D4",
+      "fields": [
+        {
+          "name": "FLTSD",
+          "description": "Fault Sampling clock division This bitfield indicates the division ra tio between the timer clock frequency (fHRTIM ) and the fault signal sampling clock (fFLTS) used by the digital filters. This bitfield must be written prior to any of the FLTxE enable bits.",
+          "values": [
+            ["00", "fFLTS=fHRTIM"],
+            ["01", "fFLTS=fHRTIM / 2"],
+            ["10", "fFLTS=fHRTIM / 4"],
+            ["11", "fFLTS=fHRTIM / 8"]
+          ],
+          "mask": "0b11000000000000000000000000"
+        },
+        {
+          "name": "FLT5LCK",
+          "description": "Fault 5 Lock The FLT5LCK bit modifies the write attributes of the fault programming bit, so that they can be protected against spurious write accesses. This bit is write-once. Once it has been set, it cannot be modi fied till the ne xt system reset.",
+          "values": [
+            ["0", "FLT5E, FLT5P, FLT5SRC, FLT5F[3:0] bits are read/write."],
+            ["1", "FLT5E, FLT5P, FLT5SRC, FLT5F[3:0] bi ts can no longer be written (read-only mode)"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "FLT5F",
+          "description": "Fault 5 filter This bitfield defines the frequency used to sample FLT5 input and the length of the digital filter applied to FLT5. The digital filter is made of an event counter in which N events are needed to validate a transition on the output: This bitfield can be written only when FLT5E enable bit is reset. This bitfield cannot be modified when FLT5LOCK has been programmed.",
+          "values": [
+            ["0000", "No filter, FLT5 acts asynchronously"],
+            ["0001", "f SAMPLING = fHRTIM , N = 2"],
+            ["0010", "fSAMPLING = fHRTIM , N = 4"],
+            ["0011", "fSAMPLING = fHRTIM , N = 8"],
+            ["0100", "fSAMPLING = fFLTS/2, N = 6"],
+            ["0101", "fSAMPLING = fFLTS/2, N = 8"],
+            ["0110", "fSAMPLING = fFLTS/4, N = 6"],
+            ["0111", "fSAMPLING = fFLTS/4, N = 8"],
+            ["1000", "fSAMPLING = fFLTS/8, N = 6"],
+            ["1001", "fSAMPLING = fFLTS/8, N = 8"],
+            ["1010", "fSAMPLING = fFLTS/16, N = 5"],
+            ["1011", "fSAMPLING = fFLTS/16, N = 6"],
+            ["1100", "fSAMPLING = fFLTS/16, N = 8"],
+            ["1101", "fSAMPLING = fFLTS/32, N = 5"],
+            ["1110", "fSAMPLING = fFLTS/32, N = 6"],
+            ["1111", "fSAMPLING = fFLTS/32, N = 8"]
+          ],
+          "mask": "0b1111000"
+        },
+        {
+          "name": "FLT5SRC",
+          "description": "Fault 5 source This bit selects the FAULT5 input source (refer to Table 322 for connection details). This bitfield can be written only when FLT5E enable bit is reset",
+          "values": [
+            ["0", "Fault 1 input is HRTIM_FLT5 input pin"],
+            ["1", "Fault 1 input is hrtim_in_flt5 signal"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "FLT5P",
+          "description": "Fault 5 polarity This bit selects the FAULT5 input polarity. This bitfield can be written only when FLT5E enable bit is reset",
+          "values": [
+            ["0", "Fault 5 input is active low"],
+            ["1", "Fault 5 input is active high"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "FLT5E",
+          "description": "Fault 5 enable This bit enables the global FAULT5 input circuitry.",
+          "values": [
+            ["0", "Fault 5 input disabled"],
+            ["1", "Fault 5 input enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "BDMUPR",
+      "description": "Burst DMA Master timer update Register",
+      "offset": "0x3D8",
+      "fields": [
+        {
+          "name": "MCMP4",
+          "description": "MCMP4R register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "MCMP3",
+          "description": "MCMP3R register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "MCMP2",
+          "description": "MCMP2R register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "MCMP1",
+          "description": "MCMP1R register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "MREP",
+          "description": "MREP register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "MPER",
+          "description": "MPER register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "MCNT",
+          "description": "MCNTR register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MDIER",
+          "description": "MDIER register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "MICR",
+          "description": "MICR register update enableRefer to MCR description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "MCR",
+          "description": "MCR register update enableThis bit defines if the master timer MCR register is part of the list of regi sters to be updated by the Burst DMA.",
+          "values": [
+            ["0", "MCR register is not updated by Burst DMA accesses"],
+            ["1", "MCR register is updated by Burst DMA accesses"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "BDTUPR",
+      "description": "Burst DMA Timerx update Register",
+      "offset": "0x3DC",
+      "fields": [
+        {
+          "name": "TIMxFLTR",
+          "description": "HRTIM_FLTxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TIMxOUTR",
+          "description": "HRTIM_OUTxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TIMxCHPR",
+          "description": "HRTIM_CHPxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TIMxRSTR",
+          "description": "HRTIM_RSTxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TIMxEEFR2",
+          "description": "HRTIM_EEFxR2 register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TIMxEEFR1",
+          "description": "HRTIM_EEFxR1 register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TIMxRST2R",
+          "description": "HRTIM_RST2xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TIMxSET2R",
+          "description": "HRTIM_SET2xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TIMxRST1R",
+          "description": "HRTIM_RST1xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TIMxSET1R",
+          "description": "HRTIM_SET1xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TIMxDTR",
+          "description": "HRTIM_DTxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TIMxCMP4",
+          "description": "HRTIM_CMP4xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TIMxCMP3",
+          "description": "HRTIM_CMP3xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TIMxCMP2",
+          "description": "HRTIM_CMP2xR register update enable Refer to TIMxCR description TIMxCMP1 : HRTIM_CMP1xR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TIMxREP",
+          "description": "HRTIM_REPxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TIMxPER",
+          "description": "HRTIM_PERxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TIMxCNT",
+          "description": "HRTIM_CNTxR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TIMxDIER",
+          "description": "HRTIM_TIMxDIER register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TIMxICR",
+          "description": "HRTIM_TIMxICR register update enable Refer to TIMxCR description",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TIMxCR",
+          "description": "HRTIM_TIMxCR regi ster update enable This bit defines if the master timer MCR register is part of the list of regi sters to be updated by the Burst DMA.",
+          "values": [
+            ["0", "HRTIM_TIMxCR register is not updated by Burst DMA accesses"],
+            ["1", "HRTIM_TIMxCR register is updated by Burst DMA accesses"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111000000000000000000000"
+        }
+      ],
+      "array": [5]
+    },
+    {
+      "name": "BDMADR",
+      "description": "Burst DMA Data Register",
+      "offset": "0x3F0",
+      "fields": [
+        {
+          "name": "BDMADR",
+          "description": "Burst DMA Data register Write accesses to this register triggers: \u2013 the copy of the data value into the regist ers enabled in BDTxUPR and BDMUPR register bits \u2013 the increment of the register pointer to the next location to be filled",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,802 @@
+{
+  "LTDC": [
+    {
+      "name": "SSCR",
+      "description": "synchronization size configuration register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "HSW",
+          "description": "Horizontal synchronization width (in units of pixel clock period) This bitfield defines the number of Horizontal Synchronization pixel minus 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "VSH",
+          "description": "Vertical synchronization height (in units of horizontal scan line) This bitfield defines the vertical Synchroniza tion height minus 1. It re presents the number of horizontal synchronization lines.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "BPCR",
+      "description": "back porch configuration register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "AHBP",
+          "description": "Accumulated horizontal back porch (in units of pixel clock period) These bits defines the accumulated horizontal back porch width that includes the horizontal synchronization and horizontal back porch pixels minus 1. The horizontal back porch is the period between horizontal synchronization going inactive and the start of the active display part of the next scan line.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "AVBP",
+          "description": "Accumulated Vertical back porch (in units of horizontal scan line) These bits define theaccumulated vertical back porch width that includes the vertical synchronization and vertical back porch lines minus 1. The vertical back porch is the nu mber of horizontal scan lines at a start of frame to the start of the first active scan line of the next frame.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "AWCR",
+      "description": "active width configuration register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "AAW",
+          "description": "Accumulated active width (in units of pixel clock period) These bits define the accumulated active width which includes the horizontal synchronization, horizontal back porch and active pixels minus 1. The active width is the number of pixels in active display area of the panel scan line. Refer to device datasheet fo r maximum active width supp orted following maximum pixel clock.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "AAH",
+          "description": "Accumulated active height (in units of horizontal scan line) These bits define the accumulated height which includes the vertical synchronization, vertical back porch and the active height lines minus 1. The active height is the number of active lines in the panel. Refer to device datasheet for maximum active height supported following maximum pixel clock.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TWCR",
+      "description": "total width configuration register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "TOTALW",
+          "description": "Total width (in units of pixel clock period) These bits define the accumulated total width which includes the horizontal synchronization, horizontal back porch, active width an d horizontal front porch pixels minus 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "TOTALH",
+          "description": "Total height(in units of horizontal scan line) These bits define the accumulated height which includes the vertical synchronization, vertical back porch, the active height and vert ical front porch height lines minus 1.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "GCR",
+      "description": "global control register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "HSPOL",
+          "description": "Horizontal synchronization polarity This bit is set and cleared by software.",
+          "values": [
+            ["0", "Horizontal synchronization polarity is active low."],
+            ["1", "Horizontal synchronization polarity is active high."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "VSPOL",
+          "description": "Vertical synchro nization polarity This bit is set and cleared by software.",
+          "values": [
+            ["0", "Vertical synchronization is active low."],
+            ["1", "Vertical synchronization is active high."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DEPOL",
+          "description": "Not data enable polarity This bit is set and cleared by software.",
+          "values": [
+            ["0", "Not data enable polarity is active low."],
+            ["1", "Not data enable polarity is active high."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "PCPOL",
+          "description": "Pixel clock polarity This bit is set and cleared by software.",
+          "values": [
+            ["0", "Pixel clock polarity is active low."],
+            ["1", "Pixel clock is active high."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "DEN",
+          "description": "Dither enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Dither disabled"],
+            ["1", "Dither enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "DRW",
+          "description": "Dither red width These bits return the dither red bits.",
+          "values": [],
+          "mask": "0b111000000000000"
+        },
+        {
+          "name": "DGW",
+          "description": "Dither green width These bits return the dither green bits.",
+          "values": [],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "DBW",
+          "description": "Dither blue width These bits return the dither blue bits.",
+          "values": [],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "LTDCEN",
+          "description": "LCD-TFT controller enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "LTDC disabled"],
+            ["1", "LTDC enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111000000010001110"
+        }
+      ]
+    },
+    {
+      "name": "SRCR",
+      "description": "shadow reload configuration register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "VBR",
+          "description": "Vertical blanking reload This bit is set by software and cleared onl y by hardware after reload (it cannot be cleared through register write once it is set).",
+          "values": [
+            ["0", "No effect"],
+            ["1", "The shadow registers are reloaded during the vertical blanking period (at the beginning of the first line after the active display area)."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "IMR",
+          "description": "Immediate reload This bit is set by software and cleared only by hardware after reload.",
+          "values": [
+            ["0", "No effect"],
+            ["1", "The shadow registers are reloaded immediately."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "BCCR",
+      "description": "background color configuration register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "BCRED",
+          "description": "Background color red value These bits configure the background red value. BCGREEN[7:0] : Background color green value These bits configure the background green value.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "BCBLUE",
+          "description": "Background color blue value These bits configure the background blue value.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "IER",
+      "description": "interrupt enable register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "5",
+          "description": "831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. RRIETERRI EFUIE LIE rw rw rw rw",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "RRIE",
+          "description": "Register reload interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Register reload interrupt disable"],
+            ["1", "Register reload interrupt enable"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TERRIE",
+          "description": "Transfer error interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Transfer error interrupt disable"],
+            ["1", "Transfer error interrupt enable"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "FUIE",
+          "description": "FIFO underrun interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "FIFO underrun interrupt disable"],
+            ["1", "FIFO underrun Interrupt enable"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "LIE",
+          "description": "Line interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Line interrupt disable"],
+            ["1", "Line interrupt enable"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "interrupt status register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "RRIF",
+          "description": "Register reload interrupt flag",
+          "values": [
+            ["0", "No register reload interrupt generated"],
+            ["1", "Register reload interrupt generated when a vert ical blanking reload occurs (and the first line after the active area is reached)"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TERRIF",
+          "description": "Transfer error interrupt flag",
+          "values": [
+            ["0", "No transfer error interrupt generated"],
+            ["1", "Transfer error interrupt generated when a bus error occurs"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "FUIF",
+          "description": "FIFO underrun interrupt flag",
+          "values": [
+            ["0", "No FIFO underrun interrupt generated"],
+            ["1", "FIFO underrun interrupt gener ated, if one of the layer FIFOs is empty and pixel data is read from the FIFO"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "LIF",
+          "description": "Line interrupt flag",
+          "values": [
+            ["0", "No line interrupt generated"],
+            ["1", "Line interrupt generated w hen a programmed line is reached"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt clear register",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "CRRIF",
+          "description": "Clear register reload interrupt flag",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Clear the RRIF flag in the LTDC_ISR register CTERRIF : Clear the transfer error interrupt flag"],
+            ["0", "No effect"],
+            ["1", "Clear the TERRIF flag in the LTDC_ISR register."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CFUIF",
+          "description": "Clear the FIFO underrun interrupt flag",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Clear the FUDERRIF flag in the LTDC_ISR register."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "CLIF",
+          "description": "Clear the line interrupt flag",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Clear the LIF flag in the LTDC_ISR register."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "LIPCR",
+      "description": "line interrupt position configuration register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "LIPOS",
+          "description": "Line interrupt position These bits configure the line interrupt position.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "CPSR",
+      "description": "current position status register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "CXPOS",
+          "description": "Current X position These bits return the current X position.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "CYPOS",
+          "description": "Current Y position These bits return the current Y position.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CDSR",
+      "description": "current display status register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "HSYNCS",
+          "description": "Horizontal synchronization display status",
+          "values": [
+            ["0", "Active low"],
+            ["1", "Active high"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "VSYNCS",
+          "description": "Vertical synchronization display status",
+          "values": [
+            ["0", "Active low"],
+            ["1", "Active high"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "HDES",
+          "description": "Horizontal data enable display status",
+          "values": [
+            ["0", "Active low"],
+            ["1", "Active high"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "VDES",
+          "description": "Vertical data enable display status",
+          "values": [
+            ["0", "Active low"],
+            ["1", "Active high"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "LAYER",
+      "description": "Layer registers for LTDC",
+      "type": "LAYER",
+      "size": 128,
+      "offset": "0x84",
+      "array": [2]
+    }
+  ],
+  "LAYER": [
+    {
+      "name": "LCR",
+      "description": "layer x control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "CLUTEN",
+          "description": "Color look-up table enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Color look-up table disable"],
+            ["1", "Color look-up table enableThe CLUT is only meaningful for L8, AL44 and AL88 pixel format. Refer to Color look-up table (CLUT)"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "COLKEN",
+          "description": "Color keying enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Color keying disable"],
+            ["1", "Color keying enable"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "LEN",
+          "description": "Layer enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Layer disabled"],
+            ["1", "Layer enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1100"
+        }
+      ]
+    },
+    {
+      "name": "LWHPCR",
+      "description": "layer x window horizontal position configuration register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "WHSPPOS",
+          "description": "Window horizontal stop position These bits configure the last visible pixel of a line of the layer window. WHSPPOS[11:0] must be \u2265 AHBP[11:0] bits + 1 (programmed in LTDC_BPCR register).",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "WHSTPOS",
+          "description": "Window horizontal start position These bits configure the first visible pixel of a line of the layer window. WHSTPOS[11:0] must be \u2264 AAW[11:0] bits (programmed in LTDC_AWCR register).",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111101111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "LWVPCR",
+      "description": "layer x window vertical position configuration register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "WVSPPOS",
+          "description": "Window vertical stop position These bits configure the last visible line of the layer window. WVSPPOS[10:0] must be \u2265 AVBP[10:0] bits + 1 (progr ammed in LTDC_BPCR register).",
+          "values": [],
+          "mask": "0b111111111110000000000000000"
+        },
+        {
+          "name": "WVSTPOS",
+          "description": "Window vertical start position These bits configure the first visible line of the layer window. WVSTPOS[10:0] must be \u2264 AAH[10:0] bits (programmed in LTDC_AWCR register).",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000000000011110100000000000"
+        }
+      ]
+    },
+    {
+      "name": "LCKCR",
+      "description": "layer x color keying configuration register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "CKRED",
+          "description": "Color key red value",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "CKGREEN",
+          "description": "Color key green value",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "CKBLUE",
+          "description": "Color key blue value",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "LPFCR",
+      "description": "layer x pixel format configuration register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "PF",
+          "description": "Pixel format These bits configure the pixel format",
+          "values": [
+            ["000", "ARGB8888"],
+            ["001", "RGB888"],
+            ["010", "RGB565"],
+            ["011", "ARGB1555"],
+            ["100", "ARGB4444"],
+            ["101", "L8 (8-bit luminance)"],
+            ["110", "AL44 (4-bit alpha, 4-bit luminance)"],
+            ["111", "AL88 (8-bit alpha, 8-bit luminance)"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "LCACR",
+      "description": "layer x constant alpha configuration register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "CONSTA",
+          "description": "Constant alpha These bits configure the constant alpha used for blending. The constant alpha is divided by 255 by hardware. Example: if the programmed constant alp ha is 0xFF, the constant alpha value is 255 / 255 = 1.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "LDCCR",
+      "description": "layer x default color configuration register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "DCALPHA",
+          "description": "Default color alpha These bits configure the default alpha value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "DCRED",
+          "description": "Default color red These bits configure the default red value.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "DCGREEN",
+          "description": "Default color green These bits configure the default green value.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "DCBLUE",
+          "description": "Default color blue These bits configure the default blue value.",
+          "values": [],
+          "mask": "0b11111111"
+        }
+      ]
+    },
+    {
+      "name": "LBFCR",
+      "description": "layer x blending factors configuration register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "BF1",
+          "description": "Blending factor 1 These bits select the blending factor F1.",
+          "values": [
+            ["100", "constant alpha"],
+            ["110", "pixel alpha x constant alpha"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "BF2",
+          "description": "blending factor 2 These bits select the blending factor F2",
+          "values": [
+            ["101", "1 - constant alpha"],
+            ["111", "1 - (pixel alpha x constant alpha)"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100011111000"
+        }
+      ]
+    },
+    {
+      "name": "LCFBAR",
+      "description": "layer x color frame buffer address register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "CFBADD",
+          "description": "Color frame buffer start address These bits define the color frame buffer start address.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "LCFBLR",
+      "description": "layer x color frame buffer length register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "CFBP",
+          "description": "Color frame buffer pitch in bytes These bits define the pitch that is the increment from the start of one line of pixels to the start of the next line in bytes.",
+          "values": [],
+          "mask": "0b11111111111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000001110000000000000"
+        }
+      ]
+    },
+    {
+      "name": "LCFBLNR",
+      "description": "layer x color frame buffer line number register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "CFBLNBR",
+          "description": "Frame buffer line number These bits define the number of lines in the fr ame buffer that corresponds to the active high width.",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "LCLUTWR",
+      "description": "layer x CLUT write register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "2",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 CLUTADD[7:0] RED[7:0] wwwwwwwwwwwwwwww 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 GREEN[7:0] BLUE[7:0] wwwwwwwwwwwwwwww CLUTADD[7:0] : CLUT address These bits configure the CLUT address (color position within the CLUT) of each RGB value.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "RED",
+          "description": "Red value These bits configure the red value.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "GREEN",
+          "description": "Green value These bits configure the green value.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "BLUE",
+          "description": "Blue value These bits configure the blue value.",
+          "values": [],
+          "mask": "0b11111111"
+        }
+      ]
+    }
+  ]
+}

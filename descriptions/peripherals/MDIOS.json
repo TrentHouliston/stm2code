@@ -1,0 +1,223 @@
+{
+  "MDIOS": [
+    {
+      "name": "CR",
+      "description": "configuration register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "PORT_ADDRESS",
+          "description": "slave address Can be written only when the peripheral is disabled (EN = 0). If the address given by the MDIO mast er matches PORT_ADRESS[4:0], the MDIOS services the frame. Otherwise, the frame is ignored. DPC : disable preamble check 0: MDIO master must give preamble before each frame. 1: MDIO master can send each frame with out a preceding preamble, and the MDIOS does not signal a preamble error. When this bit is set, the application must be sure that no frame is currently in progress when the MDIOS is enabled. Otherwise, th e MDIOS can become desynchronized with the master. This bit cannot be changed unless EN = 0 (t hough it can be changed at the same time that EN is being set).",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "EIE",
+          "description": "error interrupt enable When this bit is set, an interrupt is generated if any of the error flags (PERF, SERF, or TERF in the MDIOS_SR register) is set.",
+          "values": [
+            ["0", "Interrupt is disabled."],
+            ["1", "Interrupt is enabled."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RDIE",
+          "description": "register read interrupt enable When this bit is set, an interrupt is gener ated if any of the read flags (RDF[3",
+          "values": [
+            ["0", "Interrupt is disabled."],
+            ["1", "Interrupt is enabled."],
+            ["1", "0] in the MDIOS_RDFR register) is set."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "WRIE",
+          "description": "register write interrupt enable When this bit is set, an interrupt is gener ated if any of the read flags (WRF[3",
+          "values": [
+            ["0", "Interrupt is disabled."],
+            ["1", "Interrupt is enabled."],
+            ["1", "0] in the MDIOS_WRFR register) is set."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "EN",
+          "description": "peripheral enable",
+          "values": [
+            ["0", "MDIOS is disabled."],
+            ["1", "MDIOS is enabled and monitoring the MDIO bus (MDC/MDIO)."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111110000001110000"
+        }
+      ]
+    },
+    {
+      "name": "WRFR",
+      "description": "write flag register",
+      "offset": "0x04",
+      "fields": []
+    },
+    {
+      "name": "CWRFR",
+      "description": "clear write flag register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "CWRF",
+          "description": "clear the write flag Writing 1 to CWRFx clears the WRFx bit in the MDIOS_WRF register.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "RDFR",
+      "description": "read flag register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 RDF[3",
+          "values": [["1", "16] rrrrrrrrrrrrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 RDF[15:0] rrrrrrrrrrrrrrrr"]],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RDF",
+          "description": "read flags for MDIOS registers 0 to 31. Each bit is set by hardware when the MDIO master performs a read from the corresponding MDIOS register. An interrupt is gener ated if RDIE (in MDIOS_CR) is set. Each bit is cleared by software by writing one to the corresponding CRDF bit in the MDIOS_CRDFR register. For RDFx:0: MDIOS register x is not read by the MDIO master. 1: MDIOS register x is read by the MDIO master.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CRDFR",
+      "description": "clear read flag register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "CRDF",
+          "description": "clear the read flag Writing 1 to CRDFx clears the RDFx bit in the MDIOS_RDF register.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "TERF",
+          "description": "turnaround error flag Writing 1 to CTERF (MDIO S_CLRFR) clears this bit.",
+          "values": [
+            ["0", "No turnaround error has occurred."],
+            ["1", "A turnaround error has occurred."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SERF",
+          "description": "start error flag Writing 1 to CSERF (M DIOS_CLRFR) clears this bit.",
+          "values": [
+            ["0", "No start error has occurred."],
+            ["1", "A start error has occurred."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "PERF",
+          "description": "preamble error flag Writing 1 to CPERF (M DIOS_CLRFR) clears this bit. This bit is not set if DPC (disable preamble check, MDIOS_CR[7]) is set.",
+          "values": [
+            ["0", "No preamble error has occurred."],
+            ["1", "A preamble error has occurred."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "CLRFR",
+      "description": "clear flag register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "CTERF",
+          "description": "clear the turnaround error flag Writing 1 to this bit clears the TERF flag (in MDIOS_SR). When DPC = 1 (MDIOS_CR[7]), the TERF flag mu st be cleared only when there is not a frame already in progress.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "CSERF",
+          "description": "clear the start error flag Writing 1 to this bit clears the SERF flag (in MDIOS_SR). When DPC = 1 (MDIOS_CR[7]), the SERF flag mu st be cleared only when there is not a frame already in progress.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CPERF",
+          "description": "clear the preamble error flag Writing 1 to this bit clears the PERF flag (in MDIOS_SR).",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "DINR",
+      "description": "input data register x",
+      "offset": "0x100",
+      "fields": [
+        {
+          "name": "DIN",
+          "description": "input data received from MDIO master during write frames This field is written by hardware with the 16 -bit data received in a write frame, which is addressed to MDIOS register x.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ],
+      "array": [32]
+    },
+    {
+      "name": "DOUTR",
+      "description": "output data register x",
+      "offset": "0x180",
+      "fields": [
+        {
+          "name": "DOUT",
+          "description": "output data sent to MDIO master during read frames This field is written by software. These 16 bits are serially output on the MDIO bus during read frames, which address the MDIOS register x.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ],
+      "array": [32]
+    }
+  ]
+}

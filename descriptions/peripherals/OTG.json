@@ -1,0 +1,1143 @@
+{
+  "OTG": [
+    {
+      "name": "GOTGCTL",
+      "description": "control and status register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "CURMOD",
+          "description": "Current mode of operation Indicates the current mode (host or device).",
+          "values": [
+            ["0", "Device mode"],
+            ["1", "Host mode"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "OTGVER",
+          "description": "OTG version Selects the OTG revision.",
+          "values": [
+            ["0", "OTG Version 1.3. OTG1.3 is obsolete for new product development."],
+            ["1", "OTG Version 2.0. In this version the core supports only data line pulsing for SRP."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "BSVLD",
+          "description": "B-session valid Indicates the device mode transceiver status. Only accessible in device mode.",
+          "values": [
+            ["0", "B-session is not valid."],
+            ["1", "B-session is valid.In OTG mode, the user can use this bit to determine if the device is connected or disconnected."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "ASVLD",
+          "description": "A-session valid Indicates the host m ode transceiver status. Only accessible in host mode.",
+          "values": [
+            ["0", "A-session is not valid"],
+            ["1", "A-session is valid"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "DBCT",
+          "description": "Long/short debounce time Indicates the debounce time of a detected connection. Only accessible in host mode.",
+          "values": [
+            ["0", "Long debounce time, used for physical connections (100 ms + 2.5 \u00b5s)"],
+            ["1", "Short debounce time, used for soft connections (2.5 \u00b5s)"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CIDSTS",
+          "description": "Connector ID status Indicates the connector ID status on a connect event. Accessible in both device and host modes.",
+          "values": [
+            ["0", "The OTG_HS controller is in A-device mode"],
+            ["1", "The OTG_HS controller is in B-device mode"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "EHEN",
+          "description": "Embedded host enable It is used to select between OTG A device state machine and embedde d host state machine.",
+          "values": [
+            ["0", "OTG A device state machine is selected"],
+            ["1", "Embedded host state machine is selected"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "DHNPEN",
+          "description": "Device HNP enabled The application sets this bit when it succe ssfully receives a SetFeature.SetHNPEnable command from the connected USB host. Only accessible in device mode.",
+          "values": [
+            ["0", "HNP is not enabled in the application"],
+            ["1", "HNP is enabled in the application"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "HSHNPEN",
+          "description": "host set HNP enable The application sets this bit when it has successfully enabled HNP (using the SetFeature.SetHNPEnable comm and) on the connected device. Only accessible in host mode.",
+          "values": [
+            ["0", "Host Set HNP is not enabled"],
+            ["1", "Host Set HNP is enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "HNPRQ",
+          "description": "HNP request The application sets this bit to initiate an HNP request to the connected USB host. The application can clear this bit by writing a 0 w hen the host negotiation success status change bit in the OTG_GOTGINT register (HNSSCHG bi t in OTG_GOTGINT) is set. The core clears this bit when the HNSSCHG bit is cleared. Only accessible in device mode.",
+          "values": [
+            ["0", "No HNP request"],
+            ["1", "HNP request"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "HNGSCS",
+          "description": "Host negotiation success The core sets this bit when host negotiation is successful. The core clears this bit when the HNP request (HNPRQ) bit in this register is set. Only accessible in device mode.",
+          "values": [
+            ["0", "Host negotiation failure"],
+            ["1", "Host negotiation success"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "BVALOVAL",
+          "description": "B-peripheral session valid override value. This bit is used to set override value for Bvalid signal when BVALOEN bit is set. Only accessible in device mode.",
+          "values": [
+            ["0", "Bvalid value is '0' when BVALOEN = 1"],
+            ["1", "Bvalid value is '1' when BVALOEN = 1"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "BVALOEN",
+          "description": "B-peripheral session valid override enable. This bit is used to enable/disable the software to override the Bvalid signal using the BVALOVAL bit. Only accessible in device mode.",
+          "values": [
+            ["0", "Override is disabled and Bvalid signal from the respective PHY selected is used internally by the core"],
+            ["1", "Internally Bvalid received from the PHY is overridden with BVALOVAL bit value"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "AVALOVAL",
+          "description": "A-peripheral session valid override value. This bit is used to set override value for Avalid signal when AVALOEN bit is set. Only accessible in host mode.",
+          "values": [
+            ["0", "Avalid value is '0' when AVALOEN = 1"],
+            ["1", "Avalid value is '1' when AVALOEN = 1"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "AVALOEN",
+          "description": "A-peripheral session valid override enable. This bit is used to enable/disable the software to override the Avalid signal using the AVALOVAL bit. Only accessible in host mode. VBVALOVAL: VBUS valid override value. This bit is used to set override value for vbusvalid signal when VBVALOEN bit is set. Only accessible in host mode.",
+          "values": [
+            ["0", "Override is disabled and Avalid signal from the respective PHY selected is used internally by the core"],
+            ["1", "Internally Avalid received from the PHY is overridden with AVALOVAL bit value"],
+            ["0", "vbusvalid value is '0' when VBVALOEN = 1"],
+            ["1", "vbusvalid value is '1' when VBVALOEN = 1"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VBVALOEN",
+          "description": "V BUS valid override enable. This bit is used to enable/disable the software to override the vbusvalid signal using the VBVALOVAL bit. Only accessible in host mode.",
+          "values": [
+            ["0", "Override is disabled and vbusvalid signal from the respective PHY selected is used internally by the core"],
+            ["1", "Internally vbusvalid received from the PHY is overridden with VBVALOVAL bit value"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SRQ",
+          "description": "Session request The application sets this bit to initiate a se ssion request on the USB. The application can clear this bit by writing a 0 when the host negotiation success status change bit in the OTG_GOTGINT register (HNSSCHG bit in OTG_GO TGINT) is set. The core clears this bit when the HNSSCHG bit is cleared. If the user uses the USB 1.1 full-speed serial transceiver interface to initiate the session request, the applicatio n must wait until VBUS discharges to 0.2 V, after the B-session valid bit in this register (BSVLD bit in OTG_GOTGCTL) is cleared. Only accessible in device mode.",
+          "values": [
+            ["0", "No session request"],
+            ["1", "Session request"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SRQSCS",
+          "description": "Session request success The core sets this bit when a se ssion request initiation is successful. Only accessible in device mode.",
+          "values": [
+            ["0", "Session request failure"],
+            ["1", "Session request success"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000001110000000000000"
+        }
+      ]
+    },
+    {
+      "name": "GOTGINT",
+      "description": "interrupt register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "DBCDNE",
+          "description": "Debounce done The core sets this bit when the debounce is completed after the device connect. The application can start driving USB reset after seeing this interrupt. This bit is only valid when the HNP Capable or SRP Capable bit is set in the OTG_GUSBCFG register (HNPCAP bit or SRPCAP bit in OTG_GU SBCFG, respectively). Only accessible in host mode.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "ADTOCHG",
+          "description": "A-device timeout change The core sets this bit to indicate that the A- device has timed out while waiting for the B-device to connect. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "HNGDET",
+          "description": "Host negotiation detected The core sets this bit when it detects a host negotiation request on the USB. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "HNSSCHG",
+          "description": "Host negotiation success status change The core sets this bit on the success or fail ure of a USB host negotiation request. The application must read the host negotiation success bit of the OTG_GOTGCTL register (HNGSCS bit in OTG_GOTGCTL) to check for success or failure. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "SRSSCHG",
+          "description": "Session request success status change The core sets this bit on the success or failur e of a session request. The application must read the session request success bit in th e OTG_GOTGCTL register (SRQSCS bit in OTG_GOTGCTL) to check for success or failure. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "SEDET",
+          "description": "Session end detected The core sets this bit to indicate that the level of the voltage on VBUS is no longer valid for a B-Peripheral session when VBUS < 0.8 V. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100011111110011111011"
+        }
+      ]
+    },
+    {
+      "name": "GAHBCFG",
+      "description": "AHB configuration register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "PTXFELVL",
+          "description": "Periodic Tx FIFO empty level Indicates when the periodic Tx FIFO empty in terrupt bit in the OTG_GINTSTS register (PTXFE bit in OTG_GINTSTS) is triggered. Only accessible in host mode.",
+          "values": [
+            ["0", "PTXFE (in OTG_GINTST S) interrupt indicates that the Periodic Tx FIFO is half empty"],
+            ["1", "PTXFE (in OTG_GINTST S) interrupt indicates that the Pe riodic Tx FIFO is completely empty"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TXFELVL",
+          "description": "Tx FIFO empty level In device mode, this bit indicates when IN endp oint Transmit FIFO empty interrupt (TXFE in OTG_DIEPINTx) is triggered:",
+          "values": [
+            ["0", "The TXFE (in OTG_DIEPINTx) interrupt indica tes that the IN endpoint Tx FIFO is half empty"],
+            ["1", "The TXFE (in OTG_DIEPINTx) interrupt indicates that the IN endpoint Tx FIFO is completely empty In host mode, this bit indicates when the nonperiodic Tx FIFO empty interrupt (NPTXFE bit in OTG_GINTSTS) is triggered:"],
+            ["0", "The NPTXFE (in OTG_GINTSTS) interrupt indi cates that the nonperiodic Tx FIFO is half empty"],
+            ["1", "The NPTXFE (in OTG_GINTSTS) interrupt i ndicates that the nonperiodic Tx FIFO is completely empty"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "HBSTLEN",
+          "description": "Burst length/type 0000 Single: Bus transactions use single 32 bit accesses (not recommended)0001 INCR: Bus transactions use unspecified l ength accesses (not recommended, uses the INCR AHB bus command)0011 INCR4: Bus transactions target 4x 32 bit accesses0101 INCR8: Bus transactions target 8x 32 bit accesses0111 INCR16: Bus transactions based on 16x 32 bit accesses",
+          "values": [["Others", "Reserved"]],
+          "mask": "0b11110"
+        },
+        {
+          "name": "GINTMSK",
+          "description": "Global interrupt mask The application uses this bit to mask or unm ask the interrupt line assertion to itself. Irrespective of this bit\u2019s setting, the interr upt status registers are updated by the core. Accessible in both device and host modes.",
+          "values": [
+            ["0", "Mask the interrupt assertion to the application."],
+            ["1", "Unmask the interrupt assertion to the application."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111001000000"
+        }
+      ]
+    },
+    {
+      "name": "GUSBCFG",
+      "description": "USB configuration register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "FDMOD",
+          "description": "Force device mode Writing a 1 to this bit, forces the core to dev ice mode irrespective of the OTG_ID input pin. Accessible in both device and host modes.",
+          "values": [
+            ["0", "Normal mode"],
+            ["1", "Force device modeAfter setting the force bit, the application must wait at least 25 ms before the change takes effect."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "FHMOD",
+          "description": "Force host mode Writing a 1 to this bit, forces the core to host mode irrespective of the OTG_ID input pin. Accessible in both device and host modes.",
+          "values": [
+            ["0", "Normal mode"],
+            ["1", "Force host modeAfter setting the force bit, the application must wait at least 25 ms before the change takes effect."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "ULPIIPD",
+          "description": "ULPI interface protect disable This bit controls the circuitry built in the PHY to protect the ULPI interface when the link tri- states stp and data. Any pull-up or pull-down resistors employed by this feature can be disabled. Refer to the ULPI specification for more details.",
+          "values": [
+            ["0", "Enables the interface protection circuit"],
+            ["1", "Disables the interface protection circuit"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "PTCI",
+          "description": "Indicator pass through This bit controls whether the complement output is qualified with the internal V BUS valid comparator before being used in the VBUS state in the RX CMD. Refer to the ULPI specification for more details.",
+          "values": [
+            ["0", "Complement Output signal is qualified with the Internal VBUS valid comparator"],
+            ["1", "Complement Output signal is not qualified with the Internal VBUS valid comparator"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "PCCI",
+          "description": "Indicator complement This bit controls the PHY to invert the Exte rnalVbusIndicator input signal, and generate the complement output. Refer to the ULPI specification for more details.",
+          "values": [
+            ["0", "PHY does not invert the ExternalVbusIndicator signal"],
+            ["1", "PHY inverts ExternalVbusIndicator signal"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "TSDPS",
+          "description": "TermSel DLine pulsing selection This bit selects utmi_termselect to drive the data line pulse during SRP (session request protocol).",
+          "values": [
+            ["0", "Data line pulsing using utmi_txvalid (default)"],
+            ["1", "Data line pulsing using utmi_termsel"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "ULPIEVBUSI",
+          "description": "ULPI external VBUS indicator This bit indicates to the ULPI PHY to use an external VBUS overcurrent indicator.",
+          "values": [
+            ["0", "PHY uses an internal VBUS valid comparator"],
+            ["1", "PHY uses an external VBUS valid comparator"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "ULPIEVBUSD",
+          "description": "ULPI External VBUS Drive This bit selects between internal or external supply to drive 5 V on VBUS, in the ULPI PHY.",
+          "values": [
+            ["0", "PHY drives VBUS using internal charge pump (default)"],
+            ["1", "PHY drives VBUS using external supply."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "ULPICSM",
+          "description": "ULPI clock SuspendM This bit sets the ClockSuspendM bi t in the interface control register on the ULPI PHY. This bit applies only in the serial and carkit modes.",
+          "values": [
+            ["0", "PHY powers down the internal clock during suspend"],
+            ["1", "PHY does not power down the internal clock"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "ULPIAR",
+          "description": "ULPI Auto-resume This bit sets the AutoResume bit in the in terface control register on the ULPI PHY.",
+          "values": [
+            ["0", "PHY does not use AutoResume feature"],
+            ["1", "PHY uses AutoResume feature"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "ULPIFSLS",
+          "description": "ULPI FS/LS select The application uses this bit to select the FS/LS serial interface for the ULPI PHY. This bit is valid only when the FS serial transceiver is selected on the ULPI PHY.",
+          "values": [
+            ["0", "ULPI interface"],
+            ["1", "ULPI FS/LS serial interface"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "PHYLPC",
+          "description": "PHY Low-power clock select This bit selects either 480 MHz or 48 MHz (low-power) PHY mode. In FS and LS modes, the PHY can usually operate on a 48 MHz clock to save power.",
+          "values": [
+            ["0", "480 MHz internal PLL clock"],
+            ["1", "48 MHz external clock In 480 MHz mode, the UTMI interface operates at either 60 or 30 MHz, depending on whether the 8- or 16-bit data width is selected . In 48 MHz mode, the UTMI interface operates at 48 MHz in FS and LS modes."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TRDT",
+          "description": "USB turnaround time These bits are used to set the turnaround ti me in PHY clocks. They must be configured according to Table 519: TRDT values , depending on the application AHB frequency. Higher TRDT values allow stretching the USB response time to IN tokens in order to compensate for longer AHB read access latency to the data FIFO. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b11110000000000"
+        },
+        {
+          "name": "HNPCAP",
+          "description": "HNP-capable The application uses this bit to control the OTG_HS controller\u2019s HNP capabilities. Accessible in both device and host modes.",
+          "values": [
+            ["0", "HNP capability is not enabled."],
+            ["1", "HNP capability is enabled."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "SRPCAP",
+          "description": "SRP-capable The application uses this bit to control the OTG_ HS controller\u2019s SRP capabilities. If the core operates as a non-SRP-capable B-device, it cannot request the connec ted A-device (host) to activate V BUS and start a session. Accessible in both device and host modes.",
+          "values": [
+            ["0", "SRP capability is not enabled."],
+            ["1", "SRP capability is enabled."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "PHYSEL",
+          "description": "Full speed serial transceiver mode select",
+          "values": [
+            ["0", "USB 2.0 external ULPI high-speed PHY."],
+            ["1", "USB 1.1 full-speed serial mode."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TOCAL",
+          "description": "FS timeout calibration The number of PHY clocks that the application pr ograms in this field is added to the full- speed interpacket timeout duration in the core to account for any additional delays introduced by the PHY. This can be required, because the delay introduced by the PHY in generating the line state condition can vary from one PHY to another. The USB standard timeout value for full-speed operation is 16 to 18 (inclusive) bit times. The application must program this field based on the speed of enumeration. The number of bit times added per PHY clock is 0.25 bit times.Table 519. TRDT values AHB frequency range (MHz) TRDT minimum value Min Max30 - 0x9",
+          "values": [],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10011100000000010100000010011000"
+        }
+      ]
+    },
+    {
+      "name": "GRSTCTL",
+      "description": "reset register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "AHBIDL",
+          "description": "AHB master idle Indicates that the AHB ma ster state machine is in the Idle condition. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "DMAREQ",
+          "description": "DMA request signal enabled This bit indicates that the DMA request is in progress. Used for debug.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TXFNUM",
+          "description": "Tx FIFO number This is the FIFO number that mu st be flushed using the Tx FIFO Flush bit. This field must not be changed until the core clears the Tx FIFO Flush bit. Accessible in both device and host modes.",
+          "values": [
+            ["00000", "\u2013 Non-periodic Tx FIFO flush in host mode \u2013 Tx FIFO 0 flush in device mode"],
+            ["00001", "\u2013 Periodic Tx FIFO flush in host mode \u2013 Tx FIFO 1 flush in device mode"],
+            ["00010", "Tx FIFO 2 flush in device mode ..."],
+            ["01111", "Tx FIFO 15 flush in device mode"],
+            ["10000", "Flush all the transmit FIFOs in device or host mode."]
+          ],
+          "mask": "0b11111000000"
+        },
+        {
+          "name": "TXFFLSH",
+          "description": "Tx FIFO flush This bit selectively flushes a single or all transmit FIFOs, but cannot do so if the core is in the midst of a transaction. The application must write this bit only after checki ng that the core is neither writing to the Tx FIFO nor reading from the Tx FIFO. Verify using these registers: Read\u2014NAK Effective interrupt ensures the core is not reading from the FIFO Write\u2014AHBIDL bit in OTG_GRSTCTL ensures the core is not writing anything to the FIFO. Flushing is normally recommended when FIFOs ar e reconfigured. FIFO flushing is also recommended during device endpoint disable. The application must wait until the core clears this bit before performing any oper ations. This bit takes eight clocks to clear, using the slower clock of phy_clk or hclk. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RXFFLSH",
+          "description": "Rx FIFO flush The application can flush the entire Rx FIFO using this bit, but must first ensure that the core is not in the middle of a transaction. The application must only write to this bit after ch ecking that the core is neither reading from the Rx FIFO nor writing to the Rx FIFO. The application must wait until the bit is clear ed before performing any other operations. This bit requires 8 clocks (slowest of PHY or AHB clock) to clear. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "FCRST",
+          "description": "Host frame counter reset The application writes this bit to reset the (m icro-)frame number counter inside the core. When the (micro-)frame counter is reset, the subsequent SOF sent out by the core has a frame number of 0. When application writes '1' to the bit, it might not be able to read back the value as it gets cleared by the core in a few clock cycles. Only accessible in host mode.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "PSRST",
+          "description": "Partial soft reset Resets the internal state machines but keeps the enumeration info. Can be used to recover some specific PHY errors. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CSRST",
+          "description": "Core soft reset Resets the HCLK and PHY clock domains as follows: Clears the interrupts and all the CSR regist er bits except for the following bits: \u2013 GATEHCLK bit in OTG_PCGCCTL \u2013 STPPCLK bit in OTG_PCGCCTL \u2013 FSLSPCS bits in OTG_HCFG\u2013 DSPD bit in OTG_DCFG\u2013 SDIS bit in OTG_DCTL \u2013 OTG_GCCFG register All module state machines (except for the AHB sl ave unit) are reset to the Idle state, and all the transmit FIFOs and the receive FIFO are flushed. Any transactions on the AHB Master are terminated as soon as possible, after completing the last data phase of an AHB transfer. Any tran sactions on the USB are terminated immediately. The application can write to this bit any time it wants to reset the core. This is a self-clearing bit and the core clears this bit after all the necessary logic is reset in the core, which can take several clocks, depending on the current state of the core. Once this bit has been cleared, the software must wait at least 3 PHY clocks before accessing the PHY domain (synchronization delay). The softwa re must also check th at bit 31 in this register is set to 1 (AHB Master is Idle) bef ore starting any operation. Typically, the software reset is used during software development and also when the user dynamically changes the PHY selection bits in the above listed USB configuration registers. When the user changes the PHY, the corresponding clock for the PHY is selected and used in the PHY domain. Once a new clock is selected, the PHY domain has to be reset for proper operation. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111111100000101000"
+        }
+      ]
+    },
+    {
+      "name": "GINTSTS",
+      "description": "core interrupt register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "WKUPINT",
+          "description": "Resume/remote wake-up detected interrupt Wake-up interrupt during suspend(L2) or LPM(L1) state. \u2013 During suspend(L2): In device mode, this interrup t is asserted when a resume is detected on the USB. In host mode, this interrupt is asserted when a remote wake-up is de tected on the USB. \u2013 During LPM(L1): This interrupt is asserted for either host initiated resume or device initiated remote wake- up on USB. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "SRQINT",
+          "description": "Session request/new se ssion detected interrupt In host mode, this interrupt is asserted when a session request is detected from the device. In device mode, this interrupt is asserted when VBUS is in the valid range for a B-peripheral device. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DISCINT",
+          "description": "Disconnect detected interrupt Asserted when a device disconnect is detected. Only accessible in host mode.",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "CIDSCHG",
+          "description": "Connector ID status change The core sets this bit when there is a change in connector ID status. Accessible in both device and host modes.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "LPMINT",
+          "description": "LPM interrupt In device mode, this interrupt is asserted when the device receives an LPM transaction and responds with a non-ERRORed response. In host mode, this interrupt is asserted when the device responds to an LPM transaction with a non-ERRORed response or when the host core has completed LPM transactions for the programmed number of times (RETRYCNT bit in OTG_GLPMCFG). This field is valid only if the LPMEN bit in OTG_GLPMCFG is set to 1.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "PTXFE",
+          "description": "Periodic Tx FIFO empty Asserted when the periodic transmit FIFO is eith er half or completely empty and there is space for at least one entry to be written in the periodic request queue. The half or completely empty status is determined by th e periodic Tx FIFO empty level bit in the OTG_GAHBCFG register (PTXFELVL bit in OTG_GAHBCFG). Only accessible in host mode.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "HCINT",
+          "description": "Host channels interrupt The core sets this bit to indicate that an in terrupt is pending on one of the channels of the core (in host mode). The application must re ad the OTG_HAINT register to determine the exact number of the channel on which t he interrupt occurred, and then read the corresponding OTG_HCINTx register to determine the exact cause of the interrupt. The application must clear the appropriate status bit in the OTG_HCINTx register to clear this bit. Only accessible in host mode.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "HPRTINT",
+          "description": "Host port interrupt The core sets this bit to indicate a change in port status of one of the OTG_HS controller ports in host mode. The application must read the OTG_HPRT register to determine the exact event that caused this interrupt. The applic ation must clear the appropriate status bit in the OTG_HPRT register to clear this bit. Only accessible in host mode.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RSTDET",
+          "description": "Reset detected interrupt In device mode, this interrupt is asserted when a reset is detected on the USB in partial power-down mode when the device is in suspend. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "DATAFSUSP",
+          "description": "Data fetch suspended This interrupt is valid only in DMA mode. This interrupt indicates that the core has stopped fetching data for IN endpoints due to the unav ailability of TxFIFO space or request queue space. This interrupt is used by the applic ation for an endpoint mismatch algorithm. For example, after detecting an endpoint mismatch, the application: \u2013 Sets a global nonperiodic IN NAK handshake \u2013 Disables IN endpoints \u2013 Flushes the FIFO\u2013 Determines the token sequence from the IN token sequence learning queue \u2013 Re-enables the endpoints Clears the global nonperiodic IN NAK handshake If the global nonperiodic IN NAK is cleared, the core has not yet fetched data for the IN endpoint, and the IN token is received: the core generates an \u201cIN token received when FIFO empty\u201d interr upt. The OTG then sends a NAK response to the host. To avoid this sce nario, the application can check the FetSusp interrupt in OTG_GINTSTS, which ensures that the FIFO is full before clearing a global NAK handshake. Alternatively, the application c an mask the \u201cIN token received when FIFO empty\u201d interrupt when clearing a global IN NAK handshake.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "IPXFR",
+          "description": "Incomplete periodic transfer In host mode, the core sets this interrupt bi t when there are incomplete periodic transactions still pending, which are scheduled for the current frame.INCOMPISOOUT: Incomplete isochronous OUT transfer In device mode, the core sets this interrupt to indicate that there is at least one isochronous OUT endpoint on which the transfer is not comple ted in the current frame. This interrupt is asserted along with the End of periodic fram e interrupt (EOPF) bi t in this register.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "IISOIXFR",
+          "description": "Incomplete isochronous IN transfer The core sets this interrupt to indicate that there is at least one isochronous IN endpoint on which the transfer is not completed in the current frame. This interrupt is asserted along with the End of periodic frame interrupt (EOPF) bit in this register. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "OEPINT",
+          "description": "OUT endpoint interrupt The core sets this bit to indicate that an in terrupt is pending on o ne of the OUT endpoints of the core (in device mode). The application must read the OTG_DAINT register to determine the exact number of the OUT endpoint on whic h the interrupt occurred, and then read the corresponding OTG_DOEPINTx register to determ ine the exact cause of the interrupt. The application must clear the appropriate stat us bit in the corresponding OTG_DOEPINTx register to clear this bit. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "IEPINT",
+          "description": "IN endpoint interrupt The core sets this bit to indicate that an interrupt is pending on one of the IN endpoints of the core (in device mode). The application must re ad the OTG_DAINT register to determine the exact number of the IN endpoint on which the interrupt occurred, and then read the corresponding OTG_DIEPINTx register to dete rmine the exact cause of the interrupt. The application must clear the appropriate stat us bit in the corresponding OTG_DIEPINTx register to clear this bit. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EOPF",
+          "description": "End of periodic frame interrupt Indicates that the period specified in the periodic frame interval field of the OTG_DCFG register (PFIVL bit in OTG_DCFG) has been reached in the current frame. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ISOODRP",
+          "description": "Isochronous OUT packet dropped interrupt The core sets this bit when it fails to writ e an isochronous OUT packet into the Rx FIFO because the Rx FIFO does not have enough space to accommodate a maximum size packet for the isochronous OUT endpoint. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ENUMDNE",
+          "description": "Enumeration done The core sets this bit to indicate that speed enumeration is complete. The application must read the OTG_DSTS register to obtain the enumerated speed. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "USBRST",
+          "description": "USB reset The core sets this bit to indicate that a reset is detected on the USB. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "USBSUSP",
+          "description": "USB suspend The core sets this bit to indicate that a su spend was detected on the USB. The core enters the suspended state when there is no activity on the data lines for an extended period of time. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "ESUSP",
+          "description": "Early suspend The core sets this bit to indicate that an Idle state has been detected on the USB for 3 ms. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "GONAKEFF",
+          "description": "Global OUT NAK effective Indicates that the Set global OUT NAK bit in the OTG_DCTL register (SGONAK bit in OTG_DCTL), set by the application, has taken effect in the core. This bit can be cleared by writing the Clear global OUT NAK bit in the OTG_DCTL register (CGONAK bit in OTG_DCTL). Only accessible in device mode.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "GINAKEFF",
+          "description": "Global IN non-periodic NAK effective Indicates that the Set global non-periodic IN NAK bit in the OTG_DCTL register (SGINAK bit in OTG_DCTL), set by the application, has taken effect in the core. That is, the core has sampled the Global IN NAK bit set by the application. This bit can be cleared by clearing the Clear global non-periodic IN NAK bit in the OTG_DCTL register (CGINAK bit in OTG_DCTL). This interrupt does not necessarily mean that a NAK handshake is sent out on the USB. The STALL bit takes precedence over the NAK bit. Only accessible in device mode.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "NPTXFE",
+          "description": "Non-periodic Tx FIFO empty This interrupt is asserted when the non-periodic Tx FIFO is either half or completely empty, and there is space for at least one entry to be written to the non-periodic transmit request queue. The half or completely empty status is determined by the non-periodic Tx FIFO empty level bit in the OTG_GAHBCFG regi ster (TXFELVL bit in OTG_GAHBCFG). Accessible in host mode only.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RXFLVL",
+          "description": "Rx FIFO non-empty Indicates that there is at least one pa cket pending to be read from the Rx FIFO. Accessible in both host and device modes.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "SOF",
+          "description": "Start of frame In host mode, the core sets this bit to indi cate that an SOF (FS), or Keep-Alive (LS) is transmitted on the USB. The application must wr ite a 1 to this bit to clear the interrupt. In device mode, in the core sets this bit to indicate that an SOF token has been received on the USB. The application can read the OTG_DSTS register to get the current frame number. This interrupt is seen only when the core is operating in FS. This register may return '1' if read immediately after power on reset. If the register bit reads '1' immediately after power on reset it does not indicate that an SOF has been sent (in case of host mode) or SOF has been received (in case of device mode). The read value of this interrupt is valid only after a valid connection between host and device is established. If the bit is set after power on reset the application can clear the bit. Accessible in both host and device modes. OTGINT: OTG interrupt The core sets this bit to indicate an OTG protocol event. The application must read the OTG interrupt status (OTG_GOTGINT) register to determine the exact event that caused this interrupt. The application must clear the a ppropriate status bit in the OTG_GOTGINT register to clear this bit. Accessible in both host and device modes.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MMIS",
+          "description": "Mode mismatch interrupt The core sets this bit when the application is trying to access: \u2013 A host mode register, when the core is operating in device mode \u2013 A device mode register, when the core is operating in host mode The register access is completed on the AHB with an OKAY response, but is ignored by the core internally and does not affect the operation of the core. Accessible in both host and device modes.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CMOD",
+          "description": "Current mode of operation Indicates the current mode. Accessible in both host and device modes.",
+          "values": [
+            ["0", "Device mode"],
+            ["1", "Host mode"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b110000001100000000"
+        }
+      ]
+    },
+    {
+      "name": "GINTMSK",
+      "description": "interrupt mask register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "WUIM",
+          "description": "Resume/remote wake-up detected interrupt mask Accessible in both host and device modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "SRQIM",
+          "description": "Session request/new session detected interrupt mask Accessible in both host and device modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DISCINT",
+          "description": "Disconnect detected interrupt mask Only accessible in host mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "CIDSCHGM",
+          "description": "Connector ID status change mask Accessible in both host and device modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "LPMINTM",
+          "description": "LPM interrupt mask Accessible in both host and device modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "PTXFEM",
+          "description": "Periodic Tx FIFO empty mask Only accessible in host mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "HCIM",
+          "description": "Host channels interrupt mask Only accessible in host mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "PRTIM",
+          "description": "Host port interrupt mask Only accessible in host mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RSTDETM",
+          "description": "Reset detected interrupt mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "FSUSPM",
+          "description": "Data fetch suspended mask",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt Only accessible in peripheral mode."]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "IPXFRM",
+          "description": "Incomplete periodic transfer mask Only accessible in host mode.IISOOXFRM: Incomplete isochronous OUT transfer mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"],
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "IISOIXFRM",
+          "description": "Incomplete isochronous IN transfer mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "OEPINT",
+          "description": "OUT endpoints interrupt mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "IEPINT",
+          "description": "IN endpoints interrupt mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EOPFM",
+          "description": "End of periodic frame interrupt mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ISOODRPM",
+          "description": "Isochronous OUT packet dropped interrupt mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ENUMDNEM",
+          "description": "Enumeration done mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "USBRST",
+          "description": "USB reset mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "USBSUSPM",
+          "description": "USB suspend mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "ESUSPM",
+          "description": "Early suspend mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "GONAKEFFM",
+          "description": "Global OUT NAK effective mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "GINAKEFFM",
+          "description": "Global non-periodic IN NAK effective mask Only accessible in device mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "NPTXFEM",
+          "description": "Non-periodic Tx FIFO empty mask Only accessible in host mode.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RXFLVLM",
+          "description": "Receive FIFO non-empty mask Accessible in both device and host modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "SOFM",
+          "description": "Start of frame mask Accessible in both device and host modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "OTGINT",
+          "description": "OTG interrupt mask Accessible in both device and host modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "MMISM",
+          "description": "Mode mismatch interrupt mask Accessible in both device and host modes.",
+          "values": [
+            ["0", "Masked interrupt"],
+            ["1", "Unmasked interrupt"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b110000001100000001"
+        }
+      ]
+    },
+    {
+      "name": "GRXSTSR",
+      "description": "receive status debug read register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "STSPHST",
+          "description": "Status phase start Indicates the start of the status phase for a cont rol write transfer. This bit is set along with the OUT transfer completed PKTSTS pattern.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "FRMNUM",
+          "description": "Frame number This is the least significant 4 bits of the fram e number in which the packet is received on the USB. This field is supported only when isochronous OUT endpoints are supported.",
+          "values": [],
+          "mask": "0b1111000000000000000000000"
+        },
+        {
+          "name": "PKTSTS",
+          "description": "Packet status Indicates the status of the received packet",
+          "values": [
+            ["0001", "Global OUT NAK (triggers an interrupt)"],
+            ["0010", "OUT data packet received"],
+            ["0011", "OUT transfer completed (triggers an interrupt)"],
+            ["0100", "SETUP transaction completed (triggers an interrupt)"],
+            ["0110", "SETUP data packet received"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000000000000"
+        },
+        {
+          "name": "DPID",
+          "description": "Data PID Indicates the data PID of the received OUT data packet",
+          "values": [
+            ["00", "DATA0"],
+            ["10", "DATA1"],
+            ["01", "DATA2"],
+            ["11", "MDATA"]
+          ],
+          "mask": "0b11000000000000000"
+        },
+        {
+          "name": "BCNT",
+          "description": "Byte count Indicates the byte count of the received data packet.",
+          "values": [],
+          "mask": "0b111111111110000"
+        },
+        {
+          "name": "EPNUM",
+          "description": "Endpoint number Indicates the endpoint number to which the current received packet belongs.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "GRXSTSR",
+      "description": "receive status debug read [alternate]",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "PKTSTS",
+          "description": "Packet status Indicates the status of the received packet",
+          "values": [
+            ["0010", "IN data packet received"],
+            ["0011", "IN transfer completed (triggers an interrupt)"],
+            ["0101", "Data toggle error (triggers an interrupt)"],
+            ["0111", "Channel halted (triggers an interrupt)"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000000000000"
+        },
+        {
+          "name": "DPID",
+          "description": "Data PID Indicates the data PID of the received packet",
+          "values": [
+            ["00", "DATA0"],
+            ["10", "DATA1"],
+            ["01", "DATA2"],
+            ["11", "MDATA"]
+          ],
+          "mask": "0b11000000000000000"
+        },
+        {
+          "name": "BCNT",
+          "description": "Byte count Indicates the byte count of the received IN data packet.",
+          "values": [],
+          "mask": "0b111111111110000"
+        },
+        {
+          "name": "CHNUM",
+          "description": "Channel number Indicates the channel number to whic h the current received packet belongs.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "GRXSTSP",
+      "description": "status read and pop registers",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "STSPHST",
+          "description": "Status phase start Indicates the start of the status phase for a cont rol write transfer. This bit is set along with the OUT transfer completed PKTSTS pattern.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "FRMNUM",
+          "description": "Frame number This is the least significant 4 bits of the fram e number in which the packet is received on the USB. This field is supported only when isochronous OUT endpoints are supported.",
+          "values": [],
+          "mask": "0b1111000000000000000000000"
+        },
+        {
+          "name": "PKTSTS",
+          "description": "Packet status Indicates the status of the received packet",
+          "values": [
+            ["0001", "Global OUT NAK (triggers an interrupt)"],
+            ["0010", "OUT data packet received"],
+            ["0011", "OUT transfer completed (triggers an interrupt)"],
+            ["0100", "SETUP transaction completed (triggers an interrupt)"],
+            ["0110", "SETUP data packet received"],
+            ["Others", "Reserved DPID[1:0]: Data PID Indicates the data PID of the received OUT data packet 00: DATA010: DATA101: DATA211: MDATA"]
+          ],
+          "mask": "0b111100000000000000000"
+        },
+        {
+          "name": "BCNT",
+          "description": "Byte count Indicates the byte count of the received data packet.",
+          "values": [],
+          "mask": "0b111111111110000"
+        },
+        {
+          "name": "EPNUM",
+          "description": "Endpoint number Indicates the endpoint number to which the current received packet belongs.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "GRXSTSP",
+      "description": "status read and pop registers [alternate]",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "6",
+          "description": "1531 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. PKTSTS[3:0] DPID rrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 DPID BCNT[1",
+          "values": [["0", "0] CHNUM[3:0] rrrrrrrrrrrrrrrr"]],
+          "mask": "0b10"
+        },
+        {
+          "name": "PKTSTS",
+          "description": "Packet status Indicates the status of the received packet",
+          "values": [
+            ["0010", "IN data packet received"],
+            ["0011", "IN transfer completed (triggers an interrupt)"],
+            ["0101", "Data toggle error (triggers an interrupt)"],
+            ["0111", "Channel halted (triggers an interrupt)"],
+            ["Others", "Reserved DPID[1:0]: Data PID Indicates the data PID of the received packet 00: DATA010: DATA101: DATA211: MDATA"]
+          ],
+          "mask": "0b111100000000000000000"
+        },
+        {
+          "name": "BCNT",
+          "description": "Byte count Indicates the byte count of the received IN data packet.",
+          "values": [],
+          "mask": "0b111111111110000"
+        },
+        {
+          "name": "CHNUM",
+          "description": "Channel number Indicates the channel number to whic h the current received packet belongs.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111000000000000000000000"
+        }
+      ]
+    }
+  ]
+}

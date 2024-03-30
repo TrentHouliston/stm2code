@@ -1,0 +1,1294 @@
+{
+  "RTC": [
+    {
+      "name": "TR",
+      "description": "time register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "PM",
+          "description": "AM/PM notation",
+          "values": [
+            ["0", "AM or 24-hour format"],
+            ["1", "PM"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "HT",
+          "description": "Hour tens in BCD format",
+          "values": [],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "HU",
+          "description": "Hour units in BCD format",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "MNT",
+          "description": "Minute tens in BCD format",
+          "values": [],
+          "mask": "0b111000000000000"
+        },
+        {
+          "name": "MNU",
+          "description": "Minute units in BCD format",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "ST",
+          "description": "Second tens in BCD format",
+          "values": [],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "SU",
+          "description": "Second units in BCD format",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000000010000000"
+        }
+      ]
+    },
+    {
+      "name": "DR",
+      "description": "date register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "YT",
+          "description": "Year tens in BCD format",
+          "values": [],
+          "mask": "0b111100000000000000000000"
+        },
+        {
+          "name": "YU",
+          "description": "Year units in BCD format",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "WDU",
+          "description": "Week day units",
+          "values": [
+            ["000", "forbidden"],
+            ["001", "Monday..."],
+            ["111", "Sunday"]
+          ],
+          "mask": "0b1110000000000000"
+        },
+        {
+          "name": "MT",
+          "description": "Month tens in BCD format",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "MU",
+          "description": "Month units in BCD format",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "DT",
+          "description": "Date tens in BCD format",
+          "values": [],
+          "mask": "0b110000"
+        },
+        {
+          "name": "DU",
+          "description": "Date units in BCD format",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111110100000000000000011000000"
+        }
+      ]
+    },
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "ITSE",
+          "description": "timestamp on internal event enable",
+          "values": [
+            ["0", "internal event timestamp disabled"],
+            ["1", "internal event timestamp enabled"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "COE",
+          "description": "Calibration output enable This bit enables the RTC_CALIB output",
+          "values": [
+            ["0", "Calibration output disabled"],
+            ["1", "Calibration output enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "OSEL",
+          "description": "Output selection These bits are used to select the flag to be routed to RTC_ALARM output",
+          "values": [
+            ["00", "Output disabled"],
+            ["01", "Alarm A output enabled"],
+            ["10", "Alarm B output enabled"],
+            ["11", "Wake-up output enabled"]
+          ],
+          "mask": "0b11000000000000000000000"
+        },
+        {
+          "name": "POL",
+          "description": "Output polarity This bit is used to configure the polarity of RTC_ALARM output",
+          "values": [
+            ["0", "The pin is high when ALRAF/ALRBF/WUTF is asserted (depending on OSEL["],
+            ["1", "0])"],
+            ["1", "The pin is low when ALRAF/ALRBF/WU TF is asserted (depending on OSEL["],
+            ["1", "0])."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "COSEL",
+          "description": "Calibration output selection When COE=1, this bit selects which signal is output on RTC_CALIB.",
+          "values": [
+            ["0", "Calibration output is 512 Hz (with default prescaler setting)"],
+            ["1", "Calibration output is 1 Hz (with default prescaler setting) These frequencies are valid for RTCCLK at 32.768 kHz and prescalers at their default values (PREDIV_A=127 and PRED IV_S=255). Refer to Section 46.3.16: Calibration clock output"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "BKP",
+          "description": "Backup This bit can be written by the user to memo rize whether the daylight saving time change has been performed or not.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "SUB1H",
+          "description": "Subtract 1 hour (winter time change) When this bit is set, 1 hour is subtracted to the ca lendar time if the current hour is not 0. This bit is always read as 0. Setting this bit has no effect when current hour is 0.",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Subtracts 1 hour to the cu rrent time. This can be used for winter time change outside initialization mode."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "ADD1H",
+          "description": "Add 1 hour (summer time change) When this bit is set, 1 hour is added to the calendar time. This bit is always read as 0.",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Adds 1 hour to the current time. This can be used for summer time change outside initialization mode."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TSIE",
+          "description": "Time-stamp interrupt enable",
+          "values": [
+            ["0", "Time-stamp Interrupt disable"],
+            ["1", "Time-stamp Interrupt enable"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "WUTIE",
+          "description": "Wake-up timer interrupt enable",
+          "values": [
+            ["0", "Wake-up timer interrupt disabled"],
+            ["1", "Wake-up timer interrupt enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ALRBIE",
+          "description": "Alarm B interrupt enable",
+          "values": [
+            ["0", "Alarm B Interrupt disable"],
+            ["1", "Alarm B Interrupt enable"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "ALRAIE",
+          "description": "Alarm A interrupt enable",
+          "values": [
+            ["0", "Alarm A interrupt disabled"],
+            ["1", "Alarm A interrupt enabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TSE",
+          "description": "timestamp enable",
+          "values": [
+            ["0", "timestamp disable"],
+            ["1", "timestamp enable"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "WUTE",
+          "description": "Wake-up timer enable When the wake-up timer is disabled, wait for WUTWF=1 before enabling it again.",
+          "values": [
+            ["0", "Wake-up timer disabled"],
+            ["1", "Wake-up timer enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ALRBE",
+          "description": "Alarm B enable",
+          "values": [
+            ["0", "Alarm B disabled"],
+            ["1", "Alarm B enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "ALRAE",
+          "description": "Alarm A enable",
+          "values": [
+            ["0", "Alarm A disabled"],
+            ["1", "Alarm A enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "FMT",
+          "description": "Hour format ",
+          "values": [
+            ["0", "24 hour/day format"],
+            ["1", "AM/PM hour format"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "7",
+          "description": "6 and 4 of this register can be writte n in initialization mode on ly (RTC_ISR/INITF = 1).WUT = Wake-up unit counter value. WUT = (0x0000 to 0xFFFF) + 0x10000 added when WUCKSEL[2",
+          "values": [
+            ["", "1 = 11]. Bits 2 to 0 of this register can be written only when RTC_CR WUTE bit = 0 and RTC_ISR WUTWF bit = 1.It is recommended not to change the hour during the calendar hour increment as it could mask the incrementation of the calendar hour.ADD1H and SUB1H changes are effective in the next second.This register is write protected. The write access procedure is described in RTC register write protection on page1912Caution"],
+            ["", "TSE must be reset when TSEDGE is changed to avoid spuriously setting of TSF."]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "BYPSHAD",
+          "description": "Bypass the shadow registers If the frequency of the APB clock is less than seven times the frequency of RTCCLK, BYPSHAD must be set to \u20181\u2019.",
+          "values": [
+            ["0", "Calendar values (when reading from RTC_SSR, RTC_TR, and RTC_DR) are taken from the shadow registers, which are updated once every two RTCCLK cycles."],
+            ["1", "Calendar values (when reading from RTC_SSR, RTC_TR, and RTC_DR) are taken directly from the calendar counters."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "REFCKON",
+          "description": "RTC_REFIN reference clock detection enable (50 or 60 Hz) PREDIV_S must be 0x00FF.",
+          "values": [
+            ["0", "RTC_REFIN detection disabled"],
+            ["1", "RTC_REFIN detection enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TSEDGE",
+          "description": "Time-stamp event active edge",
+          "values": [
+            ["0", "RTC_TS input rising edge generates a time-stamp event"],
+            ["1", "RTC_TS input falling edge generates a time-stamp event TSE must be reset when TSEDGE is changed to avoid unwanted TSF setting."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "WUCKSEL",
+          "description": "Wake-up clock selection",
+          "values": [
+            ["000", "RTC/16 cl ock is selected"],
+            ["001", "RTC/8 clock is selected"],
+            ["010", "RTC/4 clock is selected"],
+            ["011", "RTC/2 clock is selected10x: ck_spre (usually 1 Hz) clock is selected11x: ck_spre (usually 1 Hz ) clock is selected and 216 is added to the WUT counter value (see note below)"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000010000000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "initialization and status register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "ITSF",
+          "description": "Internal tTime-stamp flag This flag is set by hardware when a time-stamp on the internal event occurs. This flag is cleared by software by writing 0, and must be cleared together with TSF bit by writing 0 in both bits.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "RECALPF",
+          "description": "Recalibration pending Flag The RECALPF status flag is automatically set to \u20181\u2019 when software writes to the RTC_CALR register, indicating that the RTC_CALR register is blocked. When the new calibration settings are taken into account, this bit returns to \u20180\u2019. Refer to Re-calibration on-the-fly .",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TAMP3F",
+          "description": "RTC_TAMP3 detection flag This flag is set by hardware when a tamper detection event is detected on the RTC_TAMP3 input. It is cleared by software writing 0",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TAMP2F",
+          "description": "RTC_TAMP2 detection flag This flag is set by hardware when a tamper detection event is detected on the RTC_TAMP2 input. It is cleared by software writing 0",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TAMP1F",
+          "description": "RTC_TAMP1 detection flag This flag is set by hardware when a tamper detection event is detected on the RTC_TAMP1 input. It is cleared by software writing 0",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TSOVF",
+          "description": "Time-stamp overflow flag This flag is set by hardware when a time-stamp event occurs while TSF is already set. This flag is cleared by software by writing 0. It is recommended to check and then clear TSOVF only after clearing the TSF bit. Otherwise, an overflow might not be noticed if a time- stamp event occurs immediately before the TSF bit is cleared.",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TSF",
+          "description": "Time-stamp flag This flag is set by hardware when a time-stamp event occurs. This flag is cleared by software by writing 0. If ITSF flag is set, TSF mu st be cleared together with ITSF by writing 0 in both bits.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "WUTF",
+          "description": "Wake-up timer flag This flag is set by hardware when the wake-up auto-reload counter reaches 0. This flag is cleared by software by writing 0.This flag must be cleared by software at l east 1.5 RTCCLK periods before WUTF is set to 1 again.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ALRBF",
+          "description": "Alarm B flag This flag is set by hardware when the time/date registers (RTC_TR and RTC_DR) match the Alarm B register (RTC_ALRMBR). This flag is cleared by software by writing 0.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "ALRAF",
+          "description": "Alarm A flag This flag is set by hardware when the time /date registers (RTC_TR and RTC_DR) match the Alarm A register (RTC_ALRMAR). This flag is cleared by software by writing 0.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "INIT",
+          "description": "Initialization mode",
+          "values": [
+            ["0", "Free running mode"],
+            ["1", "Initialization mode used to program time and date register (RTC_TR and RTC_DR), and prescaler register (RTC_PRER). Counters are stopped and start counting from the new value when INIT is reset."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "INITF",
+          "description": "Initialization flag When this bit is set to 1, the RTC is in initialization state, and the time, date and prescaler registers can be updated.",
+          "values": [
+            ["0", "Calendar registers update is not allowed"],
+            ["1", "Calendar registers update is allowed"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RSF",
+          "description": "Registers synchronization flag This bit is set by hardware each time the calendar registers are copied into the shadow registers (RTC_SSR, RTC_TR and RTC_DR). This bi t is cleared by hardware in initialization mode, while a shift operation is pending (SHPF=1), or when in bypass shadow register mode (BYPSHAD=1). This bit can al so be cleared by software. It is cleared either by software or by hardware in initialization mode.",
+          "values": [
+            ["0", "Calendar shadow registers not yet synchronized"],
+            ["1", "Calendar shadow registers synchronized"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "INITS",
+          "description": "Initialization status flag This bit is set by hardware when the calendar year field is different from 0 (Backup domain reset state).",
+          "values": [
+            ["0", "Calendar has not been initialized"],
+            ["1", "Calendar has been initialized"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "SHPF",
+          "description": "Shift operation pending The bits ALRAF, ALRBF, WUTF and TSF are cleared 2 APB clock cycl es after programming them to 0.",
+          "values": [
+            ["0", "No shift operation is pending"],
+            ["1", "A shift operation is pending This flag is set by hardware as soon as a shift operation is initiated by a write to the RTC_SHIFTR register. It is cleared by hard ware when the corresponding shift operation has been executed. Writing to t he SHPF bit has no effect."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "WUTWF",
+          "description": "Wake-up timer write flag This bit is set by hardware up to 2 RTCCLK cycles after the WUTE bit has been set to 0 in RTC_CR, and is cleared up to 2 RTCCLK cycles after the WUTE bit has been set to 1. The wake-up timer values can be changed when WUTE bit is cleared and WUTWF is set.",
+          "values": [
+            ["0", "Wake-up timer configuration update not allowed"],
+            ["1", "Wake-up timer configuration update allowed"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "ALRBWF",
+          "description": "Alarm B write flag This bit is set by hardware when Alarm B values can be changed, after the ALRBE bit has been set to 0 in RTC_CR. It is cleared by hardware in initialization mode.",
+          "values": [
+            ["0", "Alarm B update not allowed"],
+            ["1", "Alarm B update allowed"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ALRAWF",
+          "description": "Alarm A write flag This bit is set by hardware when Alarm A values can be changed, after the ALRAE bit has been set to 0 in RTC_CR. It is cleared by hardware in initialization mode.",
+          "values": [
+            ["0", "Alarm A update not allowed"],
+            ["1", "Alarm A update allowed"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PRER",
+      "description": "prescaler register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "PREDIV_A",
+          "description": "Asynchronous prescaler factor This is the asynchronous division factor: ck_apre frequency = RTCCLK frequency/(PREDIV_A+1)",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "PREDIV_S",
+          "description": "Synchronous prescaler factor This is the synchronous division factor: ck_spre frequency = ck_apre frequency/(PREDIV_S+1)",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "WUTR",
+      "description": "wake-up timer register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "WUT",
+          "description": "Wake-up auto-reload value bits When the wake-up timer is enabled (WUTE set to 1), the WUTF flag is set every (WUT[15:0] + 1) ck_wut cycles. The ck_wut period is selected through WUCKSEL[2:0] bits of the RTC_CR register When WUCKSEL[2] = 1, the wake-up timer be comes 17-bits and WUCKSEL[1] effectively becomes WUT[16] the most-significant bit to be reloaded into the timer. The first assertion of WUTF o ccurs (WUT+1) ck_wut cycles af ter WUTE is set. Setting WUT[15:0] to 0x0000 with WUCKSEL[2:0] =011 (RTCCLK/2) is forbidden.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ALRMAR",
+      "description": "alarm A register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "MSK4",
+          "description": "Alarm A date mask",
+          "values": [
+            ["0", "Alarm A set if the date/day match"],
+            ["1", "Date/day don\u2019t care in Alarm A comparison"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "WDSEL",
+          "description": "Week day selection",
+          "values": [
+            ["0", "DU[3:0] repres ents the date units"],
+            ["1", "DU[3:0] represents the week day. DT["],
+            ["1", "0] is don\u2019t care."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DT",
+          "description": "Date tens in BCD format.",
+          "values": [],
+          "mask": "0b110000000000000000000000000000"
+        },
+        {
+          "name": "DU",
+          "description": "Date units or day in BCD format.",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "MSK3",
+          "description": "Alarm A hours mask",
+          "values": [
+            ["0", "Alarm A set if the hours match"],
+            ["1", "Hours don\u2019t care in Alarm A comparison"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "PM",
+          "description": "AM/PM notation",
+          "values": [
+            ["0", "AM or 24-hour format"],
+            ["1", "PM"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "HT",
+          "description": "Hour tens in BCD format.",
+          "values": [],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "HU",
+          "description": "Hour units in BCD format.",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "MSK2",
+          "description": "Alarm A minutes mask",
+          "values": [
+            ["0", "Alarm A set if the minutes match"],
+            ["1", "Minutes don\u2019t care in Alarm A comparison"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "MNT",
+          "description": "Minute tens in BCD format.",
+          "values": [],
+          "mask": "0b111000000000000"
+        },
+        {
+          "name": "MNU",
+          "description": "Minute units in BCD format.",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "MSK1",
+          "description": "Alarm A seconds mask",
+          "values": [
+            ["0", "Alarm A set if the seconds match"],
+            ["1", "Seconds don\u2019t care in Alarm A comparison"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "ST",
+          "description": "Second tens in BCD format.",
+          "values": [],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "SU",
+          "description": "Second units in BCD format.",
+          "values": [],
+          "mask": "0b1111"
+        }
+      ]
+    },
+    {
+      "name": "ALRMBR",
+      "description": "alarm B register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "MSK4",
+          "description": "Alarm B date mask",
+          "values": [
+            ["0", "Alarm B set if the date and day match"],
+            ["1", "Date and day don\u2019t care in Alarm B comparison"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "WDSEL",
+          "description": "Week day selection",
+          "values": [
+            ["0", "DU[3:0] represents the date units"],
+            ["1", "DU[3:0] represents the week day. DT["],
+            ["1", "0] is don\u2019t care."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DT",
+          "description": "Date tens in BCD format",
+          "values": [],
+          "mask": "0b110000000000000000000000000000"
+        },
+        {
+          "name": "DU",
+          "description": "Date units or day in BCD format",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "MSK3",
+          "description": "Alarm B hours mask",
+          "values": [
+            ["0", "Alarm B set if the hours match"],
+            ["1", "Hours don\u2019t care in Alarm B comparison"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "PM",
+          "description": "AM/PM notation",
+          "values": [
+            ["0", "AM or 24-hour format"],
+            ["1", "PM"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "HT",
+          "description": "Hour tens in BCD format",
+          "values": [],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "HU",
+          "description": "Hour units in BCD format",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "MSK2",
+          "description": "Alarm B minutes mask",
+          "values": [
+            ["0", "Alarm B set if the minutes match"],
+            ["1", "Minutes don\u2019t care in Alarm B comparison"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "MNT",
+          "description": "Minute tens in BCD format",
+          "values": [],
+          "mask": "0b111000000000000"
+        },
+        {
+          "name": "MNU",
+          "description": "Minute units in BCD format",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "MSK1",
+          "description": "Alarm B seconds mask",
+          "values": [
+            ["0", "Alarm B set if the seconds match"],
+            ["1", "Seconds don\u2019t care in Alarm B comparison"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "ST",
+          "description": "Second tens in BCD format",
+          "values": [],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "SU",
+          "description": "Second units in BCD format",
+          "values": [],
+          "mask": "0b1111"
+        }
+      ]
+    },
+    {
+      "name": "WPR",
+      "description": "write protection register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "KEY",
+          "description": "Write protection key This byte is written by software. Reading this byte always returns 0x00. Refer to RTC register write protection for a description of how to unlock RTC register write protection.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "SSR",
+      "description": "sub second register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "SS",
+          "description": "Sub second value SS[15:0] is the value in the synchronous prescale r counter. The fraction of a second is given by the formula below: Second fraction = (PREDIV_S - SS) / (PREDIV_S + 1) SS can be larger than PREDIV_S only after a shift operation. In that case, the correct time/date is one second less than as indicated by RTC_TR/RTC_DR.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SHIFTR",
+      "description": "shift control register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "ADD1S",
+          "description": "Add one second",
+          "values": [
+            ["0", "No effect"],
+            ["1", "Add one second to the clock/calendar This bit is write only and is always read as zero . Writing to this bit has no effect when a shift operation is pending (when SHPF=1, in RTC_ISR). This function is intended to be used with SUBFS (see description below) in order to effectively add a fraction of a second to the clock in an atomic operation."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "SUBFS",
+          "description": "Subtract a fraction of a second These bits are write only and is always read as zero. Writing to this bit has no effect when a shift operation is pending (when SHPF=1, in RTC_ISR). The value which is written to SUBFS is added to the synchronous prescaler counter. Since this counter counts down, this operation effectiv ely subtracts from (delays) the clock by: Delay (seconds) = SUBFS / (PREDIV_S + 1) A fraction of a second can effectively be added to the clock (advancing the clock) when the ADD1S function is used in conjunction with SUBFS, effectively advancing the clock by: Advance (seconds) = (1 - (SUBFS / (PREDIV_S + 1))). Writing to SUBFS causes RSF to be clear ed. Software can then wait until RSF=1 to be sure that the shadow registers have been updated with the shifted time.",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111111000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TSTR",
+      "description": "timestamp time register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "PM",
+          "description": "AM/PM notation",
+          "values": [
+            ["0", "AM or 24-hour format"],
+            ["1", "PM"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "HT",
+          "description": "Hour tens in BCD format.",
+          "values": [],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "HU",
+          "description": "Hour units in BCD format.",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "MNT",
+          "description": "Minute tens in BCD format.",
+          "values": [],
+          "mask": "0b111000000000000"
+        },
+        {
+          "name": "MNU",
+          "description": "Minute units in BCD format.",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "ST",
+          "description": "Second tens in BCD format.",
+          "values": [],
+          "mask": "0b1110000"
+        },
+        {
+          "name": "SU",
+          "description": "Second units in BCD format.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000001000000010000000"
+        }
+      ]
+    },
+    {
+      "name": "TSDR",
+      "description": "timestamp date register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "WDU",
+          "description": "Week day units",
+          "values": [],
+          "mask": "0b1110000000000000"
+        },
+        {
+          "name": "MT",
+          "description": "Month tens in BCD format",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "MU",
+          "description": "Month units in BCD format",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "DT",
+          "description": "Date tens in BCD format",
+          "values": [],
+          "mask": "0b110000"
+        },
+        {
+          "name": "DU",
+          "description": "Date units in BCD format",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000011000000"
+        }
+      ]
+    },
+    {
+      "name": "TSSSR",
+      "description": "time-stamp sub second register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "SS",
+          "description": "Sub second value SS[15:0] is the value of the synchronous prescaler counter when the timestamp event occurred.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CALR",
+      "description": "calibration register",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "CALP",
+          "description": "Increase frequency of RTC by 488.5 ppm",
+          "values": [
+            ["0", "No RTCCLK pulses are added."],
+            ["1", "One RTCCLK pulse is effectively inserted every 211 pulses (frequency increased by 488.5 ppm). This feature is intended to be used in conjunc tion with CALM, which lowers the frequency of the calendar with a fine resolution. if the input frequency is 32768 Hz, the number of RTCCLK pulses added during a 32-second window is calc ulated as follows: (512 * CALP) - CALM. Refer to Section 46.3.13: RTC smooth digital calibration ."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "CALW8",
+          "description": "Use an 8-second calibration cycle period When CALW8 is set to \u20181\u2019, the 8-second calibration cycle period is selected. CALM[",
+          "values": [["1", "0] are stuck at \u201c00\u201d when CALW8=\u20191\u2019. Refer to Section 46.3.13: RTC smooth digital calibration ."]],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "CALW16",
+          "description": "Use a 16-second calibration cycle period When CALW16 is set to \u20181\u2019, the 16-second calib ration cycle period is se lected.This bit must not be set to \u20181\u2019 if CALW8=1. CALM[0] is stuck at \u20180\u2019 when CALW16=\u20191\u2019. Refer to Section 46.3.13: RTC smooth digital calibration .",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "CALM",
+          "description": "Calibration minus The frequency of the calendar is reduced by masking CALM out of 220 RTCCLK pulses (32 seconds if the input frequency is 32768 Hz). This decreases the frequency of the calendar with a resolution of 0.9537 ppm. To increase the frequency of the calendar, this feature should be used in conjunction with CALP. See Section 46.3.13: RTC smooth di gital calibration on page 1916 .",
+          "values": [],
+          "mask": "0b111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110001111000000000"
+        }
+      ]
+    },
+    {
+      "name": "TAMPCR",
+      "description": "tamper configuration register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "TAMP3MF",
+          "description": "Tamper 3 mask flag The Tamper 3 interrupt must not be enabled when TAMP3MF is set.",
+          "values": [
+            ["0", "Tamper 3 event generates a trigger event a nd TAMP3F must be cleared by software to allow next tamper event detection."],
+            ["1", "Tamper 3 event generates a trigger event. TAMP3F is masked and internally cleared by hardware. The backup registers and the backup SRAM are not erased."]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TAMP3NOERASE",
+          "description": "Tamper 3 no erase",
+          "values": [
+            ["0", "Tamper 3 event erases the backup registers and the backup SRAM."],
+            ["1", "Tamper 3 event does not erase t he backup registers and the backup SRAM."]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "TAMP3IE",
+          "description": "Tamper 3 interrupt enable",
+          "values": [
+            ["0", "Tamper 3 interrupt is disabled if TAMPIE = 0."],
+            ["1", "Tamper 3 interrupt enabled."]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TAMP2MF",
+          "description": "Tamper 2 mask flag The Tamper 2 interrupt must not be enabled when TAMP2MF is set.",
+          "values": [
+            ["0", "Tamper 2 event generates a trigger event a nd TAMP2F must be cleared by software to allow next tamper event detection."],
+            ["1", "Tamper 2 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers and the backup SRAM are not erased."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TAMP2NOERASE",
+          "description": "Tamper 2 no erase",
+          "values": [
+            ["0", "Tamper 2 event erases the backup registers and the backup SRAM."],
+            ["1", "Tamper 2 event does not erase t he backup registers and the backup SRAM."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "TAMP2IE",
+          "description": "Tamper 2 interrupt enable",
+          "values": [
+            ["0", "Tamper 2 interrupt is disabled if TAMPIE = 0."],
+            ["1", "Tamper 2 interrupt enabled."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TAMP1MF",
+          "description": "Tamper 1 mask flag The Tamper 1 interrupt must not be enabled when TAMP1MF is set.",
+          "values": [
+            ["0", "Tamper 1 event generates a trigger event a nd TAMP1F must be cleared by software to allow next tamper event detection."],
+            ["1", "Tamper 1 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers and the backup SRAM are not erased."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TAMP1NOERASE",
+          "description": "Tamper 1 no erase",
+          "values": [
+            ["0", "Tamper 1 event erases the backup registers and the backup SRAM."],
+            ["1", "Tamper 1 event does not erase t he backup registers and the backup SRAM."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TAMP1IE",
+          "description": "Tamper 1 interrupt enable",
+          "values": [
+            ["0", "Tamper 1 interrupt is disabled if TAMPIE = 0."],
+            ["1", "Tamper 1 interrupt enabled."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TAMPPUDIS",
+          "description": "RTC_TAMPx pull-up disable This bit determines if each of the RTC_TAMPx pins are precharged before each sample.",
+          "values": [
+            ["0", "Precharge RTC_TAMPx pins before sampling (enable internal pull-up)"],
+            ["1", "Disable precharge of RTC_TAMPx pins."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TAMPPRCH",
+          "description": "RTC_TAMPx precharge duration These bit determines the duration of time during which the pull-up/is activated before each sample. TAMPPRCH is valid for each of the RTC_TAMPx inputs.",
+          "values": [
+            ["0x0", "1 RTCCLK cycle"],
+            ["0x1", "2 RTCCLK cycles"],
+            ["0x2", "4 RTCCLK cycles"],
+            ["0x3", "8 RTCCLK cycles"]
+          ],
+          "mask": "0b110000000000000"
+        },
+        {
+          "name": "TAMPFLT",
+          "description": "RTC_TAMPx filter count These bits determines the number of consecutiv e samples at the specified level (TAMP*TRG) needed to activate a Tamper event. TAMPFLT is valid for each of the RTC_TAMPx inputs.",
+          "values": [
+            ["0x0", "Tamper event is activate d on edge of RTC_TAMPx input transitions to the active level (no internal pull-up on RTC_TAMPx input)."],
+            ["0x1", "Tamper event is acti vated after 2 consecutive samples at the active level."],
+            ["0x2", "Tamper event is acti vated after 4 consecutive samples at the active level."],
+            ["0x3", "Tamper event is acti vated after 8 consecutive samples at the active level."]
+          ],
+          "mask": "0b1100000000000"
+        },
+        {
+          "name": "TAMPFREQ",
+          "description": "Tamper sampling frequency Determines the frequency at which each of the RTC_TAMPx inputs are sampled.",
+          "values": [
+            ["0x0", "RTCCLK / 32768 (1 Hz when RTCCLK = 32768 Hz)"],
+            ["0x1", "RTCCLK / 16384 (2 Hz when RTCCLK = 32768 Hz)"],
+            ["0x2", "RTCCLK / 8192 (4 Hz when RTCCLK = 32768 Hz)"],
+            ["0x3", "RTCCLK / 4096 (8 Hz when RTCCLK = 32768 Hz)"],
+            ["0x4", "RTCCLK / 2048 (16 Hz when RTCCLK = 32768 Hz)"],
+            ["0x5", "RTCCLK / 1024 (32 Hz when RTCCLK = 32768 Hz)"],
+            ["0x6", "RTCCLK / 512 (64 Hz when RTCCLK = 32768 Hz)"],
+            ["0x7", "RTCCLK / 256 (128 Hz when RTCCLK = 32768 Hz)"]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "TAMPTS",
+          "description": "Activate timestamp on tamper detection event",
+          "values": [
+            ["0", "Tamper detection event does no t cause a timestamp to be saved"],
+            ["1", "Save timestamp on tamper detection event TAMPTS is valid even if TSE=0 in the RTC_CR register."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TAMP3TRG",
+          "description": "Active level for RTC_TAMP3 input if TAMPFLT \u2260 0",
+          "values": [
+            ["0", ""],
+            ["0", "RTC_TAMP3 input staying low triggers a tamper detection event."],
+            ["1", "RTC_TAMP3 input staying high triggers a tamper detection event.if TAMPFLT = 0"],
+            ["0", ""],
+            ["0", "RTC_TAMP3 input rising edge triggers a tamper detection event."],
+            ["1", "RTC_TAMP3 input falling edge tr iggers a tamper detection event.Caution: When TAMPFLT = 0, TAMPxE must be reset when TAMPxTRG is changed to avoid spuriously setting TAMPxF."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TAMP3E",
+          "description": "RTC_TAMP3 detection enable",
+          "values": [
+            ["0", "RTC_TAMP3 input detection disabled"],
+            ["1", "RTC_TAMP3 input detection enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TAMP2TRG",
+          "description": "Active level for RTC_TAMP2 input if TAMPFLT != 0",
+          "values": [
+            ["0", ""],
+            ["0", "RTC_TAMP2 input staying low triggers a tamper detection event."],
+            ["1", "RTC_TAMP2 input staying high triggers a tamper detection event.if TAMPFLT = 0"],
+            ["0", ""],
+            ["0", "RTC_TAMP2 input rising edge triggers a tamper detection event."],
+            ["1", "RTC_TAMP2 input falling edge tr iggers a tamper detection event."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TAMP2E",
+          "description": "RTC_TAMP2 input detection enable",
+          "values": [
+            ["0", "RTC_TAMP2 detection disabled"],
+            ["1", "RTC_TAMP2 detection enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TAMPIE",
+          "description": "Tamper interrupt enable This bit enables the interrupt for all tamper pins events, whatever TAMPxIE level. If this bit is cleared, each tamper event interr upt can be individually enabled by setting TAMPxIE.",
+          "values": [
+            ["0", "Tamper interrupt disabled"],
+            ["1", "Tamper interrupt enabled."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TAMP1TRG",
+          "description": "Active level for RTC_TAMP1 input If TAMPFLT != 00",
+          "values": [
+            ["0", "RTC_TAMP1 input staying low triggers a tamper detection event."],
+            ["1", "RTC_TAMP1 input staying high triggers a tamper detection event. if TAMPFLT = 0"],
+            ["0", ""],
+            ["0", "RTC_TAMP1 input rising edge triggers a tamper detection event."],
+            ["1", "RTC_TAMP1 input falling edge tr iggers a tamper detection event."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "TAMP1E",
+          "description": "RTC_TAMP1 input detection enable",
+          "values": [
+            ["0", "RTC_TAMP1 detection disabled"],
+            ["1", "RTC_TAMP1 detection enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ALRMASSR",
+      "description": "alarm A sub second register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "MASKSS",
+          "description": "Mask the most-significant bits starting at this bit 0: No comparison on sub seconds for Alarm A. The alarm is set when the seconds unit is incremented (assuming that the rest of the fields match). 1: SS[14:1] are don\u2019t care in Alarm A comparison. Only SS[0] is compared. 2: SS[14:2] are don\u2019t care in Alarm A comparison. Only SS[1:0] are compared. 3: SS[14:3] are don\u2019t care in Alarm A comparison. Only SS[2:0] are compared. ...12: SS[14:12] are don\u2019t care in Alarm A comparison. SS[11:0] are compared.13: SS[14:13] are don\u2019t care in Alarm A comparison. SS[12:0] are compared.14: SS[14] is don\u2019t care in Alarm A comparison. SS[13:0] are compared.15: All 15 SS bits are compared and must match to activate alarm.The overflow bits of the synchronous counter (bits 15) is never compared. This bit can be different from 0 only after a shift operation.",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "SS",
+          "description": "Sub seconds value This value is compared with the contents of the synchronous prescaler counter to determine if Alarm A is to be acti vated. Only bits 0 up MASKSS-1 are compared.",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000111111111000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ALRMBSSR",
+      "description": "alarm B sub second register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "MASKSS",
+          "description": "Mask the most-significant bi ts starting at this bit",
+          "values": [
+            ["0x0", "No comparison on sub seconds for Alarm B. The alarm is set when the seconds unit is incremented (assuming that the rest of the fields match)."],
+            ["0x1", "SS[14:1] are don\u2019t care in Alarm B comparison. Only SS[0] is compared."],
+            ["0x2", "SS[14:2] are don\u2019t care in Alarm B comparison. Only SS[1:0] are compared."],
+            ["0x3", "SS[14:3] are don\u2019t care in Alarm B comparison. Only SS[2:0] are compared. ..."],
+            ["0xC", "SS[14:12] are don\u2019t care in Alar m B comparison. SS[11:0] are compared."],
+            ["0xD", "SS[14:13] are don\u2019t care in Alar m B comparison. SS[ 12:0] are compared."],
+            ["0xE", "SS[14] is don\u2019t care in Alarm B comparison. SS[13:0] are compared."],
+            ["0xF", "All 15 SS bits are compared and must match to activate alarm.The overflow bits of the synchronous counter (bits 15) is never compared. This bit can be different from 0 only after a shift operation."]
+          ],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "SS",
+          "description": "Sub seconds value This value is compared with t he contents of the synchronous pr escaler counter to determine if Alarm B is to be activated. Only bits 0 up to MASKSS-1 are compared.",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000111111111000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "OR",
+      "description": "option register",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "RTC_OUT_RMP",
+          "description": "RTC_OUT remap Setting this bit allows to remap the RTC outputs on PB2 as follows:RTC_OUT_RMP = \u20180\u2019:If OSEL/= \u201800\u2019: RTC_AL ARM is output on PC13 If OSEL= \u201800\u2019 and COE = \u20181\u2019: RTC_CALIB is output on PC13RTC_OUT_RMP = \u20181\u2019:If OSEL /= \u201800\u2019 and COE = \u20180\u2019: RTC_ALARM is output on PB2If OSEL = \u201800\u2019 and COE = \u20181 \u2019: RTC_CALIB is output on PB2 If OSEL /= \u201800\u2019 and COE = \u20181\u2019: RTC_CALIB is output on PB2 and RTC_ALARM is output on PC13.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "RTC_ALARM_TYPE",
+          "description": "RTC_ALARM output type on PC13 This bit is set and cleared by software",
+          "values": [
+            ["0", "RTC_ALARM, when mapped on PC13, is open-drain output"],
+            ["1", "RTC_ALARM, when mapped on PC13, is push-pull output"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "BKPR",
+      "description": "backup registers",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "1",
+          "description": "0 BKP[3",
+          "values": [["1", "0] The application can write or read da ta to and from these registers. They are powered-on by VBAT when VDD is switched off, so that they are not reset by System reset, and their content s remain valid when the device operates in low-power mode. This register is reset on a tamper detection event, as long as TAMPxF=1."]],
+          "mask": "0b1000"
+        }
+      ],
+      "array": [32]
+    }
+  ]
+}

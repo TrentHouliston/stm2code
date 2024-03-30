@@ -1,0 +1,1144 @@
+{
+  "LPUART": [
+    {
+      "name": "CR1",
+      "description": "control register 1",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "RXFFIE",
+          "description": "RXFIFO full interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated w hen RXFF = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "TXFEIE",
+          "description": "TXFIFO empty interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated w hen TXFE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "FIFOEN",
+          "description": "FIFO mode enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "FIFO mode is disabled."],
+            ["1", "FIFO mode is enabled."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "M1",
+          "description": "Word length This bit must be used in conjunction with bit 12 (M0) to determine the word length. It is set or cleared by software. M[ In 7-bit data length mode, the Smartcar d mode, LIN master mode and Auto baud rate (0x7F and 0x55 frames detection) are not supported.",
+          "values": [
+            ["1", "0] = \u201800\u2019: 1 Start bit, 8 Data bits, n Stop bitM["],
+            ["1", "0] = \u201801\u2019: 1 Start bit, 9 Data bits, n Stop bitM["],
+            ["1", "0] = \u201810\u2019: 1 Start bit, 7 Data bits, n Stop bitThis bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "DEAT",
+          "description": "Driver enable assertion time This 5-bit value defines the time between the activation of the DE (Driver Enable) signal and the beginning of the start bit. It is expressed in lpuart_ker_ck clock cycles. For more details, refer Section 48.5.20: RS232 Hardware fl ow control and RS485 Driver Enable . This bitfield can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b11111000000000000000000000"
+        },
+        {
+          "name": "DEDT",
+          "description": "Driver enable deassertion time This 5-bit value defines the time between the end of the last stop bit, in a transmitted message, and the de-activation of the DE (Driver Enable) signal.It is expressed in lpuart_ker_ck clock cycles. For more details, refer Section 49.4.13: RS232 Hardware flow control and RS485 Driver Enable . If the LPUART_TDR register is written during the DEDT time, the new data is transmitted only when the DEDT and DEAT times have both elapsed. This bitfield can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "CMIE",
+          "description": "Character match interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated when the CMF bit is set in the LPUART_ISR register."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "MME",
+          "description": "Mute mode enable This bit activates the Mute mode function of the LPUART. When set, the LPUART can switch between the active and Mute m odes, as defined by the WAKE bi t. It is set and cleared by software.",
+          "values": [
+            ["0", "Receiver in active mode permanently"],
+            ["1", "Receiver can switch between Mute mode and active mode."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "M0",
+          "description": "Word length This bit is used in conjunction with bit 28 (M1) to determine the word length. It is set or cleared by software (refer to bit 28 (M1) description). This bit can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "WAKE",
+          "description": "Receiver wake-up method This bit determines the LPUART wake-up method from Mute mode. It is set or cleared by software.",
+          "values": [
+            ["0", "Idle line"],
+            ["1", "Address markThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "PCE",
+          "description": "Parity control enable This bit selects the hardware parity cont rol (generation and dete ction). When the parity control is enabled, the computed parity is inserted at the MSB position (9th bit if M = 1; 8th bit if M = 0) and parity is checked on the re ceived data. This bit is set and cleared by software. Once it is set, PCE is active after the current byte (in reception and in transmission).",
+          "values": [
+            ["0", "Parity control disabled"],
+            ["1", "Parity control enabledThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "PS",
+          "description": "Parity selection This bit selects the odd or even parity when t he parity generation/detection is enabled (PCE bit set). It is set and cleared by software. The parity is selected after the current byte.",
+          "values": [
+            ["0", "Even parity"],
+            ["1", "Odd parityThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "PEIE",
+          "description": "PE interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated when ever PE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TXFNFIE",
+          "description": "TXFIFO not full interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated whenever TXE/TXFNF =1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TCIE",
+          "description": "Transmission complete interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated whenever TC = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXFNEIE",
+          "description": "RXFIFO not empty interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated whenever ORE = 1 or RXNE/RXFNE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "IDLEIE",
+          "description": "IDLE interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated whenever IDLE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TE",
+          "description": "Transmitter enable This bit enables the transmitter. It is set and cleared by software. During transmission, a low pulse on the TE bit (\u201c0\u201d followed by \u201c1\u201d) sends a preamble (idle line) after the current word. In order to generate an idle character, the TE must not be immediately written to 1. In order to en sure the required duration, the software can poll the TEACK bit in the LPUART_ISR register. When TE is set there is a 1 bit-time delay before the transmission starts. RE: Receiver enable This bit enables the receiver. It is set and cleared by software.",
+          "values": [
+            ["0", "Transmitter is disabled"],
+            ["1", "Transmitter is enabled"],
+            ["0", "Receiver is disabled"],
+            ["1", "Receiver is enabled and begins searching for a start bit"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "UESM",
+          "description": "LPUART enable in Stop mode When this bit is cleared, the LPUART is not able to wake up the MCU from low-power mode. When this bit is set, the LPUART is able to wake up the MCU from low-power mode, provided that the LPUART clock se lection is HSI or LSE in the RCC. This bit is set and cleared by software. It is recommended to set the UESM bit just before entering low-power mode and clear it on exit from low-power mode.",
+          "values": [
+            ["0", "LPUART not able to wake up the MCU from low-power mode."],
+            ["1", "LPUART able to wake up the MCU from low- power mode. When this function is active, the clock source for the LPUART must be HSI or LSE (see RCC chapter)"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "UE",
+          "description": "LPUART enable When this bit is cleared, the LPUART prescale rs and outputs are stopped immediately, and current operations are discarded. The configuratio n of the LPUART is ke pt, but all the status flags, in the LPUART_ISR are reset. Th is bit is set and cleared by software. To enter low-power mode without generating e rrors on the line, the TE bit must be reset before and the software must wa it for the TC bit in the LP UART_ISR to be set before resetting the UE bit. The DMA requests are also reset when UE = 0 so the DMA channel must be disabled before resetting the UE bit.",
+          "values": [
+            ["0", "LPUART prescaler and outputs disabled, low-power mode"],
+            ["1", "LPUART enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1100000000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CR1",
+      "description": "control register 1 [alternate]",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "FIFOEN",
+          "description": "FIFO mode enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "FIFO mode is disabled."],
+            ["1", "FIFO mode is enabled."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "M1",
+          "description": "Word length This bit must be used in conjunction with bit 12 (M0) to determine the word length. It is set or cleared by software. M[ In 7-bit data length mode, the Smartcar d mode, LIN master mode and Auto baud rate (0x7F and 0x55 frames detection) are not supported.",
+          "values": [
+            ["1", "0] = \u201800\u2019: 1 Start bit, 8 Data bits, n Stop bitM["],
+            ["1", "0] = \u201801\u2019: 1 Start bit, 9 Data bits, n Stop bitM["],
+            ["1", "0] = \u201810\u2019: 1 Start bit, 7 Data bits, n Stop bitThis bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "DEAT",
+          "description": "Driver enable assertion time This 5-bit value defines the time between the ac tivation of the DE (Driver Enable) signal and the beginning of the start bit. It is expressed in lpuart_ker_ck clock cycles. For more details, refer Section 48.5.20: RS232 Hardware fl ow control and RS485 Driver Enable . This bitfield can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b11111000000000000000000000"
+        },
+        {
+          "name": "DEDT",
+          "description": "Driver enable deassertion time This 5-bit value defines the time between the end of the last stop bit, in a transmitted message, and the de-activation of the DE (Driver Enable) signal.It is expressed in lpuart_ker_ck clock cycles. For more details, refer Section 49.4.13: RS232 Hardware flow control and RS485 Driver Enable . If the LPUART_TDR register is written during th e DEDT time, the new data is transmitted only when the DEDT and DEAT times have both elapsed. This bitfield can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "CMIE",
+          "description": "Character match interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated when the CMF bit is set in the LPUART_ISR register."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "MME",
+          "description": "Mute mode enable This bit activates the Mute mode function of the LPUART. When set, the LPUART can switch between the active and Mute m odes, as defined by the WAKE bi t. It is set and cleared by software.",
+          "values": [
+            ["0", "Receiver in active mode permanently"],
+            ["1", "Receiver can switch between Mute mode and active mode."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "M0",
+          "description": "Word length This bit is used in conjunction with bit 28 (M1) to determine the word length. It is set or cleared by software (refer to bit 28 (M1) description). This bit can only be written when the LPUART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "WAKE",
+          "description": "Receiver wake-up method This bit determines the LPUART wake-up method from Mute mode. It is set or cleared by software.",
+          "values": [
+            ["0", "Idle line"],
+            ["1", "Address markThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "PCE",
+          "description": "Parity control enable This bit selects the hardware parity cont rol (generation and dete ction). When the parity control is enabled, the computed parity is inserted at the MSB position (9th bit if M = 1; 8th bit if M = 0) and parity is checked on the received data. This bit is set and cleared by software. Once it is set, PCE is active after the curr ent byte (in reception and in transmission).",
+          "values": [
+            ["0", "Parity control disabled"],
+            ["1", "Parity control enabledThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "PS",
+          "description": "Parity selection This bit selects the odd or even parity when th e parity generation/detection is enabled (PCE bit set). It is set and cleared by software. The parity is selected after the current byte.",
+          "values": [
+            ["0", "Even parity"],
+            ["1", "Odd parityThis bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "PEIE",
+          "description": "PE interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated when ever PE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TXEIE",
+          "description": "Transmit data register empty This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated whenever TXE/TXFNF =1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TCIE",
+          "description": "Transmission complete interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated whenever TC = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXNEIE",
+          "description": "Receive data register not empty This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated whenever ORE = 1 or RXNE/RXFNE = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "IDLEIE",
+          "description": "IDLE interrupt enable This bit is set and cleared by software. During transmission, a low pulse on the TE bit (\u201c0\u201d followed by \u201c1\u201d) sends a preamble (idle line) after the current word. In order to generate an idle character, the TE must not be immediately written to 1. In order to en sure the required duration, the software can poll the TEACK bit in the LPUART_ISR register. When TE is set there is a 1 bit-time delay before the transmission starts.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated whenever IDLE = 1 in the LPUART_ISR register TE: Transmitter enable This bit enables the transmitter. It is set and cleared by software."],
+            ["0", "Transmitter is disabled"],
+            ["1", "Transmitter is enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RE",
+          "description": "Receiver enable This bit enables the receiver. It is set and cleared by software.",
+          "values": [
+            ["0", "Receiver is disabled"],
+            ["1", "Receiver is enabled and begins searching for a start bit"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "UESM",
+          "description": "LPUART enable in Stop mode When this bit is cleared, the LPUART is not able to wake up the MCU from low-power mode. When this bit is set, the LPUART is able to wake up the MCU from low-power mode, provided that the LPUART clock selection is HSI or LSE in the RCC. This bit is set and cleared by software. It is recommended to set the UESM bit ju st before entering low-pow er mode and clear it on exit from low-power mode.",
+          "values": [
+            ["0", "LPUART not able to wake up the MCU from low-power mode."],
+            ["1", "LPUART able to wake up the MCU from low-power mode. When this function is active, the clock source for the LPUART must be HSI or LSE (see RCC chapter)"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "UE",
+          "description": "LPUART enable When this bit is cleared, the LPUART prescale rs and outputs are stopped immediately, and current operations are discarded. The configurati on of the LPUART is kept, but all the status flags, in the LPUART_ISR are reset. Th is bit is set and cleared by software. To enter low-power mode with out generating errors on the line, the TE bit must be reset before and the software must wa it for the TC bit in the LP UART_ISR to be set before resetting the UE bit. The DMA requests are also reset when UE = 0 so the DMA channel must be disabled before resetting the UE bit.",
+          "values": [
+            ["0", "LPUART prescaler and outputs disabled, low-power mode"],
+            ["1", "LPUART enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11001100000000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CR2",
+      "description": "control register 2",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "ADD",
+          "description": "Address of the LPUART node These bits give the address of the LPUART node in Mute mode or a character code to be recognized in low-power or Run mode: \u2013 In Mute mode: they are used in multiprocessor communication to wake up from Mute mode with 4-bit/7-bit address mark det ection. The MSB of the charac ter sent by the transmitter should be equal to 1. In 4-bit address mark detection, only ADD[3: 0] bits are used. \u2013 In low-power mode: they are used for wake up from low-power mode on character match.When WUS[1:0] is programmed to 0b00 (W UF active on address match), the wake-up from low-power mode is performed when t he received character corresponds to the character programmed through ADD[6:0] or A DD[3:0] bitfield (depending on ADDM7 bit), and WUF interrupt is enabled by setting WUFIE bit. The MSB of the character sent by transmitter should be equal to 1. \u2013 In Run mode with Mute mode inactive (for ex ample, end-of-block detection in ModBus protocol): the whole received character (8 bi ts) is compared to ADD[7:0] value and CMF flag is set on match. An interrupt is generated if the CMIE bit is set. These bits can only be written when the recepti on is disabled (RE = 0) or when the USART is disabled (UE = 0).",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "MSBFIRST",
+          "description": "Most significant bit first This bit is set and cleared by software.",
+          "values": [
+            ["0", "data is transmitted/received with da ta bit 0 first, follo wing the start bit."],
+            ["1", "data is transmitted/received with the M SB (bit 7/8) first, following the start bit. This bitfield can only be written w hen the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "DATAINV",
+          "description": "Binary data inversion This bit is set and cleared by software.",
+          "values": [
+            ["0", "Logical data from the data regi ster are send/received in positive/direct logic. (1 = H, 0 = L)"],
+            ["1", "Logical data from the data regi ster are send/received in negative/ inverse logic. (1 = L, 0 = H). The parity bit is also inverted. This bitfield can only be written w hen the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "TXINV",
+          "description": "TX pin active level inversion This bit is set and cleared by software.",
+          "values": [
+            ["0", "TX pin signal works using the standard logic levels (VDD = 1/idle, Gnd = 0/mark)"],
+            ["1", "TX pin signal values are inverted (VDD = 0/mark, Gnd = 1/idle). This enables the use of an external inverter on the TX line. This bitfield can only be written w hen the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "RXINV",
+          "description": "RX pin active level inversion This bit is set and cleared by software.",
+          "values": [
+            ["0", "RX pin signal works using the standard logic levels (V DD = 1/idle, Gnd = 0/mark)"],
+            ["1", "RX pin signal values are inverted (VDD = 0/mark, Gnd = 1/idle). This enables the use of an external inverter on the RX line. This bitfield can only be written w hen the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "SWAP",
+          "description": "Swap TX/RX pins This bit is set and cleared by software.",
+          "values": [
+            ["0", "TX/RX pins are used as defined in standard pinout"],
+            ["1", "The TX and RX pins functions are swapped. This enables to work in the case of a cross-wired connection to another UART. This bitfield can only be written w hen the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ADDM7",
+          "description": "7-bit address detection/4-bit address detection This bit is for selection between 4-bit ad dress detection or 7-bit address detection. In 7-bit and 9-bit data modes, the address detection is done on 6-bit and 8-bit address (ADD[5:0] and ADD[7:0]) respectively.",
+          "values": [
+            ["0", "4-bit address detection"],
+            ["1", "7-bit address detection (in 8-bit data mode)This bit can only be written when the LPUART is disabled (UE = 0)"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111100000100111111101111"
+        }
+      ]
+    },
+    {
+      "name": "CR3",
+      "description": "control register 3",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "3",
+          "description": "1231 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 TXFTCFG[2:0]RXFTI ERXFTCFG[2:0] Res. TXFTIE WUFIE WUS[",
+          "values": [["1", "0] Res. Res. Res. Res. rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 DEP DEM DDREOVRDI SRes. CTSIE CTSE RTSE DMAT DMAR Res. Res. HDSEL Res. Res. EIE rw rw rw rw rw rw rw rw rw rw rw"]],
+          "mask": "0b10"
+        },
+        {
+          "name": "TXFTCFG",
+          "description": "TXFIFO threshold configuration",
+          "values": [
+            ["000", "TXFIFO reaches 1/8 of its depth."],
+            ["001", "TXFIFO reaches 1/4 of its depth."],
+            ["110", "TXFIFO reaches 1/2 of its depth."],
+            ["011", "TXFIFO reaches 3/4 of its depth."],
+            ["100", "TXFIFO reaches 7/8 of its depth."],
+            ["101", "TXFIFO becomes empty.Remaining combinations: Reserved."]
+          ],
+          "mask": "0b11100000000000000000000000000000"
+        },
+        {
+          "name": "RXFTIE",
+          "description": "RXFIFO threshold interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated w hen Receive FIFO reaches the threshold programmed in RXFTCFG."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "RXFTCFG",
+          "description": "Receive FIFO threshold configuration",
+          "values": [
+            ["000", "Receive FIFO reaches 1/8 of its depth."],
+            ["001", "Receive FIFO reaches 1/4 of its depth."],
+            ["110", "Receive FIFO reaches 1/2 of its depth."],
+            ["011", "Receive FIFO reaches 3/4 of its depth."],
+            ["100", "Receive FIFO reaches 7/8 of its depth."],
+            ["101", "Receive FIFO becomes full.Remaining combinations: Reserved."]
+          ],
+          "mask": "0b1110000000000000000000000000"
+        },
+        {
+          "name": "TXFTIE",
+          "description": "TXFIFO threshold interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A LPUART interrupt is generated when TX FIFO reaches the threshold programmed in TXFTCFG."]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "WUFIE",
+          "description": "Wake-up from low-power mode interrupt enable This bit is set and cleared by software. WUFIE must be set before entering in low-power mode. The WUF interrupt is active only in low-power mode. If the LPUART does not support the wake-up fr om Stop feature, this bit is reserved and must be kept at reset value. Refer to Section 48.4: USART implementation .",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An LPUART interrupt is generated when ever WUF = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "WUS",
+          "description": "Wake-up from low-power mode interrupt flag selection This bitfield specifies the event which acti vates the WUF (wake-up from low-power mode flag). If the LPUART does not support the wake-up from Stop feature, this bit is reserved and must be kept at reset value. Refer to Section 48.4: USART implementation .",
+          "values": [
+            ["00", "WUF active on address match (a s defined by ADD[7:0] and ADDM7)"],
+            ["01", "Reserved."],
+            ["10", "WUF active on Start bit detection"],
+            ["11", "WUF active on RXNE. This bitfield can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "DEP",
+          "description": "Driver enable polarity selection",
+          "values": [
+            ["0", "DE signal is active high."],
+            ["1", "DE signal is active low.This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "DEM",
+          "description": "Driver enable mode This bit enables the user to activate the extern al transceiver control, through the DE signal.",
+          "values": [
+            ["0", "DE function is disabled."],
+            ["1", "DE function is enabled. The DE signal is output on the RTS pin. This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DDRE",
+          "description": "DMA disable on reception error The reception errors are: parity error, framing error or noise error.",
+          "values": [
+            ["0", "DMA is not disabled in case of reception error. The corresponding error flag is set but RXNE is kept 0 preventing from overrun. As a consequence, the DMA request is not asserted, so the erroneous data is not tran sferred (no DMA request), but next correct received data is transferred."],
+            ["1", "DMA is disabled following a reception error. The corresponding error flag is set, as well as RXNE. The DMA request is masked until the erro r flag is cleared. This means that the software must first disable the DMA request (DMA R = 0) or clear RXNE before clearing the error flag. This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "OVRDIS",
+          "description": "Overrun disable This bit is used to disable the receive overrun detection. This control bit enables checking the communication flow w/o reading the data.",
+          "values": [
+            ["0", "Overrun Error Flag, ORE is set when received data is not read before receiving new data."],
+            ["1", "Overrun functionality is disabled. If new data is received while the RXNE flag is still setthe ORE flag is not set and the new received da ta overwrites the previous content of the LPUART_RDR register. This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "CTSIE",
+          "description": "CTS interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An interrupt is generated whenever CTSIF = 1 in the LPUART_ISR register"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "CTSE",
+          "description": "CTS enable",
+          "values": [
+            ["0", "CTS hardware flow control disabled"],
+            ["1", "CTS mode enabled, data is onl y transmitted when the CTS input is deasserted (tied to 0). If the CTS input is asserted while data is being transmitted, then the transmission is completed before stopping. If data is written into the data register whil e CTS is asserted, the transmission is postponed until CTS is deasserted. This bit can only be written when the LPUART is disabled (UE = 0)"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "RTSE",
+          "description": "RTS enable",
+          "values": [
+            ["0", "RTS hardware flow control disabled"],
+            ["1", "RTS output enabled, data is on ly requested when there is space in the receive buffer. The transmission of data is expected to cease af ter the current character has been transmitted. The RTS output is deasserted (pulled to 0) when data can be received. This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "DMAT",
+          "description": "DMA enable transmitter This bit is set/reset by software",
+          "values": [
+            ["1", "DMA mode is enabled for transmission"],
+            ["0", "DMA mode is disabled for transmission DMAR : DMA enable receiver This bit is set/reset by software"],
+            ["1", "DMA mode is enabled for reception"],
+            ["0", "DMA mode is disabled for reception"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "HDSEL",
+          "description": "Half-duplex selection Selection of Single-wire Half-duplex mode",
+          "values": [
+            ["0", "Half duplex mode is not selected"],
+            ["1", "Half duplex mode is selected This bit can only be written when the LPUART is disabled (UE = 0)."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "EIE",
+          "description": "Error interrupt enable Error Interrupt Enable Bit is required to enable in terrupt generation in case of a framing error, overrun error or noise flag (FE = 1 or ORE = 1 or NE = 1 in the LPUART_ISR register).",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An interrupt is generated when FE = 1 or OR E = 1 or NE = 1 in the LPUART_ISR register."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000011110000100000110110"
+        }
+      ]
+    },
+    {
+      "name": "BRR",
+      "description": "baud rate register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "BRR",
+          "description": "LPUART baud rate",
+          "values": [],
+          "mask": "0b11111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "RQR",
+      "description": "request register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "TXFRQ",
+          "description": "Transmit data flush request This bit is used when FIFO mode is enabled. TX FRQ bit is set to flush the whole FIFO. This sets the flag TXFE (TXFIFO empty, bit 23 in the LPUART_ISR register). In FIFO mode, the TXFNF flag is reset during the flush request unti l TxFIFO is empty in order to ensure that no data ar e written in the data register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RXFRQ",
+          "description": "Receive data flush request Writing 1 to this bit clears the RXNE flag. This enables discarding the received data without reading it, and avoid an overrun condition.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "MMRQ",
+          "description": "Mute mode request Writing 1 to this bit puts the LPUART in Mute mode and resets the RWU flag.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "SBKRQ",
+          "description": "Send break request Writing 1 to this bit sets t he SBKF flag and request to send a BREAK on the line, as soon as the transmit machine is available. If the application needs to send the break character following all previously inserted data, including the ones not yet transmitted, the software should wait for the TXE flag assertion before se tting the SBKRQ bit.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100001"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "interrupt and status register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "TXFT",
+          "description": "TXFIFO threshold flag This bit is set by hardware when the TX FIFO reaches the thre shold programmed in TXFTCFG in LPUART_CR3 register i.e. the TX FIFO contains TXFTCFG empty locations. An interrupt is generated if the TXFTIE bit = 1 (bit 31) in the LPUART_CR3 register.",
+          "values": [
+            ["0", "TXFIFO does not reach the programmed threshold."],
+            ["1", "TXFIFO reached the programmed threshold."]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "RXFT",
+          "description": "RXFIFO threshold flag This bit is set by hardware when the RXFIFO reaches the threshold programmed in RXFTCFG in LPUART_CR3 regist er i.e. the Receive FIFO contains RXFTCFG data. An interrupt is generated if the RXFTIE bit = 1 (bit 27) in the LPUART_CR3 register.",
+          "values": [
+            ["0", "Receive FIFO does not reach the programmed threshold."],
+            ["1", "Receive FIFO reached the programmed threshold."]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "RXFF",
+          "description": "RXFIFO full This bit is set by hardware when the number of received data corresponds to RXFIFO size + 1 (RXFIFO full + 1 data in the LPUART_RDR register. An interrupt is generated if the RXFFIE bit = 1 in the LPUART_CR1 register.",
+          "values": [
+            ["0", "RXFIFO is not full"],
+            ["1", "RXFIFO is full"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TXFE",
+          "description": "TXFIFO empty This bit is set by hardware when TXFIFO is em pty. When the TXFIFO contains at least one data, this flag is cleared. The TXFE flag can also be set by writing 1 to the bit TXFRQ (bit 4) in the LPUART_RQR register. An interrupt is generated if the TXFEIE bit = 1 (bit 30) in the LPUART_CR1 register.",
+          "values": [
+            ["0", "TXFIFO is not empty"],
+            ["1", "TXFIFO is empty"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "REACK",
+          "description": "Receive enable acknowledge flag This bit is set/reset by hardware, when the Re ceive Enable value is taken into account by the LPUART. It can be used to verify that the LPUART is ready for reception before entering low-power mode. If the LPUART does not support the wake-up fr om Stop feature, this bit is reserved and kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TEACK",
+          "description": "Transmit enable acknowledge flag This bit is set/reset by hardware, when the Transmit Enable value is taken into account by the LPUART. It can be used when an idle frame request is gen erated by writing TE = 0, followed by TE = 1 in the LPUART_CR1 register, in order to respect the TE = 0 minimum period.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "WUF",
+          "description": "Wake-up from low-power mode flag This bit is set by hardware, when a wake-up event is detected. The event is defined by the WUS bitfield. It is cleared by software, writi ng a 1 to the WUCF in the LPUART_ICR register. An interrupt is generated if WUFIE = 1 in the LPUART_CR3 register. When UESM is cleared, WUF flag is also cleared. The WUF interrupt is active only in low-power mode.If the LPUART does not support the wake-up from Stop feat ure, this bit is reserved and kept at reset value",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "RWU",
+          "description": "Receiver wake-up from Mute mode This bit indicates if the LPUART is in Mute mode. It is cleared/set by hardware when a wake- up/mute sequence is recognized. The Mute mo de control sequence (address or IDLE) is selected by the WAKE bit in the LPUART_CR1 register. When wake-up on IDLE mode is selected, this bit c an only be set by software, writing 1 to the MMRQ bit in the LPUART_RQR register. If the LPUART does not support the wake-up fr om Stop feature, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "Receiver in Active mode"],
+            ["1", "Receiver in Mute mode"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "SBKF",
+          "description": "Send break flag This bit indicates that a send break character wa s requested. It is set by software, by writing 1 to the SBKRQ bit in the LPUART _CR3 register. It is automati cally reset by hardware during the stop bit of break transmission.",
+          "values": [
+            ["0", "Break character transmitted"],
+            ["1", "Break character requested by setting SBKRQ bit in LPUART_RQR register"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CMF",
+          "description": "Character match flag This bit is set by hardware, when a the charac ter defined by ADD[7:0] is received. It is cleared by software, writing 1 to th e CMCF in the LPUART_ICR register. An interrupt is generated if CMIE = 1in the LPUART_CR1 register.",
+          "values": [
+            ["0", "No Character match detected"],
+            ["1", "Character Match detected"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "BUSY",
+          "description": "Busy flag This bit is set and reset by hardware. It is active when a communication is ongoing on the RX line (successful start bit detected). It is reset at the end of the reception (successful or not).",
+          "values": [
+            ["0", "LPUART is idle (no reception)"],
+            ["1", "Reception on going"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CTS",
+          "description": "CTS flag This bit is set/reset by hardware . It is an inverted copy of th e status of the CTS input pin. If the hardware flow control feature is not supported, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "CTS line set"],
+            ["1", "CTS line reset"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "CTSIF",
+          "description": "CTS interrupt flag This bit is set by hardware when the CTS input toggl es, if the CTSE bit is set. It is cleared by software, by writing 1 to the CTSC F bit in the LPUART_ICR register. An interrupt is generated if CTSIE = 1 in the LPUART_CR3 register. If the hardware flow control feature is not supported, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "No change occurred on the CTS status line"],
+            ["1", "A change occurred on the CTS status line"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TXFNF",
+          "description": "TXFIFO not full TXFNF is set by hardware when TXFIFO is not full, and so data can be written in the LPUART_TDR. Every write in t he LPUART_TDR places the data in the TXFIFO. This flag remains set until the TXFIFO is full. When the TX FIFO is full, this flag is cleared indicating that data can not be writ ten into the LPUART_TDR. The TXFNF is kept reset during the flush request until TXFIFO is empty. After sending the flush request (by setting TXFRQ bit), the flag TXFNF should be checked prior to writing in TXFIFO (TXFNF and TXFE are set at the same time). An interrupt is generated if the TXFNFIE bit = 1 in the LPUART_CR1 register. This bit is used during single buffer transmission.",
+          "values": [
+            ["0", "Data register is full/Transmit FIFO is full."],
+            ["1", "Data register/Transmit FIFO is not full."]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TC",
+          "description": "Transmission complete This bit is set by hardware if the transmission of a frame containing data is complete and if TXFF is set. An interrupt is generated if TCIE = 1 in the LPUART_CR1 register. It is cleared by software, writing 1 to the TCCF in the LPUART_ICR register or by a write to the LPUART_TDR register. An interrupt is generated if TCIE = 1 in the LPUART_CR1 register. If TE bit is reset and no transmission is on going, the TC bit is set immediately.",
+          "values": [
+            ["0", "Transmission is not complete"],
+            ["1", "Transmission is complete"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXFNE",
+          "description": "RXFIFO not empty RXFNE bit is set by hardware when the RXFIFO is not empty, and so data can be read from the LPUART_RDR register. Every read of the LPUART_RDR frees a location in the RXFIFO. It is cleared when the RXFIFO is empty. The RXFNE flag can also be cleared by writing 1 to the RXFRQ in the LPUART_RQR register. An interrupt is generated if RXFNEIE = 1 in the LPUART_CR1 register.",
+          "values": [
+            ["0", "Data is not received"],
+            ["1", "Received data is ready to be read."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "IDLE",
+          "description": "Idle line detected This bit is set by hardware when an Idle line is detected. An interrupt is generated if IDLEIE = 1 in the LPUART_CR1 register. It is cleared by software, writing 1 to the IDLECF in the LPUART_ICR register. The IDLE bit is not set again until the RXFNE bit has been set (i.e. a new idle line occurs). If Mute mode is enabled (MME = 1), IDLE is set if the LPUART is not mute (RWU = 0), whatever the Mute mode selected by the WAKE bit. If RWU = 1, IDLE is not set.",
+          "values": [
+            ["0", "No Idle line is detected"],
+            ["1", "Idle line is detected"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ORE",
+          "description": "Overrun error This bit is set by hardware when the data currently being received in the shift register is ready to be transferred into the LPUART_RDR regi ster while RXFF = 1. It is cleared by a software, writing 1 to the ORECF, in the LPUART_ICR register. An interrupt is generated if RXFNEIE = 1 or EI E = 1 in the LPUART_CR1 register, or EIE = 1 in the LPUART_CR3 register. When this bit is set, the LPUART_RDR register content is not lost but the shift register is overwritten. An interrupt is generated if the ORE flag is set during multi buffer communication if the EIE bit is set. This bit is permanently forced to 0 (no ove rrun detection) when the bit OVRDIS is set in the LPUART_CR3 register.",
+          "values": [
+            ["0", "No overrun error"],
+            ["1", "Overrun error is detected"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "NE",
+          "description": "Start bit noise detection flag This bit is set by hardware when noise is detec ted on the start bit of a received frame. It is cleared by software, writing 1 to the NECF bit in the LPUART_ICR register. This bit does not generate an interrupt as it appears at the same time as the RXFNE bit which itself generates an interrupt. An interru pt is generated when the NE flag is set during multi buffer communication if the EIE bit is set. This error is associated with the character in the LPUART_RDR.",
+          "values": [
+            ["0", "No noise is detected"],
+            ["1", "Noise is detected"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "FE",
+          "description": "Framing error This bit is set by hardware when a de-synchroni zation, excessive noise or a break character is detected. It is cleared by software, writi ng 1 to the FECF bit in the LPUART_ICR register. When transmitting data in Smartcard mode, th is bit is set when the maximum number of transmit attempts is reached without su ccess (the card NACKs the data frame). An interrupt is generated if EIE = 1 in the LPUART_CR3 register. This error is associated with the character in the LPUART_RDR.",
+          "values": [
+            ["0", "No Framing error is detected"],
+            ["1", "Framing error or break character is detected"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "PE",
+          "description": "Parity error This bit is set by hardware when a parity error occurs in receiver mode. It is cleared by software, writing 1 to the PECF in the LPUART_ICR register. An interrupt is generated if PEIE = 1 in the LPUART_CR1 register. This error is associated with the character in the LPUART_RDR.",
+          "values": [
+            ["0", "No parity error"],
+            ["1", "Parity error"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110010000000001111100100000000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "interrupt and status register [alternate]",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "REACK",
+          "description": "Receive enable acknowledge flag This bit is set/reset by hardware when the Rece ive Enable value is taken into account by the LPUART. It can be used to verify that the LPUART is ready for reception before entering low-power mode. If the LPUART does not supp ort the wake-up from Stop feature, this bit is reserved and kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "TEACK",
+          "description": "Transmit enable acknowledge flag This bit is set/reset by hardware, when the Transmit Enable value is taken into account by the LPUART. It can be used when an idle frame request is gener ated by writing TE = 0, followed by TE = 1 in the LPUART_CR1 register, in order to respect the TE = 0 minimum period.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "WUF",
+          "description": "Wake-up from low-power mode flag This bit is set by hardware, when a wake-up event is detected. The event is defined by the WUS bitfield. It is cleared by software, writin g a 1 to the WUCF in the LPUART_ICR register. An interrupt is generated if WUFIE = 1 in the LPUART_CR3 register. When UESM is cleared, WUF flag is also cleared. The WUF interrupt is active only in low-power mode.If the LPUART does not suppor t the wake-up from Stop featur e, this bit is reserved and kept at reset value",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "RWU",
+          "description": "Receiver wake-up from Mute mode This bit indicates if the LPUART is in Mute mo de. It is cleared/set by hardware when a wake- up/mute sequence is recognized. The Mute mo de control sequence (address or IDLE) is selected by the WAKE bit in the LPUART_CR1 register. When wake-up on IDLE mode is selected, this bit can only be set by software, writing 1 to the MMRQ bit in the LPUART_RQR register. If the LPUART does not supp ort the wake-up from Stop feature, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "Receiver in active mode"],
+            ["1", "Receiver in Mute mode"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "SBKF",
+          "description": "Send break flag This bit indicates that a send break character was requested. It is set by software, by writing 1 to the SBKRQ bit in the LPUART_CR3 register. It is automatically reset by hardware during the stop bit of break transmission.",
+          "values": [
+            ["0", "Break character transmitted"],
+            ["1", "Break character requested by setting SBKRQ bit in LPUART_RQR register"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CMF",
+          "description": "Character match flag This bit is set by hardware, when a the charac ter defined by ADD[7:0] is received. It is cleared by software, writing 1 to th e CMCF in the LPUART_ICR register. An interrupt is generated if CMIE = 1in the LPUART_CR1 register.",
+          "values": [
+            ["0", "No Character match detected"],
+            ["1", "Character Match detected"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "BUSY",
+          "description": "Busy flag This bit is set and reset by hardware. It is active when a communication is ongoing on the RX line (successful start bit detected). It is reset at the end of the reception (successful or not).",
+          "values": [
+            ["0", "LPUART is idle (no reception)"],
+            ["1", "Reception on going"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CTS",
+          "description": "CTS flag This bit is set/reset by hardware . It is an inverted copy of th e status of the CTS input pin. If the hardware flow control feature is not supported, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "CTS line set"],
+            ["1", "CTS line reset"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "CTSIF",
+          "description": "CTS interrupt flag This bit is set by hardware when the CTS input toggles, if the CTSE bit is set. It is cleared by software, by writing 1 to the CTSC F bit in the LPUART_ICR register. An interrupt is generated if CTSIE = 1 in the LPUART_CR3 register. If the hardware flow control feature is not supported, this bit is reserved and kept at reset value.",
+          "values": [
+            ["0", "No change occurred on the CTS status line"],
+            ["1", "A change occurred on the CTS status line"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TXE",
+          "description": "Transmit data register empty/TXFIFO not full TXE is set by hardware when the content of the LPUART_TDR register has been transferred into the shift register. It is cleared by a write to the LPUART_TDR register. An interrupt is generated if the TXEIE bit =1 in the LPUART_CR1 register. This bit is used during single buffer transmission.",
+          "values": [
+            ["0", "Data register full"],
+            ["1", "Data register not full"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TC",
+          "description": "Transmission complete This bit is set by hardware if the transmission of a frame containing data is complete and if TXE is set. An interrupt is generated if TCIE = 1 in the LPUART_CR1 register. It is cleared by software, writing 1 to the TCCF in the LP UART_ICR register or by a write to the LPUART_TDR register. An interrupt is generated if TCIE = 1 in the LPUART_CR1 register. If TE bit is reset and no transmission is on going, the TC bit is immediately set.",
+          "values": [
+            ["0", "Transmission is not complete"],
+            ["1", "Transmission is complete"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXNE",
+          "description": "Read data register not empty RXNE bit is set by hardware when the conten t of the LPUART_RDR shift register has been transferred to the LPUART_RDR register. It is cleared by reading from the LPUART_RDR register. The RXNE flag can also be cleared by writing 1 to the RXFRQ in the LPUART_RQR register. An interrupt is generated if RXNEIE = 1 in the LPUART_CR1 register.",
+          "values": [
+            ["0", "Data is not received"],
+            ["1", "Received data is ready to be read."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "IDLE",
+          "description": "Idle line detected This bit is set by hardware when an Idle Line is detected. An interrupt is generated if IDLEIE = 1 in the LPUART_CR1 register. It is cl eared by software, writin g 1 to the IDLECF in the LPUART_ICR register. The IDLE bit is not set again until the RXNE bit has been set (i.e. a new idle line occurs). If Mute mode is enabled (MME = 1), IDLE is set if the LPUART is not mute (RWU = 0), whatever the Mute mode selected by the WAKE bit. If RWU = 1, IDLE is not set.",
+          "values": [
+            ["0", "No Idle line is detected"],
+            ["1", "Idle line is detected"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ORE",
+          "description": "Overrun error This bit is set by hardware when the data currently being received in the shift register is ready to be transferred into the LPUART_RDR regi ster while RXNE = 1. It is cleared by a software, writing 1 to the ORECF, in the LPUART_ICR register. An interrupt is generated if RXNEIE = 1 or EIE = 1 in the LPUART_CR1 register, or EIE = 1 in the LPUART_CR3 register. When this bit is set, the LPUART_RDR register content is not lost bu t the shift register is overwritten. An interrupt is generated if the ORE flag is set during multi buffer communication if the EIE bit is set. This bit is permanently forced to 0 (no ove rrun detection) when the bit OVRDIS is set in the LPUART_CR3 register. NE: Start bit noise detection flag This bit is set by hardware when noise is detec ted on the start bit of a received frame. It is cleared by software, writing 1 to the NECF bit in the LPUART_ICR register. This bit does not generate an interrupt as it appears at the same time as the RXNE bit which itself generates an interrupt. An interru pt is generated when the NE flag is set during multi buffer communication if the EIE bit is set.",
+          "values": [
+            ["0", "No overrun error"],
+            ["1", "Overrun error is detected"],
+            ["0", "No noise is detected"],
+            ["1", "Noise is detected"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FE",
+          "description": "Framing error This bit is set by hardware when a de-synchronization, excessive noise or a break character is detected. It is cleared by software, writi ng 1 to the FECF bit in the LPUART_ICR register. When transmitting data in Smartcard mode, th is bit is set when the maximum number of transmit attempts is reached without su ccess (the card NACKs the data frame). An interrupt is generated if EIE = 1 in the LPUART_CR3 register.",
+          "values": [
+            ["0", "No Framing error is detected"],
+            ["1", "Framing error or break character is detected"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "PE",
+          "description": "Parity error This bit is set by hardware when a parity error occurs in receiver mode. It is cleared by software, writing 1 to the PECF in the LPUART_ICR register. An interrupt is generated if PEIE = 1 in the LPUART_CR1 register.",
+          "values": [
+            ["0", "No parity error"],
+            ["1", "Parity error"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000001111100100000000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt flag clear register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "WUCF",
+          "description": "Wake-up from low-power mode clear flag Writing 1 to this bit clears the WU F flag in the LPUART_ISR register. If the LPUART does not support the wake-up from Stop feature, this bit is reserved and kept at reset value. Refer to Section 48.4: USAR T implementation .",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "CMCF",
+          "description": "Character match clear flag Writing 1 to this bit clears the CMF flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CTSCF",
+          "description": "CTS clear flag Writing 1 to this bit clears the CTSIF flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TCCF",
+          "description": "Transmission complete clear flag Writing 1 to this bit clears the TC flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "IDLECF",
+          "description": "Idle line detected clear flag Writing 1 to this bit clears the IDLE flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ORECF",
+          "description": "Overrun error clear flag Writing 1 to this bit clears the ORE flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "NECF",
+          "description": "Noise detected clear flag Writing 1 to this bit clears the NE flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "FECF",
+          "description": "Framing error clear flag Writing 1 to this bit clears the FE flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "PECF",
+          "description": "Parity error clear flag Writing 1 to this bit clears the PE flag in the LPUART_ISR register.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111011011111110000100000"
+        }
+      ]
+    },
+    {
+      "name": "RDR",
+      "description": "receive data register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "RDR",
+          "description": "Receive data value Contains the received data character. The RDR register provides the parallel interf ace between the input sh ift register and the internal bus (see Figure 597 ). When receiving with the parity enabled, the val ue read in the MSB bit is the received parity bit.",
+          "values": [],
+          "mask": "0b111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111000000000"
+        }
+      ]
+    },
+    {
+      "name": "TDR",
+      "description": "transmit data register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "TDR",
+          "description": "Transmit data value Contains the data charac ter to be transmitted. The TDR register provides the parallel interf ace between the internal bus and the output shift register (see Figure 597 ). When transmitting with the parity enabled (PCE bi t set to 1 in the LPUART_CR1 register), the value written in the MSB (bit 7 or bit 8 depending on the data length) has no effect because it is replaced by the parity. This register must be written only when TXE/TXFNF = 1.",
+          "values": [],
+          "mask": "0b111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b110000000"
+        }
+      ]
+    },
+    {
+      "name": "PRESC",
+      "description": "prescaler register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "PRESCALER",
+          "description": "Clock prescaler The LPUART input clock can be divided by a prescaler: When PRESCALER is programmed with a value different of the allowed ones, programmed prescaler value is 1011 i.e. input clock divided by 256.",
+          "values": [
+            ["0000", "input clock not divided"],
+            ["0001", "input clock divided by 2"],
+            ["0010", "input clock divided by 4"],
+            ["0011", "input clock divided by 6"],
+            ["0100", "input clock divided by 8"],
+            ["0101", "input clock divided by 10"],
+            ["0110", "input clock divided by 12"],
+            ["0111", "input clock divided by 16"],
+            ["1000", "input clock divided by 32"],
+            ["1001", "input clock divided by 64"],
+            ["1010", "input clock divided by 128"],
+            ["1011", "input clock divided by 256Remaining combinations: Reserved."]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111111111110111110000"
+        }
+      ]
+    }
+  ]
+}

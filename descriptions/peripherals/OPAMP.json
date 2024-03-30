@@ -1,0 +1,17 @@
+{
+  "OPAMP": [
+    {
+      "name": "OR",
+      "description": "option register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    }
+  ]
+}

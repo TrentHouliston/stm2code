@@ -1,0 +1,584 @@
+{
+  "DAC": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "CEN2",
+          "description": "DAC channel2 calibration enable This bit is set and cleared by software to e nable/disable DAC channel2 calibration, it can be written only if EN2 bit is set to 0 into DAC_ CR (the calibration mode can be entered/exit only when the DAC channel is disabled) Other wise, the write operation is ignored. This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "DAC channel2 in Normal operating mode"],
+            ["1", "DAC channel2 in calibration mode"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DMAUDRIE2",
+          "description": "DAC channel2 DMA underrun interrupt enable This bit is set and cleared by software. This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "DAC channel2 DMA underrun interrupt disabled"],
+            ["1", "DAC channel2 DMA underrun interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "DMAEN2",
+          "description": "DAC channel2 DMA enable This bit is set and cleared by software. This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "DAC channel2 DMA mode disabled"],
+            ["1", "DAC channel2 DMA mode enabled"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "MAMP2",
+          "description": "DAC channel2 mask/amplitude selector These bits are written by software to select mask in wave generation mode or amplitude in triangle generation mode. These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0000", "Unmask bit0 of LFSR/ triangle amplitude equal to 1"],
+            ["0001", "Unmask bits[1:0] of LFSR/ triangle amplitude equal to 3"],
+            ["0010", "Unmask bits[2:0] of LFSR/ triangle amplitude equal to 7"],
+            ["0011", "Unmask bits[3:0] of LFSR/ triangle amplitude equal to 15"],
+            ["0100", "Unmask bits[4:0] of LFSR/ triangle amplitude equal to 31"],
+            ["0101", "Unmask bits[5:0] of LFSR/ triangle amplitude equal to 63"],
+            ["0110", "Unmask bits[6:0] of LFSR/ triangle amplitude equal to 127"],
+            ["0111", "Unmask bits[7:0] of LFSR/ triangle amplitude equal to 255"],
+            ["1000", "Unmask bits[8:0] of LFSR/ triangle amplitude equal to 511"],
+            ["1001", "Unmask bits[9:0] of LFSR/ triangle amplitude equal to 1023"],
+            ["1010", "Unmask bits[10:0] of LFSR/ triangle amplitude equal to 2047\u2265"],
+            ["1011", "Unmask bits[11:0] of LFSR/ triangle amplitude equal to 4095"]
+          ],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "WAVE2",
+          "description": "DAC channel2 noise/triangle wave generation enable These bits are set/reset by software. Only used if bit TEN2 = 1 (DAC channel2 trigger enabled) These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["00", "wave generation disabled"],
+            ["01", "Noise wave generation enabled 1x: Triangle wave generation enabled"]
+          ],
+          "mask": "0b110000000000000000000000"
+        },
+        {
+          "name": "TSEL2",
+          "description": "DAC channel2 trigger selection These bits select the external event used to trigger DAC channel2 Only used if bit TEN2 = 1 (DAC channel2 trigger enabled). These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0000", "SWTRIG2"],
+            ["0001", "dac_ch2_trg1"],
+            ["0010", "dac_ch2_trg2..."],
+            ["1111", "dac_ch2_trg15Refer to the trigger selection tables in Section 26.4.2: DAC pins and internal signals for details on trigger configuration and mapping."]
+          ],
+          "mask": "0b1111000000000000000000"
+        },
+        {
+          "name": "TEN2",
+          "description": "DAC channel2 trigger enable This bit is set and cleared by software to enable/disable DAC channel2 trigger When software trigger is selected, the transfer from the DAC_DHR2 reg ister to the DAC_DOR2 register takes only one dac_pclk clock cycle. These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "DAC channel2 trigger disabled and data written into the DAC_DHR2 register are transferred one dac_pclk clock cycle later to the DAC_DOR2 register"],
+            ["1", "DAC channel2 trigger enabled and data from the DAC_DHR2 register are transferred three dac_pclk clock cycles la ter to the DAC_DOR2 register"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EN2",
+          "description": "DAC channel2 enable This bit is set and cleared by software to enable/disable DAC channel2. These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "DAC channel2 disabled"],
+            ["1", "DAC channel2 enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CEN1",
+          "description": "DAC channel1 calibration enable This bit is set and cleared by software to e nable/disable DAC channel1 calibration, it can be written only if bit EN1 = 0 into DAC_CR (the calibration mode can be entered/exit only when the DAC channel is disabled) Otherwi se, the write operation is ignored.",
+          "values": [
+            ["0", "DAC channel1 in Normal operating mode"],
+            ["1", "DAC channel1 in calibration mode"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DMAUDRIE1",
+          "description": "DAC channel1 DMA Underrun Interrupt enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "DAC channel1 DMA Underrun Interrupt disabled"],
+            ["1", "DAC channel1 DMA Underrun Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "DMAEN1",
+          "description": "DAC channel1 DMA enable This bit is set and cleared by software.",
+          "values": [
+            ["0", "DAC channel1 DMA mode disabled"],
+            ["1", "DAC channel1 DMA mode enabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "MAMP1",
+          "description": "DAC channel1 mask/amplitude selector These bits are written by software to select mask in wave generation mode or amplitude in triangle generation mode.",
+          "values": [
+            ["0000", "Unmask bit0 of LFSR/ triangle amplitude equal to 1"],
+            ["0001", "Unmask bits[1:0] of LFSR/ triangle amplitude equal to 3"],
+            ["0010", "Unmask bits[2:0] of LFSR/ triangle amplitude equal to 7"],
+            ["0011", "Unmask bits[3:0] of LFSR/ triangle amplitude equal to 15"],
+            ["0100", "Unmask bits[4:0] of LFSR/ triangle amplitude equal to 31"],
+            ["0101", "Unmask bits[5:0] of LFSR/ triangle amplitude equal to 63"],
+            ["0110", "Unmask bits[6:0] of LFSR/ triangle amplitude equal to 127"],
+            ["0111", "Unmask bits[7:0] of LFSR/ triangle amplitude equal to 255"],
+            ["1000", "Unmask bits[8:0] of LFSR/ triangle amplitude equal to 511"],
+            ["1001", "Unmask bits[9:0] of LFSR/ triangle amplitude equal to 1023"],
+            ["1010", "Unmask bits[10:0] of LFSR/ triangle amplitude equal to 2047\u2265"],
+            ["1011", "Unmask bits[11:0] of LFSR/ triangle amplitude equal to 4095"]
+          ],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "WAVE1",
+          "description": "DAC channel1 noise/triangle wave generation enable These bits are set and cleared by software. Only used if bit TEN1 = 1 (DAC channel1 trigger enabled).",
+          "values": [
+            ["00", "wave generation disabled"],
+            ["01", "Noise wave generation enabled1x: Triangle wave generation enabled Only used if bit TEN1 = 1 (DAC channel1 trigger enabled). TSEL1[3:0] : DAC channel1 trigger selection These bits select the external event used to trigger DAC channel1 00"],
+            ["00", "SWTRIG100"],
+            ["01", "dac_ch1_trg100"],
+            ["10", "dac_ch1_trg2...11"],
+            ["11", "dac_ch1_trg15Refer to the trigger selection tables in Section 26.4.2: DAC pins and internal signals for details on trigger configuration and mapping."]
+          ],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "TEN1",
+          "description": "DAC channel1 trigger enable This bit is set and cleared by software to enable/disable DAC channel1 trigger. When software trigger is selected, the transfer from the DAC_DHR1 register to the DAC_DOR1 register takes only one dac_pclk clock cycle.",
+          "values": [
+            ["0", "DAC channel1 trigger disabled and data written into the DAC_DHR1 register are transferred one dac_pclk clock cycle later to the DAC_DOR1 register"],
+            ["1", "DAC channel1 trigger enabled and data from the DAC_DHR1 register are transferred three dac_pclk clock cycles la ter to the DAC_DOR1 register"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "EN1",
+          "description": "DAC channel1 enable This bit is set and cleared by software to enable/disable DAC channel1.",
+          "values": [
+            ["0", "DAC channel1 disabled"],
+            ["1", "DAC channel1 enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000000000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SWTRGR",
+      "description": "software trigger register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "5",
+          "description": "231 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. SWTRIG2 SWTRIG1 ww",
+          "values": [],
+          "mask": "0b0"
+        },
+        {
+          "name": "SWTRIG2",
+          "description": "DAC channel2 software trigger This bit is set by software to trig ger the DAC in software trigger mode. This bit is cleared by hardware (one dac_pclk clock cycle later) once the DAC_DHR2 register value has been loaded into the DAC_DOR2 register. This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "No trigger"],
+            ["1", "Trigger"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SWTRIG1",
+          "description": "DAC channel1 software trigger This bit is set by software to trig ger the DAC in software trigger mode. This bit is cleared by hardware (one dac_pclk clock cycle later) once the DAC_DHR1 register value has been loaded into the DAC_DOR1 register.",
+          "values": [
+            ["0", "No trigger"],
+            ["1", "Trigger"]
+          ],
+          "mask": "0b1"
+        }
+      ]
+    },
+    {
+      "name": "DHR12R1",
+      "description": "channel1 12-bit right-aligned data holding register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "DACC1DHR",
+          "description": "DAC channel1 12-bit right-aligned data These bits are written by software. T hey specify 12-bit data for DAC channel1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DHR12L1",
+      "description": "channel1 12-bit left aligned data holding register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "DACC1DHR",
+          "description": "DAC channel1 12-bit left-aligned data These bits are written by software. They specify 12-bit data for DAC channel1.",
+          "values": [],
+          "mask": "0b1111111111110000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b100000000000000000000000000001011"
+        }
+      ]
+    },
+    {
+      "name": "DHR8R1",
+      "description": "channel1 8-bit right aligned data holding register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "DACC1DHR",
+          "description": "DAC channel1 8-bit right-aligned data These bits are written by software. They specify 8-bit data for DAC channel1.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "DHR12R2",
+      "description": "channel2 12-bit right aligned data holding register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "DACC2DHR",
+          "description": "DAC channel2 12-bit right-aligned data These bits are written by software. Th ey specify 12-bit data for DAC channel2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111101111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DHR12L2",
+      "description": "channel2 12-bit left aligned data holding register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "DACC2DHR",
+          "description": "DAC channel2 12-bit left-aligned data These bits are written by software which specify 12-bit data for DAC channel2.",
+          "values": [],
+          "mask": "0b1111111111110000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000001111"
+        }
+      ]
+    },
+    {
+      "name": "DHR8R2",
+      "description": "channel2 8-bit right-aligned data holding register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "DACC2DHR",
+          "description": "DAC channel2 8-bit right-aligned data These bits are written by software which specifies 8-bit data for DAC channel2.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "DOR1",
+      "description": "channel1 data output register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "DACC1DOR",
+          "description": "DAC channel1 data output These bits are read-only, they contain data output for DAC channel1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DOR2",
+      "description": "channel2 data output register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "DACC2DOR",
+          "description": "DAC channel2 data output These bits are read-only, they cont ain data output for DAC channel2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "BWST2",
+          "description": "DAC channel2 busy writing sample time flag This bit is systematically set just after Sample and hold mode enable. It is set each time the software writes the register DAC_SHSR2, It is cleared by hardware when the write operation of DAC_SHSR2 is complete. (It takes about 3 LSI periods of synchronization). This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "There is no write operation of DAC_SHSR2 ongoing: DAC_SHSR2 can be written"],
+            ["1", "There is a write operation of DAC_SHSR 2 ongoing: DAC_SHSR2 cannot be written"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "CAL_FLAG2",
+          "description": "DAC channel2 calibration offset status This bit is set and cleared by hardware This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "calibration trimming value is lowe r than the offset correction value"],
+            ["1", "calibration trimming value is equal or greater than the offset correction value"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DMAUDR2",
+          "description": "DAC channel2 DMA underrun flag This bit is set by hardware and cleared by software (by writing it to 1). This bit is available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [
+            ["0", "No DMA underrun error condition occurred for DAC channel2"],
+            ["1", "DMA underrun error condition occurred for DAC channel2 (the currently selected trigger is driving DAC channel2 conversion at a frequency higher than the DMA service capability rate)."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "BWST1",
+          "description": "DAC channel1 busy writing sample time flag This bit is systematically set just after Sample and hold mode e nable and is set each time the software writes the register DA C_SHSR1, It is cleared by hardw are when the write operation of DAC_SHSR1 is complete. (It takes about 3 LSI periods of synchronization).",
+          "values": [
+            ["0", "There is no write operation of DAC_SHSR1 ongoing: DAC_SHSR1 can be written"],
+            ["1", "There is a write operation of DAC_SHSR 1 ongoing: DAC_SHSR1 cannot be written"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "CAL_FLAG1",
+          "description": "DAC channel1 calibration offset status This bit is set and cleared by hardware",
+          "values": [
+            ["0", "calibration trimming value is lowe r than the offset correction value"],
+            ["1", "calibration trimming value is equal or greater than the offset correction value"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DMAUDR1",
+          "description": "DAC channel1 DMA underrun flag This bit is set by hardware and cleared by software (by writing it to 1).",
+          "values": [
+            ["0", "No DMA underrun error condition occurred for DAC channel1"],
+            ["1", "DMA underrun error condition occurred for DAC channel1 (the currently selected trigger is driving DAC channel1 conversion at a frequency hi gher than the DMA service capability rate)"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110001111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CCR",
+      "description": "calibration control register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "OTRIM2",
+          "description": "DAC channel2 offset trimming value These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "OTRIM1",
+          "description": "DAC channel1 offset trimming value",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111000001111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "MCR",
+      "description": "mode control register",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "MODE2",
+          "description": "DAC channel2 mode These bits can be written only when the DAC is disabled and not in the calibration mode (when bit EN2 = 0 and bit CEN2 = 0 in the DAC_CR register). If EN2 = 1 or CEN2 = 1 the write operation is ignored. They can be set and cleared by software to select the DAC channel2 mode: \u2013 DAC channel2 in Normal mode This register can be modified only when EN2 = 0. Refer to Section 26.3: DAC implementation for the availability of DAC channel2.",
+          "values": [
+            ["000", "DAC channel2 is connected to external pin with Buffer enabled"],
+            ["001", "DAC channel2 is connected to external pin and to on chip peripherals with buffer enabled"],
+            ["010", "DAC channel2 is connected to external pin with buffer disabled"],
+            ["011", "DAC channel2 is connected to on chip peripherals with Buffer disabled \u2013 DAC channel2 in Sample and hold mode"],
+            ["100", "DAC channel2 is connected to external pin with Buffer enabled"],
+            ["101", "DAC channel2 is connected to external pin and to on chip peripherals with Buffer enabled"],
+            ["110", "DAC channel2 is connected to external pin and to on chip peripherals with Buffer disabled"],
+            ["111", "DAC channel2 is connected to on chip peripherals with Buffer disabled"]
+          ],
+          "mask": "0b1110000000000000000"
+        },
+        {
+          "name": "MODE1",
+          "description": "DAC channel1 mode These bits can be written only when the DAC is disabled and not in the calibration mode (when bit EN1 = 0 and bit CEN1 = 0 in the DAC_CR register). If EN1 = 1 or CEN1 = 1 the write operation is ignored. They can be set and cleared by software to select the DAC channel1 mode: \u2013 DAC channel1 in Normal mode This register can be modified only when EN1 = 0.",
+          "values": [
+            ["000", "DAC channel1 is connected to external pin with Buffer enabled"],
+            ["001", "DAC channel1 is connected to external pin and to on chip peripherals with Buffer enabled"],
+            ["010", "DAC channel1 is connected to external pin with Buffer disabled"],
+            ["011", "DAC channel1 is connected to on chip peripherals with Buffer disabled \u2013 DAC channel1 in sample & hold mode"],
+            ["100", "DAC channel1 is connected to external pin with Buffer enabled"],
+            ["101", "DAC channel1 is connected to external pin and to on chip peripherals with Buffer enabled"],
+            ["110", "DAC channel1 is connected to external pin and to on chip peripherals with Buffer disabled"],
+            ["111", "DAC channel1 is connected to on chip peripherals with Buffer disabled"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110001111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "SHSR1",
+      "description": "channel1 sample and hold sample time register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "TSAMPLE1",
+          "description": "DAC channel1 sample time (only valid in Sample and hold mode) These bits can be written when the DAC channel 1 is disabled or also during normal operation. in the latter case, the write can be done only when BWST1 of DAC_SR register is low, If BWST1 = 1, the write operation is ignored.",
+          "values": [],
+          "mask": "0b1111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "SHSR2",
+      "description": "channel2 sample and hold sample time register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "TSAMPLE2",
+          "description": "DAC channel2 sample time (only valid in Sample and hold mode) These bits can be written when the DAC channel2 is disabled or also during normal operation. in the latter case , the write can be done only when BWST2 of DAC_SR register is low, if BWST2 = 1, the write operation is ignored.",
+          "values": [],
+          "mask": "0b1111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "SHHR",
+      "description": "sample and hold time register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "THOLD2",
+          "description": "DAC channel2 hold time (only valid in Sample and hold mode). Hold time = (THOLD[9:0]) x LSI clock period This register can be modified only when EN2 = 0. These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [],
+          "mask": "0b11111111110000000000000000"
+        },
+        {
+          "name": "THOLD1",
+          "description": "DAC channel1 hold time (only valid in Sample and hold mode) Hold time = (THOLD[9:0]) x LSI clock period This register can be modified only when EN1 = 0.",
+          "values": [],
+          "mask": "0b1111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000001111110000000000"
+        }
+      ]
+    },
+    {
+      "name": "SHRR",
+      "description": "sample and hold refresh time register",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "TREFRESH2",
+          "description": "DAC channel2 refresh time (only valid in Sample and hold mode) Refresh time = (TREFRESH[7:0]) x LSI clock period This register can be modified only when EN2 = 0. These bits are available only on dual-channel DACs. Refer to Section 26.3: DAC implementation .",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "TREFRESH1",
+          "description": "DAC channel1 refresh time (only valid in Sample and hold mode) Refresh time = (TREFRESH[7:0]) x LSI clock period This register can be modified only when EN1 = 0.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        }
+      ]
+    }
+  ]
+}

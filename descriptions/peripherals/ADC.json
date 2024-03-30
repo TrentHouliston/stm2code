@@ -1,0 +1,1697 @@
+{
+  "ADC": [
+    {
+      "name": "ISR",
+      "description": "interrupt and status register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "LDORDY",
+          "description": "ADC LDO output voltage ready bit This bit is set and cleared by hardware. It indicate s that the ADC internal LDO output is ready and that the ADC can be enabled or calibrated. Refer to Section 25.3: ADC implementation for the availability of the LDO regulator.",
+          "values": [
+            ["0", "ADC LDO voltage regulator disabled"],
+            ["1", "ADC LDO voltage regulator enabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "JQOVF",
+          "description": "Injected context queue overflow This bit is set by hardware when an Overflow of th e Injected Queue of Context occurs. It is cleared by software writing 1 to it. Refer to Section 25.4.22: Queue of co ntext for injected conversions for more information.",
+          "values": [
+            ["0", "No injected context queue overflow occurred (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Injected context queue overflow has occurred"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "AWD3",
+          "description": "Analog watchdog 3 flag This bit is set by hardware when the converted vo ltage crosses the values programmed in the fields LT3[7:0] and HT3[7:0] of ADC_TR3 register. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "No analog watchdog 3 event occurred (or the fl ag event was already acknowledged and cleared by software)"],
+            ["1", "Analog watchdog 3 event occurred"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "AWD2",
+          "description": "Analog watchdog 2 flag This bit is set by hardware when the converted vo ltage crosses the values programmed in the fields LT2[7:0] and HT2[7:0] of ADC_TR2 register. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "No analog watchdog 2 event occurred (or the fl ag event was already acknowledged and cleared by software)"],
+            ["1", "Analog watchdog 2 event occurred"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "AWD1",
+          "description": "Analog watchdog 1 flag This bit is set by hardware when the converted vo ltage crosses the values programmed in the fields LT1[1",
+          "values": [
+            ["1", "0] and HT1[1"],
+            ["1", "0] of ADC_TR1 register. It is cleared by software. writing 1 to it."],
+            ["0", "No analog watchdog 1 event occurred (or the fl ag event was already acknowledged and cleared by software)"],
+            ["1", "Analog watchdog 1 event occurred"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "JEOS",
+          "description": "Injected channel end of sequence flag This bit is set by hardware at the end of the conv ersions of all injected channels in the group. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "Injected conversion sequence not complete (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Injected conversions complete"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "JEOC",
+          "description": "Injected channel end of conversion flag This bit is set by hardware at the end of each in jected conversion of a channel when a new data is available in the corresponding ADC_JDRy register. It is cleared by software writing 1 to it or by reading the corresponding ADC_JDRy register",
+          "values": [
+            ["0", "Injected channel conversion not complete (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Injected channel conversion complete"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "OVR",
+          "description": "ADC overrun This bit is set by hardware when an overrun occurs on a regular channel, meaning that a new conversion has completed while the EOC flag was alread y set. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "No overrun occurred (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Overrun has occurred"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "EOS",
+          "description": "End of regular sequence flag This bit is set by hardware at the end of the c onversions of a regular sequence of channels. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "Regular Conversions sequence not complete (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Regular Conversions sequence complete"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "EOC",
+          "description": "End of conversion flag This bit is set by hardware at the end of each regular conversion of a channel when a new data is available in the ADC_DR register. It is cleared by software writing 1 to it or by reading the ADC_DR register",
+          "values": [
+            ["0", "Regular channel conversion not complete (or the flag event was already acknowledged and cleared by software)"],
+            ["1", "Regular channel conversion complete"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "EOSMP",
+          "description": "End of sampling flag This bit is set by hardware during the conversion of any channel (only for regular channels), at the end of the sampling phase.",
+          "values": [
+            ["0", "not at the end of the sampling phase (or the fl ag event was already acknowledged and cleared by software)"],
+            ["1", "End of sampling phase reached"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADRDY",
+          "description": "ADC ready This bit is set by hardware after the ADC has been enabled (bit ADEN=1) and when the ADC reaches a state where it is ready to accept conversion requests. It is cleared by software writing 1 to it.",
+          "values": [
+            ["0", "ADC not yet ready to start conversion (or th e flag event was already acknowledged and cleared by software)"],
+            ["1", "ADC is ready to start conversion"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111110100000000000"
+        }
+      ]
+    },
+    {
+      "name": "IER",
+      "description": "interrupt enable register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "JQOVFIE",
+          "description": "Injected context queue overflow interrupt enable This bit is set and cleared by software to enable/disable the Injected Context Queue Overflow interrupt. The software is allowed to write this bit only when JADSTART=0 (which ensures that no injected conversion is ongoing).",
+          "values": [
+            ["0", "Injected Context Queue Overflow interrupt disabled"],
+            ["1", "Injected Context Queue Overflow interrupt enabl ed. An interrupt is generated when the JQOVF bit is set."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "AWD3IE",
+          "description": "Analog watchdog 3 interrupt enable This bit is set and cleared by software to enable/disable the analog watchdog 2 interrupt. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 3 interrupt disabled"],
+            ["1", "Analog watchdog 3 interrupt enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "AWD2IE",
+          "description": "Analog watchdog 2 interrupt enable This bit is set and cleared by software to enable/disable the analog watchdog 2 interrupt. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 2 interrupt disabled"],
+            ["1", "Analog watchdog 2 interrupt enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "AWD1IE",
+          "description": "Analog watchdog 1 interrupt enable This bit is set and cleared by software to enable/disable the analog watchdog 1 interrupt. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 1 interrupt disabled"],
+            ["1", "Analog watchdog 1 interrupt enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "JEOSIE",
+          "description": "End of injected sequence of conversions interrupt enable This bit is set and cleared by software to enable/d isable the end of inject ed sequence of conversions interrupt. The software is allowed to write this bit only when JADSTART=0 (which ensures that no injected conversion is ongoing).",
+          "values": [
+            ["0", "JEOS interrupt disabled"],
+            ["1", "JEOS interrupt enabled. An interrupt is generated when the JEOS bit is set."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "JEOCIE",
+          "description": "End of injected conversion interrupt enable This bit is set and cleared by software to enable/disable the end of an injected conversion interrupt. The software is allowed to write this bit on ly when JADSTART is cleared to 0 (no injected conversion is ongoing).",
+          "values": [
+            ["0", "JEOC interrupt disabled."],
+            ["1", "JEOC interrupt enabled. An interrupt is generated when the JEOC bit is set."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "OVRIE",
+          "description": "Overrun interrupt enable This bit is set and cleared by software to enable/disable the Overrun interrupt of a regular conversion. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "Overrun interrupt disabled"],
+            ["1", "Overrun interrupt enabled. An interrup t is generated when the OVR bit is set."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "EOSIE",
+          "description": "End of regular sequence of conversions interrupt enable This bit is set and cleared by software to enable/disable the end of regular sequence of conversions interrupt. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "EOS interrupt disabled"],
+            ["1", "EOS interrupt enabled. An interrupt is generated when the EOS bit is set."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "EOCIE",
+          "description": "End of regular conversion interrupt enable This bit is set and cleared by software to enable/disable the end of a regular conversion interrupt. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "EOC interrupt disabled."],
+            ["1", "EOC interrupt enabled. An interrupt is generated when the EOC bit is set."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "EOSMPIE",
+          "description": "End of sampling flag interrupt enable for regular conversions This bit is set and cleared by software to enable/disable the end of the sampling phase interrupt for regular conversions. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "EOSMP interrupt disabled."],
+            ["1", "EOSMP interrupt enabled. An interrupt is generated when the EOSMP bit is set."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADRDYIE",
+          "description": "ADC ready interrupt enable This bit is set and cleared by software to enable/disable the ADC Ready interrupt. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "ADRDY interrupt disabled"],
+            ["1", "ADRDY interrupt enabled. An interrupt is generated when the ADRDY bit is set."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "ADCAL",
+          "description": "ADC calibration This bit is set by software to start the calibrati on of the ADC. Program fi rst the bit ADCALDIF to determine if this calibration applies for single-ended or differential inputs mode. It is cleared by hardware after calibration is complete. The software is allowed to launch a calibration by setting ADCAL only when ADEN=0. The software is allowed to update the calibrati on factor by writing ADC_CALFACT only when ADEN=1 and ADSTART=0 and JADSTART=0 (ADC enabled and no conversion is ongoing)",
+          "values": [
+            ["0", "Calibration complete"],
+            ["1", "Write 1 to calibrate the ADC. Read at 1 means that a calibration in progress."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "ADCALDIF",
+          "description": "Differential mode for calibration This bit is set and cleared by software to configur e the single-ended or differential inputs mode for the calibration. The software is allowed to write this bit on ly when the ADC is disabled and is not calibrating (ADCAL=0, JADSTART=0, JADSTP=0, ADSTAR T=0, ADSTP=0, A DDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "Writing ADCAL will launch a calibr ation in Single-ended inputs Mode."],
+            ["1", "Writing ADCAL will launch a calibr ation in Differential inputs Mode."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DEEPPWD",
+          "description": "Deep-power-down enable This bit is set and cleared by software to put the ADC in deep-power-down mode. The software is allowed to write this bit only when the ADC is disabled (ADCAL=0, JADSTART=0, JADSTP=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "ADC not in deep-power down"],
+            ["1", "ADC in deep-power-dow n (default reset state)"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "ADVREGEN",
+          "description": "ADC voltage regulator enable This bits is set by software to enable the ADC voltage regulator. Before performing any operation such as launch ing a calibration or e nabling the ADC, the ADC voltage regulator must first be enabled and the soft ware must wait for the regulator start-up time.",
+          "values": [
+            ["0", "ADC Voltage regulator disabled"],
+            ["1", "ADC Voltage regulator enabled.For more details about the ADC voltage regulator enable and disable sequences, refer to Section 25.4.6: ADC deep-power-down mode (DEEPPWD) and ADC voltage regulator (ADVREGEN) . The software can program this bitfield only when the ADC is disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0)."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW6",
+          "description": "Linearity calibration ready Word 6 This control / status bit allows to read/ write the 6th linearity calibration factor. When the linearity calibration is co mplete, this bit is set. A bit cl ear will launch the transfer of the linearity factor 6 into the LINCALFACT[29:0] of t he ADC_CALFACT2 register. The bit will be reset by hardware when the ADC_CALFACT2 register can be read (software must poll the bit until it is cleared). When the LINCALRDYW6 bit is reset, a new linearit y factor 6 value can be written into the LINCALFACT[29:0] of the ADC_CALFACT2 register. A bit set will launch the linearity factor 6 update and the bit will be effectively set by hardware onc e the update will be done (software must poll the bit until it is set to indicate the write is effective). ADC_CALFACT2[29:10] contains 0. ADC_CALFACT2[9:0] corresponds linearity correction factor bits[159:150]. The software is allowed to toggle this bit only if the LINCALRDYW5, LINCALRDYW4, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged, see chapter 25.4.8: Calibration (A DCAL, ADCALDIF, ADCALLIN, ADC_CALFACT) for details. The software is allowed to update the linearity calibration factor by writing LINCALRDYWx only when ADEN=1 and ADSTART=0 and JADSTART=0 (ADC enabled and no conversion is ongoing)",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW5",
+          "description": "Linearity calibration ready Word 5 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[149:120]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW4",
+          "description": "Linearity calibration ready Word 4 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] correspond linearity correction factor bits[119:90]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW3",
+          "description": "Linearity calibration ready Word 3 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[89:60]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW2",
+          "description": "Linearity calibration ready Word 2 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[59:30]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW3 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW1",
+          "description": "Linearity calibration ready Word 1 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[29:0]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW3 and LINCALRDYW2 bits are left unchanged.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "ADCALLIN",
+          "description": "Linearity calibration This bit is set and cleared by software to enable the Linearity calibration. The software is allowed to write this bit on ly when the ADC is disabled and is not calibrating (ADCAL=0, JADSTART=0, JADSTP=0, ADSTAR T=0, ADSTP=0, A DDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "Writing ADCAL will launch a calibrat ion without the Linearity calibration."],
+            ["1", "Writing ADCAL will launch a calibrat ion with he Linearity calibration."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "BOOST",
+          "description": "Boost mode control This bit is set and cleared by software to enable/disable the Boost mode. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing). When dual mode is enabled (bits DAMDF of ADCx _CCR register are not equal to zero), the bit BOOST of the slave ADC is no more writable and its content must be e qual to the master ADC BOOST bit.",
+          "values": [
+            ["0", "Boost mode off. Used when ADC clock < 20 MHz to save power at lower clock frequency."],
+            ["1", "Boost mode on. Must be used when ADC clock > 20 MHz."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "JADSTP",
+          "description": "ADC stop of injected conversion command This bit is set by software to stop and discard an ongoing injected conversion (JADSTP Command). It is cleared by hardware when the conversion is effectively discarded and the ADC injected sequence and triggers can be re-configured. The ADC is then ready to accept a new start of injected conversions (JADSTART command). The software is allowed to set JADSTP only when JADSTART=1 and ADDIS=0 (ADC is enabled and eventually converting an injected co nversion and there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), setting ADSTP bit aborts both regular and injected conversions (do not use JADSTP)",
+          "values": [
+            ["0", "No ADC stop injected conversion command ongoing"],
+            ["1", "Write 1 to stop injected conv ersions ongoing. Read 1 means that an ADSTP command is in progress."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ADSTP",
+          "description": "ADC stop of regular conversion command This bit is set by software to stop and discard an ongoing regular conversion (ADSTP Command). It is cleared by hardware when the conversion is effectively discarded and the ADC regular sequence and triggers can be re-configured. The ADC is then ready to accept a new start of regular conversions (ADSTART command). The software is allowed to set ADSTP only when ADSTART=1 and ADDIS=0 (ADC is enabled and eventually converting a regular conversion a nd there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), setting ADSTP bit aborts both regular and injected conversions (do not use JADSTP). In dual ADC regular simultaneous mode and interleaved mode, the bit ADSTP of the master ADC must be used to stop regular conver sions. The other ADSTP bit is inactive.",
+          "values": [
+            ["0", "No ADC stop regular conversion command ongoing"],
+            ["1", "Write 1 to stop regular conversions ongoing. Read 1 means that an ADSTP command is in progress."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "JADSTART",
+          "description": "ADC start of injected conversion This bit is set by software to start ADC conversion of injected channels. Depending on the configuration bits JEXTEN, a conversion will start immediately (software trigger configuration) or once an injected hardware trigger event occurs (hardware trigger configuration). It is cleared by hardware: \u2013 in single conversion mode when software tr igger is selected (JEXTSEL=0x0): at the assertion of the End of Injected Conversion Sequence (JEOS) flag. \u2013 in all cases: after the execution of the JADSTP command, at the same time that JADSTP is cleared by hardware. The software is allowed to set JADSTART only when ADEN=1 and ADDIS=0 (ADC is enabled and there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), regular and auto-injected conversions are started by setting bit ADSTART (JADSTART must be kept cleared)Devices revision V",
+          "values": [
+            ["0", "No ADC injected conversion is ongoing."],
+            ["1", "Write 1 to start injected conversions. Read 1 means that the ADC is operating and eventually converting an injected channel."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ADSTART",
+          "description": "ADC start of regular conversion This bit is set by software to start ADC conversion of regular channels. Depending on the configuration bits EXTEN, a conver sion will start immediately (software trigger configuration) or once a regular hardware trigger event occurs (hardware trigger configuration). It is cleared by hardware: \u2013 in single conversion mode (CONT=0, DISCEN=0) when software trigger is selected (EXTEN=0x0): at the assertion of the End of Regular Conversion Sequence (EOS) flag. \u2013 In discontinuous conversion mode (CONT=0, DISCEN=1), when the software trigger is selected (EXTEN=0x0): at the end of conversion (EOC) flag. \u2013 in all other cases: after the execution of the ADSTP command, at the same time that ADSTP is cleared by hardware. The software is allowed to set ADSTART only when ADEN=1 and ADDIS=0 (ADC is enabled and there is no pending request to disable the ADC) In auto-injection mode (JAUTO=1), regular and auto-injected conversions are started by setting bit ADSTART (JADSTART must be kept cleared)",
+          "values": [
+            ["0", "No ADC regular conversion is ongoing."],
+            ["1", "Write 1 to start regular conversions. Read 1 means that the ADC is operating and eventually converting a regular channel."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "ADDIS",
+          "description": "ADC disable command This bit is set by software to disable the ADC (ADDIS command) and put it into power-down state (OFF state). It is cleared by hardware once the ADC is effectiv ely disabled (ADEN is also cleared by hardware at this time). The software is allowed to set ADDIS only when ADEN=1 and both ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing)",
+          "values": [
+            ["0", "no ADDIS command ongoing"],
+            ["1", "Write 1 to disable the ADC. Read 1 mean s that an ADDIS command is in progress."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADEN",
+          "description": "ADC enable control This bit is set by software to enable the ADC. Th e ADC will be effectively ready to operate once the flag ADRDY has been set. It is cleared by hardware when the ADC is dis abled, after the execution of the ADDIS command. The software is allowed to set ADEN only wh en all bits of ADC_CR registers are 0 (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS= 0 and ADEN=0) except for bit ADVREGEN which must be 1 (and the software must have wait for the startup time of the voltage regulator)31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 ADCA LADCA LDIFDEEP PWDADVREG ENLINCA LRDY W6LINCA LRDY W5LINCA LRDY W4LINCAL RDYW3LINCAL RDYW2LINCAL RDYW1Res. Res. Res. Res. Res.ADCAL LIN rs rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 Res. Res. Res. Res. Res. Res. BOOST[",
+          "values": [
+            ["0", "ADC is disabled (OFF state)"],
+            ["1", "Write 1 to enable the ADC."],
+            ["1", "0] Res. Res. JADSTP ADSTPJADST ARTADSTA RTADDIS ADEN rw rw rs rs rs rs rs rs"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "ADCAL",
+          "description": "ADC calibration This bit is set by software to start the calibrati on of the ADC. Program fi rst the bit ADCALDIF to determine if this calibration applies for single-ended or differential inputs mode. It is cleared by hardware after calibration is complete. The software is allowed to launch a calibration by setting ADCAL only when ADEN=0. The software is allowed to update the calibrati on factor by writing ADC_CALFACT only when ADEN=1 and ADSTART=0 and JADSTART=0 (ADC enabled and no conversion is ongoing)",
+          "values": [
+            ["0", "Calibration complete"],
+            ["1", "Write 1 to calibrate the ADC. Read at 1 means that a calibration in progress."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "ADCALDIF",
+          "description": "Differential mode for calibration This bit is set and cleared by software to configur e the single-ended or differential inputs mode for the calibration. The software is allowed to write this bit on ly when the ADC is disabled and is not calibrating (ADCAL=0, JADSTART=0, JADSTP=0, ADSTAR T=0, ADSTP=0, A DDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "Writing ADCAL will launch a calibr ation in Single-ended inputs Mode."],
+            ["1", "Writing ADCAL will launch a calibr ation in Differential inputs Mode."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "DEEPPWD",
+          "description": "Deep-power-down enable This bit is set and cleared by software to put the ADC in deep-power-down mode. The software is allowed to write this bit only when the ADC is disabled (ADCAL=0, JADSTART=0, JADSTP=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "ADC not in deep-power down"],
+            ["1", "ADC in deep-power-dow n (default reset state)"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "ADVREGEN",
+          "description": "ADC voltage regulator enable This bits is set by software to enable the ADC voltage regulator. Before performing any operation such as launch ing a calibration or e nabling the ADC, the ADC voltage regulator must first be enabled and the soft ware must wait for the regulator start-up time.",
+          "values": [
+            ["0", "ADC Voltage regulator disabled"],
+            ["1", "ADC Voltage regulator enabled.For more details about the ADC voltage regulator enable and disable sequences, refer to Section 25.4.6: ADC deep-power-down mode (DEEPPWD) and ADC voltage regulator (ADVREGEN) . The software can program this bitfield only when the ADC is disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0)."]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW6",
+          "description": "Linearity calibration ready Word 6 This control / status bit allows to read/ write the 6th linearity calibration factor. When the linearity calibration is co mplete, this bit is set. A bit cl ear will launch the transfer of the linearity factor 6 into the LINCALFACT[29:0] of t he ADC_CALFACT2 register. The bit will be reset by hardware when the ADC_CALFACT2 register can be read (software must poll the bit until it is cleared). When the LINCALRDYW6 bit is reset, a new linearit y factor 6 value can be written into the LINCALFACT[29:0] of the ADC_CALFACT2 register. A bit set will launch the linearity factor 6 update and the bit will be effectively set by hardware onc e the update will be done (software must poll the bit until it is set to indicate the write is effective). ADC_CALFACT2[29:10] contains 0. ADC_CALFACT2[9:0] corresponds linearity correction factor bits[159:150]. The software is allowed to toggle this bit only if the LINCALRDYW5, LINCALRDYW4, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged, see chapter 25.4.8: Calibration (A DCAL, ADCALDIF, ADCALLIN, ADC_CALFACT) for details. The software is allowed to update the linearity calibration factor by writing LINCALRDYWx only when ADEN=1 and ADSTART=0 and JADSTART=0 (ADC enabled and no conversion is ongoing)",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW5",
+          "description": "Linearity calibration ready Word 5 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[149:120]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW4",
+          "description": "Linearity calibration ready Word 4 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] correspond linearity correction factor bits[119:90]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW3, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW3",
+          "description": "Linearity calibration ready Word 3 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[89:60]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW2 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW2",
+          "description": "Linearity calibration ready Word 2 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[59:30]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW3 and LINCALRDYW1 bits are left unchanged.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "LINCALRDYW1",
+          "description": "Linearity calibration ready Word 1 Refer to LINCALRDYW6 description. ADC_CALFACT2[29:0] corresponds linearity correction factor bits[29:0]. The software is allowed to toggle this bit only if the LINCALRDYW6, LINCALRDYW5, LINCALRDYW4, LINCALRDYW3 and LINCALRDYW2 bits are left unchanged.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "ADCALLIN",
+          "description": "Linearity calibration This bit is set and cleared by software to enable the Linearity calibration. The software is allowed to write this bit on ly when the ADC is disabled and is not calibrating (ADCAL=0, JADSTART=0, JADSTP=0, ADSTAR T=0, ADSTP=0, A DDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "Writing ADCAL will launch a calibrat ion without the Linearity calibration."],
+            ["1", "Writing ADCAL will launch a calibrat ion with he Linearity calibration."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "BOOST",
+          "description": "Boost mode control This bitfield is set and cleared by so ftware to enable/disable the Boost mode. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing). When dual mode is enabled (bits DAMDF of ADC x_CCR register are not equal to zero), the BOOST bitfield of the slave ADC is no more writable and its content must be equal to the master ADC BOOST bitfield.",
+          "values": [
+            ["00", "used when ADC clock \u2264 6.25 MHz"],
+            ["01", "used when 6.25 MHz < ADC clock frequency \u2264 12.5 MHz"],
+            ["10", "used when 12.5 MHz < ADC clock \u226425.0 MHz"],
+            ["11", "used when 25.0 MHz < ADC clock \u2264 50.0 MHz"]
+          ],
+          "mask": "0b1100000000"
+        },
+        {
+          "name": "JADSTP",
+          "description": "ADC stop of injected conversion command This bit is set by software to stop and discard an ongoing injected conversion (JADSTP Command). It is cleared by hardware when the conversion is effectively discarded and the ADC injected sequence and triggers can be re-configured. The ADC is then ready to accept a new start of injected conversions (JADSTART command). The software is allowed to set JADSTP only when JADSTART=1 and ADDIS=0 (ADC is enabled and eventually converting an injected co nversion and there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), setting ADSTP bit aborts both regular and injected conversions (do not use JADSTP)",
+          "values": [
+            ["0", "No ADC stop injected conversion command ongoing"],
+            ["1", "Write 1 to stop injected conv ersions ongoing. Read 1 means that an ADSTP command is in progress."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ADSTP",
+          "description": "ADC stop of regular conversion command This bit is set by software to stop and discard an ongoing regular conversion (ADSTP Command). It is cleared by hardware when the conversion is effectively discarded and the ADC regular sequence and triggers can be re-configured. The ADC is then ready to accept a new start of regular conversions (ADSTART command). The software is allowed to set ADSTP only when ADSTART=1 and ADDIS=0 (ADC is enabled and eventually converting a regular conversion a nd there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), setting ADSTP bit aborts both regular and injected conversions (do not use JADSTP). In dual ADC regular simultaneous mode and interleaved mode, the bit ADSTP of the master ADC must be used to stop regular conver sions. The other ADSTP bit is inactive.",
+          "values": [
+            ["0", "No ADC stop regular conversion command ongoing"],
+            ["1", "Write 1 to stop regular conversions ongoing. Read 1 means that an ADSTP command is in progress."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "JADSTART",
+          "description": "ADC start of injected conversion This bit is set by software to start ADC conversion of injected channels. Depending on the configuration bits JEXTEN, a conversion will start immediately (software trigger configuration) or once an injected hardware trigger event occurs (hardware trigger configuration). It is cleared by hardware: \u2013 in single conversion mode when software tr igger is selected (JEXTSEL=0x0): at the assertion of the End of Injected Conversion Sequence (JEOS) flag. \u2013 in all cases: after the execution of the JADSTP command, at the same time that JADSTP is cleared by hardware. The software is allowed to set JADSTART only when ADEN=1 and ADDIS=0 (ADC is enabled and there is no pending request to disable the ADC). In auto-injection mode (JAUTO=1), regular and auto-injected conversions are started by setting bit ADSTART (JADSTART must be kept cleared)",
+          "values": [
+            ["0", "No ADC injected conversion is ongoing."],
+            ["1", "Write 1 to start injected conversions. Read 1 means that the ADC is operating and eventually converting an injected channel."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ADSTART",
+          "description": "ADC start of regular conversion This bit is set by software to start ADC conversion of regular channels. Depending on the configuration bits EXTEN, a conver sion will start immediately (software trigger configuration) or once a regular hardware trigger event occurs (hardware trigger configuration). It is cleared by hardware: \u2013 in single conversion mode (CONT=0, DISCEN=0) when software trigger is selected (EXTEN=0x0): at the assertion of the End of Regular Conversion Sequence (EOS) flag. \u2013 In discontinuous conversion mode (CONT=0, DISCEN=1), when the software trigger is selected (EXTEN=0x0): at the end of conversion (EOC) flag. \u2013 in all other cases: after the execution of the ADSTP command, at the same time that ADSTP is cleared by hardware. The software is allowed to set ADSTART only when ADEN=1 and ADDIS=0 (ADC is enabled and there is no pending request to disable the ADC) In auto-injection mode (JAUTO=1), regular and auto-injected conversions are started by setting bit ADSTART (JADSTART must be kept cleared)",
+          "values": [
+            ["0", "No ADC regular conversion is ongoing."],
+            ["1", "Write 1 to start regular conversions. Read 1 means that the ADC is operating and eventually converting a regular channel."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "ADDIS",
+          "description": "ADC disable command This bit is set by software to disable the ADC (ADDIS command) and put it into power-down state (OFF state). It is cleared by hardware once the ADC is effectiv ely disabled (ADEN is also cleared by hardware at this time). The software is allowed to set ADDIS only when ADEN=1 and both ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing)",
+          "values": [
+            ["0", "no ADDIS command ongoing"],
+            ["1", "Write 1 to disable the ADC. Read 1 mean s that an ADDIS command is in progress."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADEN",
+          "description": "ADC enable control This bit is set by software to enable the ADC. Th e ADC will be effectively ready to operate once the flag ADRDY has been set. It is cleared by hardware when the ADC is dis abled, after the execution of the ADDIS command. The software is allowed to set ADEN only wh en all bits of ADC_CR registers are 0 (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS= 0 and ADEN=0) except for bit ADVREGEN which must be 1 (and the software must have wait for the startup time of the voltage regulator)",
+          "values": [
+            ["0", "ADC is disabled (OFF state)"],
+            ["1", "Write 1 to enable the ADC."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111011111101110000000"
+        }
+      ]
+    },
+    {
+      "name": "CFGR",
+      "description": "configuration register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "JQDIS",
+          "description": "Injected Queue disable These bits are set and cleared by software to disable the Injected Queue mechanism: The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no regular nor inje cted conversion is ongoing). A set or reset of JQDIS bit causes the injected queue to be flushed and the JSQR register is cleared.",
+          "values": [
+            ["0", "Injected Queue enabled"],
+            ["1", "Injected Queue disabled"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "AWD1CH",
+          "description": "Analog watchdog 1 channel selection These bits are set and cleared by software. They select the input channel to be guarded by the analog watchdog. The channel selected by AWD1CH must be also selected into the SQRi or JSQRi registers. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["00000", "ADC analog input channel-0 monitored by AWD1"],
+            ["00001", "ADC analog input channel-1 monitored by AWD1....."],
+            ["10010", "ADC analog input channel-19 monitored by AWD1"],
+            ["others", "Reserved, must not be used"]
+          ],
+          "mask": "0b1111100000000000000000000000000"
+        },
+        {
+          "name": "JAUTO",
+          "description": "Automatic injected group conversion This bit is set and cleared by software to enable/disable automatic injected group conversion after regular group conversion. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no regular nor inje cted conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx _CCR register are not equal to zero), the bit JAUTO of the slave ADC is no more writable an d its content is equal to the bit JAUTO of the master ADC.",
+          "values": [
+            ["0", "Automatic injected group conversion disabled"],
+            ["1", "Automatic injected group conversion enabled"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "JAWD1EN",
+          "description": "Analog watchdog 1 enable on injected channels This bit is set and cleared by software The software is allowed to write this bit only when JADSTART=0 (which ensures that no injected conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 1 disabled on injected channels"],
+            ["1", "Analog watchdog 1 enabled on injected channels"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "AWD1EN",
+          "description": "Analog watchdog 1 enable on regular channels This bit is set and cleared by software The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 1 disabled on regular channels"],
+            ["1", "Analog watchdog 1 enabled on regular channels"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "AWD1SGL",
+          "description": "Enable the watchdog 1 on a single channel or on all channels This bit is set and cleared by software to enable the analog watchdog on the channel identified by the AWD1CH[4:0] bits or on all the channels The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Analog watchdog 1 enabled on all channels"],
+            ["1", "Analog watchdog 1 enabled on a single channel"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "JQM",
+          "description": "JSQR queue mode This bit is set and cleared by software. It defines how an empty Queue is managed. The software is allowed to write this bit only when JADSTART=0 (which ensures that no injected conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx _CCR register are not equal to zero), the bit JQM of the slave ADC is no more writable and its content is equal to the bit JQM of the master ADC.",
+          "values": [
+            ["0", "JSQR Mode"],
+            ["0", "The Queue is never empty and main tains the last written c onfiguration into JSQR."],
+            ["1", "JSQR Mode"],
+            ["1", "The Queue can be empty and when this occurs, the software and hardware triggers of the injected sequence are both internally disabled just after the completion of the last valid injected sequence. Refer to Section 25.4.22: Queue of cont ext for injected conversions for more information."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "JDISCEN",
+          "description": "Discontinuous mode on injected channels This bit is set and cleared by software to enable/disable discontinuous mode on the injected channels of a group. The software is allowed to write this bit only when JADSTART=0 (which ensures that no injected conversion is ongoing). It is not possible to use both auto-injected mode and discontinuous mode simultaneously: the bits DISCEN and JDISCEN must be kept cleared by software when JAUTO is set. When dual mode is enabled (bits DAMDF of ADCx _CCR register are not equal to zero), the bit JDISCEN of the slave ADC is no more writable and its content is equal to the bit JDISCEN of the master ADC.",
+          "values": [
+            ["0", "Discontinuous mode on injected channels disabled"],
+            ["1", "Discontinuous mode on injected channels enabled"]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "DISCNUM",
+          "description": "Discontinuous mode channel count These bits are written by software to define the number of regular channels to be converted in discontinuous mode, after receiving an external trigger. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx_CCR register are not equal to zero), the bits DISCNUM[2:0] of the slave ADC are no more wr itable and their content is equal to the bits DISCNUM[2:0] of the master ADC.",
+          "values": [
+            ["000", "1 channel"],
+            ["001", "2 channels..."],
+            ["111", "8 channels"]
+          ],
+          "mask": "0b11100000000000000000"
+        },
+        {
+          "name": "DISCEN",
+          "description": "Discontinuous mode for regular channels This bit is set and cleared by software to enable/disable Discontinuous mode for regular channels. It is not possible to have both discontinuous mode and continuous mode enabled: it is forbidden to set both DISCEN=1 and CONT=1. It is not possible to use both auto-injected mode and discontinuous mode simultaneously: the bits DISCEN and JDISCEN must be kept cleared by software when JAUTO is set. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx _CCR register are not equal to zero), the bit DISCEN of the slave ADC is no more writable and its content is equal to the bit DISCEN of the master ADC.",
+          "values": [
+            ["0", "Discontinuous mode for regular channels disabled"],
+            ["1", "Discontinuous mode for regular channels enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "AUTDLY",
+          "description": "Delayed conversion mode This bit is set and cleared by software to enable/disable the Auto Delayed Conversion mode.. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx _CCR register are not equal to zero), the bit AUTDLY of the slave ADC is no more writable and its content is equal to the bit AUTDLY of the master ADC.",
+          "values": [
+            ["0", "Auto-delayed conversion mode off"],
+            ["1", "Auto-delayed conversion mode on"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "CONT",
+          "description": "Single / continuous conversion mode for regular conversions This bit is set and cleared by software. If it is set, regular conversion takes place continuously until it is cleared. It is not possible to have both discontinuous mode and continuous mode enabled: it is forbidden to set both DISCEN=1 and CONT=1. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing). When dual mode is enabled (DAMDF bits in ADCx _CCR register are not equal to zero), the bit CONT of the slave ADC is no more writable a nd its content is equal to the bit CONT of the master ADC.",
+          "values": [
+            ["0", "Single conversion mode"],
+            ["1", "Continuous conversion mode"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "OVRMOD",
+          "description": "Overrun Mode This bit is set and cleared by software a nd configure the way data overrun is managed. The software is allowed to write this bit only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0", "ADC_DR register is preserved with the old data when an overrun is detected."],
+            ["1", "ADC_DR register is overwritte n with the last conversion result when an overrun is detected."]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "EXTEN",
+          "description": "External trigger enable and polarity selection for regular channels These bits are set and cleared by software to sele ct the external trigger polarity and enable the trigger of a regular group. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["00", "Hardware trigger detection disabled (conversions can be launched by software)"],
+            ["01", "Hardware trigger detection on the rising edge"],
+            ["10", "Hardware trigger detection on the falling edge"],
+            ["11", "Hardware trigger detection on both the rising and falling edges"]
+          ],
+          "mask": "0b110000000000"
+        },
+        {
+          "name": "EXTSEL",
+          "description": "External trigger selection for regular group These bits select the external event used to tr igger the start of conversion of a regular group: The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["00000", "Event 0"],
+            ["00001", "Event 1"],
+            ["00010", "Event 2"],
+            ["00011", "Event 3"],
+            ["00100", "Event 4"],
+            ["00101", "Event 5"],
+            ["00110", "Event 6"],
+            ["00111", "Event 7..."],
+            ["11111", "Event 31"]
+          ],
+          "mask": "0b1111100000"
+        },
+        {
+          "name": "RES",
+          "description": "Data resolution These bits are written by software to se lect the resolution of the conversion. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["000", "16 bits"],
+            ["001", "14 bits (for devices revision Y), 14 bits in legacy mode (for devices revision V, not optimized power consumption)"],
+            ["101", "14 bits (for devices revision V)"],
+            ["010", "12 bits (for devices revision Y), 12 bits in legacy mode (for devices revision V, not optimized power consumption)"],
+            ["110", "12 bits (for devices revision V)"],
+            ["011", "10 bits"],
+            ["100", "8 bits (for devices revision Y)"],
+            ["111", "8 bits (for devices revision V)"],
+            ["Others", "Reserved, must not be used."]
+          ],
+          "mask": "0b11100"
+        },
+        {
+          "name": "DMNGT",
+          "description": "Data Management configuration This bit is set and cleared by software to select how ADC interface output data are managed. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing). In dual-ADC modes, this bit is not relevant and replaced by control bit DAMDF of the ADCx_CCR register.",
+          "values": [
+            ["00", "Regular conversion data stored in DR only"],
+            ["01", "DMA One Shot Mode selected"],
+            ["10", "DFSDM mode selected"],
+            ["11", "DMA Circular Mode selected"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CFGR2",
+      "description": "configuration register 2",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "LSHIFT",
+          "description": "Left shift factor This bitfield is set and cleared by software to define the left shifting applied to the final result with or without oversampling. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0000", "No left shift"],
+            ["0001", "Shift left 1-bit"],
+            ["0010", "Shift left 2-bits"],
+            ["0011", "Shift left 3-bits"],
+            ["0100", "Shift left 4-bits"],
+            ["0101", "Shift left 5-bits"],
+            ["0110", "Shift left 6-bits"],
+            ["0111", "Shift left 7-bits"],
+            ["1000", "Shift left 8-bits"],
+            ["1001", "Shift left 9-bits"],
+            ["1010", "Shift left 10-bits"],
+            ["1011", "Shift left 11-bits"],
+            ["1100", "Shift left 12-bits"],
+            ["1101", "Shift left 13-bits"],
+            ["1110", "Shift left 14-bits"],
+            ["1111", "Shift left 15-bits"]
+          ],
+          "mask": "0b11110000000000000000000000000000"
+        },
+        {
+          "name": "OSVR",
+          "description": "Oversampling ratio This bitfield is set and cleared by software to define the oversampling ratio. 0: 1x (no oversampling)1: 2x2: 3x...1023: 1024x The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111110000000000000000"
+        },
+        {
+          "name": "RSHIFT4",
+          "description": "Right-shift data after Offset 4 correction Refer to RSHIFT1 description.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "RSHIFT3",
+          "description": "Right-shift data after Offset 3 correction Refer to RSHIFT1 description",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "RSHIFT2",
+          "description": "Right-shift data after Offset 2 correction Refer to RSHIFT1 description",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "RSHIFT1",
+          "description": "Right-shift data after Offset 1 correction This bitfield is set and cleared by software to right-sh ift 1-bit data after offset1 correction. This bit can only be used for 8-bit and 16-bit data format (see Section : Data register, data alignment and offset (ADC_DR, ADC_JDRy, OFFSETy, OFFSET y_CH, OVSS, LSHIFT, RSHIFT, SSATE) for details).",
+          "values": [
+            ["0", "Right-shifting disabled"],
+            ["1", "Data is right-shifted 1-bit."]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "ROVSM",
+          "description": "Regular Oversampling mode This bit is set and cleared by software to select the regular oversampling mode. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Continued mode: When injected conversion s are triggered, the oversampling is temporary stopped and continued after the injection sequence (oversampling buffer is maintained during injected sequence)"],
+            ["1", "Resumed mode: When injected c onversions are triggered, the cu rrent oversampling is aborted and resumed from start after the injection sequence (oversampling buffer is zeroed by injected sequence start)"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TROVS",
+          "description": "Triggered Regular Oversampling This bit is set and cleared by software to enable triggered oversampling The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "All oversampled conversions for a channel are done consecutively following a trigger"],
+            ["1", "Each oversampled conversion for a channel needs a new trigger"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "OVSS",
+          "description": "Oversampling right shift This bitfield is set and cleared by software to defin e the right shifting applied to the raw oversampling result. The software is allowed to write these bits only when ADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0000", "No right shift"],
+            ["0001", "Shift right 1-bit"],
+            ["0010", "Shift right 2-bits"],
+            ["0011", "Shift right 3-bits"],
+            ["0100", "Shift right 4-bits"],
+            ["0101", "Shift right 5-bits"],
+            ["0110", "Shift right 6-bits"],
+            ["0111", "Shift right 7-bits"],
+            ["1000", "Shift right 8-bits"],
+            ["1001", "Shift right 9-bits"],
+            ["1010", "Shift right 10-bits"],
+            ["1011", "Shift right 11-bits"],
+            ["Others", "Reserved, must not be used."]
+          ],
+          "mask": "0b111100000"
+        },
+        {
+          "name": "JOVSE",
+          "description": "Injected Oversampling Enable This bit is set and cleared by software to enable injected oversampling. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing)",
+          "values": [
+            ["0", "Injected Oversampling disabled"],
+            ["1", "Injected Oversampling enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "ROVSE",
+          "description": "Regular Oversampling Enable This bit is set and cleared by software to enable regular oversampling. The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing)",
+          "values": [
+            ["0", "Regular Oversampling disabled"],
+            ["1", "Regular Oversampling enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1100000000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SMPR1",
+      "description": "sample time register 1",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "SMPx",
+          "description": "Channel x sampling time selection (x = 9 to 0) These bits are written by softwa re to select the sampling time individually for each channel. During sample cycles, the channel selection bits must remain unchanged. 000: 1.5 ADC clock cycles001: 2.5 ADC clock cycles010: 8.5 ADC clock cycles011: 16.5 ADC clock cycles100: 32.5 ADC clock cycles101: 64.5 ADC clock cycles110: 387.5 ADC clock cycles111: 810.5 ADC clock cycles The software is allowed to write t hese bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b111111111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000000000000000000000011100"
+        }
+      ]
+    },
+    {
+      "name": "SMPR2",
+      "description": "sample time register 2",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "SMPx",
+          "description": "Channel x sampling time selection (x = 19 to 10) These bits are written by software to select the sampling time individually for each channel. During sampling cycles, the channel se lection bits must remain unchanged. 000: 1.5 ADC clock cycles001: 2.5 ADC clock cycles010: 8.5 ADC clock cycles011: 16.5 ADC clock cycles100: 32.5 ADC clock cycles101: 64.5 ADC clock cycles110: 387.5 ADC clock cycles111: 810.5 ADC clock cycles The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b111111111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PCSEL",
+      "description": "channel preselection register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "PCSEL",
+          "description": "Channel x ( VINP[i] ) pre selection (x = 0 to 19) These bits are written by software to pre sele ct the input channel at IO instance to be converted. 0: Input Channel x (Vinp x) is not pre selected for conversion, the ADC conversion result with this channel shows wrong result. 1: Input Channel x (Vinp x) is pre selected for conversion The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "LTR1",
+      "description": "watchdog threshold register 1",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "LTR1",
+          "description": "Analog watchdog 1 lower threshold These bits are written by software to define the lower threshold for the analog watchdog 1. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "HTR1",
+      "description": "watchdog threshold register 1",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "HTR1",
+          "description": "Analog watchdog 1 higher threshold These bits are written by software to define t he higher threshold for the analog watchdog 1. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SQR1",
+      "description": "regular sequence register 1",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "SQ4",
+          "description": "4th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 4th in the regular conversion sequence.",
+          "values": [],
+          "mask": "0b11111000000000000000000000000"
+        },
+        {
+          "name": "SQ3",
+          "description": "3rd conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 3rd in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000000000"
+        },
+        {
+          "name": "SQ2",
+          "description": "2nd conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 2nd in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000"
+        },
+        {
+          "name": "SQ1",
+          "description": "1st conversion in regular sequence These bits are written by software with the chann el number (0..19) assigned as the 1st in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000"
+        },
+        {
+          "name": "L",
+          "description": "Regular channel sequence length These bits are written by software to define the total number of conversions in the regular channel conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["0000", "1 conversion"],
+            ["0001", "2 conversions..."],
+            ["1111", "16 conversions"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000110000"
+        }
+      ]
+    },
+    {
+      "name": "SQR2",
+      "description": "regular sequence register 2",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "SQ9",
+          "description": "9th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 9th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000000000000000"
+        },
+        {
+          "name": "SQ8",
+          "description": "8th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 8th in the regular conversion sequence The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000000000"
+        },
+        {
+          "name": "SQ7",
+          "description": "7th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 7th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000"
+        },
+        {
+          "name": "SQ6",
+          "description": "6th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 6th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000"
+        },
+        {
+          "name": "SQ5",
+          "description": "5th conversion in regular sequence These bits are written by softwa re with the channel number (0.. 19) assigned as the 5th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000100000"
+        }
+      ]
+    },
+    {
+      "name": "SQR3",
+      "description": "regular sequence register 3",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "SQ14",
+          "description": "14th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 14th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000000000000000"
+        },
+        {
+          "name": "SQ13",
+          "description": "13th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 13th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000000000"
+        },
+        {
+          "name": "SQ12",
+          "description": "12th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 12th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000000000"
+        },
+        {
+          "name": "SQ11",
+          "description": "11th conversion in regular sequence These bits are written by softw are with the channel number (0.. 19) assigned as the 11th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000"
+        },
+        {
+          "name": "SQ10",
+          "description": "10th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 10th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000100000100000100000100000"
+        }
+      ]
+    },
+    {
+      "name": "SQR4",
+      "description": "regular sequence register 4",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "SQ16",
+          "description": "16th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 16th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111000000"
+        },
+        {
+          "name": "SQ15",
+          "description": "15th conversion in regular sequence These bits are written by software with the c hannel number (0..19) assigned as the 15th in the regular conversion sequence. The software is allowed to write these bits only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100000100000"
+        }
+      ]
+    },
+    {
+      "name": "DR",
+      "description": "regular Data Register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "RDATA",
+          "description": "Regular Data converted These bits are read-only. They contain the conversi on result from the last converted regular channel. The data are left- or right-aligned as described in Section 25.4.27: Data management .",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "JSQR",
+      "description": "injected sequence register",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "JSQ4",
+          "description": "4th conversion in the injected sequence These bits are written by software with the c hannel number (0..19) assigned as the 4th in the injected conversion sequence. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing) unless the context queue is enabled (JQDIS=0 in ADC_CFGR register).",
+          "values": [],
+          "mask": "0b11111000000000000000000000000000"
+        },
+        {
+          "name": "JSQ3",
+          "description": "3rd conversion in the injected sequence These bits are written by software with the ch annel number (0..19) assigned as the 3rd in the injected conversion sequence. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing) unless the context queue is enabled (JQDIS=0 in ADC_CFGR register).",
+          "values": [],
+          "mask": "0b11111000000000000000000000"
+        },
+        {
+          "name": "JSQ2",
+          "description": "2nd conversion in the injected sequence These bits are written by soft ware with the channel number (0 ..19) assigned as the 2nd in the injected conversion sequence. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing) unless the context queue is enabled (JQDIS=0 in ADC_CFGR register).",
+          "values": [],
+          "mask": "0b11111000000000000000"
+        },
+        {
+          "name": "JSQ1",
+          "description": "1st conversion in the injected sequence These bits are written by software with the chan nel number (0..19) assigned as the 1st in the injected conversion sequence. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing) unless the context queue is enabled (JQDIS=0 in ADC_CFGR register).",
+          "values": [],
+          "mask": "0b11111000000000"
+        },
+        {
+          "name": "JEXTEN",
+          "description": "External trigger enable and polarity selection for injected channels These bits are set and cleared by software to select the external trigger polarity and enable the trigger of an injected group. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing). If JQM=1 and if the Queue of Context becomes empty, the software and hardware triggers of the injected sequence are both internally disabled (refer to Section 25.4.22: Queue of context for injected conversions )",
+          "values": [
+            ["00", "If JQDIS=0 (queue enabled), Hardware a nd software trigger detection disabled and If JQDIS=1 (queue disabled), Hardware tri gger detection disabled (conversions can be launched by software"],
+            ["01", "Hardware trigger detection on the rising edge"],
+            ["10", "Hardware trigger detection on the falling edge"],
+            ["11", "Hardware trigger detection on both the rising and falling edges"]
+          ],
+          "mask": "0b110000000"
+        },
+        {
+          "name": "6",
+          "description": "2 JEXTSEL[ 4 The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing).",
+          "values": [
+            ["", "0]"],
+            ["", "External trigger selection for injected group These bits select the external event used to trigger the start of conversion of an injected group"],
+            ["", "00000"],
+            ["", "Event 000001"],
+            ["", "Event 100010"],
+            ["", "Event 200011"],
+            ["", "Event 300100"],
+            ["", "Event 400101"],
+            ["", "Event 500110"],
+            ["", "Event 600111"],
+            ["", "Event 7...11111"],
+            ["", "Event 31"],
+            ["", ""]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "JL",
+          "description": "Injected channel sequence length These bits are written by software to define th e total number of conversions in the injected channel conversion sequence. The software is allowed to write these bits only when JADSTART is cleared to 0 (no injected conversion is ongoing).",
+          "values": [
+            ["00", "1 conversion"],
+            ["01", "2 conversions"],
+            ["10", "3 conversions"],
+            ["11", "4 conversions"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b100000100000100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "OFR",
+      "description": "injected channel y offset register",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "SSATE",
+          "description": "Signed saturation Enable This bit is written by software to enable or disable the Signed saturation feature. This bit can be enabled only for 8-bit and 16-bit data format (see Section : Data register, data alignment and offset (ADC_DR, ADC_JDRy, OFFSETy, OFFSETy_CH, OVSS, LSHIFT, RSHIFT, SSATE) for details). The software is allowed to write this bit only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [
+            ["0", "Offset is subtracted maintaining data integr ity and extending result size (9-bit and 17-bit signed format)."],
+            ["1", "Offset is subtracted and result is saturated to main tain result size."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "OFFSET_CH",
+          "description": "Channel selection for the Data offset y These bits are written by software to define th e channel to which the offset programmed into bits OFFSETy[25:0] will apply. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b1111100000000000000000000000000"
+        },
+        {
+          "name": "OFFSET",
+          "description": "Data offset y for the channel programmed into bits OFFSETy_CH[4:0] These bits are written by software to define the offset y to be s ubtracted from the raw converted data when converting a channel (can be regular or injected). The channel to which applies the data offset y must be programmed in the bits OFFSETy_CH[ 4:0]. The conversion result can be read from in the ADC_DR (regu lar conversion) or from in the ADC_JDRyi registers (injected conversion). When OFFSETy[25:0] bitfield is reset, the offset compensation is disabled. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing). If several offset (OFFSETy) po int to the same channel, only the offset with the lowest x value is considered for the subtraction. Ex: if OFFSET1_CH[4:0]=4 and OFFSET2_CH[4: 0]=4, this is OFFSET1[25:0] which is subtracted when converting channel 4.",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        }
+      ],
+      "array": [4]
+    },
+    {
+      "name": "JDR",
+      "description": "injected channel y data register",
+      "offset": "0x80",
+      "fields": [
+        {
+          "name": "JDATA",
+          "description": "Injected data These bits are read-only. They contain the conv ersion result from injected channel y. The data are left -or right-aligned as described in Section 25.4.27: Data management .",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ],
+      "array": [4]
+    },
+    {
+      "name": "AWD2CR",
+      "description": "analog watchdog 2 configuration register",
+      "offset": "0xA0",
+      "fields": [
+        {
+          "name": "AWD2CH",
+          "description": "Analog watchdog 2 channel selection These bits are set and cleared by software. They enable and select the input channels to be guarded by the analog watchdog 2. AWD2CH[i] = 0: ADC analog input c hannel-i is not monitored by AWD2 AWD2CH[i] = 1: ADC analog input channel-i is monitored by AWD2When AWD2CH[19:0] = 000..0, the analog Watchdog 2 is disabled The channels selected by AWD2CH must be al so selected into the SQRi or JSQRi registers. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "AWD3CR",
+      "description": "analog watchdog 3 configuration register",
+      "offset": "0xA4",
+      "fields": [
+        {
+          "name": "AWD3CH",
+          "description": "Analog watchdog 3 channel selection These bits are set and cleared by software. They enable and select the input channels to be guarded by the analog watchdog 3. AWD3CH[i] = 0: ADC analog input c hannel-i is not monitored by AWD3 AWD3CH[i] = 1: ADC analog input channel-i is monitored by AWD3When AWD3CH[19:0] = 000..0, the analog Watchdog 3 is disabled The channels selected by AWD3CH must be al so selected into the SQRi or JSQRi registers. The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "LTR2",
+      "description": "watchdog lower threshold register 2",
+      "offset": "0xB0",
+      "fields": [
+        {
+          "name": "LTR2",
+          "description": "Analog watchdog 2 lower threshold These bits are written by software to define the lower threshold for the analog watchdog 2. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) . The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "HTR2",
+      "description": "watchdog higher threshold register 2",
+      "offset": "0xB4",
+      "fields": [
+        {
+          "name": "HTR2",
+          "description": "Analog watchdog 2 higher threshold These bits are written by software to define t he higher threshold for the analog watchdog 2. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) . The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "LTR3",
+      "description": "watchdog lower threshold register 3",
+      "offset": "0xB8",
+      "fields": [
+        {
+          "name": "LTR3",
+          "description": "Analog watchdog 3 lower threshold These bits are written by software to define the lower threshold for the analog watchdog 3. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "HTR3",
+      "description": "watchdog higher threshold register 3",
+      "offset": "0xBC",
+      "fields": [
+        {
+          "name": "HTR3",
+          "description": "Analog watchdog 3 higher threshold These bits are written by software to define t he higher threshold for the analog watchdog 3. Refer to Section 25.4.30: Analog window watchdog (A WD1EN, JAWD1EN, AWD1SGL, AWD1CH, AWD2CH, AWD3CH, AWD_HTRy, AWD_LTRy, AWDy) The software is allowed to write these bits only when ADSTART=0 and JADSTART=0 (which ensures that no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DIFSEL",
+      "description": "differential mode selection register",
+      "offset": "0xC0",
+      "fields": [
+        {
+          "name": "DIFSEL",
+          "description": "Differential mode for channels 19 to 0 These bits are set and cleared by software. They allo w to select if a channel is configured as single ended or differential mode. DIFSEL[i] = 0: ADC analog input channel -i is configured in single ended mode DIFSEL[i] = 1: ADC analog input channel-i is configured in differential mode The software is allowed to write these bits only when the ADC is disabled (ADCAL=0, JADSTART=0, JADSTP=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).",
+          "values": [],
+          "mask": "0b11111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CALFACT",
+      "description": "calibration factors register",
+      "offset": "0xC4",
+      "fields": [
+        {
+          "name": "CALFACT_D",
+          "description": "Calibration Factors in differential mode These bits are written by hardware or by software. Once a differential inputs calibration is complete, they are updated by hardware with the calibration factors. Software can write these bits with a new calibration factor. If the new calibration factor is different from the current one stored into the analog A DC, it will then be appli ed once a new differential conversion is launched. The software is allowed to write these bits only when ADEN=1, ADSTART=0 and JADSTART=0 (ADC is enabled and no calibration is ongoing and no conversion is ongoing).",
+          "values": [],
+          "mask": "0b111111111110000000000000000"
+        },
+        {
+          "name": "CALFACT_S",
+          "description": "Calibration Factors In Single-Ended mode These bits are written by hardware or by software. Once a single-ended inputs calibration is co mplete, they are updat ed by hardware with the calibration factors. Software can write these bits with a new calibration factor. If the new calibration factor is different from the current one stored into the analog A DC, it will then be applied once a new single-ended conversion is launched. The software is allowed to write these bits only when ADEN=1, ADSTART=0 and JADSTART=0 (ADC is enabled and no calibration is ongoing and no conversion is ongoing).",
+          "values": [],
+          "mask": "0b11111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000000000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "CALFACT2",
+      "description": "calibration factor register 2",
+      "offset": "0xC8",
+      "fields": [
+        {
+          "name": "LINCALFACT",
+          "description": "Linearity Calibration Factor These bits are written by hardware or by software. They hold 30-bit out of the 160-b it linearity calibration factor. Once a single-ended inputs calibration is co mplete, they are updat ed by hardware with the calibration factors. Software can write these bits with a new calibration factor. If the new calibration factor is different from the current one stored into the analog A DC, it will then be applied once a new single-ended calibration is launched. The software is allowed to write these bits only when ADEN=1, ADSTART=0 and JADSTART=0 (ADC is enabled and no calibration is ongoing and no conversion is ongoing).",
+          "values": [],
+          "mask": "0b111111111111111111111111111111"
+        }
+      ]
+    }
+  ],
+  "COMMON": [
+    {
+      "name": "CSR",
+      "description": "x common status register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "JQOVF_SLV",
+          "description": "Injected Context Queue Overflow flag of the slave ADC This bit is a copy of the JQOVF bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "AWD3_SLV",
+          "description": "Analog watchdog 3 flag of the slave ADC This bit is a copy of the AWD3 bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "AWD2_SLV",
+          "description": "Analog watchdog 2 flag of the slave ADC This bit is a copy of the AWD2 bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "AWD1_SLV",
+          "description": "Analog watchdog 1 flag of the slave ADC This bit is a copy of the AWD1 bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "JEOS_SLV",
+          "description": "End of injected sequence flag of the slave ADC This bit is a copy of the JEOS bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "JEOC_SLV",
+          "description": "End of injected conversion flag of the slave ADC This bit is a copy of the JEOC bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "OVR_SLV",
+          "description": "Overrun flag of the slave ADC This bit is a copy of the OVR bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "EOS_SLV",
+          "description": "End of regular sequence flag of the slave ADC This bit is a copy of the EOS bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "EOC_SLV",
+          "description": "End of regular conversion of the slave ADC This bit is a copy of the EOC bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "EOSMP_SLV",
+          "description": "End of Sampling phase flag of the slave ADC This bit is a copy of the EOSMP2 bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "ADRDY_SLV",
+          "description": "Slave ADC ready This bit is a copy of the ADRDY bit in the corresponding ADCx+1_ISR register.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "JQOVF_MST",
+          "description": "Injected Context Queue Overflow flag of the master ADC This bit is a copy of the JQOVF bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "AWD3_MST",
+          "description": "Analog watchdog 3 flag of the master ADC This bit is a copy of the AWD3 bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "AWD2_MST",
+          "description": "Analog watchdog 2 flag of the master ADC This bit is a copy of the AWD2 bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "AWD1_MST",
+          "description": "Analog watchdog 1 flag of the master ADC This bit is a copy of the AWD1 bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "JEOS_MST",
+          "description": "End of injected sequence flag of the master ADC This bit is a copy of the JEOS bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "JEOC_MST",
+          "description": "End of injected conversion flag of the master ADC This bit is a copy of the JEOC bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "OVR_MST",
+          "description": "Overrun flag of the master ADC This bit is a copy of the OVR bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "EOS_MST",
+          "description": "End of regular sequence flag of the master ADC This bit is a copy of the EOS bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "EOC_MST",
+          "description": "End of regular conversion of the master ADC This bit is a copy of the EOC bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "EOSMP_MST",
+          "description": "End of Sampling phase flag of the master ADC This bit is a copy of the EOSMP bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "ADRDY_MST",
+          "description": "Master ADC ready This bit is a copy of the ADRDY bit in the corresponding ADC_ISR register.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b110111000000000001111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "CCR",
+      "description": "x common control register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "VBATEN",
+          "description": "VBAT enable This bit is set and cleared by software to control VBAT channel. The software is allowed to write this bi t only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADST P=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "VBAT channel disabled"],
+            ["1", "VBAT channel enabled"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "TSEN",
+          "description": "Temperature sensor voltage enable This bit is set and cleared by software to control VSENSE channel. The software is allowed to write this bi t only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADST P=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "Temperature sensor channel disabled"],
+            ["1", "Temperature sensor channel enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "VREFEN",
+          "description": "V REFINT enable This bit is set and cleared by software to enable/disable the VREFINT channel. The software is allowed to write this bi t only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADST P=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["0", "VREFINT channel disabled"],
+            ["1", "VREFINT channel enabled"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "PRESC",
+          "description": "ADC prescaler These bits are set and cleared by software to select the frequency of the clock to the ADC. The clock is common for all the ADCs. The software is allowed to write these bi ts only when the ADC is disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDI S=0 and ADEN=0). The ADC prescaler value is applied only when CKMODE[1:0] = 0b00.",
+          "values": [
+            ["0000", "input ADC clock not divided"],
+            ["0001", "input ADC clock divided by 2"],
+            ["0010", "input ADC clock divided by 4"],
+            ["0011", "input ADC clock divided by 6"],
+            ["0100", "input ADC clock divided by 8"],
+            ["0101", "input ADC clock divided by 10"],
+            ["0110", "input ADC clock divided by 12"],
+            ["0111", "input ADC clock divided by 16"],
+            ["1000", "input ADC clock divided by 32"],
+            ["1001", "input ADC clock divided by 64"],
+            ["1010", "input ADC clock divided by 128"],
+            ["1011", "input ADC clock divided by 256"],
+            ["Others", "Reserved, must not be used"]
+          ],
+          "mask": "0b1111000000000000000000"
+        },
+        {
+          "name": "CKMODE",
+          "description": "ADC clock mode These bits are set and cleared by software to define the ADC clock scheme (which is common to both master and slave ADCs):Devices revision Y: The software is allowed to write these bits only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).",
+          "values": [
+            ["00", "CK_ADCx (x=1 to 3) (Asynchronous clock mode), generated at product level (refer to Section Reset and Clock Control (RCC) )"],
+            ["01", "adc_hclk/1 (Synchronous clock mode). This configuration must be enabled only if the AHB clock prescaler is set to 1 (HPRE[3:0] = 0xxx in RCC_CFGR register) and if the system clock has a 50% duty cycle."],
+            ["10", "adc_hclk/2 (Synchronous clock mode)"],
+            ["11", "adc_hclk/4 (Synchronous clock mode)In synchronous clock mode, there is no jitter in the delay from a timer trigger to the start of conversion. Devices revision V:"],
+            ["00", "CK_ADCx (x=1 to 23) (Asynchronous clock mo de), generated at product level (refer to Section Reset and Clock Control (RCC) )"],
+            ["01", "adc_sclk/1 (Synchronous clock mode)."],
+            ["10", "adc_sclk/2 (Synchronous clock mode)"],
+            ["11", "adc_sclk/4 (Synchronous clock mode)Whatever CKMODE[1:0] settings, an additional di vider factor of 2 is applied to the clock delivered to the analog ADC block. In synchronous clock mode, when adc_ker_ck = 2 x adc_hclk, there is no jitter in the delay from a timer trigger to t he start of a conversion."]
+          ],
+          "mask": "0b110000000000000000"
+        },
+        {
+          "name": "DAMDF",
+          "description": "Dual ADC Mode Data Format This bit-field is set and cleared by software. It specifies the data format in the common data register ADCx_CDR. The software is allowed to write these bi ts only when ADSTART=0 (which ensures that no regular conversion is ongoing).",
+          "values": [
+            ["00", "Dual ADC mode without data packing (ADCx_CDR and ADCx_CDR2 registers not used)."],
+            ["01", "Reserved."],
+            ["10", "Data formatting mode for 32 down to 10-bit resolution"],
+            ["11", "Data formatting mo de for 8-bit resolution"]
+          ],
+          "mask": "0b1100000000000000"
+        },
+        {
+          "name": "DELAY",
+          "description": "Delay between 2 sampling phases These bits are set and cleared by software. Th ese bits are used in dual interleaved modes. Refer to Table 220 for the value of ADC resolution versus DELAY bits values. The software is allowed to write these bits only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "DUAL",
+          "description": "Dual ADC mode selection These bits are written by softwar e to select the operating mode. All the ADCs are independent: The software is allowed to write these bits only when the ADCs are disabled (ADCAL=0, JADSTART=0, ADSTART=0, ADSTP=0, ADDIS=0 and ADEN=0).Table 220. DELAY bits versus ADC resolution DELAY bits16-bit resolution14-bit resolution12-bit resolution10-bit resolution8-bit resolution0000 1.5 * Tadc_ker_ck 1.5 * Tadc_ker_ck 1.5 * Tadc_ker_ck 1.5 * Tadc_ker_ck 1.5 * Tadc_ker_ck 0001 2.5 * Tadc_ker_ck 2.5 * Tadc_ker_ck 2.5 * Tadc_ker_ck 2.5 * Tadc_ker_ck 2.5 * Tadc_ker_ck 0010 3.5 * Tadc_ker_ck 3.5 * Tadc_ker_ck 3.5 * Tadc_ker_ck 3.5 * Tadc_ker_ck 3.5 * Tadc_ker_ck 0011 4.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 0100 5.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 0101 6.5 * Tadc_ker_ck 6.5 * Tadc_ker_ck 6.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 0110 7.5 * Tadc_ker_ck 7.5 * Tadc_ker_ck 6.5 * Tadc_ker_c 5.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck0111 8.5 * Tadc_ker_ck 7.5 * Tadc_ker_ck 6.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck 1000 8.5 * Tadc_ker_ck 7.5 * Tadc_ker_ck 6.5 * Tadc_ker_ck 5.5 * Tadc_ker_ck 4.5 * Tadc_ker_ck",
+          "values": [
+            ["00000", "Independent modeThe configurations 00001 to 01001 correspond to the following operating modes: Dual mode, master and slave ADCs working together:"],
+            ["00001", "Combined regular simultaneous + injected simultaneous mode"],
+            ["00010", "Combined regular simultaneous + alternate trigger mode"],
+            ["00011", "Combined Interleaved mode + injected simultaneous mode"],
+            ["00100", "Reserved."],
+            ["00101", "Injected simultaneous mode only"],
+            ["00110", "Regular simultaneous mode only"],
+            ["00111", "Interleaved mode only"],
+            ["01001", "Alternate trigger mode onlyAll other combinations are reserved and must not be programmed"],
+            ["others", "reserved-- - --Table 220. DELAY bits versus ADC resolution (continued) DELAY bits16-bit resolution14-bit resolution12-bit resolution10-bit resolution8-bit resolution"]
+          ],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000011000011100000"
+        }
+      ]
+    },
+    {
+      "name": "CDR",
+      "description": "x common regular data register for dual mode",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "RDATA_SLV",
+          "description": "Regular data of the slave ADC In dual mode, these bits contain the r egular data of the slave ADC. Refer to Section 25.4.32: Dual ADC modes . The data alignment is applied as described in Section : Data register, data alignment and offset (ADC_DR, ADC_JDRy, OFFSETy, OF FSETy_CH, OVSS, LSHIFT, RSHIFT, SSATE) )",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "RDATA_MST",
+          "description": "Regular data of the master ADC. In dual mode, these bits contain the regu lar data of the master ADC. Refer to Section 25.4.32: Dual ADC modes . The data alignment is applied as described in Section : Data register, data alignment and offset (ADC_DR, ADC_JDRy, OFFSETy, OF FSETy_CH, OVSS, LSHIFT, RSHIFT, SSATE) ) In MDMA=0b11 mode, bits 15:8 contains SLV_ADC_DR[7:0], bi ts 7:0 contains MST_ADC_DR[7:0].",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CDR2",
+      "description": "x common regular data register for 32-bit dual mode",
+      "offset": "0x10",
+      "fields": []
+    }
+  ]
+}

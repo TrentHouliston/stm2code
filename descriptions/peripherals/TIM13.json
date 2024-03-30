@@ -1,0 +1,26 @@
+{
+  "TIM13": [
+    {
+      "name": "TISEL",
+      "description": "timer input selection register",
+      "offset": "0x68",
+      "fields": [
+        {
+          "name": "TI1SEL",
+          "description": "selects TI1[0] to TI1[15] input",
+          "values": [
+            ["0000", "TIM13_CH1 input"],
+            ["Other", "Reserved"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111110000"
+        }
+      ]
+    }
+  ]
+}

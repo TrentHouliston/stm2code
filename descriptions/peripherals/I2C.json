@@ -1,0 +1,720 @@
+{
+  "I2C": [
+    {
+      "name": "CR1",
+      "description": "control register 1",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "PECEN",
+          "description": "PEC enable If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [
+            ["0", "PEC calculation disabled"],
+            ["1", "PEC calculation enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ALERTEN",
+          "description": "SMBus alert enable When ALERTEN = 0, the SMBA pin can be used as a standard GPIO. If the SMBus feature is not supported, this bi t is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [
+            ["0", "The SMBus alert pin (SMBA) is not supported in host mode (SMBHEN = 1). In device mode (SMBHEN = 0), the SMBA pin is released and the Alert Response Address header is disabled (0001100x followed by NACK)."],
+            ["1", "The SMBus alert pin is supported in hos t mode (SMBHEN = 1). In device mode (SMBHEN = 0), the SMBA pin is driven low and the Alert Response Address header is enabled (0001100x followed by ACK)."]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "SMBDEN",
+          "description": "SMBus device default address enable If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [
+            ["0", "Device default address disabled. Address 0b1100001x is NACKed."],
+            ["1", "Device default address enabled. Address 0b1100001x is ACKed."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "SMBHEN",
+          "description": "SMBus host address enable If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [
+            ["0", "Host address disabled. Address 0b0001000x is NACKed."],
+            ["1", "Host address enabled. Address 0b0001000x is ACKed."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "GCEN",
+          "description": "General call enable",
+          "values": [
+            ["0", "General call disabled. Address 0b00000000 is NACKed."],
+            ["1", "General call enabled. Address 0b00000000 is ACKed."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "WUPEN",
+          "description": "Wake-up from Stop mode enable If the wake-up from Stop mode feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 . WUPEN can be set only when DNF = \u20180000\u2019",
+          "values": [
+            ["0", "Wake-up from Stop mode disable."],
+            ["1", "Wake-up from Stop mode enable."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "NOSTRETCH",
+          "description": "Clock stretching disable This bit is used to disable clock stretching in slave mode. It must be kept cleared in master mode. This bit can only be programmed when the I2C is disabled (PE = 0).",
+          "values": [
+            ["0", "Clock stretching enabled"],
+            ["1", "Clock stretching disabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "SBC",
+          "description": "Slave byte control This bit is used to enable hardware byte control in slave mode.",
+          "values": [
+            ["0", "Slave byte control disabled"],
+            ["1", "Slave byte control enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "RXDMAEN",
+          "description": "DMA reception requests enable",
+          "values": [
+            ["0", "DMA mode disabled for reception"],
+            ["1", "DMA mode enabled for reception"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TXDMAEN",
+          "description": "DMA transmission requests enable",
+          "values": [
+            ["0", "DMA mode disabled for transmission"],
+            ["1", "DMA mode enabled for transmission"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "ANFOFF",
+          "description": "Analog noise filter OFF This bit can only be programmed when the I2C is disabled (PE = 0).",
+          "values": [
+            ["0", "Analog noise filter enabled"],
+            ["1", "Analog noise filter disabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "DNF",
+          "description": "Digital noise filter These bits are used to configure the digital noise filter on SDA and SCL input. The digital filter, filters spikes with a length of up to DNF[3:0] * tI2CCLK If the analog filter is al so enabled, the digital filter is added to the analog filter. This filter can only be programmed when the I2C is disabled (PE = 0).",
+          "values": [
+            ["0000", "Digital filter disabled"],
+            ["0001", "Digital filter enabled and filtering capability up to 1 tI2CCLK ..."],
+            ["1111", "digital filter enabled and filtering capability up to15 tI2CCLK"]
+          ],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "ERRIE",
+          "description": "Error interrupts enable Any of these errors generate an interrupt: Arbitration Loss (ARLO)Bus Error detection (BERR) Overrun/Underrun (OVR) Timeout detection (TIMEOUT)PEC error detection (PECERR) Alert pin event detection (ALERT)",
+          "values": [
+            ["0", "Error detection interrupts disabled"],
+            ["1", "Error detection interrupts enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TCIE",
+          "description": "Transfer complete interrupt enable Any of these events generate an interrupt: Transfer complete (TC)Transfer complete reload (TCR)",
+          "values": [
+            ["0", "Transfer complete interrupt disabled"],
+            ["1", "Transfer complete interrupt enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "STOPIE",
+          "description": "Stop detection Interrupt enable",
+          "values": [
+            ["0", "Stop detection (STOPF) interrupt disabled"],
+            ["1", "Stop detection (STOPF) interrupt enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "NACKIE",
+          "description": "Not acknowledge received Interrupt enable",
+          "values": [
+            ["0", "Not acknowledge (NACKF) received interrupts disabled"],
+            ["1", "Not acknowledge (NACKF) received interrupts enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ADDRIE",
+          "description": "Address match Interrupt enable (slave only)",
+          "values": [
+            ["0", "Address match (ADDR) interrupts disabled"],
+            ["1", "Address match (ADDR) interrupts enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RXIE",
+          "description": "RX Interrupt enable",
+          "values": [
+            ["0", "Receive (RXNE) interrupt disabled"],
+            ["1", "Receive (RXNE) interrupt enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TXIE",
+          "description": "TX Interrupt enable",
+          "values": [
+            ["0", "Transmit (TXIS) interrupt disabled"],
+            ["1", "Transmit (TXIS) interrupt enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "PE",
+          "description": "Peripheral enable When PE = 0, the I2C SCL and SDA lines are released. Internal state machines and status bits are put back to their reset val ue. When cleared, PE must be kept low for at least three APB clock cycles.",
+          "values": [
+            ["0", "Peripheral disable"],
+            ["1", "Peripheral enable"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000010000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CR2",
+      "description": "control register 2",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "PECBYTE",
+          "description": "Packet error checking byte This bit is set by software, and cleared by hardware when the PEC is transferred, or when a STOP condition or an Address matched is received, also when PE = 0. Writing \u20180\u2019 to this bit has no effect. This bit has no effect when RELOAD is set. This bit has no effect is slave mode when SBC = 0.If the SMBus feature is not supported, this bi t is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [
+            ["0", "No PEC transfer."],
+            ["1", "PEC transmission/reception is requested"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "AUTOEND",
+          "description": "Automatic end mode (master mode) This bit is set and cleared by software. This bit has no effect in slave mode or when the RELOAD bit is set.",
+          "values": [
+            ["0", "software end mode: TC flag is set when N BYTES data are transferred, stretching SCL low."],
+            ["1", "Automatic end mode: a STOP condition is automatically sent when NBYTES data are transferred."]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "RELOAD",
+          "description": "NBYTESreload mode This bit is set and cleared by software.",
+          "values": [
+            ["0", "The transfer is completed after the NBYTES data transfer (STOP or RESTART follows)."],
+            ["1", "The transfer is not completed after the NB YTES data transfer (NBYTES is reloaded). TCR flag is set when NBYTES data are tr ansferred, stretching SCL low."]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "NBYTES",
+          "description": "Number of bytes The number of bytes to be transmitted/received is programmed there. This field is don\u2019t care in slave mode with SBC = 0. Changing these bits when the START bit is set is not allowed.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "NACK",
+          "description": "NACK generation (slave mode) The bit is set by software, cleared by hardwa re when the NACK is sent, or when a STOP condition or an Address matched is received, or when PE = 0. Writing \u20180\u2019 to this bit has no effect. This bit is used in slave mode only: in mast er receiver mode, NACK is automatically generated after last byte preceding STOP or RESTART condition, whatever the NACK bit value. When an overrun occurs in slave receiver NOSTRETCH mode, a NACK is automatically generated whatever the NACK bit value. When hardware PEC checking is enabled (PECBYTE = 1), the PEC acknowledge value does not depend on the NACK value.",
+          "values": [
+            ["0", "an ACK is sent after current received byte."],
+            ["1", "a NACK is sent after current received byte."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "STOP",
+          "description": "Stop generation (master mode) The bit is set by software, cleared by hardware when a STOP condition is detected, or when PE = 0.In master mode: Writing \u20180\u2019 to this bit has no effect.",
+          "values": [
+            ["0", "No Stop generation."],
+            ["1", "Stop generation after current byte transfer."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "START",
+          "description": "Start generation This bit is set by software, and cleared by hardware after the Start followed by the address sequence is sent, by an arbitration loss, by a ti meout error detection, or when PE = 0. It can also be cleared by software by writing \u20181\u2019 to the ADDRCF bit in the I2C_ICR register. Writing \u20180\u2019 to this bit has no effect. The START bit can be set even if the bus is BUSY or I2C is in slave mode. This bit has no effect when RELOAD is set.",
+          "values": [
+            ["0", "No Start generation."],
+            ["1", "Restart/Start generation:If the I2C is already in master mode with AUTOEND = 0, setting this bit generates a Repeated start condition when RELOAD = 0, after the end of the NBYTES transfer. Otherwise setting this bi t generates a START condition once the bus is free."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "HEAD10R",
+          "description": "10-bit address header only read direction (master receiver mode) Changing this bit when the START bit is set is not allowed.",
+          "values": [
+            ["0", "The master sends the complete 10 bit slav e address read sequence: Start + 2 bytes 10bit address in write direction + Restart + 1st 7 bits of the 10 bit address in read direction."],
+            ["1", "The master only sends the 1st 7 bits of the 10 bit address, followed by Read direction."]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "ADD10",
+          "description": "10-bit addressing mode (master mode) Changing this bit when the START bit is set is not allowed.",
+          "values": [
+            ["0", "The master operates in 7-bit addressing mode,"],
+            ["1", "The master operates in 10-bit addressing mode"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "RD_WRN",
+          "description": "Transfer direction (master mode) Changing this bit when the START bit is set is not allowed. SADD[9:0] : Slave address (master mode)In 7-bit addressing mode (ADD10 = 0) : SADD[7:1] must be written with the 7-bit sl ave address to be sent. The bits SADD[9], SADD[8] and SADD[0] are don't care.In 10-bit addressing mode (ADD10 = 1) : SADD[9:0] must be written with t he 10-bit slave address to be sent. Changing these bits when the START bit is set is not allowed.",
+          "values": [
+            ["0", "Master requests a write transfer."],
+            ["1", "Master requests a read transfer."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "OAR1",
+      "description": "own address 1 register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "OA1EN",
+          "description": "Own address 1 enable",
+          "values": [
+            ["0", "Own address 1 disabled. The received slave address OA1 is NACKed."],
+            ["1", "Own address 1 enabled. The received slave address OA1 is ACKed."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "OA1MODE",
+          "description": "Own address 1 10-bit mode This bit can be written only when OA1EN = 0.",
+          "values": [
+            ["0", "Own address 1 is a 7-bit address."],
+            ["1", "Own address 1 is a 10-bit address."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "OA1",
+          "description": "Interface own slave address 7-bit addressing mode: OA1[7:1] contains the 7-bit own slav e address. The bits OA1[9], OA1[8] and OA1[0] are don't care. 10-bit addressing mode: OA1[9:0] cont ains the 10-bit own slave address. These bits can be written only when OA1EN = 0.",
+          "values": [],
+          "mask": "0b1111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "OAR2",
+      "description": "own address 2 register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "9",
+          "description": "0one is completed. The latency of the second write access can be up to 2x i2c_pclk + 6 x i2c_ker_ck. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 OA2EN Res. Res. Res. Res. OA2MSK[2",
+          "values": [
+            ["", "0] OA2[7"],
+            ["", "1] Res. rw rw rw rw rw rw rw rw rw rw rw"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "OA2EN",
+          "description": "Own address 2 enable",
+          "values": [
+            ["0", "Own address 2 disabled. The received slave address OA2 is NACKed."],
+            ["1", "Own address 2 enabled. The received slave address OA2 is ACKed."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "OA2MSK",
+          "description": "Own address 2 masks These bits can be written only when OA2EN = 0. As soon as OA2MSK is not equal to 0, the reserved I2C addresses (0b0000xxx and 0b1111xxx) are not acknowledged even if the comparison matches.",
+          "values": [
+            ["000", "No mask"],
+            ["001", "OA2[1] is masked and don\u2019t ca re. Only OA2[7:2] are compared."],
+            ["010", "OA2[2:1] are masked and don\u2019t care. Only OA2[7:3] are compared."],
+            ["011", "OA2[3:1] are masked and don\u2019t care. Only OA2[7:4] are compared."],
+            ["100", "OA2[4:1] are masked and don\u2019t care. Only OA2[7:5] are compared."],
+            ["101", "OA2[5:1] are masked and don\u2019t care. Only OA2[7:6] are compared."],
+            ["110", "OA2[6:1] are masked and don\u2019t care. Only OA2[7] is compared."],
+            ["111", "OA2[7:1] are masked and don\u2019t care. No comparison is done, and all (except reserved) 7-bit received addresses are acknowledged."]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "OA2",
+          "description": "Interface address 7-bit addressing mode: 7-bit address These bits can be written only when OA2EN = 0.",
+          "values": [],
+          "mask": "0b11111110"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110111100000000001"
+        }
+      ]
+    },
+    {
+      "name": "TIMINGR",
+      "description": "timing register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "SCLDEL",
+          "description": "Data setup time This field is used to generate a delay tSCLDEL between SDA edge and SCL rising edge. In master mode and in slave mode with NOSTRE TCH = 0, the SCL line is stretched low during tSCLDEL . tSCLDEL = (SCLDEL + 1) x tPRESC tSCLDEL is used to generate tSU:DAT timing.",
+          "values": [],
+          "mask": "0b111100000000000000000000"
+        },
+        {
+          "name": "SDADEL",
+          "description": "Data hold time This field is used to generate the delay tSDADEL between SCL falling edge and SDA edge. In master mode and in slave mode with NOSTRE TCH = 0, the SCL line is stretched low during tSDADEL . tSDADEL = SDADEL x tPRESC SDADEL is used to generate tHD:DAT timing.",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "SCLH",
+          "description": "SCL high period (master mode) This field is used to generate the SCL high period in master mode. tSCLH = (SCLH + 1) x tPRESC SCLH is also used to generate tSU:STO and tHD:STAtiming.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "SCLL",
+          "description": "SCL low period (master mode) This field is used to generate the SCL low period in master mode. tSCLL = (SCLL + 1) x tPRESC SCLL is also used to generate tBUF and tSU:STAtimings.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TIMEOUTR",
+      "description": "timeout register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "1",
+          "description": "2831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 TEXTEN Res. Res. Res. TIMEOUTB[1 this register is reserved and forced by hardware to \u201c0x00000000\u201d. Refer to Section47.3. TEXTEN : Extended clock timeout enable",
+          "values": [
+            ["1", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 987654321 0 TIMOUTEN Res. Res. TIDLE TIMEOUTA[1"],
+            ["1", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw"],
+            ["0", "Extended clock timeout detection is disabled"],
+            ["1", "Extended clock timeout detection is enable d. When a cumulative SCL stretch for more than tLOW:EXT is done by the I2C interface, a tim eout error is detected (TIMEOUT = 1)."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TIMEOUTB",
+          "description": "Bus timeout B This field is used to configure the cumulative clock extension timeout: In master mode, the master cumu lative clock low extend time (tLOW:MEXT ) is detected In slave mode, the slave cumula tive clock low extend time (tLOW:SEXT ) is detected tLOW:EXT = (TIMEOUTB + TIDLE = 01) x 2048 x tI2CCLK These bits can be written only when TEXTEN = 0.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "TIMOUTEN",
+          "description": "Clock timeout enable",
+          "values": [
+            ["0", "SCL timeout detection is disabled"],
+            ["1", "SCL timeout detection is enabled: when SCL is low for more than tTIMEOUT (TIDLE = 0) or high for more than tIDLE (TIDLE = 1), a timeout error is detected (TIMEOUT = 1)."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TIDLE",
+          "description": "Idle clock timeout detection This bit can be written only when TIMOUTEN = 0.",
+          "values": [
+            ["0", "TIMEOUTA is used to detect SCL low timeout"],
+            ["1", "TIMEOUTA is used to detect both SCL and SDA high timeout (bus idle condition)"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TIMEOUTA",
+          "description": "Bus Timeout A This field is used to configure: The SCL low timeout condition tTIMEOUT when TIDLE = 0 tTIMEOUT = (TIMEOUTA + 1) x 2048 x tI2CCLK The bus idle condition (both SCL and SDA high) when TIDLE = 1t IDLE= (TIMEOUTA + 1) x 4 x tI2CCLK These bits can be written only when TIMOUTEN = 0.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000000110000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "interrupt and status register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "ADDCODE",
+          "description": "Address match code (slave mode) These bits are updated with the received address when an address match event occurs (ADDR = 1). In the case of a 10-bit address, ADDCODE pr ovides the 10-bit header followed by the two MSBs of the address.",
+          "values": [],
+          "mask": "0b111111100000000000000000"
+        },
+        {
+          "name": "DIR",
+          "description": "Transfer direction (slave mode) This flag is updated when an address match event occurs (ADDR = 1).",
+          "values": [
+            ["0", "Write transfer, slave enters receiver mode."],
+            ["1", "Read transfer, slave enters transmitter mode."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "BUSY",
+          "description": "Bus busy This flag indicates that a communication is in progress on the bus. It is set by hardware when a START condition is detected. It is cleared by hardware when a STOP condition is detected, or when PE = 0.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ALERT",
+          "description": "SMBus alert This flag is set by hardware when SMBHEN = 1 (SMBus host configuration), ALERTEN = 1 and an SMBALERT event (falling edge) is detected on SMBA pin. It is cleared by software by setting the ALERTCF bit. This bit is cleared by hardware when PE = 0. If the SMBus feature is not suppo rted, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TIMEOUT",
+          "description": "Timeout or t LOW detection flag This flag is set by hardware when a timeout or extended clock timeout occurred. It is cleared by software by setting the TIMEOUTCF bit. This bit is cleared by hardware when PE = 0. If the SMBus feature is not suppo rted, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "PECERR",
+          "description": "PEC Error in reception This flag is set by hardware when the receiv ed PEC does not match with the PEC register content. A NACK is automatical ly sent after the wrong PEC reception. It is cleared by software by setting the PECCF bit. This bit is cleared by hardware when PE = 0. If the SMBus feature is not suppo rted, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "OVR",
+          "description": "Overrun/Underrun (slave mode) This flag is set by hardware in slave mode with NOSTRETCH = 1, when an overrun/underrun error occurs. It is clear ed by software by setting the OVRCF bit . This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ARLO",
+          "description": "Arbitration lost This flag is set by hardware in case of arbitrat ion loss. It is cleared by software by setting the ARLOCF bit. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BERR",
+          "description": "Bus error This flag is set by hardware when a misplaced Start or STOP condition is detected whereas the peripheral is involved in the transfer. The flag is not set during the address phase in slave mode. It is cleared by software by setting BERRCF bit. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TCR",
+          "description": "Transfer Complete Reload This flag is set by hardware when RELOAD = 1 and NBYTES data have been transferred. It is cleared by software when NBYTES is written to a non-zero value . This bit is cleared by hardware when PE = 0. This flag is only for master mode, or for slave mode when the SBC bit is set.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TC",
+          "description": "Transfer Complete (master mode) This flag is set by hardware when RELOAD = 0, AUTOEND = 0 and NBYTES data have been transferred. It is cleared by software when START bit or STOP bit is set . This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "STOPF",
+          "description": "Stop detection flag This flag is set by hardware when a STOP condition is detected on the bus and the peripheral is involved in this transfer: \u2013 either as a master, provided that the STOP condition is generated by the peripheral. \u2013 or as a slave, provided that the periph eral has been addressed previously during this transfer. It is cleared by software by setting the STOPCF bit. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "NACKF",
+          "description": "Not Acknowledge received flag This flag is set by hardware when a NACK is re ceived after a byte transm ission. It is cleared by software by setting the NACKCF bit. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ADDR",
+          "description": "Address matched (slave mode) This bit is set by hardware as soon as t he received slave address matched with one of the enabled slave addresses. It is cleared by software by setting ADDRCF bit. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RXNE",
+          "description": "Receive data register not empty (receivers) This bit is set by hardware when the received data is copied into the I2C_RXDR register, and is ready to be read. It is cleared when I2C_RXDR is read. This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TXIS",
+          "description": "Transmit interrupt status (transmitters) This bit is set by hardware when the I2C_TXDR register is empty and the data to be transmitted must be written in the I2C_TXDR re gister. It is cleared when the next data to be sent is written in the I2C_TXDR register. This bit can be written to \u20181\u2019 by software when NOSTRETCH = 1 only, in order to generate a TXIS event (interrupt if TXIE=1 or DMA request if TXDMAEN = 1). This bit is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TXE",
+          "description": "Transmit data register empty (transmitters) This bit is set by hardware when the I2C_TXDR regi ster is empty. It is cleared when the next data to be sent is writt en in the I2C_TXDR register. This bit can be written to \u20181\u2019 by software in order to flush the transmit data register I2C_TXDR. This bit is set by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt clear register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "ALERTCF",
+          "description": "Alert flag clear Writing 1 to this bit clears the ALERT flag in the I2C_ISR register. If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TIMOUTCF",
+          "description": "Timeout detection flag clear Writing 1 to this bit clears the TI MEOUT flag in the I2C_ISR register. If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "PECCF",
+          "description": "PEC Error flag clear Writing 1 to this bit clears the PECERR flag in the I2C_ISR register. If the SMBus feature is not supported, this bit is reserved and forced by hardware to \u20180\u2019. Refer to Section 47.3 .",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "OVRCF",
+          "description": "Overrun/Underrun flag clear Writing 1 to this bit clears the OVR flag in the I2C_ISR register.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ARLOCF",
+          "description": "Arbitration lost flag clear Writing 1 to this bit clears the ARLO flag in the I2C_ISR register.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BERRCF",
+          "description": "Bus error flag clear Writing 1 to this bit clears the BE RRF flag in the I2C_ISR register.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "STOPCF",
+          "description": "STOP detection flag clear Writing 1 to this bit clears the ST OPF flag in the I2C_ISR register.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "NACKCF",
+          "description": "Not Acknowledge flag clear Writing 1 to this bit clears the NACKF flag in I2C_ISR register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ADDRCF",
+          "description": "Address matched flag clear Writing 1 to this bit clears the ADDR flag in the I2C_ISR register. Writing 1 to this bit also clears the START bit in the I2C_CR2 register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111100000011000111"
+        }
+      ]
+    },
+    {
+      "name": "PECR",
+      "description": "PEC register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "PEC",
+          "description": "Packet error checking register This field contains the internal PEC when PECEN=1. The PEC is cleared by hardware when PE = 0.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "RXDR",
+      "description": "receive data register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "RXDATA",
+          "description": "8-bit receive data Data byte received from the I2C bus",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "TXDR",
+      "description": "transmit data register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "TXDATA",
+          "description": "8-bit transmit data Data byte to be transmitted to the I2C bus These bits can be written only when TXE = 1.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    }
+  ]
+}

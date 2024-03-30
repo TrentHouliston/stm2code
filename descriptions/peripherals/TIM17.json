@@ -1,0 +1,95 @@
+{
+  "TIM17": [
+    {
+      "name": "AF1",
+      "description": "alternate function register 1",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "BKCMP2P",
+          "description": "BRK COMP2 input polarity This bit selects the COMP2 inpu t sensitivity. It must be programmed togethe r with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP2 input is active low"],
+            ["1", "COMP2 input is active high"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "BKCMP1P",
+          "description": "BRK COMP1 input polarity This bit selects the COMP1 inpu t sensitivity. It must be programmed togethe r with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input is active low"],
+            ["1", "COMP1 input is active high"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "BKINP",
+          "description": "BRK BKIN input polarity This bit selects the BKIN alternate function input sensitivity. It must be programmed together with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "BKIN input is active low"],
+            ["1", "BKIN input is active high"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BKDF1BK2E",
+          "description": "BRK dfsdm1_break[2] enable This bit enables the dfsdm1_break[2] for the ti mer\u2019s BRK input. dfsdm1_break[2] output is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "dfsdm1_break[2] input disabled"],
+            ["1", "dfsdm1_break[2] input enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "BKCMP1E",
+          "description": "BRK COMP1 enable This bit enables the COMP1 for the timer\u2019s BR K input. COMP1 output is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input disabled"],
+            ["1", "COMP1 input enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "BKINE",
+          "description": "BRK BKIN input enable This bit enables the BKIN alternate function in put for the timer\u2019s BRK input. BKIN input is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "BKIN input disabled"],
+            ["1", "BKIN input enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000011111000"
+        }
+      ]
+    },
+    {
+      "name": "TISEL",
+      "description": "input selection register",
+      "offset": "0x68",
+      "fields": [
+        {
+          "name": "TI1SEL",
+          "description": "selects TI1[0] to TI1[15] input",
+          "values": [
+            ["0000", "TIM17_CH1 input"],
+            ["0010", "HSE_1MHz"],
+            ["0011", "MCO1"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111110000"
+        }
+      ]
+    }
+  ]
+}

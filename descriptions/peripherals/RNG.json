@@ -1,0 +1,97 @@
+{
+  "RNG": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "IE",
+          "description": "Interrupt enable",
+          "values": [
+            ["0", "RNG interrupt is disabled"],
+            ["1", "RNG interrupt is enabled. An interrupt is pending as soon as DRDY = 1, SEIS = 1 or CEIS = 1 in the RNG_SR register."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RNGEN",
+          "description": "True random number generator enable",
+          "values": [
+            ["0", "True random number generator is disabled. Analog noise sources are powered off and logic clocked by the RNG clock is gated."],
+            ["1", "True random number generator is enabled."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111010011"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "SEIS",
+          "description": "Seed error interrupt status This bit is set at the same time as SECS. It is cleared by writing 0. Writing 1 has no effect.",
+          "values": [
+            ["0", "No faulty sequence detected"],
+            ["1", "At least one faulty s equence is detected. See SECSbit description for details. An interrupt is pending if IE = 1 in the RNG_CR register."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "CEIS",
+          "description": "Clock error interrupt status This bit is set at the same time as CECS. It is cleared by writing 0. Writing 1 has no effect.",
+          "values": [
+            ["0", "The RNG clock is correct (fRNGCLK > fHCLK /32)"],
+            ["1", "The RNG is detected too slow (fRNGCLK < fHCLK /32) An interrupt is pending if IE = 1 in the RNG_CR register."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "CECS",
+          "description": "Clock error current status CECS bit is valid only if the CED bit in the RNG_CR register is set to 0.",
+          "values": [
+            ["0", "The RNG clock is correct (f RNGCLK > fHCLK /32). If the CEIS bit is set, this means that a slow clock was detected and the situation has been recovered."],
+            ["1", "The RNG clock is too slow (fRNGCLK < fHCLK /32)."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "DRDY",
+          "description": "Data ready The DRDY bit can rise when the peripheral is disabled (RNGEN = 0 in the RNG_CR register).If IE=1 in the RNG_CR register, an interrupt is generated when DRDY = 1.",
+          "values": [
+            ["0", "The RNG_DR register is not yet va lid, no random data is available."],
+            ["1", "The RNG_DR register cont ains valid random data. Once the output buffer becomes empty (after r eading the RNG_DR register), this bit returns to 0 until a new random value is generated."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111110011000"
+        }
+      ]
+    },
+    {
+      "name": "DR",
+      "description": "data register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "RNDATA",
+          "description": "Random data 32-bit random data, which are valid when DRDY = 1. When DRDY = 0, the RNDATA value is zero.When DRDY is set, it is recommended to always verify that RNG_DR is different from zero. Because when it is the case a seed error occurred between RNG_SR polling and RND_DR output reading (rare event).",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    }
+  ]
+}

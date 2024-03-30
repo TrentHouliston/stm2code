@@ -1,0 +1,34 @@
+{
+  "LPTIM3": [
+    {
+      "name": "CFGR2",
+      "description": "configuration register 2",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. IN1SEL[1",
+          "values": [["", "0] rw rw"]],
+          "mask": "0b0"
+        },
+        {
+          "name": "IN1SEL",
+          "description": "LPTIM3 Input1 selection The IN1SEL bits control the LPTIM3 Input 1 multip lexer, which connects LPTIM3 Input 1 to one of the available inputs.",
+          "values": [
+            ["00", "lptim_in1_mux0"],
+            ["01", "lptim_in1_mux1"],
+            ["10", "lptim_in1_mux2"],
+            ["11", "lptim_in1_mux3For connection details refer to Table 364: LPTIM3 input 1 connection ."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    }
+  ]
+}

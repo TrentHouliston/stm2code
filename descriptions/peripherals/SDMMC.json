@@ -1,0 +1,1072 @@
+{
+  "SDMMC": [
+    {
+      "name": "POWER",
+      "description": "power control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "DIRPOL",
+          "description": "Data and command direction signals polarity selection This bit can only be written when the SDMMC is in the power-off state (PWRCTRL = 00).",
+          "values": [
+            ["0", "Voltage transceiver IOs driven as output when direction signal is low."],
+            ["1", "Voltage transceiver IOs driven as output when direction signal is high."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VSWITCHEN",
+          "description": "Voltage switch procedure enable This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). This bit is used to stop the SDMMC_CK after the voltage switch command response:",
+          "values": [
+            ["0", "SDMMC_CK clock kept unchanged after successfully received command response."],
+            ["1", "SDMMC_CK clock stopped after successfully received command response."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "VSWITCH",
+          "description": "Voltage switch sequence start This bit is used to start the timing critic al section of the voltage switch sequence:",
+          "values": [
+            ["0", "Voltage switch sequence not started an d not active."],
+            ["1", "Voltage switch sequence started or active."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "PWRCTRL",
+          "description": "SDMMC state control bits These bits can only be written when th e SDMMC is not in the power-on state (PWRCTRL \u2260 11). These bits are used to define the functional state of the SDMMC signals:",
+          "values": [
+            ["00", "After reset, Reset: the SDMMC is disabl ed and the clock to the Card is stopped, SDMMC_D[7:0], and SDMMC_CMD are HiZ and SDMMC_CK is driven low.When written 00, power-off: the SDMMC is disabled and the clock to the card is stopped, SDMMC_D[7:0], SDMMC_CMD and SDMMC_CK are driven high."],
+            ["01", "Reserved. (When written 01, PWRCTRL value does not change)"],
+            ["10", "Power-cycle, the SDMMC is disabled and the clock to the card is stopped, SDMMC_D[7:0], SDMMC_CMD and SDMMC_CK are driven low."],
+            ["11", "Power-on: the card is clocked, The first 74 SDMMC_CK cycles the SDMMC is still disabled. After t he 74 cycles the SDMMC is en abled and the SDMMC_D[7:0], SDMMC_CMD and SDMMC_CK are controlled according the SDMMC operation. Any further write is ignor ed, PWRCTRL value keeps 11."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "CLKCR",
+      "description": "clock control register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "SELCLKRX",
+          "description": "Receive clock selection These bits can only be written when the C PSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0)",
+          "values": [
+            ["00", "sdmmc_io_in_ck sele cted as receive clock"],
+            ["01", "SDMMC_CKIN feedback clo ck selected as receive clock"],
+            ["10", "sdmmc_fb_ck tuned feedback cl ock selected as receive clock."],
+            ["11", "Reserved (select sdmmc_io_in_ck)"]
+          ],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "BUSSPEED",
+          "description": "Bus speed for selection of SDMMC operating modes This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0)",
+          "values": [
+            ["0", "DS, HS, SDR12, SDR25, Legacy compatible, High speed SDR, High speed DDR bus speed mode selected"],
+            ["1", "SDR50, DDR50, SDR104, HS 200 bus speed mode selected."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "DDR",
+          "description": "Data rate signaling selection This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0) DDR rate must only be selected with 4-bit or 8-bit wide bus mode. (WIDBUS > 00). DDR = 1 has no effect when WIDBUS = 00 (1-bit wide bus). DDR rate must only be selected with clock division >1. (CLKDIV > 0)",
+          "values": [
+            ["0", "SDR Single data rate signaling"],
+            ["1", "DDR double data rate signaling"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "HWFC_EN",
+          "description": "Hardware flow control enable This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0)",
+          "values": [
+            ["0", "Hardware flow control is disabled"],
+            ["1", "Hardware flow control is enabledWhen Hardware flow control is enabled, the meaning of the TXFIFOE and RXFIFOF flags change, see SDMMC status register definition in Section 55.10.11 ."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "NEGEDGE",
+          "description": "SDMMC_CK dephasing selection bit for data and command This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0). When clock division = 1 (CLKDIV = 0), this bit has no effect. Data and Command change on SDMMC_CK falling edge.",
+          "values": [
+            ["0", "When clock division >1 (CLKDIV > 0) and DDR ="],
+            ["0", "\u2013 Command and data changed on the sdmmc_ker_ck falling edge succeeding the rising edge of SDMMC_CK. \u2013 SDMMC_CK edge occurs on sdmmc_ker_ck rising edge. When clock division >1 (CLKDIV > 0) and DDR ="],
+            ["1", "\u2013 Command changed on the sdmmc_ker_ck fa lling edge succeeding the rising edge of SDMMC_CK. \u2013 Data changed on the sdmmc_ker_ck falling edge succeeding a SDMMC_CK edge.\u2013 SDMMC_CK edge occurs on sdmmc_ker_ck rising edge."],
+            ["1", "When clock division >1 (CLKDIV > 0) and DDR ="],
+            ["0", "\u2013 Command and data changed on the same sdmmc_ker_ck rising edge generating the SDMMC_CK falling edge. When clock division >1 (CLKDIV > 0) and DDR ="],
+            ["1", "\u2013 Command changed on the same sdmmc_ker_ck rising edge generating the SDMMC_CK falling edge. \u2013 Data changed on the SDMMC_CK falling edge succeeding a SDMMC_CK edge.\u2013 SDMMC_CK edge occurs on sdmmc_ker_ck rising edge."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "WIDBUS",
+          "description": "Wide bus mode enable bit This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0)",
+          "values": [
+            ["00", "Default 1-bit wide bus mode: SDMMC_D0 used (Does not support DDR)"],
+            ["01", "4-bit wide bus mode: SDMMC_D[3:0] used"],
+            ["10", "8-bit wide bus mode: SDMMC_D[7:0] used"]
+          ],
+          "mask": "0b1100000000000000"
+        },
+        {
+          "name": "PWRSAV",
+          "description": "Power saving configuration bit This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0) For power saving, the SDMMC_CK clock output can be disabled when the bus is idle by setting PWRSAV:",
+          "values": [
+            ["0", "SDMMC_CK clock is always enabled"],
+            ["1", "SDMMC_CK is only enabled when the bus is active"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "CLKDIV",
+          "description": "Clock divide factor This bit can only be written when the CPSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0). This field defines the divide factor between t he input clock (sdmmc_ker_ck) and the output clock (SDMMC_CK): SDMMC_CK frequency = sdmmc_ker_ck / [2 * CLKDIV]. 1 While the SD/SDIO card or e\u2022MMC is in identification mode, the SDMMC_CK frequency must be less than 400 kHz. 2 The clock frequency can be changed to the maximum card bus frequency when relative card addresses are assigned to all cards. 3 At least seven sdmmc_hclk clock periods are needed between two write accesses to this register. SDMMC_CK can also be stopped during the Read Wait interval for SD I/O cards: in this case the SDMMC_CLKCR regist er does not control SDMMC_CK.",
+          "values": [
+            ["0x000", "SDMMC_CK frequency = sdmmc_ker_ck / 1 (Does not support DDR)"],
+            ["0x001", "SDMMC_CK frequency = sdmmc_ker_ck / 2"],
+            ["0x002", "SDMMC_CK frequency = sdmmc_ker_ck / 40x0XX: etc.."],
+            ["0x080", "SDMMC_CK frequency = sdmmc_ker_ck / 2560xXXX: etc.."],
+            ["0x3FF", "SDMMC_CK frequen cy = sdmmc_ker_ck / 2046"]
+          ],
+          "mask": "0b1111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000010110000000000"
+        }
+      ]
+    },
+    {
+      "name": "ARGR",
+      "description": "argument register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "CMDARG",
+          "description": "Command argument These bits can only be written by firmware when CPSM is disabled (CPSMEN = 0). Command argument sent to a card as part of a command message. If a command contains an argument, it must be loaded into this re gister before writing a command to the command register.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CMDR",
+      "description": "command register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "CMDSUSPEND",
+          "description": "The CPSM treats the command as a Suspend or Resume command and signals interrupt period start/end This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). CMDSUSPEND = 1 and CMDTRANS = 0 Suspe nd command, start interrupt period when response bit BS=0. CMDSUSPEND = 1 and CMDTRANS = 1 Resume command with data, end interrupt period when response bit DF=1.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "BOOTEN",
+          "description": "Enable boot mode procedure",
+          "values": [
+            ["0", "Boot mode procedure disabled"],
+            ["1", "Boot mode procedure enabled"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "BOOTMODE",
+          "description": "Select the boot mode procedure to be used This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0)",
+          "values": [
+            ["0", "Normal boot mode procedure selected"],
+            ["1", "Alternative boot mode procedure selected."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DTHOLD",
+          "description": "Hold new data block transmission and reception in the DPSM If this bit is set, the DPSM does not move from the Wait_S state to the Send state or from the Wait_R state to the Receive state.",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "CPSMEN",
+          "description": "Command path state machine (CPSM) enable bit This bit is written 1 by firmware, and cleared by hardware when the CPSM enters the Idle state. If this bit is set, the CPSM is enabled.When DTEN = 1, no command is transfered no r boot procedure is started. CPSMEN is cleared to 0. During Read Wait with SDMMC_CK stopped no command is sent and CPSMEN is kept 0.",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "WAITPEND",
+          "description": "CPSM waits for end of data transfer (CmdPend internal signal) from DPSM This bit when set, the CPSM waits for the end of data transfer trigger befo re it starts sending a command. WAITPEND is only taken into account when DTMODE = e\u2022MMC stream data transfer, WIDBUS = 1-bit wide bus mode, DPSMACT = 1 and DTDIR = from host to card.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "WAITINT",
+          "description": "CPSM waits for interrupt request If this bit is set, the CPSM disables command timeout and waits for an card interrupt request (Response). If this bit is cleared in the CPSM Wait stat e, it causes the abort of the interrupt mode.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "WAITRESP",
+          "description": "Wait for response bits This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). They are used to configure whet her the CPSM is to wait for a response, and if yes, which kind of response. 1 At least seven sdmmc_hclk clock periods ar e needed between two write accesses to this register. 2 MultiMediaCard can send two kinds of resp onse: short responses, 48 bits, or long responses,136 bits. SD card and SD I/O card can send only short responses, the argument can vary according to the type of response: th e software distinguishes the type of response according to the send command. CMDSTOP :The CPSM treats the command as a Stop Transmission command and signals abort to the DPSM This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). If this bit is set, the CPSM issues the abort signal to the DPSM when the command is sent.",
+          "values": [
+            ["00", "No response, expect CMDSENT flag"],
+            ["01", "Short response, expect CMDREND or CCRCFAIL flag"],
+            ["10", "Short response, expect CMDREND flag (No CRC)"],
+            ["11", "Long response, expect CMDREND or CCRCFAIL flag"]
+          ],
+          "mask": "0b1100000000"
+        },
+        {
+          "name": "CMDTRANS",
+          "description": "The CPSM treats the command as a data transfer command, stops the interrupt period, and signals DataEnable to the DPSM This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). If this bit is set, the CPSM issues an end of in terrupt period and issues DataEnable signal to the DPSM when the command is sent.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "CMDINDEX",
+          "description": "Command index This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). The command index is sent to the card as part of a command message.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111100000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "RESPCMDR",
+      "description": "command response register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "RESPCMD",
+          "description": "Response command index Read-only bit field. Contains the command in dex of the last command response received.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "RESPR",
+      "description": "response x register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "CARDSTATUS",
+          "description": "Card status according table below See Table 476 .Table 476. Response type and SDMMC_RESPxR registers Register(1)1. The most significant bit of t he card status is received first.Short response Long responseSDMMC_RESP1R Card st atus[31:0] Card status [127:96] SDMMC_RESP2R all 0 Card status [95:64] SDMMC_RESP3R all 0 Card status [63:32]SDMMC_RESP4R all 0 Card status [31:0] (2) 2. The SDMMC_RESP4R register LSB is always 0.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ],
+      "array": [4]
+    },
+    {
+      "name": "DTIMER",
+      "description": "data timer register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "DATATIME",
+          "description": "Data and R1b busy timeout period This bit can only be written when the C PSM and DPSM are not active (CPSMACT = 0 and DPSMACT = 0). Data and R1b busy timeout period expressed in card bus clock periods.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "DLENR",
+      "description": "data length register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "DATALENGTH",
+          "description": "Data length value This register can only be written by firmwa re when DPSM is inactive (DPSMACT = 0). Number of data bytes to be transferred.When DDR = 1 DATALENGTH is truncated to a multiple of 2. (The last odd byte is not transfered) When DATALENGTH = 0 no data are transf ered, when requested by a CPSMEN and CMDTRANS = 1 also no command is transfer ed. DTEN and CPSMEN are cleared to 0.",
+          "values": [],
+          "mask": "0b1111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DCTRL",
+      "description": "data control register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "FIFORST",
+          "description": "FIFO reset, flushes any remaining data This bit can only be written by firmware wh en IDMAEN= 0 and DPSM is active (DPSMACT = 1). This bit only takes effect when a transfer error or transfer hold occurs.",
+          "values": [
+            ["0", "FIFO not affected."],
+            ["1", "Flush any remaining data and re set the FIFO pointers. This bi t is automatically cleared to 0 by hardware when DPSM gets inactive (DPSMACT = 0)."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "BOOTACKEN",
+          "description": "Enable the reception of the boot acknowledgment This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0).",
+          "values": [
+            ["0", "Boot acknowledgment disabled, not expected to be received"],
+            ["1", "Boot acknowledgment enabled, expected to be received"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "SDIOEN",
+          "description": "SD I/O interrupt enable functions This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0). If this bit is set, the DPSM enables th e SD I/O card specific interrupt operation.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "RWMOD",
+          "description": "Read Wait mode This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0).",
+          "values": [
+            ["0", "Read Wait control using SDMMC_D2"],
+            ["1", "Read Wait control stopping SDMMC_CK"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "RWSTOP",
+          "description": "Read Wait stop This bit is written by firmware and auto cleared by hardware when the DPSM moves from the R_W state to the Wait _R or Idle state.",
+          "values": [
+            ["0", "No Read Wait stop."],
+            ["1", "Enable for Read Wait stop wh en DPSM is in the R_W state."]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "RWSTART",
+          "description": "Read Wait start If this bit is set, Read Wait operation starts. DBLOCKSIZE[3:0] :Data block size This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0). Define the data block length when the block data transfer mode is selected:000",
+          "values": [
+            ["0", "Block length = 2 0 = 1 byte 000"],
+            ["1", "Block length = 21 = 2 bytes 001"],
+            ["0", "Block length = 22 = 4 bytes 001"],
+            ["1", "Block length = 23 = 8 bytes 010"],
+            ["0", "Block length = 24 = 16 bytes 010"],
+            ["1", "Block length = 25 = 32 bytes 011"],
+            ["0", "Block length = 26 = 64 bytes 011"],
+            ["1", "Block length = 27 = 128 bytes 100"],
+            ["0", "Block length = 28 = 256 bytes 100"],
+            ["1", "Block length = 29 = 512 bytes 101"],
+            ["0", "Block length = 210 = 1024 bytes 101"],
+            ["1", "Block length = 211 = 2048 bytes 110"],
+            ["0", "Block length = 212 = 4096 bytes 110"],
+            ["1", "Block length = 213 = 8192 bytes 111"],
+            ["0", "Block length = 214 = 16384 bytes 111"],
+            ["1", "ReservedWhen DATALENGTH is not a multiple of DBLOC KSIZE, the transfered data is truncated at a multiple of DBLOCKSIZE. (None of the remaining data are transfered.) When DDR = 1, DBLOCKSIZE = 0000 must not be used. (No data are transfered)"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "DTMODE",
+          "description": "Data transfer mode selection This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0).",
+          "values": [
+            ["00", "Block data transfer ending on block count."],
+            ["01", "SDIO multibyte data transfer."],
+            ["10", "e\u2022MMC Stream data transfer. (WIDBU S must select 1-bit wide bus mode)"],
+            ["11", "Block data transfer ending with STOP _TRANSMISSION command (not to be used with DTEN initiated data transfers)."]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "DTDIR",
+          "description": "Data transfer di rection selection This bit can only be written by firmware when DPSM is inactive (DPSMACT = 0).",
+          "values": [
+            ["0", "From host to card."],
+            ["1", "From card to host."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "DTEN",
+          "description": "Data transfer enable bit This bit can only be written by firmware when D PSM is inactive (DPSMACT = 0). This bit is cleared by Hardware when data transfer completes. This bit must only be used to transfer data when no associated data transfer command is used, i.e. must not be used with SD or e\u2022MMC cards.",
+          "values": [
+            ["0", "Do not start data transfer wit hout CPSM data transfer command."],
+            ["1", "Start data transfer without CPSM data transfer command."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DCNTR",
+      "description": "data counter register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "7",
+          "description": "4moves to the Idle state and when there has been no error, and no transmit data transfer hold, the data status end flag (DATAEND) is set. This register must be read only after the data transfer is complete, or hold. When reading after an error event the read data count value may be different from the real number of data bytes transfered.Res. Res. Res. Res. Res. Res. Res. DATACOUNT[24",
+          "values": [
+            ["", "16] rrrrrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 DATACOUNT[15"],
+            ["", "0] rrrrrrrrrrrrrrrr"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "DATACOUNT",
+          "description": "Data count value When read, the number of remaining data byte s to be transferred is returned. Write has no effect.",
+          "values": [],
+          "mask": "0b1111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "STAR",
+      "description": "status register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "IDMABTC",
+          "description": "IDMA buffer transfer complete The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "IDMATE",
+          "description": "IDMA transfer error The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "CKSTOP",
+          "description": "SDMMC_CK stopped in Voltage switch procedure The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "VSWEND",
+          "description": "Voltage switch critical timing section completion The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "ACKTIMEOUT",
+          "description": "Boot acknowledgment timeout The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "ACKFAIL",
+          "description": "Boot acknowledgment received (boot acknowledgment check fail) The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "SDIOIT",
+          "description": "SDIO interru pt received The interrupt flag is cleared by writing co rresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "BUSYD0END",
+          "description": "end of SDMMC_D0 Busy following a CMD response detected This indicates only end of busy following a CMD response. This bit does not signal busy due to data transfer. Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [
+            ["0", "card SDMMC_D0 signal does NOT signal change from busy to not busy."],
+            ["1", "card SDMMC_D0 signal changed from busy to NOT busy."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "BUSYD0",
+          "description": "Inverted value of SDMMC_D0 line (Busy), sampled at the end of a CMD response and a second time 2 SDMMC_CK cycles after the CMD response This bit is reset to not busy when the SDMMCD0 line changes from busy to not busy. This bit does not signal busy due to data transfer. This is a hardware status flag only, it does not generate an interrupt.",
+          "values": [
+            ["0", "card signals not busy on SDMMC_D0."],
+            ["1", "card signals busy on SDMMC_D0."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "RXFIFOE",
+          "description": "Receive FIFO empty This is a hardware status flag only, does not generate an interrupt. This bit is cleared when one FIFO location becomes full.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TXFIFOE",
+          "description": "Transmit FIFO empty This bit is cleared when one FIFO location becomes full.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "RXFIFOF",
+          "description": "Receive FIFO full This bit is cleared when one FIFO location becomes empty.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TXFIFOF",
+          "description": "Transmit FIFO full This is a hardware status flag only, does not generate an interrupt. This bit is cleared when one FIFO location becomes empty.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "RXFIFOHF",
+          "description": "Receive FIFO half full There are at least half the number of words in the FIFO. This bit is cleared when the FIFO becomes half+1 empty.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TXFIFOHE",
+          "description": "Transmit FIFO half empty At least half the number of wo rds can be written into the FIFO . This bit is cleared when the FIFO becomes half+1 full.",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "CPSMACT",
+          "description": "Command path state machine active, i.e. not in Idle state This is a hardware status flag only, does not generate an interrupt.",
+          "values": [],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "DPSMACT",
+          "description": "Data path state machine active, i.e. not in Idle state This is a hardware status flag only, does not generate an interrupt.",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "DABORT",
+          "description": "Data transfer aborted by CMD12 Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR. FIFO interrupt flags mu st be masked in SDMMC_MASKR when using IDMA mode.",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DBCKEND",
+          "description": "Data block sent/received DBCKEND is set when: - CRC check passed and DPSM moves to the R_W stateor- IDMAEN = 0 and transmit data transfer hold and DATACOUNT >0 and DPSM moves to Wait_S. Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "DHOLD",
+          "description": "Data transfer Hold Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "DATAEND",
+          "description": "Data transfer ended correctly DATAEND is set if data counter DATACOUNT is zero and no errors occur, and no transmit data transfer hold. Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CMDSENT",
+          "description": "Command sent (no response required) Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CMDREND",
+          "description": "Command response received (CRC check passed, or no CRC) Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXOVERR",
+          "description": "Received FIFO overrun error Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TXUNDERR",
+          "description": "Transmit FIFO underrun error Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "DTIMEOUT",
+          "description": "Data timeout Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CTIMEOUT",
+          "description": "Command response timeout Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR. The Command Timeout period has a fixed value of 64 SDMMC_CK clock periods.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "DCRCFAIL",
+          "description": "Data block sent/received (CRC check failed) Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CCRCFAIL",
+          "description": "Command response received (CRC check failed) Interrupt flag is cleared by writing corresponding interrupt clear bit in SDMMC_ICR.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt clear register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "IDMABTCC",
+          "description": "IDMA buffer transfer complete clear bit Set by software to clear the IDMABTC flag.",
+          "values": [
+            ["0", "IDMABTC not cleared"],
+            ["1", "IDMABTC cleared"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "IDMATEC",
+          "description": "IDMA transfer error clear bit Set by software to clear the IDMATE flag.",
+          "values": [
+            ["0", "IDMATE not cleared"],
+            ["1", "IDMATE cleared"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "CKSTOPC",
+          "description": "CKSTOP flag clear bit Set by software to clear the CKSTOP flag.",
+          "values": [
+            ["0", "CKSTOP not cleared"],
+            ["1", "CKSTOP cleared"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "VSWENDC",
+          "description": "VSWEND flag clear bit Set by software to clear the VSWEND flag.",
+          "values": [
+            ["0", "VSWEND not cleared"],
+            ["1", "VSWEND cleared"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "ACKTIMEOUTC",
+          "description": "ACKTIMEOUT flag clear bit Set by software to clear the ACKTIMEOUT flag.",
+          "values": [
+            ["0", "ACKTIMEOUT not cleared"],
+            ["1", "ACKTIMEOUT cleared"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "ACKFAILC",
+          "description": "ACKFAIL flag clear bit Set by software to clear the ACKFAIL flag.",
+          "values": [
+            ["0", "ACKFAIL not cleared"],
+            ["1", "ACKFAIL cleared"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "SDIOITC",
+          "description": "SDIOIT flag clear bit Set by software to clear the SDIOIT flag.",
+          "values": [
+            ["0", "SDIOIT not cleared"],
+            ["1", "SDIOIT cleared"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "BUSYD0ENDC",
+          "description": "BUSYD0END flag clear bit Set by software to clear the BUSYD0END flag.",
+          "values": [
+            ["0", "BUSYD0END not cleared"],
+            ["1", "BUSYD0END cleared"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "DABORTC",
+          "description": "DABORT flag clear bit Set by software to clear the DABORT flag.",
+          "values": [
+            ["0", "DABORT not cleared"],
+            ["1", "DABORT cleared"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DBCKENDC",
+          "description": "DBCKEND flag clear bit Set by software to clear the DBCKEND flag.",
+          "values": [
+            ["0", "DBCKEND not cleared"],
+            ["1", "DBCKEND cleared"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "DHOLDC",
+          "description": "DHOLD flag clear bit Set by software to clear the DHOLD flag.",
+          "values": [
+            ["0", "DHOLD not cleared"],
+            ["1", "DHOLD cleared"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "DATAENDC",
+          "description": "DATAEND flag clear bit Set by software to clear the DATAEND flag.",
+          "values": [
+            ["0", "DATAEND not cleared"],
+            ["1", "DATAEND cleared"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CMDSENTC",
+          "description": "CMDSENT flag clear bit Set by software to clear the CMDSENT flag.",
+          "values": [
+            ["0", "CMDSENT not cleared"],
+            ["1", "CMDSENT cleared"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CMDRENDC",
+          "description": "CMDREND flag clear bit Set by software to clear the CMDREND flag.",
+          "values": [
+            ["0", "CMDREND not cleared"],
+            ["1", "CMDREND cleared"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXOVERRC",
+          "description": "RXOVERR flag clear bit Set by software to clear the RXOVERR flag.",
+          "values": [
+            ["0", "RXOVERR not cleared"],
+            ["1", "RXOVERR cleared"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TXUNDERRC",
+          "description": "TXUNDERR flag clear bit Set by software to clear TXUNDERR flag.",
+          "values": [
+            ["0", "TXUNDERR not cleared"],
+            ["1", "TXUNDERR cleared"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "DTIMEOUTC",
+          "description": "DTIMEOUT flag clear bit Set by software to clear the DTIMEOUT flag.",
+          "values": [
+            ["0", "DTIMEOUT not cleared"],
+            ["1", "DTIMEOUT cleared CTIMEOUTC :CTIMEOUT flag clear bit Set by software to clear the CTIMEOUT flag."],
+            ["0", "CTIMEOUT not cleared"],
+            ["1", "CTIMEOUT cleared"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "DCRCFAILC",
+          "description": "DCRCFAIL flag clear bit Set by software to clear the DCRCFAIL flag.",
+          "values": [
+            ["0", "DCRCFAIL not cleared"],
+            ["1", "DCRCFAIL cleared"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "CCRCFAILC",
+          "description": "CCRCFAIL flag clear bit Set by software to clear the CCRCFAIL flag.",
+          "values": [
+            ["0", "CCRCFAIL not cleared"],
+            ["1", "CCRCFAIL cleared"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "MASKR",
+      "description": "mask register",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "IDMABTCIE",
+          "description": "IDMA buffer transfer complete interrupt enable Set and cleared by software to enable/disable the interrupt generated when the IDMA has transferred all data belonging to a memory buffer.",
+          "values": [
+            ["0", "IDMA buffer transfer complete interrupt disabled"],
+            ["1", "IDMA buffer transfer complete interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "CKSTOPIE",
+          "description": "Voltage Switch clock stopped interrupt enable Set and cleared by software to enable/disable interrupt caused by Voltage Switch clock stopped.",
+          "values": [
+            ["0", "Voltage Switch clock stopped interrupt disabled"],
+            ["1", "Voltage Switch clock stopped interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "VSWENDIE",
+          "description": "Voltage switch critical timing section completion interrupt enable Set and cleared by software to enable/disable the interrupt generated when voltage switch critical timing section completion.",
+          "values": [
+            ["0", "Voltage switch critical timing section completion interrupt disabled"],
+            ["1", "Voltage switch critical timing section completion interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "ACKTIMEOUTIE",
+          "description": "Acknowledgment timeout interrupt enable Set and cleared by software to enable/disable interrupt caused by acknowledgment timeout.",
+          "values": [
+            ["0", "Acknowledgment timeout interrupt disabled"],
+            ["1", "Acknowledgment timeout interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "ACKFAILIE",
+          "description": "Acknowledgment Fail interrupt enable Set and cleared by software to enable/disable interrupt caused by acknowledgment Fail.",
+          "values": [
+            ["0", "Acknowledgment Fail interrupt disabled"],
+            ["1", "Acknowledgment Fail interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "SDIOITIE",
+          "description": "SDIO mode interrupt received interrupt enable Set and cleared by software to enable/disable the interrupt generated when receiving the SDIO mode interrupt.",
+          "values": [
+            ["0", "SDIO Mode interrupt received interrupt disabled"],
+            ["1", "SDIO Mode interrupt received interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "BUSYD0ENDIE",
+          "description": "BUSYD0END interrupt enable Set and cleared by software to enable/disable the interrupt generated when SDMMC_D0 signal changes from busy to NOT busy following a CMD response.",
+          "values": [
+            ["0", "BUSYD0END interrupt disabled"],
+            ["1", "BUSYD0END interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TXFIFOEIE",
+          "description": "Tx FIFO empty interrupt enable Set and cleared by software to enable/dis able interrupt caused by Tx FIFO empty.",
+          "values": [
+            ["0", "Tx FIFO empty interrupt disabled"],
+            ["1", "Tx FIFO empty interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "RXFIFOFIE",
+          "description": "Rx FIFO full interrupt enable Set and cleared by software to enable/dis able interrupt caused by Rx FIFO full.",
+          "values": [
+            ["0", "Rx FIFO full interrupt disabled"],
+            ["1", "Rx FIFO full interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "RXFIFOHFIE",
+          "description": "Rx FIFO half full interrupt enable Set and cleared by software to enable/disabl e interrupt caused by Rx FIFO half full.",
+          "values": [
+            ["0", "Rx FIFO half full interrupt disabled"],
+            ["1", "Rx FIFO half full interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TXFIFOHEIE",
+          "description": "Tx FIFO half empty interrupt enable Set and cleared by software to enable/disable interrupt caused by Tx FIFO half empty.",
+          "values": [
+            ["0", "Tx FIFO half empty interrupt disabled"],
+            ["1", "Tx FIFO half empty interrupt enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "DABORTIE",
+          "description": "Data transfer aborted interrupt enable Set and cleared by software to enable/disable interrupt caused by a data transfer being aborted.",
+          "values": [
+            ["0", "Data transfer abort interrupt disabled"],
+            ["1", "Data transfer abort interrupt enabled"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DBCKENDIE",
+          "description": "Data block end interrupt enable Set and cleared by software to enable/dis able interrupt caused by data block end.",
+          "values": [
+            ["0", "Data block end interrupt disabled"],
+            ["1", "Data block end interrupt enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "DHOLDIE",
+          "description": "Data hold interrupt enable Set and cleared by software to enable/disable the interrupt generated when sending new data is hold in the DPSM Wait_S state.",
+          "values": [
+            ["0", "Data hold interrupt disabled"],
+            ["1", "Data hold interrupt enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "DATAENDIE",
+          "description": "Data end interrupt enable Set and cleared by software to enable/di sable interrupt caused by data end.",
+          "values": [
+            ["0", "Data end interrupt disabled"],
+            ["1", "Data end interrupt enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CMDSENTIE",
+          "description": "Command sent interrupt enable Set and cleared by software to enable/dis able interrupt caused by sending command.",
+          "values": [
+            ["0", "Command sent interrupt disabled"],
+            ["1", "Command sent interrupt enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CMDRENDIE",
+          "description": "Command response received interrupt enable Set and cleared by software to enable/disabl e interrupt caused by receiving command response.",
+          "values": [
+            ["0", "Command response received interrupt disabled"],
+            ["1", "command Response received interrupt enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RXOVERRIE",
+          "description": "Rx FIFO overrun error interrupt enable Set and cleared by software to enable/disable interrupt caused by Rx FIFO overrun error.",
+          "values": [
+            ["0", "Rx FIFO overrun error interrupt disabled"],
+            ["1", "Rx FIFO overrun error interrupt enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TXUNDERRIE",
+          "description": "Tx FIFO underrun error interrupt enable Set and cleared by software to enable/disable interrupt caused by Tx FIFO underrun error.",
+          "values": [
+            ["0", "Tx FIFO underrun error interrupt disabled"],
+            ["1", "Tx FIFO underrun error interrupt enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "DTIMEOUTIE",
+          "description": "Data timeout interrupt enable Set and cleared by software to enable/dis able interrupt caused by data timeout.",
+          "values": [
+            ["0", "Data timeout interrupt disabled"],
+            ["1", "Data timeout interrupt enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CTIMEOUTIE",
+          "description": "Command timeout interrupt enable Set and cleared by software to enable/dis able interrupt caused by command timeout.",
+          "values": [
+            ["0", "Command timeout interrupt disabled"],
+            ["1", "Command timeout interrupt enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "DCRCFAILIE",
+          "description": "Data CRC fail interrupt enable Set and cleared by software to enable/disabl e interrupt caused by data CRC failure.",
+          "values": [
+            ["0", "Data CRC fail interrupt disabled"],
+            ["1", "Data CRC fail interrupt enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "CCRCFAILIE",
+          "description": "Command CRC fail interrupt enable Set and cleared by software to enable/disabl e interrupt caused by command CRC failure.",
+          "values": [
+            ["0", "Command CRC fail interrupt disabled"],
+            ["1", "Command CRC fail interrupt enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11101000000110010011000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ACKTIMER",
+      "description": "acknowledgment timer register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "ACKTIME",
+          "description": "Boot acknowledgment timeout period This bit can only be written by firmware when CPSM is disabled (CPSMEN = 0). Boot acknowledgment timeout period expressed in card bus clock periods.",
+          "values": [],
+          "mask": "0b1111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FIFOR",
+      "description": "data FIFO registers x",
+      "offset": "0x80",
+      "fields": [],
+      "array": [16]
+    }
+  ]
+}

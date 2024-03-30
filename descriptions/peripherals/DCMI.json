@@ -1,0 +1,550 @@
+{
+  "DCMI": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "OELS",
+          "description": "Odd/Even Line Select (Line Select Start) This bit works in conjunction with the LSM field (LSM = 1).",
+          "values": [
+            ["0", "Interface captures firs t line after the frame start, second one being dropped."],
+            ["1", "Interface captures second line from the frame start, first one being dropped."]
+          ],
+          "mask": "0b100000000000000000000"
+        },
+        {
+          "name": "LSM",
+          "description": "Line Select mode",
+          "values": [
+            ["0", "Interface captures all received lines."],
+            ["1", "Interface captures one line out of two."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "OEBS",
+          "description": "Odd/Even Byte Select (Byte Select Start) This bit works in conjunction with BSM field (BSM \u2260 00).",
+          "values": [
+            ["0", "Interface captures first da ta (byte or double byte) from the frame/line start, second one being dropped."],
+            ["1", "Interface captures second data (byte or do uble byte) from the frame/line start, first one being dropped."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "BSM",
+          "description": "Byte Select mode This mode only works for EDM[1:0] = 00. For all other EDM values, this field must be programmed to the reset value.",
+          "values": [
+            ["00", "Interface captures all received data."],
+            ["01", "Interface captures every ot her byte from the received data."],
+            ["10", "Interface captures one byte out of four."],
+            ["11", "Interface captures two bytes out of four."]
+          ],
+          "mask": "0b110000000000000000"
+        },
+        {
+          "name": "ENABLE",
+          "description": "DCMI enable The DCMI configuration registers must be programmed correctly before enabling this bit.",
+          "values": [
+            ["0", "DCMI disabled"],
+            ["1", "DCMI enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "EDM",
+          "description": "Extended data mode",
+          "values": [
+            ["00", "Interface captures 8-bit data on every pixel clock."],
+            ["01", "Interface captures 10-bit data on every pixel clock."],
+            ["10", "Interface captures 12-bit data on every pixel clock."],
+            ["11", "Interface captures 14-bit data on every pixel clock."]
+          ],
+          "mask": "0b110000000000"
+        },
+        {
+          "name": "FCRC",
+          "description": "Frame capture rate control These bits define the frequency of frame captur e. They are meaningful only in Continuous grab mode. They are ignored in snapshot mode.",
+          "values": [
+            ["00", "All frames are captured."],
+            ["01", "Every alternate frame captured (50% bandwidth reduction)"],
+            ["10", "One frame out of four captured (75% bandwidth reduction)"],
+            ["11", "reserved"]
+          ],
+          "mask": "0b1100000000"
+        },
+        {
+          "name": "VSPOL",
+          "description": "Vertical synchronization polarity This bit indicates the level on the DCMI_VSYNC pin when the data are not valid on the parallel interface.",
+          "values": [
+            ["0", "DCMI_VSYNC active low"],
+            ["1", "DCMI_VSYNC active high"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "HSPOL",
+          "description": "Horizontal synchronization polarity This bit indicates the level on the DCMI_H SYNC pin when the data are not valid on the parallel interface.",
+          "values": [
+            ["0", "DCMI_HSYNC active low"],
+            ["1", "DCMI_HSYNC active high"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "PCKPOL",
+          "description": "Pixel clock polarity This bit configures the capture edge of the pixel clock.",
+          "values": [
+            ["0", "Falling edge active"],
+            ["1", "Rising edge active"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ESS",
+          "description": "Embedded synchronization select Valid only for 8-bit para llel data. HSPOL/VSPOL are igno red when the ESS bit is set.This bit is disabled in JPEG mode.",
+          "values": [
+            ["0", "Hardware synchronization data capture (fra me/line start/stop) is synchronized with the DCMI_HSYNC/DCMI_VSYNC signals."],
+            ["1", "Embedded synchronization dat a capture is synchronized with synchronization codes embedded in the data flow."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "JPEG",
+          "description": "JPEG format",
+          "values": [
+            ["0", "Uncompressed video format"],
+            ["1", "This bit is used for JPEG data transfers. The DCMI_HSYNC signal is used as data enable. The crop and embedded synchronization features (ESS bit) cannot be used in this mode."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CROP",
+          "description": "Crop feature",
+          "values": [
+            ["0", "The full image is captured. In this case th e total number of bytes in an image frame must be a multiple of four."],
+            ["1", "Only the data inside the window specified by th e crop register is captur ed. If the size of the crop window exceeds the picture size, then only the picture size is captured."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "CM",
+          "description": "Capture mode The DMA controller and all DCMI configur ation registers must be programmed correctly before enabling this bit.",
+          "values": [
+            ["0", "Continuous grab mode - The received data are transferred into the destination memory through the DMA. The buffer location and m ode (linear or circular buffer) is controlled through the system DMA."],
+            ["1", "Snapshot mode (single frame) - Once activat ed, the interface waits for the start of frame and then transfers a single frame through the DMA. At the end of th e frame, the CAPTURE bit is automatically reset. CAPTURE: Capture enable"],
+            ["0", "Capture disabled"],
+            ["1", "Capture enabled The camera interface waits for the first start of frame, then a DMA r equest is generated to transfer the received data in to the destination memory. In snapshot mode, the CAPTURE bi t is automatically cleared at the end of the first frame received. In continuous grab mode, if the software clears th is bit while a capture is ongoing, the bit is effectively cleared after the frame end."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111000001011000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "FNE",
+          "description": "FIFO not empty This bit gives the status of the FIFO.",
+          "values": [
+            ["1", "FIFO contains valid data."],
+            ["0", "FIFO empty"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "VSYNC",
+          "description": "Vertical synchronization This bit gives the state of the DCMI_VSYNC pi n with the correct programmed polarity. When embedded synchronization codes are used, t he meaning of this bit is the following:",
+          "values": [
+            ["0", "active frame"],
+            ["1", "synchronization between frames In case of embedded synchronization, this bit is meaningful only if the CAPTURE bit in DCMI_CR is set."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "HSYNC",
+          "description": "Horizontal synchronization This bit gives the state of the DCMI_HSYNC pin with the corre ct programmed polarity. When embedded synchronization codes are used, t he meaning of this bit is the following:",
+          "values": [
+            ["0", "active line"],
+            ["1", "synchronization between lines In case of embedded synchronization, this bit is meaningful only if the CAPTURE bit in DCMI_CR is set."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "RIS",
+      "description": "raw interrupt status register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "LINE_RIS",
+          "description": "Line raw interrupt status This bit gets set when the DCMI_HSYNC signal changes from the inactive state to the active state. It goes high even if the line is not valid. In the case of embedded synchronization, this bit is set only if the CAPTURE bit in DCMI_CR is set. It is cleared by setting the LINE _ISC bit of the DCMI_ICR register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VSYNC_RIS",
+          "description": "DCMI_VSYNC raw interrupt status This bit is set when the DCMI_VSYNC signal c hanges from the inactive state to the active state. In the case of embedded synchronization, this bit is set only if the CAPTURE bit is set in DCMI_CR. It is cleared by setting the VSYNC_ ISC bit of the DCMI_ICR register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ERR_RIS",
+          "description": "Synchronization error raw interrupt status This bit is available only in embedded synchronization mode.",
+          "values": [
+            ["0", "No synchronization error detected"],
+            ["1", "Embedded synchronization characters ar e not received in the correct order. This bit is valid only in the embedded synchronization mode. It is cleared by setting the ERR_ISC bit of the DCMI_ICR register."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "OVR_RIS",
+          "description": "Overrun raw in terrupt status",
+          "values": [
+            ["0", "No data buffer overrun occurred"],
+            ["1", "A data buffer overrun occurred and the data FIFO is corrupted. The bit is cleared by setting the OV R_ISC bit of the DCMI_ICR register."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "FRAME_RIS",
+          "description": "Capture complete raw interrupt status",
+          "values": [
+            ["0", "No new capture"],
+            ["1", "A frame has been captured. This bit is set when a frame or window has been captured.In case of a cropped window, this bit is set at the end of line of the last line in the crop. It is set even if the captured frame is empty (for example window cropped outside the frame). The bit is cleared by setting the FR AME_ISC bit of the DCMI_ICR register."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "IER",
+      "description": "interrupt enable register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "LINE_IE",
+          "description": "Line interrupt enable",
+          "values": [
+            ["0", "No interrupt generation when the line is received"],
+            ["1", "An Interrupt is generated when a line has been completely received."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VSYNC_IE",
+          "description": "DCMI_VSYNC interrupt enable",
+          "values": [
+            ["0", "No interrupt generation"],
+            ["1", "An interrupt is generated on each DCMI_VSYNC transition from the inactive to the active state. The active state of the DCMI_VSYNC signal is defined by the VSPOL bit."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ERR_IE",
+          "description": "Synchronization error interrupt enable This bit is available only in embedded synchronization mode.",
+          "values": [
+            ["0", "No interrupt generation"],
+            ["1", "An interrupt is generated if the embedded synchronization codes are not received in the correct order."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "OVR_IE",
+          "description": "Overrun interrupt enable",
+          "values": [
+            ["0", "No interrupt generation"],
+            ["1", "An interrupt is generated if the DMA was no t able to transfer the last data before new data (32-bit) are received."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "FRAME_IE",
+          "description": "Capture complete interrupt enable",
+          "values": [
+            ["0", "No interrupt generation"],
+            ["1", "An interrupt is generated at the end of each received frame/crop window (in crop mode)."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "MIS",
+      "description": "masked interrupt status register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "LINE_MIS",
+          "description": "Line masked interrupt status This bit gives the status of the masked line interrupt.",
+          "values": [
+            ["0", "No interrupt generation when the line is received"],
+            ["1", "An Interrupt is generated when a line has been completely received and the LINE_IE bit is set in DCMI_IER."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VSYNC_MIS",
+          "description": "VSYNC masked interrupt status This bit gives the status of the masked VSYNC interrupt.",
+          "values": [
+            ["0", "No interrupt is generated on DCMI_VSYNC transitions."],
+            ["1", "An interrupt is generated on each DCMI_VSYNC transition from the inactive to the active state and the VSYNC_IE bit is set in DCMI_IER. The active state of the DCMI_VSYNC signal is defined by the VSPOL bit."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ERR_MIS",
+          "description": "Synchronization error masked interrupt status This bit gives the status of the masked synchronization error interrupt. This bit is available only in embedded synchronization mode.",
+          "values": [
+            ["0", "No interrupt is generated on a synchronization error."],
+            ["1", "An interrupt is generated if the embedded synchronization codes are not received in the correct order and the ERR_IE bit in DCMI_IER is set."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "OVR_MIS",
+          "description": "Overrun masked interrupt status This bit gives the status of the masked overflow interrupt.",
+          "values": [
+            ["0", "No interrupt is generated on overrun."],
+            ["1", "An interrupt is generated if the DMA was no t able to transfer the last data before new data (32-bit) are received and the OVR_IE bit is set in DCMI_IER."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "FRAME_MIS",
+          "description": "Capture complete masked interrupt status This bit gives the status of t he masked capture complete interrupt",
+          "values": [
+            ["0", "No interrupt is generated after a complete capture."],
+            ["1", "An interrupt is generated at the end of each received frame/crop window (in crop mode) and the FRAME_IE bit is set in DCMI_IER."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt clear register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "LINE_ISC",
+          "description": "line interrupt status clear Setting this bit clears the LINE_RIS flag in the DCMI_RIS register.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "VSYNC_ISC",
+          "description": "Vertical Synchronization interrupt status clear Setting this bit clears the VSYNC_RIS flag in the DCMI_RIS register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ERR_ISC",
+          "description": "Synchronization error interrupt status clear Setting this bit clears the ERR_RIS flag in the DCMI_RIS register. This bit is available only in embedded synchronization mode.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "OVR_ISC",
+          "description": "Overrun interrupt status clear Setting this bit clears the OVR_RIS flag in the DCMI_RIS register.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "FRAME_ISC",
+          "description": "Capture complete interrupt status clear Setting this bit clears the FRAME_RIS flag in the DCMI_RIS register.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "ESCR",
+      "description": "embedded synchronization code register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "LEC",
+          "description": "Line end delimiter code This byte specifies the code of the line end delimiter. The code c onsists of 4 bytes in the form of 0xFF, 0x00, 0x00, LEC.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "LSC",
+          "description": "Line start delimiter code This byte specifies the code of the line start de limiter. The code consists of 4 bytes in the form of 0xFF, 0x00, 0x00, LSC.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "FSC",
+          "description": "Frame start delimiter code This byte specifies the code of the frame start delimiter. The code consists of 4 bytes in the form of 0xFF, 0x00, 0x00, FSC. If FSC is programmed to 0xFF, no frame start del imiter is detected. But, the first occurrence of LSC after an FEC code is interpre ted as a start of frame delimiter.",
+          "values": [],
+          "mask": "0b11111111"
+        }
+      ]
+    },
+    {
+      "name": "ESUR",
+      "description": "embedded synchronization unmask register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "1",
+          "description": "2431 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 FEU[7:0] LEU[7:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 LSU[7:0] FSU[7:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "FEU",
+          "description": "Frame end delimiter unmask This byte specifies the mask to be applied to the code of the frame end delimiter. 0: The corresponding bit in the FEC byte in DCMI_ESCR is masked while comparing the frame end delimiter with the received data.1: The corresponding bit in the FEC byte in DCMI_ESCR is compared while comparing the frame end delimiter with the received data.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "LEU",
+          "description": "Line end delimiter unmask This byte specifies the mask to be applie d to the code of the line end delimiter. 0: The corresponding bit in the LEC byte in DCMI_ESCR is masked while comparing the line end delimiter with the received data.1: The corresponding bit in the LEC byte in DCMI_ESCR is compared while comparing the line end delimiter with the received data.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "LSU",
+          "description": "Line start delimiter unmask This byte specifies the mask to be applied to the code of the line start delimiter. 0: The corresponding bit in the LSC byte in DCMI_ESCR is masked while comparing the line start delimiter with the received data.1: The corresponding bit in the LSC byte in DCMI_ESCR is compared while comparing the line start delimiter with the received data. FSU[7:0] : Frame start delimiter unmask This byte specifies the mask to be applied to the code of the frame start delimiter. 0: The corresponding bit in the FSC byte in DCMI_ESCR is masked while comparing the frame start delimiter with the received data.1: The corresponding bit in the FSC byte in DCMI_ESCR is compared while comparing the frame start delimiter with the received data.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CWSTRT",
+      "description": "crop window start",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "VST",
+          "description": "Vertical start line count The image capture starts with this line number. Previous line data are ignored.",
+          "values": [
+            ["0x0000", "line 1"],
+            ["0x0001", "line 2"],
+            ["0x0002", "line 3...."]
+          ],
+          "mask": "0b11111111111110000000000000000"
+        },
+        {
+          "name": "HOFFCNT",
+          "description": "Horizontal offset count This value gives the number of pixel cl ocks to count befor e starting a capture.",
+          "values": [],
+          "mask": "0b11111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000001100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CWSIZE",
+      "description": "crop window size",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "7",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. VLINE[13",
+          "values": [
+            ["", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. CAPCNT[13"],
+            ["", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "CAPCNT",
+          "description": "Capture count This value gives the number of pixel clocks to be captured from the starting point on the same line. It value must corresponds to word -aligned data for different widths of parallel interfaces.",
+          "values": [
+            ["0x0000", "1 pixel"],
+            ["0x0001", "2 pixels"],
+            ["0x0002", "3 pixels...."]
+          ],
+          "mask": "0b11111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000000000001100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "DR",
+      "description": "data register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "BYTE3",
+          "description": "Data byte 3",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "BYTE2",
+          "description": "Data byte 2",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "BYTE1",
+          "description": "Data byte 1",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "BYTE0",
+          "description": "Data byte 0",
+          "values": [],
+          "mask": "0b11111111"
+        }
+      ]
+    }
+  ]
+}

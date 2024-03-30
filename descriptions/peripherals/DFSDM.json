@@ -1,0 +1,829 @@
+{
+  "DFSDM": [
+    {
+      "name": "CHANNEL",
+      "description": "Channel registers for DFSDM",
+      "type": "CHANNEL",
+      "size": 32,
+      "offset": "0x00",
+      "array": [8]
+    },
+    {
+      "name": "FILTER",
+      "description": "Filter registers for DFSDM",
+      "type": "FILTER",
+      "size": 128,
+      "offset": "0x100",
+      "array": [4]
+    }
+  ],
+  "CHANNEL": [
+    {
+      "name": "CHCFGR1",
+      "description": "channel y configuration register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "DFSDMEN",
+          "description": "Global enable for DFSDM interface DFSDMEN is present only in DFSDM_CH0CFGR1 register (channel y=0)",
+          "values": [
+            ["0", "DFSDM interface disabled"],
+            ["1", "DFSDM interface enabledIf DFSDM interface is enabled, then it is start ed to operate according to enabled y channels and enabled x filters settings (CHEN bit in DFSD M_CHyCFGR1 and DFEN bit in DFSDM_FLTxCR1). Data cleared by setting DFSDMEN="],
+            ["0", "\u2013all registers DFSDM_FLTxISR are set to reset state (x = 0..3) \u2013all registers DFSDM_FLTxAWSR are set to reset state (x = 0..3)"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "CKOUTSRC",
+          "description": "Output serial clo ck source selection CKOUTSRC is present only in DF SDM_CH0CFGR1 register (channel y=0)",
+          "values": [
+            ["0", "Source for output clock is from system clock"],
+            ["1", "Source for output clock is from audio clockThis value can be modified only when DFSDMEN=0 (in DFSDM_CH0CFGR1 register)."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "CKOUTDIV",
+          "description": "Output serial clock divider 0: Output clock generation is disabled (CKOUT signal is set to low state) 1- 255: Defines the division of syst em clock for the serial clock outp ut for CKOUT signal in range 2 - 256 (Divider = CKOUTDIV+1). CKOUTDIV also defines the threshold for a clock absence detection.This value can only be modified when DFSDMEN=0 (in DFSDM_CH0CFGR1 register).If DFSDMEN=0 (in DFSDM_CH 0CFGR1 register) then CKOUT signal is set to low state (setting is performed one DFSDM clo ck cycle after DFSDMEN=0). CKOUTDIV is present only in DFSDM_CH0CFGR1 register (channel y=0)",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "DATPACK",
+          "description": "Data packing mode in DFSDM_CHyDATINR register. 0:Standard: input data in DFSDM_CHyDATINR register are stored only in INDAT0[15:0]. To empty DFSDM_CHyDATINR register one sample must be read by the DFSDM f ilter from channel y. 1: Interleaved: input data in DFSDM_CHyDATINR register are stored as two samples: \u2013first sample in INDAT0[15:0] (assigned to channel y) \u2013second sample INDAT1[15:0] (assigned to channel y) To empty DFSDM_CHyDATINR register, two sample s must be read by the digital filter from channel y (INDAT0[15:0] part is read as first sample and then INDAT1[15:0] part is read as next sample). 2: Dual: input data in DFSDM_CHyDATINR register are stored as two samples: \u2013first sample INDAT0[15:0] (assigned to channel y) \u2013second sample INDAT1[15:0] (assigned to channel y+1) To empty DFSDM_CHyDATINR r egister first sample must be read by the digital filter from channel y and second sample must be read by another digital filter from channel y+1. Dual mode is available only on even channel numbers (y = 0, 2, 4, 6), for odd channel numbers (y = 1, 3, 5, 7) DFSDM_CHyDATINR is write protect ed. If an even channel is set to dual mode then the following odd channel must be set into standard mode (DATPA CK[1:0]=0) for correct cooperation with even channel. 3: ReservedThis value can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register).",
+          "values": [],
+          "mask": "0b1100000000000000"
+        },
+        {
+          "name": "DATMPX",
+          "description": "Input data multiplexer for channel y 0:Data to channel y are taken from external serial inputs as 1-bit values. DFSDM_CHyDATINR register is write protected. 1: Data to channel y are taken from internal analog to digital converter ADC y+1 output register update as 16-bit values (if ADCy+1 is available). Data from ADCs are written into INDAT0[15:0] part of DFSDM_CHyDATINR register. 2:Data to channel y are taken from internal DF SDM_CHyDATINR register by direct CPU/DMA write. There can be written one or two 16-bit data sa mples according DATPACK[1:0] bit field setting. 3:ReservedThis value can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register).",
+          "values": [],
+          "mask": "0b11000000000000"
+        },
+        {
+          "name": "CHINSEL",
+          "description": "Channel inputs selection",
+          "values": [
+            ["0", "Channel inputs are taken from pins of the same channel y."],
+            ["1", "Channel inputs are taken from pins of the following channel (channel (y+1) modulo 8). This value can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register)."]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CHEN",
+          "description": "Channel y enable",
+          "values": [
+            ["0", "Channel y disabled"],
+            ["1", "Channel y enabledIf channel y is enabled, then serial data receiving is started according to the given channel setting. CKABEN : Clock absence detector enable on channel y"],
+            ["0", "Clock absence detector disabled on channel y"],
+            ["1", "Clock absence detector enabled on channel y"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "SCDEN",
+          "description": "Short-circuit detector enable on channel y",
+          "values": [
+            ["0", "Input channel y will not be guarded by the short-circuit detector"],
+            ["1", "Input channel y will be continuously guarded by the short-circuit detector"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "SPICKSEL",
+          "description": "SPI clock select for channel y 0:clock coming from external CKINy input - sampling point according SITP[1:0] 1:clock coming from internal CKOUT output - sampling point according SITP[1:0]2:clock coming from internal CKOUT - sampling point on each second CKOUT falling edge. For connection to external \u03a3\u2206 modulator which divides its clock input (from CKOUT) by 2 to generate its output serial communication clock (and this output clock change is active on each clock input rising edge). 3:clock coming from internal CKOUT output - sampling point on each second CKOUT rising edge. For connection to external \u03a3\u2206 modulator which divides its clock input (from CKOUT) by 2 to generate its output serial communication clock (and this output clock change is active on each clock input falling edge). This value can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register).",
+          "values": [],
+          "mask": "0b1100"
+        },
+        {
+          "name": "SITP",
+          "description": "Serial interface type for channel y",
+          "values": [
+            ["00", "SPI with rising edge to strobe data"],
+            ["01", "SPI with falling edge to strobe data"],
+            ["10", "Manchester coded input on DATINy pin: rising edge = logic 0, falling edge = logic 1"],
+            ["11", "Manchester coded input on DATINy pin: ri sing edge = logic 1, falling edge = logic 0 This value can only be modified when CHEN=0 (in DFSDM_CHyCFGR1 register)."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111000000000000111000010000"
+        }
+      ]
+    },
+    {
+      "name": "CHCFGR2",
+      "description": "channel y configuration register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "DTRBS",
+          "description": "Data right bit-shift for channel y 0-31: Defines the shift of the data result coming from the integrator - how many bit shifts to the right will be performed to have final results. Bit-shift is performed before offset corre ction. The data shift is rounding the result to nearest integer value. The si gn of shifted result is maintained (to have valid 24-bit signed format of result data). This value can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register).",
+          "values": [],
+          "mask": "0b11111000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111"
+        }
+      ]
+    },
+    {
+      "name": "CHAWSCDR",
+      "description": "channel y analog watchdog and short-circuit detector register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "1",
+          "description": "831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. AWFORD[",
+          "values": [["1", "0] Res. AWFOSR[4:0] rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 BKSCD[3:0] Res. Res. Res. Res. SCDT[7:0] rw rw rw rw rw rw rw rw rw rw rw rw"]],
+          "mask": "0b1000"
+        },
+        {
+          "name": "AWFORD",
+          "description": "Analog watchdog Sinc filter order on channel y 0: FastSinc filter type 1: Sinc1 filter type 2: Sinc2 filter type 3: Sinc3 filter type Sincx filter type transfer function: FastSinc filter type transfer function: This bit can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register).",
+          "values": [],
+          "mask": "0b110000000000000000000000"
+        },
+        {
+          "name": "AWFOSR",
+          "description": "Analog watchdog filter oversampling ratio (decimation rate) on channel y 0 - 31: Defines the length of the Sinc type filter in the range 1 - 32 (AWFOSR + 1). This number is also the decimation ratio of the analog data rate. This bit can be modified only when CHEN=0 (in DFSDM_CHyCFGR1 register). If AWFOSR = 0 then the filt er has no effect (filter bypass).Hz()1zFOSR\u2013\u20131z1\u2013\u2013---------------------------- -\u239d\u23a0\u239c\u239f\u239b\u239ex=Hz()1zFOSR\u2013\u20131z1\u2013\u2013---------------------------- -\u239d\u23a0\u239c\u239f\u239b\u239e2 1z2F O S R\u22c5()\u2013+()\u22c5 = BKSCD[3:0] : Break signal assignment for short-circuit detector on channel y BKSCD[i] = 0: Break i signal not assigned to short-circuit detector on channel y BKSCD[i] = 1: Break i signal assigned to short-circui t detector on channel y",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "SCDT",
+          "description": "short-circuit detector threshold for channel y These bits are written by software to define the threshold counter for th e short-circuit detector. If this value is reached, then a short-circuit detector event occurs on a given channel.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111001000000000111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CHWDATR",
+      "description": "channel y watchdog filter data register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "WDATA",
+          "description": "Input channel y watchdog data Data converted by the analog watchdog filter for inpu t channel y. This data is continuously converted (no trigger) for this channel, with a limited resolution (OSR=1..32/sinc order = 1..3).",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CHDATINR",
+      "description": "channel y data input register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "5",
+          "description": "1231 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 INDAT1[15:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 INDAT0[15:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw INDAT1[15:0] : Input data for channel y or channel y+1 Input parallel channel data to be processed by the digital filter if DATMPX[",
+          "values": [
+            ["1", "0]=1 or DATMPX["],
+            ["1", "0]=2. Data can be written by CPU/DMA (if DATMPX["],
+            ["1", "0]=2) or directly by internal ADC (if DATMPX["],
+            ["1", "0]=1). If DATPACK["],
+            ["1", "0]=0 (standard mode) INDAT0[15:0] is writ e protected (not used for input sample). If DATPACK["],
+            ["1", "0]=1 (interleaved mode) Second channel y data sample is stored into INDAT1[15:0]. First channel y data sample is stored into INDAT0[15:0]. Both samples are read sequent ially by DFSDM_FLTx filter as two channel y data samples. If DATPACK["],
+            ["1", "0]=2 (dual mode). For even y channels: sample in INDAT1[15:0] is automatically copied into INDAT0[15:0] of channel (y+1). For odd y channels: INDAT1[ 15:0] is write protected. See Section 30.4.6: Parallel data inputs for more details. INDAT0[15:1] is in the16-bit signed format."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "INDAT0",
+          "description": "Input data for channel y Input parallel channel data to be processed by the digital filter if DATMPX[1:0]=1 or DATMPX[1:0]=2. Data can be written by CPU/DMA (if DATMPX[1: 0]=2) or directly by internal ADC (if DATMPX[1:0]=1). If DATPACK[1:0]=0 (standard mode) Channel y data sample is stored into INDAT0[15:0]. If DATPACK[1:0]=1 (interleaved mode) First channel y data sample is stored into INDAT0[1 5:0]. Second channel y data sample is stored into INDAT1[15:0]. Both samples are read sequent ially by DFSDM_FLTx filter as two channel y data samples. If DATPACK[1:0]=2 (dual mode). For even y channels: Channel y data sample is stored into INDAT0[15:0].For odd y channels: INDAT0[ 15:0] is write protected. See Section 30.4.6: Parallel data inputs for more details. INDAT0[15:0] is in the16-bit signed format.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    }
+  ],
+  "FILTER": [
+    {
+      "name": "FLTCR1",
+      "description": "filter x control register 1",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "1",
+          "description": "1631 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res.AWF SELFAST Res. Res. RCH[2:0] Res. Res.RDMA ENRes. RSYNCRCON TRSW STARTRes. rw rw rw rw rw rw rw rw rt_w1 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. JEXTEN[",
+          "values": [["1", "0] JEXTSEL[4:0] Res. Res.JDMA ENJSCAN JSYNC Res.JSW STARTDFEN rw rw rw rw rw rw rw rw rw rw rt_w1 rw"]],
+          "mask": "0b1000"
+        },
+        {
+          "name": "AWFSEL",
+          "description": "Analog watchdog fast mode select",
+          "values": [
+            ["0", "Analog watchdog on data output value (after the digi tal filter). The comparison is done after offset correction and shift"],
+            ["1", "Analog watchdog on channel transceivers value (after watchdog filter)"]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "FAST",
+          "description": "Fast conversion mode selection for regular conversions",
+          "values": [
+            ["0", "Fast conversion mode disabled"],
+            ["1", "Fast conversion mode enabledWhen converting a regular conversion in contin uous mode, having enabled the fast mode causes each conversion (except the first) to execute fast er than in standard mode. This bit has no effect on conversions which are not continuous. This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1).if FAST=0 (or first conversion in continuous mode if FAST=1): t = [F OSR * (IOSR-1 + FORD) + FORD] / fCKIN..... for Sincx filters t = [FOSR * (IOSR-1 + 4) + 2] / fCKIN..... for FastSinc filter if FAST=1 in continuous mode (except first conversion): t = [FOSR * IOSR] / fCKIN in case if FOSR = FOSR[9:0]+1 = 1 (filter bypassed, active only integrator): t = IOSR / fCKIN (... but CNVCNT=0) where: fCKIN is the channel input clock frequency (on given channel CKINy pin) or input data rate in case of parallel data input."]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "RCH",
+          "description": "Regular channel selection 0: Channel 0 is selected as the regular channel 1: Channel 1 is selected as the regular channel...7: Channel 7 is selected as the regular channelWriting these bits when RCIP=1 takes effect when the next regular conversion begins. This is especially useful in continuous mode (when RCONT =1). It also affects regular conversions which are pending (due to ongoing injected conversion).",
+          "values": [],
+          "mask": "0b111000000000000000000000000"
+        },
+        {
+          "name": "RDMAEN",
+          "description": "DMA channel enabled to read data for the regular conversion",
+          "values": [
+            ["0", "The DMA channel is not enabled to read regular data"],
+            ["1", "The DMA channel is enabled to read regular dataThis bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "RSYNC",
+          "description": "Launch regular conversion synchronously with DFSDM_FLT0",
+          "values": [
+            ["0", "Do not launch a regular conversion synchronously with DFSDM_FLT0"],
+            ["1", "Launch a regular conversion in this DFSDM_FL Tx at the very moment when a regular conversion is launched in DFSDM_FLT0 This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "RCONT",
+          "description": "Continuous mode selection for regular conversions",
+          "values": [
+            ["0", "The regular channel is converted just once for each conversion request"],
+            ["1", "The regular channel is converted repeatedly after each conversion request Writing \u20180\u2019 to this bit while a continuous regular conversion is already in progress stops the continuous mode immediately."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "RSWSTART",
+          "description": "Software start of a conv ersion on the regular channel",
+          "values": [
+            ["0", "Writing \u20180\u2019 has no effect"],
+            ["1", "Writing \u20181\u2019 makes a request to start a conversion on the regular channel and causes RCIP to become \u20181\u2019. If RCIP=1 already, writing to RSWSTART has no effect. Writing \u20181\u2019 has no effect if RSYNC=1. This bit is always read as \u20180\u2019."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "JEXTEN",
+          "description": "Trigger enable and trigger edge selection for injected conversions",
+          "values": [
+            ["00", "Trigger detection is disabled"],
+            ["01", "Each rising edge on the selected trigger makes a request to launch an injected conversion"],
+            ["10", "Each falling edge on the selected trigger makes a request to launch an injected conversion"],
+            ["11", "Both rising edges and falling edges on the selected trigger make requests to launch injected conversions This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]
+          ],
+          "mask": "0b110000000000000"
+        },
+        {
+          "name": "JEXTSEL",
+          "description": "Trigger signal selection for launching injected conversions 0x0- synchronous trigger has latency up to one f DFSDMCLK clock cycle (with de terministic jitter), asynchronous trigger has latency 2-3 fDFSDMCLK clock cycles (with jitt er up to 1 cycle).DFSDM_FLTx 0x00 dfsdm_jtrg00x01 dfsdm_jtrg1...0x1E dfsdm_jtrg300x1F dfsdm_jtrg31Refer to Table 250: DFSDM triggers connection .",
+          "values": [["0x1F", "Trigger inputs selected by the following table (internal or external trigger). This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "JDMAEN",
+          "description": "DMA channel enabled to read data for the injected channel group",
+          "values": [
+            ["0", "The DMA channel is not enabled to read injected data"],
+            ["1", "The DMA channel is enabled to read injected dataThis bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "JSCAN",
+          "description": "Scanning conversion mode for injected conversions",
+          "values": [
+            ["0", "One channel conversion is performed from the injected channel group and next the selected channel from this group is selected."],
+            ["1", "The series of conversions for the injected group channels is executed, starting over with the lowest selected channel. This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1).Writing JCHG if JSCAN=0 resets the channel selection to the lowest selected channel."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "JSYNC",
+          "description": "Launch an injected conversion synchronously with the DFSDM_FLT0 JSWSTART trigger",
+          "values": [
+            ["0", "Do not launch an injected conversion synchronously with DFSDM_FLT0"],
+            ["1", "Launch an injected conversion in this DFSD M_FLTx at the very moment when an injected conversion is launched in DFSDM_FLT0 by its JSWSTART trigger This bit can be modified only when DFEN=0 (DFSDM_FLTxCR1)."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "JSWSTART",
+          "description": "Start a conversion of the injected group of channels",
+          "values": [
+            ["0", "Writing \u20180\u2019 has no effect."],
+            ["1", "Writing \u20181\u2019 makes a request to convert the c hannels in the injected c onversion group, causing JCIP to become \u20181\u2019 at the same time. If JCIP=1 already, then writing to JSWSTART has no effect. Writing \u20181\u2019 has no effect if JSYNC=1. This bit is always read as \u20180\u2019."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "DFEN",
+          "description": "DFSDM_FLTx enable",
+          "values": [
+            ["0", "DFSDM_FLTx is disabled. All conversions of given DFSDM_FLTx are stopped immediately and all DFSDM_FLTx functions are stopped."],
+            ["1", "DFSDM_FLTx is enabled. If DFSDM_FLTx is enabled, then DFSDM_FLTx starts operating according to its setting. Data which are cleared by setting DFEN="],
+            ["0", "\u2013register DFSDM_FLTxISR is set to the reset state \u2013register DFSDM_FLTxAWSR is set to the reset state"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10011000110100011000000011000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTCR2",
+      "description": "filter x control register 2",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "AWDCH",
+          "description": "Analog watchdog channel selection These bits select the input channel to be guarded continuously by the analog watchdog. AWDCH[y] = 0: Analog watchdog is disabled on channel yAWDCH[y] = 1: Analog watchdog is enabled on channel y",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "EXCH",
+          "description": "Extremes detector channel selection These bits select the input channels to be taken by the Extremes detector. EXCH[y] = 0: Extremes detector does not accept data from channel y EXCH[y] = 1: Extremes detector accepts data from channel y",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "CKABIE",
+          "description": "Clock absence interrupt enable CKABIE is present only in DF SDM_FLT0CR2 register (filter x=0) SCDIE : Short-circuit detector interrupt enable SCDIE is present only in DF SDM_FLT0CR2 register (filter x=0)",
+          "values": [
+            ["0", "Detection of channel input clock absence interrupt is disabled"],
+            ["1", "Detection of channel input clock absence interrupt is enabledPlease see the explanation of CKABF[7:0] in DFSDM_FLTxISR."],
+            ["0", "short-circuit detector interrupt is disabled"],
+            ["1", "short-circuit detector interrupt is enabledPlease see the explanation of SCDF[7:0] in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "AWDIE",
+          "description": "Analog watchdog interrupt enable",
+          "values": [
+            ["0", "Analog watchdog interrupt is disabled"],
+            ["1", "Analog watchdog interrupt is enabledPlease see the explanation of AWDF in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ROVRIE",
+          "description": "Regular data overrun interrupt enable",
+          "values": [
+            ["0", "Regular data overrun interrupt is disabled"],
+            ["1", "Regular data overrun interrupt is enabledPlease see the explanation of ROVRF in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "JOVRIE",
+          "description": "Injected data overrun interrupt enable",
+          "values": [
+            ["0", "Injected data overrun interrupt is disabled"],
+            ["1", "Injected data overrun interrupt is enabledPlease see the explanation of JOVRF in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "REOCIE",
+          "description": "Regular end of conversion interrupt enable",
+          "values": [
+            ["0", "Regular end of conversion interrupt is disabled"],
+            ["1", "Regular end of conversion interrupt is enabledPlease see the explanation of REOCF in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "JEOCIE",
+          "description": "Injected end of conversion interrupt enable",
+          "values": [
+            ["0", "Injected end of conversion interrupt is disabled"],
+            ["1", "Injected end of conversion interrupt is enabledPlease see the explanation of JEOCF in DFSDM_FLTxISR."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000010000100"
+        }
+      ]
+    },
+    {
+      "name": "FLTISR",
+      "description": "filter x interrupt and status register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "SCDF",
+          "description": "short-circuit detector flag SDCF[y]=0: No short-circuit dete ctor event occurred on channel y SDCF[y]=1: The short-circuit dete ctor counter reaches, on channel y, the value programmed in the DFSDM_CHyAWSCDR registers This bit is set by hardware. It can be cleared by software using the corresponding CLRSCDF[y] bit in the DFSDM_FLTxICR register. S CDF[y] is cleared also by hardware when CHEN[y] = 0 (given channel is disabled). SCDF[7:0] is present only in DFSDM_FLT0ISR register (filter x=0)",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "CKABF",
+          "description": "Clock absence flag CKABF[y]=0: Clock signal on channel y is present. CKABF[y]=1: Clock signal on channel y is not present. Given y bit is set by hardware when clock abs ence is detected on channe l y. It is held at CKABF[y]=1 state by hardware w hen CHEN=0 (see DFSDM_CHyCFGR1 register). It is held at CKABF[y]=1 state by hardware when the transceiver is not yet syn chronized.It can be cleared by software using the correspon ding CLRCKABF[y] bi t in the DFSDM_FL TxICR register. CKABF[7:0] is present only in DF SDM_FLT0ISR register (filter x=0)",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "RCIP",
+          "description": "Regular conversion in progress status",
+          "values": [
+            ["0", "No request to convert the regular channel has been issued"],
+            ["1", "The conversion of the regular channel is in progress or a request for a regular conversion is pending A request to start a regular conversion is ignored when RCIP=1."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "JCIP",
+          "description": "Injected conversion in progress status",
+          "values": [
+            ["0", "No request to convert the injected channel gr oup (neither by software nor by trigger) has been issued"],
+            ["1", "The conversion of the injected channel group is in progress or a request for a injected conversion is pending, due either to \u20181\u2019 being written to JSWSTART or to a trigger detection A request to start an injected conversion is ignored when JCIP=1."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "AWDF",
+          "description": "Analog watchdog",
+          "values": [
+            ["0", "No Analog watchdog event occurred"],
+            ["1", "The analog watchdog block detected voltage which crosses the value programmed in the DFSDM_FLTxAWLTR or DFSDM_FLTxAWHTR registers. This bit is set by hardware. It is cleared by software by clearing all source flag bits AWHTF[7:0] and AWLTF[7:0] in DFSDM_FLTxAWSR register (by writing \u20181\u2019 into the clear bits in DFSDM_FLTxAWCFR register)."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "ROVRF",
+          "description": "Regular conversion overrun flag For each of the flag bits, an interrupt can be enabled by setting the corresponding bit in DFSDM_FLTxCR2. If an interrupt is called, the flag must be cleared before exiting the interrupt service routine.All the bits of DFSDM_FLTxISR are automatically reset when DFEN=0. JOVRF : Injected conversion overrun flag",
+          "values": [
+            ["0", "No regular conversion overrun has occurred"],
+            ["1", "A regular conversion overrun has occurred, whic h means that a regular conversion finished while REOCF was already \u20181\u2019. RDATAR is not affected by overruns This bit is set by hardware. It can be cleared by software using the CLRROVRF bit in the DFSDM_FLTxICR register."],
+            ["0", "No injected conversion overrun has occurred"],
+            ["1", "An injected conversion overrun has occurred, which means that an injected conversion finished while JEOCF was already \u20181\u2019. JDATAR is not affected by overruns This bit is set by hardware. It can be cleared by software using the CLRJOVRF bit in the DFSDM_FLTxICR register."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "REOCF",
+          "description": "End of regular conversion flag",
+          "values": [
+            ["0", "No regular conversion has completed"],
+            ["1", "A regular conversion has completed and its data may be readThis bit is set by hardware. It is cleared when the software or DMA reads DFSDM_FLTxRDATAR."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "JEOCF",
+          "description": "End of injected conversion flag",
+          "values": [
+            ["0", "No injected conversion has completed"],
+            ["1", "An injected conversion has completed and its data may be readThis bit is set by hardware. It is cleared when the software or DMA reads DFSDM_FLTxJDATAR."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1001111111100000"
+        }
+      ]
+    },
+    {
+      "name": "FLTICR",
+      "description": "filter x interrupt flag clear register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "CLRSCDF",
+          "description": "Clear the short-circuit detector flag CLRSCDF[y]=0: Writing \u20180\u2019 has no effect CLRSCDF[y]=1: Writing \u20181\u2019 to position y clears the corresponding SCDF[y] bit in the DFSDM_FLTxISR register CLRSCDF[7:0] is present only in DFSDM_FLT0ICR regi ster (filter x=0)",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        },
+        {
+          "name": "CLRCKABF",
+          "description": "Clear the clock absence flag CLRCKABF[y]=0: Writing \u20180\u2019 has no effect CLRCKABF[y]=1: Writing \u20181\u2019 to position y cl ears the corresponding CKABF[y] bit in the DFSDM_FLTxISR register. When the transceiver is not yet synchronized, the clock absence flag is set and cannot be cleared by CLRCKABF[y]. CLRCKABF[7:0] is present only in DFSDM_FLT0ICR regi ster (filter x=0)",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "CLRJOVRF",
+          "description": "Clear the injected conversion overrun flag",
+          "values": [
+            ["0", "Writing \u20180\u2019 has no effect"],
+            ["1", "Writing \u20181\u2019 clears the JOVRF bit in the DFSDM_FLTxISR register"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111110011"
+        }
+      ]
+    },
+    {
+      "name": "FLTJCHGR",
+      "description": "filter x injected channel group selection register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "JCHG",
+          "description": "Injected channel group selection JCHG[y]=0: channel y is not part of the injected group JCHG[y]=1: channel y is part of the injected group If JSCAN=1, each of the selected channels is co nverted, one after anothe r. The lowest channel (channel 0, if selected) is conv erted first and the sequence ends at the highest selected channel. If JSCAN=0, then only one channel is convert ed from the selected channels, and the channel selection is moved to the next channel. Writing J CHG, if JSCAN=0, resets the channel selection to the lowest selected channel. At least one channel must always be selected for the injected group. Writes c ausing all JCHG bits to be zero are ignored.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTFCR",
+      "description": "filter x control register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "FOSR",
+          "description": "Sinc filter oversampling ratio (decimation rate) 0 - 1023: Defines the length of the Sinc type filter in the range 1 - 1024 (FOSR = FOSR[9:0] +1). This number is also the decimation ratio of the output data rate from filter. This bit can only be modified when DFEN=0 (DFSDM_FLTxCR1) If FOSR = 0, then the filter has no effect (filter bypass).",
+          "values": [],
+          "mask": "0b11111111110000000000000000"
+        },
+        {
+          "name": "IOSR",
+          "description": "Integrator oversampling ratio (averaging length) 0- 255: The length of the Integrator in the range 1 - 256 (IOSR + 1). Defines how many samples from Sinc filter will be summed in to one output data sample from t he integrator. The output data rate from the integrator will be decreased by this number (additional data decimation ratio). This bit can only be modified when DFEN=0 (DFSDM_FLTxCR1) If IOSR = 0, then the Integrator has no effect (Integrator bypass).Hz()1zFOSR\u2013\u20131z1\u2013\u2013---------------------------- -\u239d\u23a0\u239c\u239f\u239b\u239ex=Hz()1zFOSR\u2013\u20131z1\u2013\u2013---------------------------- -\u239d\u23a0\u239c\u239f\u239b\u239e2 1z2F O S R\u22c5()\u2013+()\u22c5 =",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000001111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTJDATAR",
+      "description": "filter x data register for injected group",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "1",
+          "description": "2931 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 JDATA[23:8] rrrrrrrrrrrrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 JDATA[7:0] Res. Res. Res. Res. Res. JDATACH[2:0] rrrrrrrr rrr DMA may be used to read the data from this register. Half-word accesses may be used to read only the MSBs of conversion data.Reading this register also clears JEOCF in DFSDM_FLTxISR. Thus, the firmware must not read this register if DMA is activated to read data from this register.",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "JDATA",
+          "description": "Injected group conversion data When each conversion of a channel in the injected gr oup finishes, its resulting data is stored in this field. The data is valid when JEOCF=1. Readin g this register clears the corresponding JEOCF.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "JDATACH",
+          "description": "Injected channel most recently converted When each conversion of a channel in the inje cted group finishes, JDATA CH[2:0] is updated to indicate which channel was converted. Thus, JDATA[23:0] holds the data that corresponds to the channel indicated by JDATACH[2:0].",
+          "values": [],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000"
+        }
+      ]
+    },
+    {
+      "name": "FLTRDATAR",
+      "description": "filter x data register for the regular channel",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "RDATA",
+          "description": "Regular channel conversion data When each regular conversion finishes, its data is stored in this register. The data is valid when REOCF=1. Reading this register clears the corresponding REOCF.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "RPEND",
+          "description": "Regular channel pending data Regular data in RDATA[23:0] was delayed due to an injected channel trigger during the conversion",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RDATACH",
+          "description": "Regular channel most recently converted When each regular conversion finishes, RDATACH[ 2:0] is updated to indicate which channel was converted (because regular channel selection RCH[2:0] in DFSDM_FLTxCR1 register can be updated during regular conversion). Thus RDATA[ 23:0] holds the data that corresponds to the channel indicated by RDATACH[2:0].",
+          "values": [],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11101000"
+        }
+      ]
+    },
+    {
+      "name": "FLTAWHTR",
+      "description": "filter x analog watchdog high threshold register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "AWHT",
+          "description": "Analog watchdog high threshold These bits are written by software to define the high threshold for the analog watchdog. In case channel transceivers monitor (AWFSEL=1 ), the higher 16 bits (AWHT[23:8]) define the 16-bit threshold as compared with the analog watchdog filter output ( because data coming from the analog watchdog filter are up to a 16-bit re solution). Bits AWHT[7:0] are not taken into comparison in this case.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "BKAWH",
+          "description": "Break signal assignment to analog watchdog high threshold event BKAWH[i] = 0: Break i signal is not assigned to an analog watchdog high threshold event BKAWH[i] = 1: Break i signal is assigned to an analog watchdog high threshold event",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000"
+        }
+      ]
+    },
+    {
+      "name": "FLTAWLTR",
+      "description": "filter x analog watchdog low threshold register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "AWLT",
+          "description": "Analog watchdog low threshold These bits are written by software to defi ne the low threshold for the analog watchdog. In case channel transceivers monitor (AWFSEL=1), only the hig her 16 bits (AWLT[23:8]) define the 16-bit threshold as compared with the ana log watchdog filter out put (because data coming from the analog watchdog filter are up to a 16-bit resolution). Bits AWLT[7:0] are not taken into comparison in this case.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "BKAWL",
+          "description": "Break signal assignment to analog watchdog low threshold event BKAWL[i] = 0: Break i signal is not assigned to an analog watchdog low threshold event BKAWL[i] = 1: Break i signal is assigned to an analog watchdog low threshold event",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000"
+        }
+      ]
+    },
+    {
+      "name": "FLTAWSR",
+      "description": "filter x analog watchdog status register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "AWHTF",
+          "description": "Analog watchdog high threshold flag AWHTF[y]=1 indicates a high threshold error on channel y. It is set by hardware. It can be cleared by software using the corresponding CLRAWHTF[y] bit in the DFSDM_FLTxAWCFR register.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "AWLTF",
+          "description": "Analog watchdog low threshold flag AWLTF[y]=1 indicates a low threshold error on channel y. It is set by hardware. It can be cleared by software using the corresponding CLRAWLTF[y] bit in the DFSDM_FLTxAWCFR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTAWCFR",
+      "description": "filter x analog watchdog clear flag register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "CLRAWHTF",
+          "description": "Clear the analog watchdog high threshold flag CLRAWHTF[y]=0: Writing \u20180\u2019 has no effect CLRAWHTF[y]=1: Writing \u20181\u2019 to position y clea rs the corresponding AWHTF[y] bit in the DFSDM_FLTxAWSR register",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "CLRAWLTF",
+          "description": "Clear the analog watchdog low threshold flag CLRAWLTF[y]=0: Writing \u20180\u2019 has no effect CLRAWLTF[y]=1: Writing \u20181\u2019 to position y clears the corresponding AWLTF[y] bit in the DFSDM_FLTxAWSR register",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "FLTEXMAX",
+      "description": "filter x extremes detector maximum register",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "EXMAX",
+          "description": "Extremes detector maximum value These bits are set by hardware and indicate the highest value converted by DFSDM_FLTx. EXMAX[23:0] bits are reset to value (0x800000) by reading of this register.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "EXMAXCH",
+          "description": "Extremes detector maximum data channel. These bits contains information about the channel on which the data is stored into EXMAX[23:0]. Bits are cleared by reading of this register.",
+          "values": [],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000"
+        }
+      ]
+    },
+    {
+      "name": "FLTEXMIN",
+      "description": "filter x extremes detector minimum register",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "EXMIN",
+          "description": "Extremes detector minimum value These bits are set by hardware and indicate the lowest value converted by DFSDM_FLTx. EXMIN[23:0] bits are reset to value (0x7FFFFF) by reading of this register.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        },
+        {
+          "name": "EXMINCH",
+          "description": "Extremes detector minimum data channel These bits contain information about the channel on which the data is stored into EXMIN[23:0]. Bits are cleared by reading of this register.",
+          "values": [],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000"
+        }
+      ]
+    },
+    {
+      "name": "FLTCNVTIMR",
+      "description": "filter x conversion timer register",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111"
+        }
+      ]
+    }
+  ]
+}

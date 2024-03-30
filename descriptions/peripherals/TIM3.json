@@ -1,0 +1,79 @@
+{
+  "TIM3": [
+    {
+      "name": "AF1",
+      "description": "alternate function option register 1",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "ETRSEL",
+          "description": "ETR source selection These bits select the ETR input source.",
+          "values": [
+            ["0000", "ETR input is connected to I/O"],
+            ["0001", "COMP1 output"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111000011111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TISEL",
+      "description": "timer input selection register",
+      "offset": "0x68",
+      "fields": [
+        {
+          "name": "TI4SEL",
+          "description": "TI4[0] to TI4[15] input selection These bits select the TI4[0] to TI4[15] input source.",
+          "values": [
+            ["0000", "TIM3_CH4 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "TI3SEL",
+          "description": "TI3[0] to TI3[15] input selection These bits select the TI3[0] to TI3[15] input source.",
+          "values": [
+            ["0000", "TIM3_CH3 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "TI2SEL",
+          "description": "TI2[0] to TI2[15] input selection These bits select the TI2[0] to TI2[15] input source.",
+          "values": [
+            ["0000", "TIM3_CH2 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "TI1SEL",
+          "description": "TI1[0] to TI1[15] input selection These bits select the TI1[0] to TI1[15] input source.",
+          "values": [
+            ["0000", "TIM3_CH1 input"],
+            ["0001", "COMP1 output"],
+            ["0010", "COMP2 output"],
+            ["0011", "COMP1 output OR COMP2 output"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111100001111000011110000"
+        }
+      ]
+    }
+  ]
+}

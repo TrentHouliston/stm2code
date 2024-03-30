@@ -1,0 +1,480 @@
+{
+  "CRYP": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "GCM_CCMPH",
+          "description": "GCM or CCM Phase selection This bitfield has no effect if GCM, GMAC or CCM algorithm is not selected in ALGOMODE field.",
+          "values": [
+            ["00", "Initialization phase"],
+            ["01", "Header phase"],
+            ["10", "Payload phase"],
+            ["11", "Final phaseWriting to GCM_CCMPH bits while BUSY = 1 has no effect."]
+          ],
+          "mask": "0b110000000000000000"
+        },
+        {
+          "name": "CRYPEN",
+          "description": "CRYP processor Enable",
+          "values": [
+            ["0", "Cryptographic processo r peripheral is disabled"],
+            ["1", "Cryptographic processor peripheral is enabled This bit is automatically cleared by hardw are when the key preparation process ends (ALGOMODE = 0111) or after GCM/GM AC or CCM Initialization phase."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "FFLUSH",
+          "description": "CRYP FIFO Flush",
+          "values": [
+            ["0", "No FIFO flush"],
+            ["1", "FIFO flush enabledWhen CRYPEN = 0, writing this bit to 1 flushes the IN and OUT FIFOs (t hat is read and write pointers of the FIFOs are rese t). Writing this bit to 0 has no effect. When CRYPEN = 1, writing this bit to 0 or 1 has no effect. Reading this bit always returns 0.FFLUSH bit has to be set only when BUSY = 0. If not, the FIFO is flushed, but the block being processed may be pushed into the output FIFO just after the flush operation, resulting in a non-empty FIFO condition."]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "KEYSIZE",
+          "description": "Key size select ion (AES mode only) This bitfield defines the bit-length of the key us ed for the AES cryptographic core. This bitfield is \u2018don\u2019t care\u2019 in the DES or TDES modes.",
+          "values": [
+            ["00", "128-bit key length"],
+            ["01", "192-bit key length"],
+            ["10", "256-bit key length"],
+            ["11", "Reserved, do not use this value Writing KEYSIZE bits while BUSY = 1 has no effect."]
+          ],
+          "mask": "0b1100000000"
+        },
+        {
+          "name": "DATATYPE",
+          "description": "Data Type selection This bitfield defines the format of data written in CRYP_DIN or read from CRYP_DOUT registers. For more details refer to Section 35.4.16: CRYP data registers and data swapping ).",
+          "values": [
+            ["00", "32-bit data. No swapping for each word. First word pushed into the IN FIFO (or popped off the OUT FIFO) forms bits 1...32 of the data block, the second word forms bits 33...64 etc."],
+            ["01", "16-bit data, or half-word. Each word pus hed into the IN FIFO (or popped off the OUT FIFO) is considered as 2 half-words, which are swapped with each other."],
+            ["10", "8-bit data, or bytes. Each word pushed into the IN FIFO (or popped off the OUT FIFO) is considered as 4 bytes, whic h are swapped with each other."],
+            ["11", "bit data, or bit-string. Each word pushed in to the IN FIFO (or popped off the OUT FIFO) is considered as 32 bits (1st bit of the string at position 0), which are swapped with each other. Writing DATATYPE bits while BUSY = 1 has no effect."]
+          ],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "ALGOMODE",
+          "description": "Algorithm mode Below definition includes the bit 19:",
+          "values": [
+            ["0000", "TDES-ECB (triple-DES Electronic Codebook)."],
+            ["0001", "TDES-CBC (triple-DES Cipher Block Chaining)."],
+            ["0010", "DES-ECB (simple DES Electronic Codebook)."],
+            ["0011", "DES-CBC (simple DES Cipher Block Chaining)."],
+            ["0100", "AES-ECB (AES Electronic Codebook)."],
+            ["0101", "AES-CBC (AES Cipher Block Chaining)."],
+            ["0110", "AES-CTR (AES Counter mode)."],
+            ["0111", "AES key preparation fo r ECB or CBC decryption."],
+            ["1000", "AES-GCM (Galois Counter mode) and AES- GMAC (Galois Message Authentication Code mode)."],
+            ["1001", "AES-CCM (Counter with CBC-MAC).Writing ALGOMODE bits while BUSY = 1 has no effect."],
+            ["Others", "Reserved, must no be used"]
+          ],
+          "mask": "0b10000000000000111000"
+        },
+        {
+          "name": "ALGODIR",
+          "description": "Algorithm Direction",
+          "values": [
+            ["0", "Encrypt"],
+            ["1", "Decrypt Writing ALGODIR bit while BUSY = 1 has no effect."]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111101000011110000000011"
+        }
+      ]
+    },
+    {
+      "name": "SR",
+      "description": "status register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "BUSY",
+          "description": "Busy bit",
+          "values": [
+            ["0", "The CRYP core is not proc essing any data. The reason is: \u2013 either that the CRYP core is disabled (CRYPEN = 0 in the CRYP_CR register) and the last processing has completed, \u2013 or the CRYP core is waiting for enough data in the input FIFO or enough free space in the output FIFO (that is in each case at least 2 words in the DES, 4 words in the AES)."],
+            ["1", "The CRYP core is currently processing a block of data or a key preparation is ongoing (AES ECB or CBC decryption only)."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "OFFU",
+          "description": "Output FIFO full flag",
+          "values": [
+            ["0", "Output FIFO is not full"],
+            ["1", "Output FIFO is full"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "OFNE",
+          "description": "Output FIFO not empty flag",
+          "values": [
+            ["0", "Output FIFO is empty"],
+            ["1", "Output FIFO is not empty"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "IFNF",
+          "description": "Input FIFO not full flag",
+          "values": [
+            ["0", "Input FIFO is full"],
+            ["1", "Input FIFO is not full"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "IFEM",
+          "description": "Input FIFO empty flag",
+          "values": [
+            ["0", "Input FIFO is not empty"],
+            ["1", "Input FIFO is empty"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "DIN",
+      "description": "data input register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "DATAIN",
+          "description": "Data input On read FIFO is popped (last written value is returned), and its value is returned if CRYPEN = 0. If CRYPEN = 1 DATAIN register returns an undefined value. On write current register content is pushed inside the FIFO.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "DOUT",
+      "description": "data output register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "DATAOUT",
+          "description": "Data output On read returns output FIFO content (pointed to by read pointer), else returns an undefined value. On write, no effect.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "DMACR",
+      "description": "DMA control register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "DOEN",
+          "description": "DMA output enable When this bit is set, DMA requests are automatic ally generated by the peripheral during the output data phase.",
+          "values": [
+            ["0", "Outgoing data transfer from CRYP via DMA is disabled"],
+            ["1", "Outgoing data transfer from CRYP via DMA is enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "DIEN",
+          "description": "DMA input enable When this bit is set, DMA requests are automatic ally generated by the peripheral during the input data phase.",
+          "values": [
+            ["0", "Incoming data transfer to CRYP via DMA is disabled"],
+            ["1", "Incoming data transfer to CRYP via DMA is enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "IMSCR",
+      "description": "interrupt mask set/clear register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "OUTIM",
+          "description": "Output FIFO service interrupt mask",
+          "values": [
+            ["0", "Output FIFO service interrupt is masked"],
+            ["1", "Output FIFO service interrupt is not masked"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "INIM",
+          "description": "Input FIFO service interrupt mask",
+          "values": [
+            ["0", "Input FIFO service interrupt is masked"],
+            ["1", "Input FIFO service interrupt is not masked"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "RISR",
+      "description": "raw interrupt status register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "OUTRIS",
+          "description": "Output FIFO servic e raw interrupt status This bit gives the output FIFO interrupt information without taking CRYP_IMSCR corresponding mask into account.",
+          "values": [
+            ["0", "Raw interrupt not pending"],
+            ["1", "Raw interrupt pending INRIS: Input FIFO service raw interrupt status This bit gives the input FIFO interrupt information without taking CRYP_IMSCR corresponding mask into account."],
+            ["0", "Raw interrupt not pending"],
+            ["1", "Raw interrupt pending"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "MISR",
+      "description": "masked interrupt status register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "OUTMIS",
+          "description": "Output FIFO service masked interrupt status This bit gives the output FIFO interrupt info rmation taking into account the corresponding CRYP_IMSCR mask.",
+          "values": [
+            ["0", "Output FIFO interrupt not pending"],
+            ["1", "Output FIFO interrupt pending"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "INMIS",
+          "description": "Input FIFO service ma sked interrupt status This bit gives the input FIFO interrupt info rmation taking into account the corresponding CRYP_IMSCR mask.",
+          "values": [
+            ["0", "Input FIFO interrupt not pending"],
+            ["1", "Input FIFO interrupt pending when CRYPEN = 1"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "K0LR",
+      "description": "key register 0L",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 255 to 224) This write-only bitfield contains the bits [2 55:224] of the AES encryptio n or decryption key, depending on the operating mode. This register is not used in DES/TDES mode.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K0RR",
+      "description": "key register 0R",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 223 to 192) This write-only bitfield contains the bits [2 23:192] of the AES encryptio n or decryption key, depending on the operating mode. This register is not used in DES/TDES mode.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K1LR",
+      "description": "key register 1L",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 191 to 160) This write-only bitfield contains the bits [1 91:160] of the AES encryptio n or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [64:33] of the key K1, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K1RR",
+      "description": "key register 1R",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 159 to 128) This write-only bitfield contains the bits [1 59:128] of the AES encryptio n or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [32:1] of the key K1, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K2LR",
+      "description": "key register 2L",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 127 to 96) This write-only bitfield contains the bits [127:96] of t he AES encryption or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [64:33] of the key K2, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K2RR",
+      "description": "key register 2R",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 95 to 64) This write-only bitfield contains the bits [95: 64] of the AES encryption or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [32:1] of the key K2, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K3LR",
+      "description": "key register 3L",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 63 to 32) This write-only bitfield contains the bits [63: 32] of the AES encryption or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [64:33] of the key K3, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "K3RR",
+      "description": "key register 3R",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "K",
+          "description": "Key bit x (x = 31 to 0) This write-only bitfield contains the bits [31:0] of th e AES encryption or decryption key, depending on the operating mode. In DES/TDES mode this bitfield contains the bits [32:1] of the key K3, with parity bits unused.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "IV0LR",
+      "description": "initialization vector register 0L",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "IVI",
+          "description": "Initialization vector bit x (x = 127 to 96) This bitfield stores the initialization vector bits [127:96] for AES chaining modes other than ECB. In DES/TDES mode it corresponds to IVI bits [63:32]. IV registers are updated by the core after ea ch computation round of the DES/TDES or AES core.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "IV0RR",
+      "description": "initialization vector register 0R",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "IVI",
+          "description": "Initialization vector bit x (x = 95 to 64) This bitfield stores the initia lization vector bits [95:64] for AES chaining modes other than ECB. In DES/TDES mode it corresponds to IVI bits [31:0]. IV registers are updated by the core after ea ch computation round of the DES/TDES or AES core.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "IV1LR",
+      "description": "initialization vector register 1L",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "IVI",
+          "description": "Initialization vector bit x (x = 63 to 32) This bitfield stores the initia lization vector bits [63:32] for AES chaining modes other than ECB. This register is not used in DES mode . IV registers are updated by the core afte r each computation round of the AES core.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "IV1RR",
+      "description": "initialization vector register 1R",
+      "offset": "0x4C",
+      "fields": [
+        {
+          "name": "IVI",
+          "description": "Initialization vector bit x (x = 31 to 0) This bitfield stores the initializ ation vector bits [31:0] for AES chaining modes other than ECB. This register is not used in DES mode . IV registers are updated by the core afte r each computation round of the AES core.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CSGCMCCMR",
+      "description": "context swap GCM-CCM registers",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "CSGCMCCMx",
+          "description": "CRYP processor internal register states for GCM, GMAC and CCM modes This register is not used in DES/TDES or other AES modes than the ones indicated",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ],
+      "array": [8]
+    },
+    {
+      "name": "CSGCMR",
+      "description": "context swap GCM registers",
+      "offset": "0x70",
+      "fields": [
+        {
+          "name": "CSGCMx",
+          "description": "CRYP processor internal register states for GCM and GMAC modes. This register is not used in DES/TDES or other AES modes than the ones indicated",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ],
+      "array": [8]
+    }
+  ]
+}

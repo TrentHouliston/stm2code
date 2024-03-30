@@ -1,0 +1,134 @@
+{
+  "HASH": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "LKEY",
+          "description": "Long key selection This bit selects between short key ( \u2264 64 bytes) or long key (> 64 bytes) in HMAC mode.",
+          "values": [
+            ["0", "the HMAC key is shorter or equal to 64 byte s. The actual key value written to HASH_DIN is used during the HMAC computation."],
+            ["1", "the HMAC key is longer than 64 bytes. The ha sh of the key is used instead of the real key during the HMAC computation. This selection is only taken into account when the INIT and MODE bits are both set. Changing this bit during a computation has no effect."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "MDMAT",
+          "description": "Multiple DMA transfers This bit is set when hashing large files when multiple DMA transfers are needed.",
+          "values": [
+            ["0", "DCAL is automatically set at the end of a DMA transfer."],
+            ["1", "DCAL is not automat ically set at the end of a DMA transfer."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "DINNE",
+          "description": "DIN not empty This bit is set when the HASH_DIN register ho lds valid data (that is after being written at least once). It is cleared when either the INIT bi t (initialization) or the DCAL bit (completion of the previous message processing) is written to 1.",
+          "values": [
+            ["0", "No data are present in the data input buffer"],
+            ["1", "The input buffer contains at least one word of data This bit is read-only."]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "NBW",
+          "description": "Number of words already pushed This bitfield reflects the number of words in the message that have already been pushed into the IN FIFO. NBW is incremented by one when a write access to the HASH_DIN register is performed (except if DINNE = 0 and the DMA is not used, see below description). NBW goes to zero when the INIT bit is written to 1. This bitfield is read-only. If the DMA is not used",
+          "values": [
+            ["0000", "if DINNE = 0, no word has been pushed into the DIN buffer (both HASH_DIN register and IN FIFO are empty), otherwise one word has been pushed into the DIN buffer (HASH_DIN register contains one word and IN FIFO is empty)"],
+            ["0001", "two words have been pushed into the DIN buf fer (that is HASH_DIN register and the IN FIFO contain one word each) ..."],
+            ["1111", "16 words have been pushed into the DIN buffer.If the DMA is usedNBW contains the exact number of words that have been pushed into the IN FIFO by the DMA."]
+          ],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "ALGO",
+          "description": "Algorithm selection These bits select the hash algorithm.",
+          "values": [
+            ["00", "SHA-1"],
+            ["01", "MD5"],
+            ["10", "SHA2-224"],
+            ["11", "SHA2-256This selection is only taken into account when the INIT bit is set. Changing this bitfield during a computation has no effect."]
+          ],
+          "mask": "0b1000000000010000000"
+        },
+        {
+          "name": "MODE",
+          "description": "Mode selection This bit selects the HASH or HMAC mode for the selected algorithm:",
+          "values": [
+            ["0", "Hash mode selected"],
+            ["1", "HMAC mode selected. LKEY must be set if the key being used is longer than 64 bytes. This selection is only taken into account when the INIT bit is set. Changing this bit during a computation has no effect."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "DATATYPE",
+          "description": "Data type selection Defines the format of the data entered into the HASH_DIN register:",
+          "values": [
+            ["00", "32-bit data. The data written into HASH_DIN are directly used by the HASH processing, without reordering."],
+            ["01", "16-bit data, or half-word. The data written into HASH_DIN are considered as two half- words, and are swapped before being used by the HASH processing."],
+            ["10", "8-bit data, or bytes. The dat a written into HASH_DIN are considered as four bytes, and are swapped before being used by the HASH processing."],
+            ["11", "bit data, or bit-string. The data written into HASH_DIN are considered as 32 bits (1st bit of the string at position 0), and are swapped before being used by the HASH processing (1st bit of the string at position 31). DMAE: DMA enable 0: DMA transfers disabled1: DMA transfers enabled. A DMA request is s ent as soon as the HASH core is ready to receive data. After this bit is set it is cleared by hardware wh ile the last data of the message is written into the hash processor. Setting this bit to 0 while a DMA transfer is ongoing is not aborting this current transfer. Instead, the DMA interface of t he IP remains internally enabled until the transfer is completed or INIT is written to 1. Setting INIT bit to 1 does not clear DMAE bit."]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "INIT",
+          "description": "Initialize message digest calculation Writing this bit to 1 resets the hash processor core, so that the HASH is ready to compute the message digest of a new message. Writing this bit to 0 has no effect. Reading this bit always return 0.",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110101100000000000011"
+        }
+      ]
+    },
+    {
+      "name": "DIN",
+      "description": "data input register",
+      "offset": "0x04",
+      "fields": []
+    },
+    {
+      "name": "STR",
+      "description": "start register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. DCAL Res. Res. Res. NBLW[4:0] rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "DCAL",
+          "description": "Digest calculation Writing this bit to 1 starts the message paddi ng, using the previous ly written value of NBLW[4:0], and starts the calculation of the fi nal message digest with all data words written to the input FIFO since the IN IT bit was last written to 1. Reading this bit returns 0.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "NBLW",
+          "description": "Number of valid bits in the last word When the last word of the message bit string is written in HASH_DIN register, the hash processor takes only the valid bits specified as below, after internal data swapping:",
+          "values": [
+            ["0x00", "All 32 bits of the last data writt en are valid message bits that is M[31:0]"],
+            ["0x01", "Only one bit of the last data writt en (after swapping) is valid that is M[0]"],
+            ["0x02", "Only two bits of the last data written (after swapping) are valid that is M[1:0]"],
+            ["0x03", "Only three bits of the last data written (after swappin g) are valid that is M[2:0] ..."],
+            ["0x1F", "Only 31 bits of the last data writt en (after swapping) are valid that is M[30:0] The above mechanism is valid only if DCAL = 0. If NBLW[4:0] bitfield is written while DCAL is set to 1, the NBLW[4:0] bitfield remains unc hanged. In other words it is not possible to configure NBLW[4:0] and set DCAL at the same time. Reading NBLW[4:0] bitfield returns the last value written to NBLW[4:0]."]
+          ],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111011100000"
+        }
+      ]
+    }
+  ]
+}

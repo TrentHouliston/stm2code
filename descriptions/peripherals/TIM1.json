@@ -1,0 +1,209 @@
+{
+  "TIM1": [
+    {
+      "name": "AF1",
+      "description": "alternate function option register 1",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "ETRSEL",
+          "description": "ETR source selection These bits select the ETR input source. These bits can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0000", "ETR input is connected to I/O"],
+            ["0001", "COMP1 output"],
+            ["0010", "COMP2 output"],
+            ["0011", "ADC1 AWD1"],
+            ["0100", "ADC1 AWD2"],
+            ["0101", "ADC1 AWD3"],
+            ["0110", "ADC3 AWD1"],
+            ["0111", "ADC3 AWD2"],
+            ["1000", "ADC3 AWD3"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000000000"
+        },
+        {
+          "name": "BKCMP2P",
+          "description": "BRK COMP2 input polarity This bit selects the COMP2 input sensitivity. It must be programmed together with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP2 input polarity is not inverted (a ctive low if BKP=0, active high if BKP=1)"],
+            ["1", "COMP2 input polarity is inverted (activ e high if BKP=0, active low if BKP=1)"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "BKCMP1P",
+          "description": "BRK COMP1 input polarity This bit selects the COMP1 input sensitivity. It must be programmed together with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input polarity is not inverted (a ctive low if BKP=0, active high if BKP=1)"],
+            ["1", "COMP1 input polarity is inverted (activ e high if BKP=0, active low if BKP=1)"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "BKINP",
+          "description": "BRK BKIN input polarity This bit selects the BKIN alternate function input sensitivity. It must be programmed together with the BKP polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "BKIN input polarity is not inverted (act ive low if BKP=0, ac tive high if BKP=1)"],
+            ["1", "BKIN input polarity is inverted (act ive high if BKP=0, active low if BKP=1)"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BKDF1BK0E",
+          "description": "BRK dfsdm1_break[0] enable This bit enables the dfsdm1_break[0] for the timer\u2019s BRK input. dfsdm1_break[0] output is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "dfsdm1_break[0] input disabled"],
+            ["1", "dfsdm1_break[0] input enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "BKCMP2E",
+          "description": "BRK COMP2 enable This bit enables the COMP2 for the timer\u2019s BRK input. COMP2 output is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP2 input disabled"],
+            ["1", "COMP2 input enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "BKCMP1E",
+          "description": "BRK COMP1 enable This bit enables the COMP1 for the timer\u2019s BRK input. COMP1 output is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register). Refer to Figure366: TIM1/TIM8 ETR input circuitryFigure387: Break and Break2 circuitry overview BKINE : BRK BKIN input enable This bit enables the BKIN alternate function input for the timer\u2019s BRK input. BKIN input is \u2018ORed\u2019 with the other BRK sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input disabled"],
+            ["1", "COMP1 input enabled"],
+            ["0", "BKIN input disabled"],
+            ["1", "BKIN input enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111000011000011111000"
+        }
+      ]
+    },
+    {
+      "name": "AF2",
+      "description": "Alternate function register 2",
+      "offset": "0x64",
+      "fields": [
+        {
+          "name": "BK2CMP2P",
+          "description": "BRK2 COMP2 input polarity This bit selects the COMP2 input sensitivity. It must be programmed together with the BK2P polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP2 input polarity is not inverted (act ive low if BK2P=0, ac tive high if BK2P=1)"],
+            ["1", "COMP2 input polarity is inverted (act ive high if BK2P=0, active low if BK2P=1)"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "BK2CMP1P",
+          "description": "BRK2 COMP1 input polarity This bit selects the COMP1 input sensitivity. It must be programmed together with the BK2P polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input polarity is not inverted (act ive low if BK2P=0, ac tive high if BK2P=1)"],
+            ["1", "COMP1 input polarity is inverted (act ive high if BK2P=0, active low if BK2P=1)"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "BK2INP",
+          "description": "BRK2 BKIN2 input polarity This bit selects the BKIN2 al ternate function input sensitivity. It must be programmed together with the BK2P polarity bit. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register). Refer to Figure387: Break and Break2 circuitry overview BK2DF1BK1E : BRK2 dfsdm1_break[1] enable This bit enables the dfsdm1_break[1] for the time r\u2019s BRK2 input. dfsdm1_break[1] output is \u2018ORed\u2019 with the other BRK2 sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "BKIN2 input polarity is not inverted (act ive low if BK2P=0, active high if BK2P=1)"],
+            ["1", "BKIN2 input polarity is inverted (act ive high if BK2P=0, active low if BK2P=1)"],
+            ["0", "dfsdm1_break[1] input disabled"],
+            ["1", "dfsdm1_break[1] input enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "BK2CMP2E",
+          "description": "BRK2 COMP2 enable This bit enables the COMP2 for the timer\u2019s BRK2 input. COMP2 output is \u2018ORed\u2019 with the other BRK2 sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP2 input disabled"],
+            ["1", "COMP2 input enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "BK2CMP1E",
+          "description": "BRK2 COMP1 enable This bit enables the COMP1 for the timer\u2019s BRK2 input. COMP1 output is \u2018ORed\u2019 with the other BRK2 sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "COMP1 input disabled"],
+            ["1", "COMP1 input enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "BK2INE",
+          "description": "BRK2 BKIN input enable This bit enables the BKIN2 alternate function input for the timer\u2019s BRK2 input. BKIN2 input is \u2018ORed\u2019 with the other BRK2 sources. This bit can not be modified as long as LOCK level 1 has been programmed (LOCK bits in TIMx_BDTR register).",
+          "values": [
+            ["0", "BKIN2 input disabled"],
+            ["1", "BKIN2 input enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000011111000"
+        }
+      ]
+    },
+    {
+      "name": "TISEL",
+      "description": "timer input selection register",
+      "offset": "0x68",
+      "fields": [
+        {
+          "name": "TI4SEL",
+          "description": "selects TI4[0] to TI4[15] input",
+          "values": [
+            ["0000", "TIM1_CH4 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "TI3SEL",
+          "description": "selects TI3[0] to TI3[15] input",
+          "values": [
+            ["0000", "TIM1_CH3 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "TI2SEL",
+          "description": "selects TI2[0] to TI2[15] input",
+          "values": [
+            ["0000", "TIM1_CH2 input"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "TI1SEL",
+          "description": "selects TI1[0] to TI1[15] input",
+          "values": [
+            ["0000", "TIM1_CH1 input"],
+            ["0001", "COMP1 output"],
+            ["Others", "Reserved"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000111100001111000011110000"
+        }
+      ]
+    }
+  ]
+}

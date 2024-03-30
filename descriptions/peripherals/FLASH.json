@@ -1,0 +1,1820 @@
+{
+  "FLASH": [
+    {
+      "name": "ACR",
+      "description": "access control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "WRHIGHFREQ",
+          "description": "Flash signal delay These bits are used to control the delay between non-volatile memory signals during programming operations. The application software has to program them to the correct value depending on the embedded flash memory interface frequency. Please refer to Table 17 for details. No check is performed by hardware to ve rify that the configuration is correct.",
+          "values": [],
+          "mask": "0b110000"
+        },
+        {
+          "name": "LATENCY",
+          "description": "Read latency These bits are used to control the number of wa it states used during read operations on both non-volatile memory banks. The application so ftware has to program them to the correct value depending on the embedded flash memory interface frequency and voltage conditions. No check is performed by hardware to ve rify that the configuration is correct.",
+          "values": [
+            ["0000", "zero wait state used to r ead a word from non-volatile memory"],
+            ["0001", "one wait state used to read a word from non-volatile memory"],
+            ["0010", "two wait states used to read a word from non-volatile memory ..."],
+            ["0111", "seven wait states used to r ead a word from non-volatile memory"]
+          ],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "KEYR1",
+      "description": "key register for bank 1",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "KEY1R",
+          "description": "Non-volatile memory bank 1 configuration access unlock key",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "OPTKEYR",
+      "description": "option key register",
+      "offset": "0x08",
+      "fields": [
+        {
+          "name": "OPTKEYR",
+          "description": "FLASH option bytes cont rol access unlock key",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CR1",
+      "description": "control register for bank 1",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "CRCRDERRIE1",
+          "description": "Bank 1 CRC read error interrupt enable bit When CRCRDERRIE1 bit is set to 1, an inte rrupt is generated when a protected area (PCROP or secure-only) has been detected du ring the last CRC com putation on bank 1. CRCRDERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a CRC read error occurs on bank 1"],
+            ["1", "interrupt generated when a CRC read error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "CRCENDIE1",
+          "description": "Bank 1 CRC end of calculation interrupt enable bit When CRCENDIE1 bit is set to 1, an interrupt is generated when the CRC computation has completed on bank 1. CRCENDIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when CRC co mputation complete on bank 1"],
+            ["1", "interrupt generated when CRC computation complete on bank 1"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "DBECCERRIE1",
+          "description": "Bank 1 ECC double detection error interrupt enable bit When DBECCERRIE1 bit is set to 1, an in terrupt is generated when an ECC double detection error occurs during a read o peration from bank 1. DBECCERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs on bank 1"],
+            ["1", "interrupt generated if an ECC double detection error occurs on bank 1"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "SNECCERRIE1",
+          "description": "Bank 1 ECC single correction error interrupt enable bit When SNECCERRIE1 bit is set to 1, an interrupt is generated when an ECC single correction error occurs during a read operation from bank 1. SNECCERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when an ECC single correction error occurs on bank 1"],
+            ["1", "interrupt generated when an ECC singl e correction error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "RDSERRIE1",
+          "description": "Bank 1 secure error interrupt enable bit When RDSERRIE1 bit is set to 1, an interrupt is generated when a secure error (access to a secure-only protected address) occurs duri ng a read operation fr om bank 1. RDSERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a secure error occurs on bank 1"],
+            ["1", "an interrupt is generated when a secure error occurs on bank 1"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RDPERRIE1",
+          "description": "Bank 1 read protection error interrupt enable bit When RDPERRIE1 bit is set to 1, an interrupt is generated when a read protection error occurs (access to an address protected by PCROP or by RDP level 1) during a read operation from bank 1. RDPERRIE1 can be pr ogrammed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a read protection error occurs on bank 1"],
+            ["1", "an interrupt is generated when a read protection error occurs on bank 1"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "OPERRIE1",
+          "description": "Bank 1 write/erase error interrupt enable bit When OPERRIE1 bit is set to 1, an interrupt is generated when an error is detected during a write/erase operation to bank 1. OPERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a writ e/erase error occurs on bank 1"],
+            ["1", "interrupt generated when a write/erase error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "INCERRIE1",
+          "description": "Bank 1 inconsistency error interrupt enable bit When INCERRIE1 bit is set to 1, an interr upt is generated when an inconsistency error occurs during a write operation to bank 1. INCERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a inconsistency error occurs on bank 1"],
+            ["1", "interrupt generated when a inc onsistency error occurs on bank 1."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "STRBERRIE1",
+          "description": "Bank 1 strobe error interrupt enable bit When STRBERRIE1 bit is set to 1, an interrupt is generated when a strobe error occurs (the master programs several times the same byte in the write buffer) during a write operation to bank 1. STRBERRIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a strobe error occurs on bank 1"],
+            ["1", "interrupt generated when strobe error occurs on bank 1."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "PGSERRIE1",
+          "description": "Bank 1 programming sequence error interrupt enable bit When PGSERRIE1 bit is set to 1, an interrupt is generated when a sequence error occurs during a program operation to bank 1. PGSERRIE1 can be prog rammed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a sequence error occurs on bank 1"],
+            ["1", "interrupt generated when sequence error occurs on bank 1."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "WRPERRIE1",
+          "description": "Bank 1 write protection error interrupt enable bit When WRPERRIE1 bit is set to 1, an interrupt is generated when a protection error occurs during a program operation to bank 1. WRPER RIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a protection error occurs on bank 1"],
+            ["1", "interrupt generated when a pr otection error occurs on bank 1."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EOPIE1",
+          "description": "Bank 1 end-of-program interrupt control bit Setting EOPIE1 bit to 1 enables the generation of an interrupt at the end of a program operation to bank 1. EOPIE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated at the end of a program operation to bank 1."],
+            ["1", "interrupt enabled when at the e nd of a program operation to bank 1."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CRC_EN",
+          "description": "Bank 1 CRC control bit Setting CRC_EN bit to 1 enables the CRC calculation on bank 1. CRC_EN does not start CRC calculation but enables CRC configuration through FLASH_CRCCR1 register. When CRC calculation is performed on bank 1, it can only be disabled by setting CRC_EN bit to 0. Resetting CRC_EN clears CRC conf iguration and resets the content of FLASH_CRCDATAR register. Clearing CRC_EN to 0 sets CRCDATA to 0x0.CRC_EN can be programmed only when LOCK1 is cleared to 0.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "SNB1",
+          "description": "Bank 1 sector erase selection number These bits are used to select the target sect or for a sector erase op eration (they are unused otherwise). SNB1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["000", "sector 0 of bank 1"],
+            ["001", "sector 1 of bank 1..."],
+            ["111", "sector 7 of bank 1"]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "START1",
+          "description": "Bank 1 erase start control bit START1 bit is used to start a sector erase or a bank erase operation. START1 can be programmed only when LOCK1 is cleared to 0. The embedded flash memory resets START1 when the corresponding operation has been acknowledged. The user application cannot a ccess any embedded flash memory register until the operation is acknowledged.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "FW1",
+          "description": "Bank 1 write forcing control bit FW1 forces a write operation even if the write buffer is not full. In this ca se all bits not written are set to 1 by hardware. FW1 can be progra mmed only when LOCK1 is cleared to 0. The embedded flash memory resets FW1 when the corresponding operation has been acknowledged. The user application cannot a ccess any embedded flash memory register until the operation is acknowledged. Using a force-write operation prevents t he application from updating later the missing bits with something else than 1, because it is likely that it will lead to permanent ECC error.Write forcing is effective only if the write buffe r is not empty (in particular, FW1 does not start several write operations when the force-wr ite operations are performed consecutively).",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "PSIZE1",
+          "description": "Bank 1 program size PSIZE1 selects the parallelism used by the non-volatile memory during write and erase operations to bank 1. PSIZE1 can be programmed only when LOCK1 is cleared to 0.",
+          "values": [
+            ["00", "programming executed with byte parallelism"],
+            ["01", "programming executed with half-word parallelism"],
+            ["10", "programming executed with word parallelism"],
+            ["11", "programming executed with double word parallelism"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "BER1",
+          "description": "Bank 1 erase request Setting BER1 bit to 1 requests a bank erase operation on bank 1 (user flash memory only). BER1 can be programmed only when LOCK1 is cleared to 0. BER1 has a higher priority than SER Write protection error is triggered when a bank erase is required and some sectors are protected.",
+          "values": [
+            ["1", "if both are set, the embedded flash memory executes a bank erase."],
+            ["0", "bank erase not requested on bank 1"],
+            ["1", "bank erase requested on bank 1"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "SER1",
+          "description": "Bank 1 sector erase request Setting SER1 bit to 1 requests a sector erase on bank 1. SER1 can be programmed only when LOCK1 is cleared to 0. BER1 has a higher priority than SER Write protection error is triggered when a sector erase is required on a protected sector.",
+          "values": [
+            ["1", "if both bits are set, the embedded flash memory executes a bank erase."],
+            ["0", "sector erase not requested on bank 1"],
+            ["1", "sector erase requested on bank 1"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "PG1",
+          "description": "Bank 1 internal buffer control bit Setting PG1 bit to 1 enables internal buffer for write operations to bank 1. This allows preparing program operations even if a sector or bank erase is ongoing. PG1 can be programmed only when LOCK1 is cleared to 0. When PG1 is reset, the internal buffer is disabled for write operations to bank 1, and all the data stor ed in the buffer but not sent to the operation queue are lost.",
+          "values": [
+            ["0", "Internal buffer disabled for write operations to bank 1"],
+            ["1", "Internal buffer enabled for write operations to bank 1"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "LOCK1",
+          "description": "Bank 1 configuration lock bit This bit locks the FLASH_CR1 register. T he correct write sequence to FLASH_KEYR1 register unlocks this bit. If a wrong sequence is executed, or if the unlock sequence to FLASH_KEYR1 is performed twice, this bit re mains locked until th e next system reset. LOCK1 can be set by programming it to 1. When set to 1, a new unlock sequence is mandatory to unlock it. When LOCK1 changes from 0 to 1, the other bits of FLASH_CR1 register do not change.",
+          "values": [
+            ["0", "FLASH_CR1 register unlocked"],
+            ["1", "FLASH_CR1 register locked"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000100000111100000000000"
+        }
+      ]
+    },
+    {
+      "name": "SR1",
+      "description": "status register for bank 1",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "CRCEND1",
+          "description": "Bank 1 CRC end of calculation flag CRCEND1 bit is raised when the CRC computation has completed on bank 1. An interrupt is generated if CRCENDIE1 is set to 1. It is not necessary to reset CRCEND1 before restarting CRC computation. Writing 1 to CLR_CRCEND1 bit in FLASH_CCR1 register clears CRCEND1.",
+          "values": [
+            ["0", "CRC computation not complete on bank 1"],
+            ["1", "CRC computation complete on bank 1"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "DBECCERR1",
+          "description": "Bank 1 ECC double detection error flag DBECCERR1 flag is raised when an ECC double detection error occurs during a read operation from bank 1. An interrupt is generat ed if DBECCERRIE1 is set to 1. Writing 1 to CLR_DBECCERR1 bit in FLASH_CCR1 register clears DBECCERR1.",
+          "values": [
+            ["0", "no ECC double detection error occurred on bank 1"],
+            ["1", "ECC double detection error occurred on bank 1"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "SNECCERR1",
+          "description": "Bank 1 single correction error flag SNECCERR1 flag is raised when an ECC single correction error occurs during a read operation from bank 1. An interrupt is generat ed if SNECCERRIE1 is set to 1. Writing 1 to CLR_SNECCERR1 bit in FLASH_CCR1 register clears SNECCERR1.",
+          "values": [
+            ["0", "no ECC single correction error occurs on bank 1"],
+            ["1", "ECC single correction error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "RDSERR1",
+          "description": "Bank 1 secure error flag RDSERR1 flag is raised when a read secure error (read access to a secure-only protected word) occurs on bank 1. An interrupt is generated if RDSERRIE1 is set to 1. Writing 1 to CLR_RDSERR1 bit in FLASH_CCR1 register clears RDSERR1.",
+          "values": [
+            ["0", "no secure error occurs on bank 1"],
+            ["1", "a secure error occurs on bank 1"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RDPERR1",
+          "description": "Bank 1 read protection error flag RDPERR1 flag is raised when an read protection error (read access to a PCROP-protected or a RDP-protected area) occurs on bank 1. An interrupt is generated if RDPERRIE1 is set to 1. Writing 1 to CLR_RDPERR1 bit in FLASH_CCR1 register clears RDPERR1.",
+          "values": [
+            ["0", "no read protection error occurs on bank 1"],
+            ["1", "a read protection error occurs on bank 1"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "OPERR1",
+          "description": "Bank 1 write/erase error flag OPERR1 flag is raised when an error occurs during a write/erase to bank 1. An interrupt is generated if OPERRIE1 is set to 1. Writing 1 to CLR_OPERR1 bit in FLASH_CCR1 register clears OPERR1.",
+          "values": [
+            ["0", "no write/erase error occurs on bank 1"],
+            ["1", "a write/erase error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "INCERR1",
+          "description": "Bank 1 inconsistency error flag INCERR1 flag is raised when a inconsisten cy error occurs on bank 1. An interrupt is generated if INCERRIE1 is set to 1. Writ ing 1 to CLR_INCERR1 bit in the FLASH_CCR1 register clears INCERR1.",
+          "values": [
+            ["0", "no inconsistency error occurs on bank 1"],
+            ["1", "a inconsistency error occurs on bank 1"]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "STRBERR1",
+          "description": "Bank 1 strobe error flag STRBERR1 flag is raised when a strobe error occurs on bank 1 (when the master attempts to write several times the same byte in the writ e buffer). An interrupt is generated if the STRBERRIE1 bit is set to 1. Writing 1 to CLR_STRBERR1 bit in FLASH_CCR1 register clears STRBERR1.",
+          "values": [
+            ["0", "no strobe error occurs on bank 1"],
+            ["1", "a strobe error occurs on bank 1"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "PGSERR1",
+          "description": "Bank 1 programming sequence error flag PGSERR1 flag is raised when a sequence error occurs on bank 1. An interrupt is generated if the PGSERRIE1 bit is set to 1. Writing 1 to CLR_PGSERR1 bit in FLASH_CCR1 register clears PGSERR1.",
+          "values": [
+            ["0", "no sequence error occurs on bank 1"],
+            ["1", "a sequence error occurs on bank 1"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "WRPERR1",
+          "description": "Bank 1 write protection error flag WRPERR1 flag is raised when a protection error occurs during a program operation to bank 1. An interrupt is also generated if the WRPE RRIE1 is set to 1. Writing 1 to CLR_WRPERR1 bit in FLASH_CCR1 register clears WRPERR1.",
+          "values": [
+            ["0", "no write protection error occurs on bank 1"],
+            ["1", "a write protection error occurs on bank 1"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EOP1",
+          "description": "Bank 1 end-of-program flag EOP1 flag is set when a programming operation to bank 1 completes. An interrupt is generated if the EOPIE1 is set to 1. It is not necessary to reset EOP1 before starting a new operation. EOP1 bit is cleared by writing 1 to CLR_EOP1 bit in FLASH_CCR1 register.",
+          "values": [
+            ["0", "no programming operation completed on bank 1"],
+            ["1", "a programming operation completed on bank 1"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CRC_BUSY1",
+          "description": "Bank 1 CRC busy flagCRC_BUSY1 flag is set when a CRC calculation is ongoing on bank 1. This bit cannot be forced to 0. The user must wait until th e CRC calculation has completed or disable CRC computation on bank 1.",
+          "values": [
+            ["0", "no CRC calculation ongoing on bank 1"],
+            ["1", "CRC calculation ongoing on bank 1"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "QW1",
+          "description": "Bank 1 wait queue flag QW1 flag is set when a write, erase or opti on byte change operation is pending in the command queue buffer of bank 1. It is not possible to know what type of programming operation is present in the queue. This flag is reset by hardware when all write, erase or option byte change operations have been executed and thus removed from the waiting queue(s). This bit cannot be forced to 0. It is reset after a deterministic time if no other operations are requested.",
+          "values": [
+            ["0", "no write, erase or option by te change operations waiting in the operation queues of bank 1"],
+            ["1", "at least one write, erase or option byte change operati on is waiting in the operation queue of bank 1"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "WBNE1",
+          "description": "Bank 1 write buffer not empty flag WBNE1 flag is set when the embedded flash memory is waiting for new data to complete the write buffer. In this state, the write buffer is not empty. WBNE1 is reset by hardware each time the write buffer is complete or the write buff er is emptied following one of the event below: \u2013 the application software forces the writ e operation using FW1 bit in FLASH_CR1 \u2013 the embedded flash memory detects an error that involves data loss\u2013 the application software has disabl ed write operations in this bank This bit cannot be forced to 0. To reset it, cl ear the write buffer by performing any of the above listed actions, or send the missing data.",
+          "values": [
+            ["0", "write buffer of bank 1 empty or full"],
+            ["1", "write buffer of bank 1 waiting data to complete"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "BSY1",
+          "description": "Bank 1 busy flag BSY1 flag is set when an effective write, erase or option byte change operation is ongoing on bank 1. It is not possible to know what type of operation is being executed. BSY1 cannot be forced to 0. It is automatically re set by hardware every time a step in a write, erase or option byte change operation completes.",
+          "values": [
+            ["0", "no programming, erase or option byte change operation being executed on bank 1"],
+            ["1", "programming, erase or option byte change operation being executed on bank 1"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000100001111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "CCR1",
+      "description": "clear control register for bank 1",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "CLR_CRCEND1",
+          "description": "Bank 1 CRCEND1 flag clear bit Setting this bit to 1 resets to 0 CRCEND1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "CLR_DBECCERR1",
+          "description": "Bank 1 DBECCERR1 flag clear bit Setting this bit to 1 resets to 0 DBECCE RR1 flag in FLASH_SR1 register. If the SNECCERR1 flag of FLASH_SR1 register is cleared to 0, FLASH_ECC_FA1R register is reset to 0 as well.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "CLR_SNECCERR1",
+          "description": "Bank 1 SNECCERR1 flag clear bit Setting this bit to 1 resets to 0 SNECCE RR1 flag in FLASH_SR1 register. If the DBECCERR1 flag of FLASH_SR1 register is cleared to 0, FLASH_ECC_FA1R register is reset to 0 as well.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "CLR_RDSERR1",
+          "description": "Bank 1 RDSERR1 flag clear bit Setting this bit to 1 resets to 0 RD SERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "CLR_RDPERR1",
+          "description": "Bank 1 RDPERR1 flag clear bit Setting this bit to 1 resets to 0 RD PERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "CLR_OPERR1",
+          "description": "Bank 1 OPERR1 flag clear bit Setting this bit to 1 resets to 0 OPERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "CLR_INCERR1",
+          "description": "Bank 1 INCERR1 flag clear bit Setting this bit to 1 resets to 0 I NCERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "CLR_STRBERR1",
+          "description": "Bank 1 STRBERR1 flag clear bit Setting this bit to 1 resets to 0 ST RBERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "CLR_PGSERR1",
+          "description": "Bank 1 PGSERR1 flag clear bit Setting this bit to 1 resets to 0 PGSERR1 flag in FLASH_SR1 register. CLR_WRPERR1 : Bank 1 WRPERR1 flag clear bit Setting this bit to 1 resets to 0 WRPERR1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CLR_EOP1",
+          "description": "Bank 1 EOP1 flag clear bit Setting this bit to 1 resets to 0 EOP1 flag in FLASH_SR1 register.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000100001111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "OPTCR",
+      "description": "option control register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "SWAP_BANK",
+          "description": "Bank swapping option configuration bit SWAP_BANK controls whether bank 1 and bank 2 are swapped or not. This bit is loaded with the SWAP_BANK_OPT bit of FLASH_OPTSR_CUR register only after reset or POR. The flash bank swapping is not available on STM32H750xB devices. The SWAP_BANK option bit must be kept at '0'.",
+          "values": [
+            ["0", "bank 1 and bank 2 not swapped"],
+            ["1", "bank 1 and bank 2 swapped"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "OPTCHANGEERRIE",
+          "description": "Option byte change error interrupt enable bit OPTCHANGEERRIE bit controls if an interrupt has to be generated when an error occurs during an option byte change.",
+          "values": [
+            ["0", "no interrupt is generated when an error occurs during an option byte change"],
+            ["1", "an interrupt is generated when and error occurs during an option byte change."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "MER",
+          "description": "mass erase request Setting this bit launches a non-volatile memory bank erase on both banks (i.e. mass erase). Programming MER bit to 1 auto matically sets BER1, BER2, START1 and START2 to 1. FLASH_OPTCR, FLASH_CR1 and FLASH_CR2 mu st be unlocked prior to setting MER high.",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "OPTSTART",
+          "description": "Option byte start change option configuration bit OPTSTART triggers an option byte change operation. The user can set OPTSTART only when the OPTLOCK bit is cleared to 0. The embedded flash memory resets OPTSTART when the option byte change operation has been acknowledged. The user application cannot modify any embed ded flash memory register until the option change operation has been completed. Before setting this bit, the user has to write the require d values in the FLASH_XXX_PRG registers. The FLASH_XXX_PRG registers will be locked until the option byte change operation has been executed in non-volatile memory. It is not possible to start an option byte c hange operation if a CRC calculation is ongoing on bank 1 or bank 2. Trying to set OPTSTART when CRC_BUSY1/2 of FLASH_SR1/2 register is set has not effect; the option byte change does not start and no error is generated.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "OPTLOCK",
+          "description": "FLASH_OPTCR lock option configuration bit The OPTLOCK bit locks the FLASH_OPTCR regist er as well as all _PRG registers. The correct write sequence to FLASH_OPTKEYR register unlocks this bit. If a wrong sequence is executed, or the unlock sequence to FLASH_OPT KEYR is performed twice, this bit remains locked until next system reset. It is possible to set OPTLOCK by programming it to 1. When set to 1, a new unlock sequence is mandatory to unlock it. When OPTLOCK changes from 0 to 1, the others bits of FLASH_OPTCR register do not change.",
+          "values": [
+            ["0", "FLASH_OPTCR register unlocked"],
+            ["1", "FLASH_OPTCR register locked."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "OPTSR_CUR",
+      "description": "option status register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "SWAP_BANK_OPT",
+          "description": "Bank swapping option status bit SWAP_BANK_OPT reflects whether bank 1 and bank 2 are swapped or not. SWAP_BANK_OPT is loaded to SWAP_B ANK of FLASH_OPTCR after a reset. The flash bank swapping is not available on STM32H750xB devices. The SWAP_BANK option bit must be kept at '0'.",
+          "values": [
+            ["0", "bank 1 and bank 2 not swapped"],
+            ["1", "bank 1 and bank 2 swapped"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "OPTCHANGEERR",
+          "description": "Option byte change error flag OPTCHANGEERR flag indicates that an error occurred during an option byte change operation. When OPTCHANGEERR is set to 1, the option byte change operation did not successfully complete. An interrupt is genera ted when this flag is raised if the OPTCHANGEERRIE bit of FLASH_OPT CR register is set to 1. Writing 1 to CLR_OPTCHANGEERR of register FLASH_OPTCCR clears OPTCHANGEERR.",
+          "values": [
+            ["0", "no option byte change errors occurred"],
+            ["1", "one or more errors occurred during an option byte change operation."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "IO_HSLV",
+          "description": "I/O high-speed at lo w-voltage status bit This bit indicates that the product operates below 2.7 V.",
+          "values": [
+            ["0", "Product working in the full voltage range, I/O speed optimization at low-voltage disabled"],
+            ["1", "Product operating below 2.7 V, I/O speed optimization at low-voltage feature allowed"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "SECURITY",
+          "description": "Security enable option status bit",
+          "values": [
+            ["0", "Security feature disabled"],
+            ["1", "Security feature enabled."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "ST_RAM_SIZE",
+          "description": "ST RAM size option status This bitfield is effective only when the security is enabled (SECURITY = 1).",
+          "values": [
+            ["00", "2 Kbytes reserved to ST code"],
+            ["01", "4 Kbytes reserved to ST code"],
+            ["10", "8 Kbytes reserved to ST code"],
+            ["11", "16 Kbytes reserved to ST code"]
+          ],
+          "mask": "0b110000000000000000000"
+        },
+        {
+          "name": "IWDG_FZ_SDBY",
+          "description": "IWDG Standby mode fr eeze option status bit When set the independent watchdog IWDG1 is frozen in system Standby mode.",
+          "values": [
+            ["0", "Independent watchdog frozen in Standby mode"],
+            ["1", "Independent watchdog keep running in Standby mode."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "IWDG_FZ_STOP",
+          "description": "IWDG Stop mode free ze option status bit When set the independent watchdog IWDG1 is in system Stop mode.",
+          "values": [
+            ["0", "Independent watchdog frozen in system Stop mode"],
+            ["1", "Independent watchdog keep running in system Stop mode."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "RDP",
+          "description": "Readout protection le vel option status byte",
+          "values": [
+            ["0xAA", "global readout protection level 0"],
+            ["0xCC", "global readout protection level 2others values: global readout protection level 1."]
+          ],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "NRST_STDY_D1",
+          "description": "D1 domain DStandby entry reset option status bit",
+          "values": [
+            ["0", "a reset is generated when enter ing DStandby mode on D1 domain"],
+            ["1", "no reset generated when entering DStandby mode on D1 domain"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "NRST_STOP_D1",
+          "description": "D1 domain DStop entry reset option status bit",
+          "values": [
+            ["0", "a reset is generated when ent ering DStop mode on D1 domain"],
+            ["1", "no reset generated when entering DStop mode on D1 domain."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "IWDG1_SW",
+          "description": "IWDG1 control mode option status bit",
+          "values": [
+            ["0", "IWDG1 watchdog is controlled by hardware"],
+            ["1", "IWDG1 watchdog is controlled by software"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "BOR_LEV",
+          "description": "Brownout level option status bit These bits reflects the power level that generates a syst em reset.uuuuuuuuuuuuu Refer to device datasheet for the values of VBORx VDD reset thresholds.",
+          "values": [
+            ["00", "V BOR0 , brownout reset threshold 0"],
+            ["01", "VBOR1 , brownout reset threshold 1"],
+            ["10", "VBOR2 , brownout reset threshold 2"],
+            ["11", "VBOR3 , brownout reset threshold 3"]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "OPT_BUSY",
+          "description": "Option byte change ongoing flag OPT_BUSY indicates if an option byte change is ongoing. When this bit is set to 1, the embedded flash memory is performing an option ch ange and it is not possible to modify any embedded flash memory register.",
+          "values": [
+            ["0", "no option byte change ongoing"],
+            ["1", "an option byte change ongoing and all write accesses to flash registers are blocked until the option byte change completes."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111110000010000000000101110"
+        }
+      ]
+    },
+    {
+      "name": "OPTSR_PRG",
+      "description": "option status register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "SWAP_BANK_OPT",
+          "description": "Bank swapping option configuration bit SWAP_BANK_OPT option bit is used to configure whether the bank 1 and bank 2 are swapped or not. This bit is loaded with the SWAP_BANK_OPT bit of FLASH_OPTSR_CUR register after a reset. The flash bank swapping is not available on STM32H750xB devices. The SWAP_BANK option bit must be kept at '0'. ",
+          "values": [
+            ["0", "bank 1 and bank 2 not swapped"],
+            ["1", "bank 1 and bank 2 swapped"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "IO_HSLV",
+          "description": "I/O high-speed at low-vo ltage configuration bit This bit indicates that the product operates below 2.7 V.",
+          "values": [
+            ["0", "Product working in the full voltage range, I/O speed optimization at low-voltage disabled"],
+            ["1", "Product operating below 2.7 V, I/O speed optimization at low-voltage feature allowed"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "SECURITY",
+          "description": "Security enable option configuration bit The SECURITY option bit enables the secure access mode of the device during an option byte change. The change will be taken into account at next reset (next boot sequence). Once it is enabled, the security feature can be di sabled if no areas are protected by PCROP or Secure access mode. If there are secure-only or PCROP protected areas, perform a level regression (from level 1 to 0) and set all the bits to unprotect secure-only areas and PCROP areas.",
+          "values": [
+            ["0", "Security feature disabled"],
+            ["1", "Security feature enabled."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "ST_RAM_SIZE",
+          "description": "ST RAM size option configuration bits This bitfield is effective only when the security is enabled (SECURITY = 1).",
+          "values": [
+            ["00", "2 Kbytes reserved to ST code"],
+            ["01", "4 Kbytes reserved to ST code"],
+            ["10", "8 Kbytes reserved to ST code"],
+            ["11", "16 Kbytes reserved to ST code"]
+          ],
+          "mask": "0b110000000000000000000"
+        },
+        {
+          "name": "IWDG_FZ_SDBY",
+          "description": "IWDG Standby mode freeze option configuration bit This option bit is used to freeze or not the independent watchdog IWDG1 in system Standby mode.",
+          "values": [
+            ["0", "Independent watchdog frozen in Standby mode"],
+            ["1", "Independent watchdog keep running in Standby mode."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "IWDG_FZ_STOP",
+          "description": "IWDG Stop mode freeze option configuration bit This option bit is used to freeze or not the independent watchdog IWDG1 in system Stop mode.",
+          "values": [
+            ["0", "Independent watchdog frozen in system Stop mode"],
+            ["1", "Independent watchdog keep running in system Stop mode."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "RDP",
+          "description": "Readout protection level option configuration bits RDP bits are used to change the readout prot ection level. This change is possible only when the current protection level is different from level 2. The possible configurations are:",
+          "values": [
+            ["0xAA", "global readout protection level 0"],
+            ["0xCC", "global readout protection level 2others values: global readout protection level 1."]
+          ],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "NRST_STDY_D1",
+          "description": "D1 domain DStandby entry reset option configuration bit",
+          "values": [
+            ["0", "a reset is generated when enterin g DStandby mode on D1 domain."],
+            ["1", "no reset generated when entering DStandby mode on D1 domain"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "NRST_STOP_D1",
+          "description": "D1 domain DStop entry reset option configuration bit",
+          "values": [
+            ["0", "a reset is generated when ent ering DStop mode on D1 domain."],
+            ["1", "no reset generated when entering DStop mode on D1 domain."]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "IWDG1_SW",
+          "description": "IWDG1 control mode option configuration bit IWDG1_SW option bit is used to select if IWDG1 independent watchdog is controlled by hardware or by software.",
+          "values": [
+            ["0", "IWDG1 watchdog is controlled by hardware"],
+            ["1", "IWDG1 watchdog is controlled by software"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "BOR_LEV",
+          "description": "Brownout level option configuration bit These option bits are used to define the power level that gener ates a system reset. Refer to device datasheet for the values of VBORx VDD reset thresholds.",
+          "values": [
+            ["00", "V BOR0 , brownout reset threshold 0"],
+            ["01", "VBOR1 , brownout reset threshold 1 02: VBOR2 , brownout reset threshold 2 03: VBOR3 , brownout reset threshold 3"]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1011111110000010000000000100011"
+        }
+      ]
+    },
+    {
+      "name": "OPTCCR",
+      "description": "option clear control register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "CLR_OPTCHANGEERR",
+          "description": "OPTCHANGEERR reset bit This bit is used to reset the OPTCHANGEERR flag in FLASH_OPTSR_CUR register. FLASH_OPTCCR is write-only. It is reset by programming it to 1.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "PRAR_CUR1",
+      "description": "protection address for bank 1",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "PROT_AREA_END1",
+          "description": "Bank 1 PCROP area end status bits These bits contain the last 256-byte block of the PCROP area in bank 1. If this address is equal to PROT_AREA_STAR T1, the whole bank 1 is PCROP protected. If this address is lower than PROT_AREA_START1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "PROT_AREA_START1",
+          "description": "Bank 1 PCROP area start status bits These bits contain the first 256-byte block of the PCROP area in bank 1. If this address is equal to PROT_AREA_E ND1, the whole bank 1 is PCROP protected. If this address is higher than PROT_AREA_END1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PRAR_PRG1",
+      "description": "protection address for bank 1",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "DMEP1",
+          "description": "Bank 1 PCROP protected erase enable option configuration bit If DMEP1 is set to 1, the PCROP protected ar ea in bank 1 is erased when a protection level regression (change from level 1 to 0) or a bank erase with protection removal occurs.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "PROT_AREA_END1",
+          "description": "Bank 1 PCROP area end configuration bits These bits contain the last 256-byte block of the PCROP area in bank 1. If this address is equal to PROT_AREA_STAR T1, the whole bank 1 is PCROP protected. If this address is lower than PROT_AREA_START1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "PROT_AREA_START1",
+          "description": "Bank 1 PCROP area start configuration bits These bits contain the first 256-byte block of the PCROP area in bank 1. If this address is equal to PROT_AREA_E ND1, the whole bank 1 is PCROP protected. If this address is higher than PROT_AREA_END1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SCAR_CUR1",
+      "description": "secure address for bank 1",
+      "offset": "0x30",
+      "fields": [
+        {
+          "name": "DMES1",
+          "description": "Bank 1 secure access protected erase enable option status bit If DMES1 is set to 1, the secure access only area in bank 1 is erased when a protection level regression (change from level 1 to 0) or a bank erase with protection removal occurs.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "SEC_AREA_END1",
+          "description": "Bank 1 secure-only area end status bits These bits contain the last 256-byte blo ck of the secure-only area in bank 1. If this address is equal to SEC_AREA_START1, the whole bank 1 is secure access only. If this address is lower than SEC_AREA_START1, no protection is set on bank 1. The non-secure flash area starts at address 0x(SEC_AREA_END1 + 1)00.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "SEC_AREA_START1",
+          "description": "Bank 1 secure-only area start status bits These bits contain the first 256 bytes of block of the secure-only area in bank 1. If this address is equal to SEC_AREA_END1, the whole bank 1 is secure access only. If this address is higher than SEC_AREA_END1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SCAR_PRG1",
+      "description": "secure address for bank 1",
+      "offset": "0x34",
+      "fields": [
+        {
+          "name": "SEC_AREA_END1",
+          "description": "Bank 1 secure-only area end configuration bits These bits contain the last block of 256 bytes of the secure-only area in bank 1. If this address is equal to SEC_AREA_START1, the whole bank 1 is secure access only. If this address is lower than SEC_AREA_START1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "SEC_AREA_START1",
+          "description": "Bank 1 secure-only area start configuration bits These bits contain the first block of 256 bytes of the secure-only area in bank 1. If this address is equal to SEC_AREA_END1, the whole bank 1 is secure access only. If this address is higher than SEC_AREA_END1, no protection is set on bank 1.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "WPSN_CUR1R",
+      "description": "write sector protection for bank 1",
+      "offset": "0x38",
+      "fields": [
+        {
+          "name": "WRPSn1",
+          "description": "Bank 1 sector write protection option status byte Each FLASH_WPSGN_CUR1R bit reflects the writ e protection status of the corresponding bank 1 sector (0: sector is write protec ted; 1: sector is not write protected)",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "WPSN_PRG1R",
+      "description": "write sector protection for bank 1",
+      "offset": "0x3C",
+      "fields": [
+        {
+          "name": "WRPSn1",
+          "description": "Bank 1 sector write protection option status byte Setting each FLASH_WPSGN_PRG1R bit to 0 write-protects the corresponding bank 1 sector (0: sector is write protected; 1: sector is not write protected)",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "BOOT_CURR",
+      "description": "register boot address",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "BOOT_ADD1",
+          "description": "Arm\u00ae Cortex\u00ae-M7 boot address 1 These bits reflect the MSB of the Arm\u00ae Cortex\u00ae-M7 boot address when the BOOT pin is high.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "BOOT_ADD0",
+          "description": "Arm\u00ae Cortex\u00ae-M7 boot address 0 These bits reflect the MSB of the Arm\u00ae Cortex\u00ae-M7 boot address when the BOOT pin is low.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CRCCR1",
+      "description": "CRC control register for bank 1",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "CRC_BURST",
+          "description": "Bank 1 CRC burst size CRC_BURST bits set the size of the bursts that are generated by t he CRC calculation unit.",
+          "values": [
+            ["00", "every burst has a size of 4 flash words (256-bit)"],
+            ["01", "every burst has a size of 16 flash words (256-bit)"],
+            ["10", "every burst has a size of 64 flash words (256-bit)"],
+            ["11", "every burst has a size of 256 flash words (256-bit)"]
+          ],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "CLEAN_CRC",
+          "description": "Bank 1 CRC clear bit Setting CLEAN_CRC to 1 clears the current CRC result stored in the FLASH_CRCDATAR register. START_CRC : Bank 1 CRC start bit START_CRC bit triggers a CRC calculation on bank 1 using the current configuration. No CRC calculation can launched when an option byte change operation is ongoing because all write accesses to embedded flash memory regist ers are put on hold until the option byte change operation has completed.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "CLEAN_SECT",
+          "description": "Bank 1 CRC sector list clear bit Setting CLEAN_SECT to 1 clears the list of sectors on which the CRC is calculated.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ADD_SECT",
+          "description": "Bank 1 CRC sector select bit Setting ADD_SECT to 1 adds the sector whose number is CRC_SECT to the list of sectors on which the CRC is calculated.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "CRC_BY_SECT",
+          "description": "Bank 1 CRC sector mode select bit When CRC_BY_SECT is set to 1, the CRC calculation is performed at sector level, on the sectors present in the list of sectors. To add a sector to this list, use ADD_SECT and CRC_SECT bits. To clean the list, use CLEAN_SECT bit. When CRC_BY_SECT is reset to 0, the CRC calculation is performed on all addresses between CRC_START_ADDR and CRC_END_ADDR.",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "ALL_BANK",
+          "description": "Bank 1 CRC select bit When ALL_BANK is set to 1, all bank 1 user sectors are added to list of sectors on which the CRC is calculated.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CRC_SECT",
+          "description": "Bank 1 CRC sector number CRC_SECT is used to select one or more user fl ash sectors to be added to the list of sectors on which the CRC is calculated. The CRC can be computed either between two addresses (using registers FLASH_CRCSADD1R and FLASH_CRC EADD1R) or on a list of sectors. If this latter option is selected, it is possible to add a sector to the list of sectors by programming the sector number in CRC_SECT and then setting ADD_SECT to 1. The list of sectors can be erased either by setting CLEAN_SECT bit or by disabling the CRC computation. CRC_SECT can be set only when CRC_EN of FLASH_CR register is set to 1.",
+          "values": [
+            ["000", "sector 0 of bank 1"],
+            ["001", "sector 1 of bank 1..."],
+            ["111", "sector 7 of bank 1"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110011001111100001111000"
+        }
+      ]
+    },
+    {
+      "name": "CRCSADD1R",
+      "description": "CRC start address register for bank 1",
+      "offset": "0x54",
+      "fields": [
+        {
+          "name": "CRC_START_ADDR",
+          "description": "CRC start address on bank 1 CRC_START_ADDR is used when CRC_BY_SECT is cleared to 0. It must be programmed to the start address of the bank 1 memory ar ea on which the CRC calculation is performed.",
+          "values": [],
+          "mask": "0b11111111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11"
+        }
+      ]
+    },
+    {
+      "name": "CRCEADD1R",
+      "description": "CRC end address register for bank 1",
+      "offset": "0x58",
+      "fields": [
+        {
+          "name": "CRC_END_ADDR",
+          "description": "CRC end address on bank 1 CRC_END_ADDR is used when CRC_BY_SECT is cleared to 0. It must be programmed to the end address of the bank 1 memory area on which the CRC calculation is performed",
+          "values": [],
+          "mask": "0b11111111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "CRCDATAR",
+      "description": "CRC data register",
+      "offset": "0x5C",
+      "fields": [
+        {
+          "name": "CRC_DATA",
+          "description": "CRC result CRC_DATA bits contain the result of the last CRC calculation.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ECC_FA1R",
+      "description": "ECC fail address for bank 1",
+      "offset": "0x60",
+      "fields": [
+        {
+          "name": "FAIL_ECC_ADDR1",
+          "description": "Bank 1 ECC error address When an ECC error occurs (both for single correction or double detection) during a read operation from bank 1, the FAIL_ECC_ADDR1 bitfield indicates the address that generated the error: Fail address = FAIL_ECC_ADDR1 * 32 + flash memory Bank 1 address offsetFAIL_ECC_ADDR1 is reset when the flag error in the FLASH_SR1 register (CLR_SNECCERR1 or CLR_DBECCERR1) is reset. The embedded flash memory programs the address in this register only when no ECC error flags are set. This means that only the first address that generated an ECC error is saved. The address in FAIL_ECC_ADDR1 is relative to the flash memory area where the error occurred (user flash memo ry, system flash memory).",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "KEYR2",
+      "description": "key register for bank 2",
+      "offset": "0x104",
+      "fields": [
+        {
+          "name": "KEY2R",
+          "description": "Bank 2 access configuration unlock key",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CR2",
+      "description": "control register for bank 2",
+      "offset": "0x10C",
+      "fields": [
+        {
+          "name": "CRCRDERRIE2",
+          "description": "Bank 2 CRC read error interrupt enable bit When CRCRDERRIE2 bit is set to 1, an inte rrupt is generated when a protected area (PCROP or secure-only) has been detected du ring the last CRC com putation on bank 2. CRCRDERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a CRC read error occurs on bank 2"],
+            ["1", "interrupt generated when a CRC read error occurs on bank 2"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "CRCENDIE2",
+          "description": "Bank 2 CRC end of calculation interrupt enable bit When CRCENDIE2 bit is set to 1, an interrupt is generated when the CRC computation has completed on bank 2. CRCENDIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when CRC co mputation complete on bank 2"],
+            ["1", "interrupt generated when CRC computation complete on bank 2"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "DBECCERRIE2",
+          "description": "Bank 2 ECC double detection error interrupt enable bit When DBECCERRIE2 bit is set to 1, an in terrupt is generated when an ECC double detection error occurs during a read o peration from bank 2. DBECCERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when an ECC double detection error occurs on bank 2"],
+            ["1", "interrupt generated if an ECC double detection error occurs on bank 2"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "SNECCERRIE2",
+          "description": "Bank 2 ECC single correction error interrupt enable bit When SNECCERRIE2 bit is set to 1, an interrupt is generated when an ECC single correction error occurs during a read operation from bank 2. SNECCERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when an ECC single correction error occurs on bank 2"],
+            ["1", "interrupt generated when an ECC singl e correction error occurs on bank 2"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "RDSERRIE2",
+          "description": "Bank 2 secure error interrupt enable bit When RDSERRIE2 bit is set to 1, an interrupt is generated when a secure error (access to a secure-only protected address) occurs duri ng a read operation fr om bank 2. RDSERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a secure error occurs on bank 2"],
+            ["1", "an interrupt is generated when a secure error occurs on bank 2"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RDPERRIE2",
+          "description": "Bank 2 read protection error interrupt enable bit When RDPERRIE2 bit is set to 1, an interrupt is generated when a read protection error occurs (access to an address protected by PCROP or by RDP level 1) during a read operation from bank 2. RDPERRIE2 can be pr ogrammed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a read protection error occurs on bank 2"],
+            ["1", "an interrupt is generated when a read protection error occurs on bank 2"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "OPERRIE2",
+          "description": "Bank 2 write/erase error interrupt enable bit When OPERRIE2 bit is set to 1, an interrupt is generated when an error is detected during a write/erase operation to bank 2. OPERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a writ e/erase error occurs on bank 2"],
+            ["1", "interrupt generated when a write/erase error occurs on bank 2"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "INCERRIE2",
+          "description": "Bank 2 inconsistency error interrupt enable bit When INCERRIE2 bit is set to 1, an interr upt is generated when an inconsistency error occurs during a write operation to bank 2. INCERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a inconsistency error occurs on bank 2"],
+            ["1", "interrupt generated when a inc onsistency error occurs on bank 2."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "STRBERRIE2",
+          "description": "Bank 2 strobe error interrupt enable bit When STRBERRIE2 bit is set to 1, an interrupt is generated when a strobe error occurs (the master programs several times the same byte in the write buffer) during a write operation to bank 2. STRBERRIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a strobe error occurs on bank 2"],
+            ["1", "interrupt generated when strobe error occurs on bank 2."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "PGSERRIE2",
+          "description": "Bank 2 programming sequence error interrupt enable bit When PGSERRIE2 bit is set to 1, an interrupt is generated when a sequence error occurs during a program operation to bank 2. PGSERRIE2 can be prog rammed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a sequence error occurs on bank 2"],
+            ["1", "interrupt generated when sequence error occurs on bank 2."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "WRPERRIE2",
+          "description": "Bank 2 write protection error interrupt enable bit When WRPERRIE2 bit is set to 1, an interrupt is generated when a protection error occurs during a program operation to bank 2. WRPER RIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated when a protection error occurs on bank 2"],
+            ["1", "interrupt generated when a pr otection error occurs on bank 2."]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EOPIE2",
+          "description": "Bank 2 end-of-program interrupt control bit Setting EOPIE2 bit to 1 enables the generation of an interrupt at the end of a program operation to bank 2. EOPIE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "no interrupt generated at the end of a program operation to bank 2."],
+            ["1", "interrupt enabled when at the e nd of a program operation to bank 2."]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CRC_EN",
+          "description": "Bank 2 CRC control bit Setting CRC_EN bit to 1 enables the CRC calculation on bank 2. CRC_EN does not start CRC calculation but enables CRC configuration through FLASH_CRCCR2 register. When CRC calculation is performed on bank 2, it can only be disabled by setting CRC_EN bit to 0. Resetting CRC_EN clears CRC conf iguration and resets the content of FLASH_CRCDATAR register. CRC_EN can be programmed only when LOCK2 is cleared to 0.",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "SPSS2",
+          "description": "Bank 2 special sector selection bit Set this bit when accessing non-user sectors of the flash memory. This bit can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["0", "User sectors se lection in bank 2"],
+            ["1", "Non-user, special sectors selection in bank 2"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "SNB2",
+          "description": "Bank 2 sector erase selection number These bits are used to select the target sect or for a sector erase op eration (they are unused otherwise). SNB2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["000", "sector 0 of bank 2"],
+            ["001", "sector 1 of bank 2..."],
+            ["111", "sector 7 of bank 2"]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "START2",
+          "description": "Bank 2 erase start control bit START2 bit is used to start a sector erase or a bank erase operation. START2 can be programmed only when LOCK2 is cleared to 0. The embedded flash memory resets START2 when the corresponding operation has been acknowledged. The user application cannot a ccess any embedded flash memory register until the operation is acknowledged.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "FW2",
+          "description": "Bank 2 write forcing control bit FW2 forces a write operation even if the write buffer is not full. FW2 can be programmed only when LOCK2 is cleared to 0. The embedded flash memory resets FW2 when the corresponding operation has been acknowledged. The user application cannot access any flash register unt il the operation is acknowledged. Write forcing is effective only if the write buffe r is not empty. In particular, FW2 does not start several write operations when the write operations are performed consecutively.",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "PSIZE2",
+          "description": "Bank 2 program size PSIZE2 selects the maximum number of bits t hat can be written to 0 in one shot during a write operation (programming parallelism). PSIZE2 can be programmed only when LOCK2 is cleared to 0.",
+          "values": [
+            ["00", "programming parallelism is byte (8 bits)"],
+            ["01", "programming parallelism is half-word (16 bits)"],
+            ["10", "programming parallelism is word (32 bits)"],
+            ["11", "programming parallelism is double-word (64 bits)"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "BER2",
+          "description": "Bank 2 erase request Setting BER2 bit to 1 requests a bank erase operation on bank 2 (user flash memory only). BER2 can be programmed only when LOCK2 is cleared to 0. BER2 has a higher priority than SER2: if both are set, the embedded flash memory executes a bank erase. Write protection error is triggered when a bank erase is required and some sectors are protected.",
+          "values": [
+            ["0", "bank erase not requested on bank 2"],
+            ["1", "bank erase requested on bank 2"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "SER2",
+          "description": "Bank 2 sector erase request Setting SER2 bit to 1 requests a sector erase on bank 2. SER2 can be programmed only when LOCK2 is cleared to 0. BER2 has a higher priority than SER2: if both are set, the embedded flash memory executes a bank erase. Write protection error is triggered w hen a sector erase is required on protected sector(s).",
+          "values": [
+            ["0", "sector erase not requested on bank 2"],
+            ["1", "sector erase requested on bank 2"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "PG2",
+          "description": "Bank 2 internal buffer control bit Setting PG2 bit to 1 enables internal buffer for write operations to bank 2. This allows the preparation of program operations even if a sector or bank erase is ongoing. PG2 can be programmed only when LOCK2 is cleared to 0. When PG2 is reset, the internal buffer is disabled for write operations to bank 2 and all the data stored in the buffer but not sent to the operation queue are lost.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "LOCK2",
+          "description": "Bank 2 configuration lock bit This bit locks the FLASH_CR2 register. T he correct write sequence to FLASH_KEYR2 register unlocks this bit. If a wrong sequence is executed, or the unlock sequence to FLASH_KEYR2 is performed twice, this bit remains locked until next system reset. LOCK2 can be set by programming it to 1. When set to 1, a new unlock sequence is mandatory to unlock it. When LOCK2 changes from 0 to 1, the other bits of FLASH_CR2 register do not change.",
+          "values": [
+            ["0", "FLASH_CR2 register unlocked"],
+            ["1", "FLASH_CR2 register locked"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000100000011100000000000"
+        }
+      ]
+    },
+    {
+      "name": "SR2",
+      "description": "status register for bank 2",
+      "offset": "0x110",
+      "fields": [
+        {
+          "name": "CRCEND2",
+          "description": "Bank 2 CRC end of calculation flag CRCEND2 bit is raised when the CRC computation has completed on bank 2. An interrupt is generated if CRCENDIE2 is set to 1. It is not necessary to reset CRCEND2 before restarting CRC computation. Writing 1 to CLR_CRCEND2 bit in FLASH_CCR2 register clears CRCEND2.",
+          "values": [
+            ["0", "CRC computation not complete on bank 2"],
+            ["1", "CRC computation complete on bank 2"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "DBECCERR2",
+          "description": "Bank 2 ECC double detection error flag DBECCERR2 flag is raised when an ECC double detection error occurs during a read operation from bank 2. An interrupt is generat ed if DBECCERRIE2 is set to 1. Writing 1 to CLR_DBECCERR2 bit in FLASH_CCR2 register clears DBECCERR2.",
+          "values": [
+            ["0", "no ECC double detection error occurs on bank 2"],
+            ["1", "ECC double detection error occurs on bank 2"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "SNECCERR2",
+          "description": "Bank 2 single correction error flag SNECCERR2 flag is raised when an ECC single correction error occurs during a read operation from bank 2. An interrupt is generat ed if SNECCERRIE2 is set to 1. Writing 1 to CLR_SNECCERR2 bit in FLASH_CCR2 register clears SNECCERR2.",
+          "values": [
+            ["0", "no ECC single correction error occurs on bank 2"],
+            ["1", "ECC single correction error occurs on bank 2"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "RDSERR2",
+          "description": "Bank 2 secure error flag RDSERR2 flag is raised when a read secure error (read access to a secure-only protected word) occurs on bank 2. An interrupt is generated if RDSERRIE2 is set to 1. Writing 1 to CLR_RDSERR2 bit in FLASH_CCR2 register clears RDSERR2.",
+          "values": [
+            ["0", "no secure error occurs on bank 2"],
+            ["1", "a secure error occurs on bank 2"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "RDPERR2",
+          "description": "Bank 2 read protection error flag RDPERR2 flag is raised when a read protection error (read access to a PCROP-protected word or a RDP-protected area) occurs on bank 2. An interrupt is generated if RDPERRIE2 is set to 1. Writing 1 to CLR_RDPERR2 bit in FLASH_CCR2 register clears RDPERR2.",
+          "values": [
+            ["0", "no read protection error occurs on bank 2"],
+            ["1", "a read protection error occurs on bank 2"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "OPERR2",
+          "description": "Bank 2 write/erase error flag OPERR2 flag is raised when an error occurs during a write/erase to bank 2. An interrupt is generated if OPERRIE2 is 1 set to 1. Wr iting 1 to CLR_OPERR2 bit in FLASH_CCR2 register clears OPERR2.",
+          "values": [
+            ["0", "no write/erase error occurred on bank 2"],
+            ["1", "a write/erase error occurred on bank 2"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "INCERR2",
+          "description": "Bank 2 inconsistency error flag INCERR2 flag is raised when a inconsisten cy error occurs on bank 2. An interrupt is generated if INCERRIE2 is set to 1. Writ ing 1 to CLR_INCERR2 bit in the FLASH_CCR2 register clears INCERR2.",
+          "values": [
+            ["0", "no inconsistency error occurred on bank 2"],
+            ["1", "an inconsistency error occurred on bank 2."]
+          ],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "STRBERR2",
+          "description": "Bank 2 strobe error flag STRBERR2 flag is raised when a strobe error occurs on bank 2 (when the master attempts to write several times the same byte in the writ e buffer). An interrupt is generated if the STRBERRIE2 bit is set to 1. Writing 1 to CLR_STRBERR2 bit in FLASH_CCR2 register clears STRBERR2.",
+          "values": [
+            ["0", "no strobe error occurred on bank 2"],
+            ["1", "a strobe error occurred on bank 2."]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "PGSERR2",
+          "description": "Bank 2 programming sequence error flag PGSERR2 flag is raised when a sequence error occurs on bank 2. An interrupt is generated if the PGSERRIE2 bit is set to 1. Writing 1 to CLR_PGSERR2 bit in FLASH_CCR2 register clears PGSERR2.",
+          "values": [
+            ["0", "no sequence error occurred on bank 2"],
+            ["1", "a sequence error occurred on bank 2."]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "WRPERR2",
+          "description": "Bank 2 write protection error flag WRPERR2 flag is raised when a protection error occurs during a program operation to bank 2. An interrupt is also generated if the WRPE RRIE2 is set to 1. Writing 1 to CLR_WRPERR2 bit in FLASH_CCR2 register clears WRPERR2.",
+          "values": [
+            ["0", "no write protection error occurred on bank 2"],
+            ["1", "a write protection error occurred on bank 2"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "EOP2",
+          "description": "Bank 2 end-of-program flag EOP2 flag is set when a programming operation to bank 2 completes. An interrupt is generated if the EOPIE2 is set to 1. It is not necessary to reset EOP2 before starting a new operation. EOP2 bit is cleared by writing 1 to CLR_EOP2 bit in FLASH_CCR2 register.",
+          "values": [
+            ["0", "no programming operation completed on bank 2"],
+            ["1", "a programming operation completed on bank 2"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CRC_BUSY2",
+          "description": "Bank 2 CRC busy flag CRC_BUSY2 flag is set when a CRC calculation is ongoing on bank 2. This bit cannot be forced to 0. The user must wait until th e CRC calculation has completed or disable CRC computation on bank 2.",
+          "values": [
+            ["0", "no CRC calculation ongoing on bank 2"],
+            ["1", "CRC calculation ongoing on bank 2."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "QW2",
+          "description": "Bank 2 wait queue flag QW2 flag is set when a write or erase operati on is pending in the command queue buffer of bank 2. It is not possible to know what type of operation is present in the queue. This flag is reset by hardware when all write/erase opera tions have been executed and thus removed from the waiting queue(s). This bit cannot be forced to 0. It is reset after a deterministic time if no other operations are requested.",
+          "values": [
+            ["0", "no write or erase operation is wait ing in the operation queues of bank 2"],
+            ["1", "at least one write or er ase operation is pending in the operation queues of bank 2"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "WBNE2",
+          "description": "Bank 2 write buffer not empty flag WBNE2 flag is set when embedded flash memory is waiting for new data to complete the write buffer. In this state the write buffer is not empty. WBNE2 is reset by hardware each time the write buffer is complete or the write buff er is emptied following one of the event below: \u2013 the application software forces the writ e operation using FW2 bit in FLASH_CR2 \u2013 the embedded flash memory detects an error that involves data loss \u2013 the application software has disabl ed write operations in this bank This bit cannot be forced to 0. To reset it, cl ear the write buffer by performing any of the above listed actions or send the missing data.",
+          "values": [
+            ["0", "write buffer of bank 2 empty or full"],
+            ["1", "write buffer of bank 2 waiting data to complete"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "BSY2",
+          "description": "Bank 2 busy flag BSY2 flag is set when an effective write or erase opera tion is ongoing to bank 2. It is not possible to know what type of operation is being executed. BSY2 cannot be forced to 0. It is automatically re set by hardware every time a step in a write, or erase operation completes.",
+          "values": [
+            ["0", "no write or erase operati on is executed on bank 2"],
+            ["1", "a write or an erase operation is being executed on bank 2."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000100001111111111110000"
+        }
+      ]
+    },
+    {
+      "name": "CCR2",
+      "description": "clear control register for bank 2",
+      "offset": "0x114",
+      "fields": [
+        {
+          "name": "CLR_CRCEND2",
+          "description": "Bank 2 CRCEND2 flag clear bit Setting this bit to 1 resets to 0 CRCEND2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "CLR_DBECCERR2",
+          "description": "Bank 2 DBECCERR2 flag clear bit Setting this bit to 1 resets to 0 DBECCE RR2 flag in FLASH_SR2 register. If the SNECCERR2 flag of FLASH_SR2 register is cleared to 0, FLASH_ECC_FA2R register is reset to 0 as well.",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "CLR_SNECCERR2",
+          "description": "Bank 2 SNECCERR2 flag clear bit Setting this bit to 1 resets to 0 SNECCE RR2 flag in FLASH_SR2 register. If the DBECCERR2 flag of FLASH_SR2 register is cleared to 0, FLASH_ECC_FA2R register is reset to 0 as well.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "CLR_RDSERR2",
+          "description": "Bank 2 RDSERR2 flag clear bit Setting this bit to 1 resets to 0 RD SERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "CLR_RDPERR2",
+          "description": "Bank 2 RDPERR2 flag clear bit Setting this bit to 1 resets to 0 RD PERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "CLR_OPERR2",
+          "description": "Bank 2 OPERR2 flag clear bit Setting this bit to 1 resets to 0 OPERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "CLR_INCERR2",
+          "description": "Bank 2 INCERR2 flag clear bit Setting this bit to 1 resets to 0 I NCERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "CLR_STRBERR2",
+          "description": "Bank 2 STRBERR2 flag clear bit Setting this bit to 1 resets to 0 ST RBERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "CLR_PGSERR2",
+          "description": "Bank 2 PGSERR2 flag clear bit Setting this bit to 1 resets to 0 PGSERR2 flag in FLASH_SR2 register. CLR_WRPERR2 : Bank 2 WRPERR2 flag clear bit Setting this bit to 1 resets to 0 WRPERR2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "CLR_EOP2",
+          "description": "Bank 2 EOP2 flag clear bit Setting this bit to 1 resets to 0 EOP2 flag in FLASH_SR2 register.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000100001111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "PRAR_CUR2",
+      "description": "protection address for bank 2",
+      "offset": "0x128",
+      "fields": [
+        {
+          "name": "DMEP2",
+          "description": "Bank 2 PCROP protected erase enable option status bit If DMEP2 is set to 1, the PCROP protected ar ea in bank 2 is erased when a protection level regression (change from level 1 to 0) or a bank erase with protection removal occurs.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "PROT_AREA_END2",
+          "description": "Bank 2 PCROP area end status bits These bits contain the last 256-byte block of the PCROP area in bank 2. If this address is equal to PROT_AREA_ST ART2, the whole bank 2 is PCROP protected. If this address is lower than PROT_AREA_START2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "PROT_AREA_START2",
+          "description": "Bank 2 PCROP area start status bits These bits contain the first 256-byte block of the PCROP area in bank 2. If this address is equal to PROT_AREA_E ND2, the whole bank 2 is PCROP protected. If this address is higher than PROT_AREA_END2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PRAR_PRG2",
+      "description": "protection address for bank 2",
+      "offset": "0x12C",
+      "fields": [
+        {
+          "name": "DMEP2",
+          "description": "Bank 2 PCROP protected erase enable option configuration bit If DMEP2 is set to 1, the PCROP protected ar ea in bank 2 is erased when a protection level regression (change from level 1 to 0) or a bank erase with protection removal occurs.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "PROT_AREA_END2",
+          "description": "Bank 2 PCROP area end configuration bits These bits contain the last 256-byte block of the PCROP area in bank 2. If this address is equal to PROT_AREA_ST ART2, the whole bank 2 is PCROP protected. If this address is lower than PROT_AREA_START2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "PROT_AREA_START2",
+          "description": "Bank 2 PCROP area start configuration bits These bits contain the first 256-byte block of the PCROP area in bank 2. If this address is equal to PROT_AREA_E ND2, the whole bank 2 is PCROP protected. If this address is higher than PROT_AREA_END2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SCAR_CUR2",
+      "description": "secure address for bank 2",
+      "offset": "0x130",
+      "fields": [
+        {
+          "name": "SEC_AREA_END2",
+          "description": "Bank 2 secure-only area end status bits These bits contain the last 256-byte blo ck of the secure-only area in bank 2. If this address is equal to SEC_AREA_START2, the whole bank 2 is secure protected.If this address is lower than SEC_AREA_START2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "SEC_AREA_START2",
+          "description": "Bank 2 secure-only area start status bits These bits contain the first 256-byte bl ock of the secure-only area in bank 2. If this address is equal to SEC_AREA_END2 , the whole bank 2 is secure protected. If this address is higher than SEC_AREA_END2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "SCAR_PRG2",
+      "description": "secure address for bank 2",
+      "offset": "0x134",
+      "fields": [
+        {
+          "name": "DMES2",
+          "description": "Bank 2 secure access protected er ase enable option configuration bit If DMES2 is set to 1, the secure access only area in bank 2 is erased when a protection level regression (change from level 1 to 0) or a bank erase with protection removal occurs.",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "SEC_AREA_END2",
+          "description": "Bank 2 secure-only area end configuration bits These bits contain the last of 256 bytes block of the secure-only area in bank 2. If this address is equal to SEC_AREA_START2, the whole bank 2 is secure access only.If this address is lower than SEC_AREA_START2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "SEC_AREA_START2",
+          "description": "Bank 2 secure-only area start configuration bits These bits contain the first of 256 bytes block of the secure-only area in bank 2. If this address is equal to SEC_AREA_END2, the whole bank 2 is secure access only.If this address is higher than SEC_AREA_END2, no protection is set on bank 2.",
+          "values": [],
+          "mask": "0b111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "WPSN_CUR2R",
+      "description": "write sector protection for bank 2",
+      "offset": "0x138",
+      "fields": [
+        {
+          "name": "WRPSn2",
+          "description": "Bank 2 sector write protection option status byte Each FLASH_WPSGN_CUR2R bit reflects the writ e protection status of the corresponding bank 2 sector (0: sector is write protec ted; 1: sector is not write protected)",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "WPSN_PRG2R",
+      "description": "write sector protection for bank 2",
+      "offset": "0x13C",
+      "fields": [
+        {
+          "name": "WRPSn2",
+          "description": "Bank 2 sector write protection option status byte Setting WRPSn2 bits to 0 write protects the co rresponding bank 2 sector (0: sector is write protected; 1: sector is not write protected)",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CRCCR2",
+      "description": "CRC control register for bank 2",
+      "offset": "0x150",
+      "fields": [
+        {
+          "name": "CRC_BURST",
+          "description": "Bank 2 CRC burst size CRC_BURST bits set the size of the bursts th at are generated by the CRC calculation unit.",
+          "values": [
+            ["00", "every burst has a size of 4 flash words (256-bit)"],
+            ["01", "every burst has a size of 16 flash words (256-bit)"],
+            ["10", "every burst has a size of 64 flash words (256-bit)"],
+            ["11", "every burst has a size of 256 flash words (256-bit)"]
+          ],
+          "mask": "0b1100000000000000000000"
+        },
+        {
+          "name": "CLEAN_CRC",
+          "description": "Bank 2 CRC clear bit Setting CLEAN_CRC to 1 clears the current CRC result stored in the FLASH_CRCDATAR register.",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "START_CRC",
+          "description": "Bank 2 CRC start bit START_CRC bit triggers a CRC calculation on bank 2 us ing the current confi guration. It is not possible to start a CRC calculation when an option byte change operation is ongoing because all write accesses to embedded flas h memory registers ar e put on hold until the option byte change operation has completed.",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "CLEAN_SECT",
+          "description": "Bank 2 CRC sector list clear bit Setting CLEAN_SECT to 1 clears the list of sectors on which the CRC is calculated.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "ADD_SECT",
+          "description": "Bank 2 CRC sector select bit Setting ADD_SECT to 1 adds the sector whose number is CRC_SECT to the list of sectors on which the CRC is calculated. CRC_BY_SECT : Bank 2 CRC sector mode select bit When CRC_BY_SECT is set to 1, the CRC calculation is performed at sector level, on the sectors selected by CRC_SECT. When CRC_BY_SECT is reset to 0, the CRC calculation is performed on all addresses between CRC_START_ADDR and CRC_END_ADDR.",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "ALL_BANK",
+          "description": "Bank 2 CRC select bit When ALL_BANK is set to 1, all bank 2 user sect ors are added to the list of sectors on which the CRC is calculated.",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CRC_SECT",
+          "description": "Bank 2 CRC sector number CRC_SECT is used to select one or more user flash sectors to be added to the CRC calculation. The CRC can be computed either between two addresses (using registers FLASH_CRCSADD2R and FLASH_CRCEADD2R) or on a list of sectors. If this latter option is selected, it is possible to add a sector to the list of sectors by programming the sector number in CRC_SECT and then setting ADD_SECT. to 1 The list of sectors can be erased either by setting CLEAN_SECT bit or by disabling the CRC computation. CRC_SECT can be set only when CRC_EN of FLASH_CR register is set to 1.",
+          "values": [
+            ["000", "sector 0 of bank 2"],
+            ["001", "sector 1 of bank 2..."],
+            ["111", "sector 7 of bank 2"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110011001111100001111000"
+        }
+      ]
+    },
+    {
+      "name": "CRCSADD2R",
+      "description": "CRC start address register for bank 2",
+      "offset": "0x154",
+      "fields": [
+        {
+          "name": "CRC_START_ADDR",
+          "description": "CRC start address on bank 2 CRC_START_ADDR is used when CRC_BY_SECT is cleared to 0. It must be programmed to the start address of the bank 2 memory ar ea on which the CRC calculation is performed.",
+          "values": [],
+          "mask": "0b11111111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "CRCEADD2R",
+      "description": "CRC end address register for bank 2",
+      "offset": "0x158",
+      "fields": [
+        {
+          "name": "CRC_END_ADDR",
+          "description": "CRC end address on bank 2 CRC_END_ADDR is used when CRC_BY_SECT is cleared to 0. It must be programmed to the end address of the bank 2 memory area on which the CRC calculation is performed.",
+          "values": [],
+          "mask": "0b11111111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "ECC_FA2R",
+      "description": "ECC fail address for bank 2",
+      "offset": "0x160",
+      "fields": [
+        {
+          "name": "FAIL_ECC_ADDR2",
+          "description": "Bank 2 ECC error address When an ECC error occurs (both for single error correction or double detection) during a read operation from bank 2, the FAIL_ECC_ADDR2 bitfield indicates the address that generated the error: Fail address = FAIL_ECC_ADDR2 * 32 + flash memory Bank 2 address offsetFAIL_ECC_ADDR2 is reset when the flag error in the FLASH_SR2 register (CLR_SNECCERR2 or CLR_DBECCERR2) is reset. The embedded flash memory programs the address in this register only when no ECC error flags are set. This means that only the first address that generated an ECC error is saved.",
+          "values": [],
+          "mask": "0b111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111000000000000000"
+        }
+      ]
+    }
+  ]
+}

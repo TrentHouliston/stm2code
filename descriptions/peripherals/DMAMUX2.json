@@ -1,0 +1,205 @@
+{
+  "DMAMUX2": [
+    {
+      "name": "CCR",
+      "description": "request line multiplexer channel x configuration register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "SYNC_ID",
+          "description": "Synchronizatio n identification Selects the synchroni zation input (see Table 127: DMAMUX2: assign ment of trigger inputs to resources )",
+          "values": [],
+          "mask": "0b11111000000000000000000000000"
+        },
+        {
+          "name": "NBREQ",
+          "description": "Number of DMA requests minus 1 to forward Defines the number of DMA requests to forward to the DMA controller after a synchronization event, and/or the number of DMA reques ts before an output event is generated. This field shall only be written when both SE and EGE bits are low.",
+          "values": [],
+          "mask": "0b111110000000000000000000"
+        },
+        {
+          "name": "SPOL",
+          "description": "Synchronization polarity Defines the edge polarity of the selected synchronization input:",
+          "values": [
+            ["00", "no event (no synchronization, no detection)."],
+            ["01", "rising edge"],
+            ["10", "falling edge"],
+            ["11", "rising and falling edges"]
+          ],
+          "mask": "0b1100000000000000000"
+        },
+        {
+          "name": "SE",
+          "description": "Synchronization enable",
+          "values": [
+            ["0", "synchronization disabled"],
+            ["1", "synchronization enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "EGE",
+          "description": "Event generation enable",
+          "values": [
+            ["0", "event generation disabled"],
+            ["1", "event generation enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "SOIE",
+          "description": "Synchronization overrun interrupt enable",
+          "values": [
+            ["0", "interrupt disabled"],
+            ["1", "interrupt enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "DMAREQ_ID",
+          "description": "DMA request identification Selects the input DMA request. (see the DMAMUX table about assignments of multiplexer inputs to resources).",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000001111110101100000"
+        }
+      ],
+      "array": [8]
+    },
+    {
+      "name": "CSR",
+      "description": "request line multiplexer interrupt channel status register",
+      "offset": "0x80",
+      "fields": [
+        {
+          "name": "SOF",
+          "description": "Synchronization overrun event flag The flag is set when a new synchronization event occurs on a DMA request line multiplexer channel x before the request counter underrun (t he internal request counter programmed via the NBREQ field of the DMAMUX_CxCR register). The flag is cleared by writing 1 to the corresponding CSOFx bit in DMAMUX2_CFR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "CFR",
+      "description": "request line multiplexer interrupt clear flag register",
+      "offset": "0x84",
+      "fields": [
+        {
+          "name": "CSOF",
+          "description": "Clear synchronization overrun event flag Writing 1 in each bit clears the corresponding overrun flag SOFx in the DMAMUX2_CSR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "RGCR",
+      "description": "request generator channel x configuration register",
+      "offset": "0x100",
+      "fields": [
+        {
+          "name": "GNBREQ",
+          "description": "Number of DMA requests to be generated (minus 1) Defines the number of DMA requests to be generated after a trigger event. The actual number of generated DM A requests is GNBREQ+1. This field shall only be written when GE bit is disabled.",
+          "values": [],
+          "mask": "0b111110000000000000000000"
+        },
+        {
+          "name": "GPOL",
+          "description": "DMA request generator trigger polarity Defines the edge polarity of the selected trigger input",
+          "values": [
+            ["00", "no event. I.e. none trig ger detection nor generation."],
+            ["01", "rising edge"],
+            ["10", "falling edge"],
+            ["11", "rising and falling edge"]
+          ],
+          "mask": "0b1100000000000000000"
+        },
+        {
+          "name": "GE",
+          "description": "DMA request generator channel x enable",
+          "values": [
+            ["0", "DMA request generator channel x disabled"],
+            ["1", "DMA request generator channel x enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "OIE",
+          "description": "Trigger overrun interrupt enable",
+          "values": [
+            ["0", "interrupt on a trigger overrun event occurrence is disabled"],
+            ["1", "interrupt on a trigger overrun event occurrence is enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "SIG_ID",
+          "description": "Signal identification Selects the DMA request trigger input used fo r the channel x of the DMA request generator",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000001111111011100000"
+        }
+      ],
+      "array": [8]
+    },
+    {
+      "name": "RGSR",
+      "description": "request generator interrupt status register",
+      "offset": "0x140",
+      "fields": [
+        {
+          "name": "OF",
+          "description": "Trigger overrun event flag The flag is set when a new trigger event occurs on DMA request generator channel x. The flag is cleared by writing 1 to the corresponding COFx bit in the DMAMUX2_RGCFR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "RGCFR",
+      "description": "request generator interrupt clear flag register",
+      "offset": "0x144",
+      "fields": [
+        {
+          "name": "COF",
+          "description": "Clear trigger overrun event flag Writing 1 in each bit clears the corresponding overrun flag OFx in the DMAMUX2_RGSR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3357 @@
+{
+  "FDCAN": [
+    {
+      "name": "CREL",
+      "description": "core release register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "REL",
+          "description": "Core release = 3",
+          "values": [],
+          "mask": "0b11110000000000000000000000000000"
+        },
+        {
+          "name": "STEP",
+          "description": "Step of core release = 2",
+          "values": [],
+          "mask": "0b1111000000000000000000000000"
+        },
+        {
+          "name": "SUBSTEP",
+          "description": "Sub-step of core release = 1",
+          "values": [],
+          "mask": "0b111100000000000000000000"
+        },
+        {
+          "name": "YEAR",
+          "description": "Timestamp year = 4",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "MON",
+          "description": "Timestamp month = 12",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "DAY",
+          "description": "Timestamp day =18",
+          "values": [],
+          "mask": "0b11111111"
+        }
+      ]
+    },
+    {
+      "name": "ENDN",
+      "description": "Endian register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "ETV",
+          "description": "Endianness test value The endianness test value is 0x8765 4321.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "DBTP",
+      "description": "data bit timing and prescaler register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "TDC",
+          "description": "Transceiver delay compensation",
+          "values": [
+            ["0", "Transceiver delay compensation disabled"],
+            ["1", "Transceiver delay compensation enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "DBRP",
+          "description": "Data bitrate prescaler The value by which the oscillator frequency is divided to generate the bit time quanta. The bit time is built up from a multiple of thes e quanta. Valid values for the bau drate prescaler are 0 to 31. The hardware interpreters this value as the programmed value plus 1.",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "DTSEG1",
+          "description": "Data time segment before sample point Valid values are 0 to 31. The value used by the hardware is the one progra mmed, incremented by 1, i.e. tBS1 = (DTSEG1 + 1) x tq.",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "DTSEG2",
+          "description": "Data time segment after sample point Valid values are 0 to 15. The value used by the hardware is the one progra mmed, incremented by 1, i.e. tBS2 = (DTSEG2 + 1) x tq.",
+          "values": [],
+          "mask": "0b11110000"
+        },
+        {
+          "name": "DSJW",
+          "description": "Synchronization jump width Valid values are 0 to 15. The value used by the hardware is the one progra mmed, incremented by 1, i.e. tSJW = (DSJW + 1) x tq.",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111011000001110000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TEST",
+      "description": "test register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "RX",
+          "description": "Receive pin Monitors the actual value of transmit pin FDCANx_RX",
+          "values": [
+            ["0", "The CAN bus is dominant (FDCANx_RX = 0)"],
+            ["1", "The CAN bus is recessive (FDCANx_RX = 1)"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TX",
+          "description": "Control of transmit pin",
+          "values": [
+            ["00", "Reset value , FDCANx_TX TX is controlled by the CAN core, updated at the end of the CAN bit time"],
+            ["01", "Sample point can be monitored at pin FDCANx_TX"],
+            ["10", "Dominant (0) level at pin FDCANx_TX"],
+            ["11", "Recessive (1) at pin FDCANx_TX"]
+          ],
+          "mask": "0b1100000"
+        },
+        {
+          "name": "LBCK",
+          "description": "Loop back mode",
+          "values": [
+            ["0", "Reset value, loop back mode is disabled"],
+            ["1", "Loop back mode is enabled (see Test modes )"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100001111"
+        }
+      ]
+    },
+    {
+      "name": "RWD",
+      "description": "RAM watchdog register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "WDV",
+          "description": "Watchdog value Actual message RAM watchdog counter value.",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "WDC",
+          "description": "Watchdog configuration Start value of the message RAM watchdog counter. With the reset value of 00 the counter is disabled. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "CCCR",
+      "description": "CC control register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "NISO",
+          "description": "Non ISO operation If this bit is set, the FDCAN uses the CAN FD frame format as specified by the Bosch CAN FD Specification V1.0.",
+          "values": [
+            ["0", "CAN FD frame format according to ISO11898-1"],
+            ["1", "CAN FD frame format according to Bosch CAN FD Specification V1.0"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TXP",
+          "description": "If this bit is set, the FDCAN pauses for two CAN bit times before starting the next transmission after successfully transmitting a frame.",
+          "values": [
+            ["0", "Disabled"],
+            ["1", "Enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "EFBI",
+          "description": "Edge filtering during bus integration",
+          "values": [
+            ["0", "Edge filtering disabled"],
+            ["1", "Two consecutive dominant tq required to detect an edge for hard synchronization"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "PXHD",
+          "description": "Protocol exception handling disable",
+          "values": [
+            ["0", "Protocol exception handling enabled"],
+            ["1", "Protocol exception handling disabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "BRSE",
+          "description": "FDCAN bitrate switching",
+          "values": [
+            ["0", "Bitrate switching fo r transmissions disabled"],
+            ["1", "Bitrate switching for transmissions enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "FDOE",
+          "description": "FD operation enable",
+          "values": [
+            ["0", "FD operation disabled"],
+            ["1", "FD operation enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TEST",
+          "description": "Test mode enable",
+          "values": [
+            ["0", "Normal operation, register TEST holds reset values"],
+            ["1", "Test mode, write access to register TEST enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "DAR",
+          "description": "Disable automatic retransmission",
+          "values": [
+            ["0", "Automatic retransmission of messages not transmitted successfully enabled"],
+            ["1", "Automatic retransmission disabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "MON",
+          "description": "Bus monitoring mode Bit MON can only be set by software when both CCE and INIT are set to 1. The bit can be reset by the user at any time.",
+          "values": [
+            ["0", "Bus monitoring mode is disabled"],
+            ["1", "Bus monitoring mode is enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "CSR",
+          "description": "Clock stop request",
+          "values": [
+            ["0", "No clock stop is requested"],
+            ["1", "Clock stop requested. When clock stop is requested, first INIT and then CSA is set after all pending transfer requests have been completed and the CAN bus reached idle."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CSA",
+          "description": "Clock stop acknowledge",
+          "values": [
+            ["0", "No clock stop acknowledged"],
+            ["1", "FDCAN may be set in power down by stopping APB clock and kernel clock"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "ASM",
+          "description": "ASM restricted operation mode The restricted operation mode is intended for appl ications that adapt them selves to different CAN bitrates. The application tests different bitrates an d leaves the restricted operation mode after it has received a valid frame. In the optional restricted operation mode the node is able to transmit and receive data and remote frames and it gives acknowledge to valid frames, but it does not send active error frames or overload frames. In case of an erro r condition or overload cond ition, it does not send dominant bits, instead it waits for the occurrence of bus idle condition to resyn chronize itself to the CAN communication. The error counters are not incremented. Bit ASM can only be set by software when both CCE and INIT are set to 1. The bit can be reset by the software at any time. This bit is set automatically set to 1 when the Tx handler was not able to read data from the message RAM in time. If the FDCAN is connected to a clock calibration on CAN unit, ASM bit is set by hardware as long as the calibration is not completed.",
+          "values": [
+            ["0", "Normal CAN operation"],
+            ["1", "Restricted operation mode active"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "CCE",
+          "description": "Configuration change enable Due to the synchronization mechanism between the two clock domains, there may be a delay until the value written to INIT can be read back. Therefore the programmer must ensure that the previous value written to INIT has been accepted by reading INIT before setting INIT to a new value. INIT: Initialization",
+          "values": [
+            ["0", "The CPU has no write access to t he protected config uration registers"],
+            ["1", "The CPU has write access to the protected co nfiguration registers (while FDCAN_CCCR.INIT = 1 CCE bit is automatically clear ed when INIT bit is cleared)"],
+            ["0", "Normal operation"],
+            ["1", "Initialization is started (whi le FDCAN_CCCR.INIT = 1 CCE bit is automatically cleared when INIT bit is cleared)"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000110000000000"
+        }
+      ]
+    },
+    {
+      "name": "NBTP",
+      "description": "nominal bit timing and prescaler register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "NSJW",
+          "description": "Nominal (re)synchro nization jump width Should be smaller than NTSEG2, valid values are 0 to 127. The value used by the hardware is the one programmed, increm ented by 1, i.e. tSJW = (NSJW + 1) x tq. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111110000000000000000000000000"
+        },
+        {
+          "name": "NBRP",
+          "description": "Bitrate prescaler Value by which the oscillator frequency is divided fo r generating the bit time quanta. The bit time is built up from a multiple of this quanta. Valid valu es are 0 to 511. The value used by the hardware is the one programmed, incremented by 1. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1. With a CAN kernel clock of 8 MHz, the reset value of 0x00000A33 configures the FDCAN for a bitrate of 125 kbit/s. NTSEG1[7:0] : Nominal time segment before sample point Valid values are 0 to 255. The value used by the hardware is the one programmed, incremented by 1 (tBS1 = (NTSEG1 + 1) x tq). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111110000000000000000"
+        },
+        {
+          "name": "NTSEG2",
+          "description": "Nominal time segment after sample point Valid values are 0 to 127. The value used by the hardware is the one programmed, incremented by 1 (tBS2 = (NTSEG2 + 1) x tq).",
+          "values": [],
+          "mask": "0b1111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000"
+        }
+      ]
+    },
+    {
+      "name": "TSCC",
+      "description": "timestamp counter configuration register",
+      "offset": "0x20",
+      "fields": [
+        {
+          "name": "5",
+          "description": "831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. TCP[3:0] rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. TSS[",
+          "values": [["1", "0] rw rw"]],
+          "mask": "0b10"
+        },
+        {
+          "name": "TCP",
+          "description": "Timestamp counter prescaler Configures the timestamp and time out counters time unit in multip les of CAN bit times [1 \u2026 16]. The actual interpretation by the hardware of this value is such that one more than the value programmed here is used. In CAN FD mode the internal timestamp counter TC P does not provide a constant time base due to the different CAN bit times between arbitration phase and data phase. Thus CAN FD requires an external counter for timestamp generation (TSS = 10). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11110000000000000000"
+        },
+        {
+          "name": "TSS",
+          "description": "Timestamp select",
+          "values": [
+            ["00", "Timestamp counter value always 0x0000"],
+            ["01", "Timestamp counter value incremented according to TCP"],
+            ["10", "External timestamp counter from TIM3 value used (tim3_cnt[0:15])"],
+            ["11", "Same as 00.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111100001111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "TSCV",
+      "description": "timestamp counter value register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "TSC",
+          "description": "Timestamp counter The internal/external timestamp counter value is captured on start of frame (both Rx and Tx). When FDCAN_TSCC.TSS = 01, the timestamp counter is in cremented in multiples of CAN bit times [1 \u2026 16] depending on the configuration of FDCAN_TSCC.TCP. A wrap around sets interrupt flag FDCAN_IR.TSW. Write access resets the coun ter to 0. When FDCAN_TSCC.TSS = 10, TSC reflects the external timestamp counter value. A write access has no impact.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TOCC",
+      "description": "timeout counter configuration register",
+      "offset": "0x28",
+      "fields": [
+        {
+          "name": "TOP",
+          "description": "Timeout period Start value of the timeout counter (down- counter). Configures the timeout period. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "ETOC",
+          "description": "Enable timeout counter",
+          "values": [
+            ["0", "Timeout counter disabled"],
+            ["1", "Timeout counter enabledThis is a write-protected bit, write access is possible only when the bit 1 (CCE) and bit 0 (INIT) of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "TOCV",
+      "description": "timeout counter value register",
+      "offset": "0x2C",
+      "fields": [
+        {
+          "name": "2",
+          "description": "131 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 TOC[15",
+          "values": [["", "0] rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w rc_w"]],
+          "mask": "0b0"
+        },
+        {
+          "name": "TOC",
+          "description": "Timeout counter The timeout counter is decremented in multip les of CAN bit times [1 \u2026 16] depending on the configuration of FDCAN_TSCC.TCP. When decrement ed to 0, interrupt fl ag FDCAN_IR.TOO is set and the timeout counter is stopped. Start a nd reset/restart conditions are configured via FDCAN_TOCC.TOS.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ECR",
+      "description": "error counter register",
+      "offset": "0x40",
+      "fields": [
+        {
+          "name": "CEL",
+          "description": "CAN error logging The counter is incremented each time when a CAN protocol error causes the transmit error counter or the receive error counter to be incremented. It is reset by read access to CEL. The counter stops at 0xFF; the next increment of TEC or REC sets interrupt flag FDCAN_IR.ELO.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "RP",
+          "description": "Receive error passive",
+          "values": [
+            ["0", "The receive error counter is below the error passive level of 128"],
+            ["1", "The receive error counter has reached the error passive level of 128"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "REC",
+          "description": "Receive error counter Actual state of the receive error counter, values between 0 and 127.",
+          "values": [],
+          "mask": "0b111111100000000"
+        },
+        {
+          "name": "TEC",
+          "description": "Transmit error counter Actual state of the transmit error counter, values between 0 and 255. When FDCAN_CCCR.ASM is set, the CAN protocol controller does not increment TEC and REC when a CAN protocol error is detected, but CEL is still incremented.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "PSR",
+      "description": "protocol status register",
+      "offset": "0x44",
+      "fields": [
+        {
+          "name": "TDCV",
+          "description": "Transmitter delay compensation value Position of the secondary sample point, defined by the sum of the measured delay from FDCAN_TX to FDCAN_RX and FDCAN_TDCR.TDCO. The SSP po sition is, in the data phase, the number of minimum time quanta (mtq) between the start of t he transmitted bit and the secondary sample point. Valid values are 0 to 127 mtq.",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "PXE",
+          "description": "Protocol exception event",
+          "values": [
+            ["0", "No protocol exception event occurred since last read access"],
+            ["1", "Protocol exception event occurred"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "REDL",
+          "description": "Received FDCAN message This bit is set independent of acceptance filtering.",
+          "values": [
+            ["0", "Since this bit was reset by the CPU, no FDCAN message has been received"],
+            ["1", "Message in FDCAN format with EDL flag set has been receivedAccess type is RX: reset on read."]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "RBRS",
+          "description": "BRS flag of last received FDCAN message This bit is set together with REDL , independent of ac ceptance filtering.",
+          "values": [
+            ["0", "Last received FDCAN message did not have its BRS flag set"],
+            ["1", "Last received FDCAN message had its BRS flag setAccess type is RX: reset on read."]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "RESI",
+          "description": "ESI flag of last received FDCAN message This bit is set together with REDL , independent of ac ceptance filtering.",
+          "values": [
+            ["0", "Last received FDCAN message did not ha ve its ESI flag set"],
+            ["1", "Last received FDCAN message had its ESI flag setAccess type is RX: reset on read."]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DLEC",
+          "description": "Data last error code Type of last error that occurred in the data phase of a FDCAN format frame with its BRS flag set. Coding is the same as for LEC. This field is cl eared to 0 when a FDCAN format frame with its BRS flag set has been transferred (reception or transmission) without error. Access type is RS: set on read.",
+          "values": [],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "BO",
+          "description": "Bus_Off status",
+          "values": [
+            ["0", "The FDCAN is not Bus_Off"],
+            ["1", "The FDCAN is in Bus_Off state"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "EW",
+          "description": "Warning status",
+          "values": [
+            ["0", "Both error counters are below the Error_Warning limit of 96"],
+            ["1", "At least one of error counter has reached the Error_Warning limit of 96"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "EP",
+          "description": "Error passive",
+          "values": [
+            ["0", "The FDCAN is in the Error_Active state. It no rmally takes part in bus communication and sends an active error flag when an error has been detected"],
+            ["1", "The FDCAN is in the Error_Passive state"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "ACT",
+          "description": "Activity Monitors the module CA N communication state. When a frame in FDCAN format has reached the data phase with BRS flag set, the next CAN event (error or valid frame) is shown in FLEC instead of LEC. An error in a fixed stuff bit of a FDCAN CRC sequence is shown as a Form error, not Stuff error The Bus_Off recovery sequence (see CAN Specification Rev. 2.0 or ISO11898-1) cannot be shortened by setting or resetti ng FDCAN_CCCR.INIT. If the device goes Bus_Off, it sets FDCAN_CCCR.INIT of its own, stopping all bus activities. Once FDCAN_CCCR.INIT has been cleared by the CPU, the device waits fo r 129 occurrences of bus Idle (129 \u00d7 11 consecutive recessive bits) before resuming no rmal operation. At the end of the Bus_Off recovery sequence, the error management counter s are reset. During the waiting time after the reset of FDCAN_CCCR.INIT, each time a sequence of 11 recessive bits has been monitored, a Bit0 error code is written to FDCAN_PSR.LEC, enabling the CPU to readily check up whether the CAN bus is stuck at dominant or continuously disturbed and to monitor the Bus_Off recovery sequence. FDCAN_ECR.REC is used to count these sequences. LEC[2:0]: Last error code The LEC indicates the type of the last error to occur on the CAN bus. This field is cleared to 0 when a message has been transferred (recept ion or transmission) without error. 0",
+          "values": [
+            ["00", "Synchronizing: node is synch ronizing on CAN communication"],
+            ["01", "Idle: node is neither receiver nor transmitter"],
+            ["10", "Receiver: node is operating as receiver"],
+            ["11", "Transmitter: node is operating as transmitter"],
+            ["00", "No error: No error occurred since LEC has b een reset by successful reception or transmission. 0"],
+            ["01", "Stuff error: More than 5 equal bits in a seq uence have occurred in a part of a received message where this is not allowed. 0"],
+            ["10", "Form error: A fixed format part of a received frame has the wrong format.0"],
+            ["11", "AckError: The message transmitted by the FDCAN was not acknowledged by another node. 1"],
+            ["00", ""]
+          ],
+          "mask": "0b11000"
+        },
+        {
+          "name": "Error",
+          "description": "During the transmission of a message (with the exception of t he arbitration field), the device wanted to send a recessive level (bit of logical value 1), but the monitored bus value was dominant. 10",
+          "values": [["1", ""]],
+          "mask": "0b10"
+        },
+        {
+          "name": "Error",
+          "description": "During the transmission of a message (or acknowledge bit, or active error flag, or overload flag), the device wanted to send a dominant level (data or identifier bit logical value 0), but the monitored bus value was recessi ve. During Bus_Off recovery this status is set each time a sequence of 11 recessive bits has been monitored. This enables the CPU to monitor the proceeding of the Bus_Off recovery sequence (indicating the bus is not stuck at do minant or continuously disturbed). 11",
+          "values": [
+            ["0", "CRCError: The CRC check sum of a received message was incorrect. The CRC of an incoming message does not match with the CRC calculated from the received data. 11"],
+            ["1", "NoChange: Any read access to the protocol status register re-initializes the LEC to \u20187. When the LEC shows the value 7, no CAN bus event was de tected since the last CPU read access to the protocol status register. Access type is RS: set on read."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000001000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TDCR",
+      "description": "transmitter delay compensation register",
+      "offset": "0x48",
+      "fields": [
+        {
+          "name": "2",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. TDCO[6",
+          "values": [
+            ["", "0] Res. TDCF[6"],
+            ["", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "TDCO",
+          "description": "Transmitter delay compensation offset Offset value defining the distance between the me asured delay from FDCAN_TX to FDCAN_RX and the secondary sample point. Valid values are 0 to 127 mtq. These are write-protected bits, whic h means that write access by the bits is possible only when the bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111100000000"
+        },
+        {
+          "name": "TDCF",
+          "description": "Transmitter delay compensation filter window length Defines the minimum value for the SSP position, dom inant edges on FDCAN_RX that would result in an earlier SSP position are ignored for transmitter delay measurements. These are write-protected bits, whic h means that write access by the bits is possible only when the bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000"
+        }
+      ]
+    },
+    {
+      "name": "IR",
+      "description": "interrupt register",
+      "offset": "0x50",
+      "fields": [
+        {
+          "name": "ARA",
+          "description": "Access to reserved address",
+          "values": [
+            ["0", "No access to rese rved address occurred"],
+            ["1", "Access to reserved address occurred"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "PED",
+          "description": "Protocol error in data phase (data bit time is used)",
+          "values": [
+            ["0", "No protocol error in data phase"],
+            ["1", "Protocol error in data phase dete cted (PSR.DLEC different from 0,7)"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "PEA",
+          "description": "Protocol error in arbitration phase (nominal bit time is used)",
+          "values": [
+            ["0", "No protocol error in arbitration phase"],
+            ["1", "Protocol error in arbitration phas e detected (PSR.LEC different from 0,7)"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "WDI",
+          "description": "Watchdog interrupt",
+          "values": [
+            ["0", "No message RAM watchdog event occurred"],
+            ["1", "Message RAM watchdog event due to missing READY"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "BO",
+          "description": "Bus_Off status",
+          "values": [
+            ["0", "Bus_Off status unchanged"],
+            ["1", "Bus_Off status changed"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EW",
+          "description": "Warning status",
+          "values": [
+            ["0", "Error_Warning status unchanged"],
+            ["1", "Error_Warning status changed"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EP",
+          "description": "Error passive",
+          "values": [
+            ["0", "Error_Passive status unchanged"],
+            ["1", "Error_Passive status changed"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ELO",
+          "description": "Error logging overflow",
+          "values": [
+            ["0", "CAN error logging counter did not overflow"],
+            ["1", "Overflow of CAN error logging counter occurred"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "DRX",
+          "description": "Message stored to dedicated Rx buffer The flag is set whenever a received message has been stored into a dedicated Rx buffer.",
+          "values": [
+            ["0", "No Rx buffer updated"],
+            ["1", "At least one received message stored into a Rx buffer"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TOO",
+          "description": "Timeout occurred",
+          "values": [
+            ["0", "No timeout"],
+            ["1", "Timeout reached"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MRAF",
+          "description": "Message RAM access failure The flag is set when the Rx handler l Has not completed acceptance filtering or st orage of an accepted message until the arbitration field of the following message has been received. In this case acceptanc e filtering or message storage is aborted and the Rx handler st arts processing of the following message. l Was unable to write a message to the message RA M. In this case message storage is aborted. In both cases the FIFO put index is not updated or the New data flag for a dedicated Rx buffer is not set. The partly stored message is overwritten wh en the next message is stored to this location. The flag is also set when the Tx handler was not able to read a message from the message RAM in time. In this case message transmission is aborted. In case of a Tx handler access failure the FDCAN is switched into restricted operation mode (see Restricted operation mode ). To leave restricted operation mode, the user has to reset FDCAN_CCCR.ASM.",
+          "values": [
+            ["0", "No message RAM access failure occurred"],
+            ["1", "Message RAM access failure occurred"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TSW",
+          "description": "Timestamp wraparound",
+          "values": [
+            ["0", "No timestamp counter wraparound"],
+            ["1", "Timestamp counter wraparound"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TEFL",
+          "description": "Tx event FIFO element lost",
+          "values": [
+            ["0", "No Tx event FIFO element lost"],
+            ["1", "Tx event FIFO element lost, also set afte r write attempt to Tx event FIFO of size 0"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TEFF",
+          "description": "Tx event FIFO full",
+          "values": [
+            ["0", "Tx event FIFO not full"],
+            ["1", "Tx event FIFO full"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TEFW",
+          "description": "Tx event FIFO watermark reached",
+          "values": [
+            ["0", "Tx event FIFO fill level below watermark"],
+            ["1", "Tx event FIFO fill level reached watermark"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TEFN",
+          "description": "Tx event FIFO new entry",
+          "values": [
+            ["0", "Tx event FIFO unchanged"],
+            ["1", "Tx handler wrote Tx event FIFO element"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TFE",
+          "description": "Tx FIFO empty",
+          "values": [
+            ["0", "Tx FIFO non-empty"],
+            ["1", "Tx FIFO empty"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TCF",
+          "description": "Transmission cancellation finished",
+          "values": [
+            ["0", "No transmission cancellation finished"],
+            ["1", "Transmission cancellation finished"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TC",
+          "description": "Transmission completed",
+          "values": [
+            ["0", "No transmission completed"],
+            ["1", "Transmission completed"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "HPM",
+          "description": "High priority message",
+          "values": [
+            ["0", "No high priority message received"],
+            ["1", "High priority message received"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "RF1L",
+          "description": "Rx FIFO 1 message lost",
+          "values": [
+            ["0", "No Rx FIFO 1 message lost"],
+            ["1", "Rx FIFO 1 message lost, also set after write attempt to Rx FIFO 1 of size 0"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "RF1F",
+          "description": "Rx FIFO 1 full",
+          "values": [
+            ["0", "Rx FIFO 1 not full"],
+            ["1", "Rx FIFO 1 full"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RF1W",
+          "description": "Rx FIFO 1 watermark reached",
+          "values": [
+            ["0", "Rx FIFO 1 fill level below watermark"],
+            ["1", "Rx FIFO 1 fill level reached watermark"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RF1N",
+          "description": "Rx FIFO 1 new message",
+          "values": [
+            ["0", "No new message written to Rx FIFO 1"],
+            ["1", "New message written to Rx FIFO 1"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RF0L",
+          "description": "Rx FIFO 0 message lost",
+          "values": [
+            ["0", "No Rx FIFO 0 message lost"],
+            ["1", "Rx FIFO 0 message lost, also set after write attempt to Rx FIFO 0 of size 0"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RF0F",
+          "description": "Rx FIFO 0 full",
+          "values": [
+            ["0", "Rx FIFO 0 not full"],
+            ["1", "Rx FIFO 0 full"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "RF0W",
+          "description": "Rx FIFO 0 watermark reached",
+          "values": [
+            ["0", "Rx FIFO 0 fill level below watermark"],
+            ["1", "Rx FIFO 0 fill level reached watermark"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RF0N",
+          "description": "Rx FIFO 0 New message",
+          "values": [
+            ["0", "No new message written to Rx FIFO 0"],
+            ["1", "New message written to Rx FIFO 0"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111000000001011111000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "IE",
+      "description": "interrupt enable register",
+      "offset": "0x54",
+      "fields": [
+        {
+          "name": "ARAE",
+          "description": "Access to Reserved address enable",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "PEDE",
+          "description": "Protocol error in data phase enable",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "PEAE",
+          "description": "Protocol error in Arbitration phase enable",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "WDIE",
+          "description": "Watchdog interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "BOE",
+          "description": "Bus_Off status",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EWE",
+          "description": "Warning status interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EPE",
+          "description": "Error passive interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ELOE",
+          "description": "Error logging overflow interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "DRXE",
+          "description": "Message stored to dedicated Rx buffer interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TOOE",
+          "description": "Timeout occurred interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MRAFE",
+          "description": "Message RAM access fa ilure interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TSWE",
+          "description": "Timestamp wraparound interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TEFLE",
+          "description": "Tx event FIFO element lost interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TEFFE",
+          "description": "Tx event FIFO full interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TEFWE",
+          "description": "Tx event FIFO watermark reached interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "TEFNE",
+          "description": "Tx event FIFO new entry interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TFEE",
+          "description": "Tx FIFO empty interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TCFE",
+          "description": "Transmission cancellation finished interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TCE",
+          "description": "Transmission completed interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "HPME",
+          "description": "High priority message interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "RF1LE",
+          "description": "Rx FIFO 1 message lost interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "RF1FE",
+          "description": "Rx FIFO 1 full interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RF1WE",
+          "description": "Rx FIFO 1 watermark reached interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RF1NE",
+          "description": "Rx FIFO 1 new message interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RF0LE",
+          "description": "Rx FIFO 0 message lost interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled RF0FE : Rx FIFO 0 full interrupt enable"],
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RF0WE",
+          "description": "Rx FIFO 0 watermark reached interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RF0NE",
+          "description": "Rx FIFO 0 new message interrupt enable",
+          "values": [
+            ["0", "Interrupt disabled"],
+            ["1", "Interrupt enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000001100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ILS",
+      "description": "interrupt line select register",
+      "offset": "0x58",
+      "fields": [
+        {
+          "name": "ARAL",
+          "description": "Access to reserved address line",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "PEDL",
+          "description": "Protocol error in data phase line",
+          "values": [],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "PEAL",
+          "description": "Protocol error in arbitration phase line",
+          "values": [],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "WDIL",
+          "description": "Watchdog interrupt line",
+          "values": [],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "BOL",
+          "description": "Bus_Off status",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EWL",
+          "description": "Warning status interrupt line",
+          "values": [],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EPL",
+          "description": "Error passive interrupt line",
+          "values": [],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "ELOL",
+          "description": "Error logging overflow interrupt line",
+          "values": [],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "DRXL",
+          "description": "Message stored to dedica ted Rx buffer interrupt line",
+          "values": [],
+          "mask": "0b10000000000000000000"
+        },
+        {
+          "name": "TOOL",
+          "description": "Timeout occurred interrupt line",
+          "values": [],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "MRAFL",
+          "description": "Message RAM access failure interrupt line",
+          "values": [],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "TSWL",
+          "description": "Timestamp wraparound interrupt line",
+          "values": [],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "TEFLL",
+          "description": "Tx event FIFO element Lost interrupt line",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "TEFFL",
+          "description": "Tx event FIFO full interrupt line TEFWL : Tx event FIFO watermark reached interrupt line",
+          "values": [],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "TEFNL",
+          "description": "Tx event FIFO new entry interrupt line",
+          "values": [],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TFEL",
+          "description": "Tx FIFO empty interrupt line",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TCFL",
+          "description": "Transmission cancellation finished interrupt line",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "TCL",
+          "description": "Transmission comple ted interrupt line",
+          "values": [],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "HPML",
+          "description": "High priority message interrupt line",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "RF1LL",
+          "description": "Rx FIFO 1 message lost interrupt line",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "RF1FL",
+          "description": "Rx FIFO 1 full interrupt line",
+          "values": [],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RF1WL",
+          "description": "Rx FIFO 1 watermark reached interrupt line",
+          "values": [],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RF1NL",
+          "description": "Rx FIFO 1 new message interrupt line",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RF0LL",
+          "description": "Rx FIFO 0 message lost interrupt line",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RF0FL",
+          "description": "Rx FIFO 0 full interrupt line",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "RF0WL",
+          "description": "Rx FIFO 0 watermark reached interrupt line",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "RF0NL",
+          "description": "Rx FIFO 0 new message interrupt line",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000001100000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ILE",
+      "description": "interrupt line enable register",
+      "offset": "0x5C",
+      "fields": [
+        {
+          "name": "EINT1",
+          "description": "Enable interrupt line 1",
+          "values": [
+            ["0", "Interrupt line fdcan_intr1_it disabled"],
+            ["1", "Interrupt line fdcan_intr1_it enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "EINT0",
+          "description": "Enable interrupt line 0",
+          "values": [
+            ["0", "Interrupt line fdcan_intr0_it disabled"],
+            ["1", "Interrupt line fdcan_intr0_it enabled"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "GFC",
+      "description": "global filter configuration register",
+      "offset": "0x80",
+      "fields": [
+        {
+          "name": "ANFS",
+          "description": "Accept non-matching frames standard Defines how received messages with 11-bit ID that do not match any element of the filter list are treated.",
+          "values": [
+            ["00", "Accept in Rx FIFO 0"],
+            ["01", "Accept in Rx FIFO 1"],
+            ["10", "Reject"],
+            ["11", "RejectThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "ANFE",
+          "description": "Accept non-matching frames extended Defines how received messages with 29-bit ID that do not match any element of the filter list are treated.",
+          "values": [
+            ["00", "Accept in Rx FIFO 0"],
+            ["01", "Accept in Rx FIFO 1"],
+            ["10", "Reject"],
+            ["11", "RejectThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "RRFS",
+          "description": "Reject remote frames standard",
+          "values": [
+            ["0", "Filter remote frames with 11-bit standard ID"],
+            ["1", "Reject all remote frames with 11-bit standard IDThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RRFE",
+          "description": "Reject remote frames extended",
+          "values": [
+            ["0", "Filter remote frames with 29-bit standard ID"],
+            ["1", "Reject all remote frames with 29-bit standard IDThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "SIDFC",
+      "description": "standard ID filter configuration register",
+      "offset": "0x84",
+      "fields": [
+        {
+          "name": "LSS",
+          "description": "List size standard 0: No standard message ID filter 1-128: Number of standard message ID filter elements >128: Values greater than 128 are interpreted as 128.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "FLSSA",
+          "description": "Filter list standard start address Start address of standard message ID filter list (32-bit word address, see Table 499 ).These are write- protected bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "XIDFC",
+      "description": "extended ID filter configuration register",
+      "offset": "0x88",
+      "fields": [
+        {
+          "name": "FLESA",
+          "description": "Filter list extended start address Start address of extended message ID filter list (32-bit word address, see Table 501: Extended message ID filter element ). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111000000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "XIDAM",
+      "description": "extended ID and mask register",
+      "offset": "0x90",
+      "fields": [
+        {
+          "name": "3",
+          "description": "1631 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. EIDM[28:16] rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 EIDM[15:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "EIDM",
+          "description": "Extended ID Mask For acceptance filtering of ext ended frames the extended ID AND Mask is AND-ed with the message ID of a received frame. Intended for masking of 29-bi t IDs in SAE J1939. With the reset value of all bits set to 1 the mask is not active. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11100000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "HPMS",
+      "description": "high priority message status register",
+      "offset": "0x94",
+      "fields": [
+        {
+          "name": "FLST",
+          "description": "Filter list Indicates the filter list of the matching filter element.",
+          "values": [
+            ["0", "Standard filter list"],
+            ["1", "Extended filter list"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "FIDX",
+          "description": "Filter index Index of matching filter element. Range is 0 to FDCAN_SIDFC[LSS] - 1 or FDCAN_XIDFC[LSE] - 1.",
+          "values": [],
+          "mask": "0b111111100000000"
+        },
+        {
+          "name": "MSI",
+          "description": "Message storage indicator",
+          "values": [
+            ["00", "No FIFO selected"],
+            ["01", "FIFO overrun"],
+            ["10", "Message stored in FIFO 0"],
+            ["11", "Message stored in FIFO 1"]
+          ],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "BIDX",
+          "description": "Buffer index Index of Rx FIFO element to which the mess age was stored. Only valid when MSI[1] = 1.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "NDAT1",
+      "description": "new data 1 register",
+      "offset": "0x98",
+      "fields": []
+    },
+    {
+      "name": "NDAT2",
+      "description": "new data 2 register",
+      "offset": "0x9C",
+      "fields": [
+        {
+          "name": "ND",
+          "description": "New data[63:32] The register holds the new data flags of Rx buffer s 32 to 63. The flags are set when the respective Rx buffer has been updated from a re ceived frame. The flags remain set until the user clears them. A flag is cleared by writing a 1 to the corresponding bit position. Writing a 0 has no effect. A hard reset clears clear the register. 0: Rx buffer not updated1: Rx buffer updated from new message",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "RXF0C",
+      "description": "Rx FIFO 0 configuration register",
+      "offset": "0xA0",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 F0OM F0WM[6:0] Res. F0S[6:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 F0SA[13:0] Res. Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "F0OM",
+          "description": "FIFO 0 operation mode FIFO 0 can be operated in blocking or in overwrite mode.",
+          "values": [
+            ["0", "FIFO 0 blocking mode"],
+            ["1", "FIFO 0 overwrite mode F0WM[6:0] : FIFO 0 watermark"],
+            ["0", "Watermark interrupt disabled 1-64: Level for Rx FIFO 0 wate rmark interrupt (FDCAN_IR.RF0W) >64: Watermark interrupt disabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "F0S",
+          "description": "Rx FIFO 0 size 0: No Rx FIFO 0 1-64: Number of Rx FIFO 0 elements>64: Values greater than 64 are interpreted as 64 The Rx FIFO 0 elements are indexed from 0 to F0S-1.",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "F0SA",
+          "description": "Rx FIFO 0 start address Start address of Rx FIFO 0 in message RAM (32-bit word address, see Figure 737 ).",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b100000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "RXF0S",
+      "description": "Rx FIFO 0 status register",
+      "offset": "0xA4",
+      "fields": [
+        {
+          "name": "0",
+          "description": "2431 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. RF0L F0F Res. Res. F0PI[5:0] rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. F0GI[5:0] Res. F0FL[6:0] rw rw rw rw rw rw rw rw rw rw rw rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RF0L",
+          "description": "Rx FIFO 0 message lost This bit is a copy of interrupt flag FDCAN_IR.RF0L. When FDCAN_IR.RF0L is reset, this bit is also reset.",
+          "values": [
+            ["0", "No Rx FIFO 0 message lost"],
+            ["1", "Rx FIFO 0 message lost, also set after write attempt to Rx FIFO 0 of size 0"]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "F0F",
+          "description": "Rx FIFO 0 full",
+          "values": [
+            ["0", "Rx FIFO 0 not full"],
+            ["1", "Rx FIFO 0 full"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "F0PI",
+          "description": "Rx FIFO 0 put index Rx FIFO 0 write index pointer, range 0 to 63.",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        },
+        {
+          "name": "F0GI",
+          "description": "Rx FIFO 0 get index Rx FIFO 0 read index pointer, range 0 to 63.",
+          "values": [],
+          "mask": "0b11111100000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100110000001100000010000000"
+        }
+      ]
+    },
+    {
+      "name": "RXF0A",
+      "description": "Rx FIFO 0 acknowledge register",
+      "offset": "0xA8",
+      "fields": [
+        {
+          "name": "F0AI",
+          "description": "Rx FIFO 0 acknowledge index After the user has read a message or a sequence of messages from Rx FIFO 0 it has to write the buffer index of the last element read from Rx FIFO 0 to F0AI. This sets the Rx FIFO 0 get index FDCAN_RXF0S.F0GI to F0AI + 1 and update the FIFO 0 fill level FDCAN_RXF0S.F0FL.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "RXBC",
+      "description": "Rx buffer configuration register",
+      "offset": "0xAC",
+      "fields": [
+        {
+          "name": "6",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 RBSA[13",
+          "values": [["", "0] Res. Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw"]],
+          "mask": "0b0"
+        },
+        {
+          "name": "RBSA",
+          "description": "Rx buffer start address Configures the start address of the Rx buffers se ction in the message RAM (32-bit word address). Also used to reference debug messages A, B, C. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "RXF1C",
+      "description": "Rx FIFO 1 configuration register",
+      "offset": "0xB0",
+      "fields": [
+        {
+          "name": "F1OM",
+          "description": "FIFO 1 operation mode FIFO 1 can be operated in blocking or in overwrite mode.",
+          "values": [
+            ["0", "FIFO 1 blocking mode"],
+            ["1", "FIFO 1 overwrite mode"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "F1WM",
+          "description": "Rx FIFO 1 watermark 0: Watermark interrupt disabled 1-64: Level for Rx FIFO 1 wate rmark interrupt (FDCAN_IR.RF1W) >64: Watermark interrupt disabled.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111000000000000000000000000"
+        },
+        {
+          "name": "F1S",
+          "description": "Rx FIFO 1 size 0: No Rx FIFO 1 1-64: Number of Rx FIFO 1 elements>64: Values greater than 64 are interpreted as 64 The Rx FIFO 1 elements are indexed from 0 to F1S - 1.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "F1SA",
+          "description": "Rx FIFO 1 start address start address of Rx FIFO 1 in message RAM (32-bit word address, see Figure 737 ). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b100000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "RXF1S",
+      "description": "Rx FIFO 1 status register",
+      "offset": "0xB4",
+      "fields": [
+        {
+          "name": "DMS",
+          "description": "Debug message status",
+          "values": [
+            ["00", "Idle state, wait for reception of debug messages"],
+            ["01", "Debug message A received"],
+            ["10", "Debug messages A, B received"],
+            ["11", "Debug messages A, B, C received"]
+          ],
+          "mask": "0b11000000000000000000000000000000"
+        },
+        {
+          "name": "RF1L",
+          "description": "Rx FIFO 1 message lost This bit is a copy of interrupt flag FDCAN_IR.RF1L. When FDCAN_IR.RF1L is reset, this bit is also reset.",
+          "values": [
+            ["0", "No Rx FIFO 1 message lost"],
+            ["1", "Rx FIFO 1 message lost, also set after write attempt to Rx FIFO 1 of size 0."]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "F1F",
+          "description": "Rx FIFO 1 full",
+          "values": [
+            ["0", "Rx FIFO 1 not full"],
+            ["1", "Rx FIFO 1 full"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "F1PI",
+          "description": "Rx FIFO 1 put index Rx FIFO 1 write index pointer, range 0 to 63.",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        },
+        {
+          "name": "F1GI",
+          "description": "Rx FIFO 1 get index Rx FIFO 1 read index pointer, range 0 to 63.",
+          "values": [],
+          "mask": "0b11111100000000"
+        },
+        {
+          "name": "F1FL",
+          "description": "Rx FIFO 1 fill level Number of elements stored in Rx FIFO 1, range 0 to 64",
+          "values": [],
+          "mask": "0b1111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111100110000001100000010000000"
+        }
+      ]
+    },
+    {
+      "name": "RXF1A",
+      "description": "Rx FIFO 1 acknowledge register",
+      "offset": "0xB8",
+      "fields": [
+        {
+          "name": "F1AI",
+          "description": "Rx FIFO 1 acknowledge index After the user has read a message or a sequence of messages from Rx FIFO 1 it has to write the buffer index of the last element read from Rx FIFO 1 to F1AI. This sets the Rx FIFO 1 get index FDCAN_RXF1S.F1GI. to F1AI + 1 and update the FIFO 1 fill level FDCAN_RXF1S.F1FL.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "RXESC",
+      "description": "Rx buffer element size configuration register",
+      "offset": "0xBC",
+      "fields": [
+        {
+          "name": "RBDS",
+          "description": "Rx buffer data field size",
+          "values": [
+            ["000", "8-byte data field"],
+            ["001", "12-byte data field"],
+            ["010", "16-byte data field"],
+            ["011", "20-byte data field"],
+            ["100", "24-byte data field"],
+            ["101", "32-byte data field"],
+            ["110", "48-byte data field"],
+            ["111", "64-byte data field"]
+          ],
+          "mask": "0b11100000000"
+        },
+        {
+          "name": "F0DS",
+          "description": "Rx FIFO 1 data field size",
+          "values": [
+            ["000", "8-byte data field"],
+            ["001", "12-byte data field"],
+            ["010", "16-byte data field"],
+            ["011", "20-byte data field"],
+            ["100", "24-byte data field"],
+            ["101", "32-byte data field"],
+            ["110", "48-byte data field"],
+            ["111", "64-byte data field"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111100010001000"
+        }
+      ]
+    },
+    {
+      "name": "TXBC",
+      "description": "Tx buffer configuration register",
+      "offset": "0xC0",
+      "fields": [
+        {
+          "name": "6",
+          "description": "431 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. TFQM TFQS[5",
+          "values": [
+            ["", "0] Res. Res. NDTB[5"],
+            ["", "0] rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 TBSA[13"],
+            ["", "0] Res. Res. rw rw rw rw rw rw rw rw rw rw rw rw rw rw"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "TFQM",
+          "description": "Tx FIFO/queue mode",
+          "values": [
+            ["0", "Tx FIFO operation"],
+            ["1", "Tx queue operation.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "TFQS",
+          "description": "Transmit FIFO/queue size 0: No Tx FIFO/queue 1-32: Number of Tx buffers used for Tx FIFO/queue>32: Values greater than 32 are interpreted as 32. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111000000000000000000000000"
+        },
+        {
+          "name": "TBSA",
+          "description": "Tx buffers start address Start address of Tx buffers section in message RAM (32-bit word address, see Figure 737 ). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b10000000110000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "TXFQS",
+      "description": "Tx FIFO/queue status register",
+      "offset": "0xC4",
+      "fields": [
+        {
+          "name": "1",
+          "description": "1631 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. TFQF TFQPI[4:0] rrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. TFGI[4:0] Res. Res. TFFL[5:0] rrrrr rrrrrr",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "TFQF",
+          "description": "Tx FIFO/queue full 0 Tx FIFO/queue not full 1 Tx FIFO/queue full",
+          "values": [],
+          "mask": "0b1000000000000000000000"
+        },
+        {
+          "name": "TFQPI",
+          "description": "Tx FIFO/queue put index Tx FIFO/queue write index pointer, range 0 to 31",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "TFGI",
+          "description": "Tx FIFO get index. Tx FIFO read index pointer, range 0 to 31. Read as 0 when Tx queue operation is configured (FDCAN_TXBC.TFQM = 1)",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000001110000011000000"
+        }
+      ]
+    },
+    {
+      "name": "TXESC",
+      "description": "Tx buffer element size configuration register",
+      "offset": "0xC8",
+      "fields": [
+        {
+          "name": "TBDS",
+          "description": "Tx buffer data Field size:",
+          "values": [
+            ["000", "8-byte data field"],
+            ["001", "12-byte data field"],
+            ["010", "16-byte data field"],
+            ["011", "20-byte data field"],
+            ["100", "24-byte data field"],
+            ["101", "32-byte data field"],
+            ["110", "48-byte data field"],
+            ["111", "64-byte data field"]
+          ],
+          "mask": "0b111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111000"
+        }
+      ]
+    },
+    {
+      "name": "TXBRP",
+      "description": "Tx buffer request pending register",
+      "offset": "0xCC",
+      "fields": [
+        {
+          "name": "5",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 TRP[31 FDCAN_TXBRP bits set while a Tx scan is in progress are not considered during this particular Tx scan. In case a cancellation is requested for such a Tx buffer, this add request is canceled immediately, the corr esponding FDCAN_TXBRP bit is reset.",
+          "values": [
+            ["", "16] rrrrrrrrrrrrrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 TRP[15"],
+            ["", "0] rrrrrrrrrrrrrrrr"]
+          ],
+          "mask": "0b0"
+        },
+        {
+          "name": "TRP",
+          "description": "Transmission request pending Each Tx buffer has its own transmission request pending bit. The bits are set via register FDCAN_TXBAR. The bits are reset after a requested transmission has completed or has been canceled via register FDCAN_TXBCR. FDCAN_TXBRP bits are set only for those Tx buffers configured via FDCAN_TXBC. After a FDCAN_TXBRP bit has been set, a Tx scan (see Filtering for Debug messages ) is started to check for the pending Tx request with the highest priority (Tx buffer with lowest message ID). A cancellation request resets the correspondi ng transmission request pending bit of register FDCAN_TXBRP. In case a transmission has already been started when a cancellation is requested, this is done at the end of the transmission, re gardless whether the transmission was successful or not. The cancellation request bits are reset direct ly after the corresponding FDCAN_TXBRP bit has been reset. After a cancellation has been requested, a finished cancellation is signaled via FDCAN_TXBCFafter successful transmission together with the corresponding FDCAN_TXBTO bit when the transmission has not yet been started at the point of cancellationwhen the transmission has been aborted due to lost arbitrationwhen an error occurred during frame transmissionIn DAR mode all transmissions are automatically canceled if they ar e not successful. The corresponding FDCAN_TXBC F bit is set for all un successful transmissions. 0: No transmission request pending1: Transmission request pending",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBAR",
+      "description": "Tx buffer add request register",
+      "offset": "0xD0",
+      "fields": [
+        {
+          "name": "AR",
+          "description": "Add request Each Tx buffer has its own add request bit. Writin g a 1 sets the corresponding add request bit; writing a 0 has no impact. This enables the user to set tran smission requests for multiple Tx buffers with one write to FDCAN_TXBAR. FDCAN_T XBAR bits are set only for thos e Tx buffers configured via FDCAN_TXBC. When no Tx scan is ru nning, the bits are reset immediately, else the bits remain set until the Tx scan process has completed. 0: No transmission request added1: Transmission requested added.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBCR",
+      "description": "Tx buffer cancellation request register",
+      "offset": "0xD4",
+      "fields": [
+        {
+          "name": "CR",
+          "description": "Cancellation request Each Tx buffer has its own cancellation request bit. Writing a 1 sets the corresponding cancellation request bit; writing a 0 has no impact. This enables the user to set cancellation req uests for multiple Tx buffers with one write to FDCAN_TXBCR. FDCAN_TXBCR bits are set only for those Tx buffers configured via FDCAN_TXBC. The bits remain set until the corresponding FDCAN_TXBRP bit is reset. 0: No cancellation pending1: Cancellation pending",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBTO",
+      "description": "Tx buffer transmission occurred register",
+      "offset": "0xD8",
+      "fields": [
+        {
+          "name": "TO",
+          "description": "Transmission occurred Each Tx buffer has its own transmission occurred bit. The bits are set when the corresponding FDCAN_TXBRP bit is cleared after a successful transmission. The bits are reset when a new transmission is requested by writing a 1 to the co rresponding bit of re gister FDCAN_TXBAR. 0: No transmission occurred1: Transmission occurred",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBCF",
+      "description": "Tx buffer cancellation finished register",
+      "offset": "0xDC",
+      "fields": [
+        {
+          "name": "CF",
+          "description": "Cancellation finished Each Tx buffer has its own cancellation finished bit. The bits are set when the corresponding FDCAN_TXBRP bit is cleared after a cancellation was requested via FDCAN_TXBCR. In case the corresponding FDCAN_TXBRP bit was not set at the point of cancellation, CF is set immediately. The bits are reset when a new transmission is req uested by writing a 1 to the corresponding bit of register FDCAN_TXBAR. 0: No transmit buffer cancellation1: Transmit buffer cancellation finished",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBTIE",
+      "description": "Tx buffer transmission interrupt enable register",
+      "offset": "0xE0",
+      "fields": [
+        {
+          "name": "TIE",
+          "description": "Transmission interrupt enable Each Tx buffer has its own transmission interrupt enable bit. 0: Transmission interrupt disabled1: Transmission interrupt enable",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXBCIE",
+      "description": "Tx buffer cancellation finished interrupt enable register",
+      "offset": "0xE4",
+      "fields": [
+        {
+          "name": "CFIE",
+          "description": "Cancellation finished interrupt enable Each Tx buffer has its own cancellation finished interrupt enable bit. 0: Cancellation finished interrupt disabled1: Cancellation finished interrupt enabled",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TXEFC",
+      "description": "Tx event FIFO configuration register",
+      "offset": "0xF0",
+      "fields": [
+        {
+          "name": "EFWM",
+          "description": "Event FIFO watermark 0: Watermark interrupt disabled 1-32: Level for Tx event FIFO watermark interrupt (FDCAN_IR.TEFW)>32: Watermark interrupt disabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111000000000000000000000000"
+        },
+        {
+          "name": "EFS",
+          "description": "Event FIFO size. 0: Tx event FIFO disabled 1-32: Number of Tx event FIFO elements>32: Values greater than 32 are interpreted as 32 The Tx event FIFO elements are indexed from 0 to EFS-1.These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1. EFSA[13:0] : Event FIFO start address Start address of Tx event FIFO in message RAM (32-bit word address, see Figure 737 ). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11000000110000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "TXEFS",
+      "description": "Tx event FIFO status register",
+      "offset": "0xF4",
+      "fields": [
+        {
+          "name": "5",
+          "description": "231 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. TEFL EFF Res. Res. Res. EFPI[4:0] rr rrrrr 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. EFGI[4:0] Res. Res. EFFL[5:0] rrrrr rrrrrr",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "TEFL",
+          "description": "Tx event FIFO element lost This bit is a copy of interrupt flag FDCAN_IR.TEFL. When FDCAN_IR.TEFL is reset, this bit is also reset. 0 No Tx event FIFO element lost1 Tx event FIFO element lost, also set after write attempt to Tx event FIFO of size 0.",
+          "values": [],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EFF",
+          "description": "Event FIFO full",
+          "values": [
+            ["0", "Tx event FIFO not full"],
+            ["1", "Tx event FIFO full"]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "EFPI",
+          "description": "Event FIFO put index Tx event FIFO write index pointer, range 0 to 31.",
+          "values": [],
+          "mask": "0b111110000000000000000"
+        },
+        {
+          "name": "EFGI",
+          "description": "Event FIFO get index Tx event FIFO read index pointer, range 0 to 31.",
+          "values": [],
+          "mask": "0b1111100000000"
+        },
+        {
+          "name": "EFFL",
+          "description": "Event FIFO fill level Number of elements stored in Tx event FIFO, range 0 to 31.",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111100111000001110000011000000"
+        }
+      ]
+    },
+    {
+      "name": "TXEFA",
+      "description": "Tx event FIFO acknowledge register",
+      "offset": "0xF8",
+      "fields": [
+        {
+          "name": "EFAI",
+          "description": "Event FIFO acknowledge index After the user has read an element or a sequence of elements from the Tx event FIFO, it must write the index of the last element read from Tx event FI FO to EFAI. This sets the Tx event FIFO get index FDCAN_TXEFS.EFGI to EFAI + 1 and update the FIFO 0 fill level FDCAN_TXEFS.EFFL.",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "TTTMC",
+      "description": "TT trigger memory configuration register",
+      "offset": "0x100",
+      "fields": [
+        {
+          "name": "TME",
+          "description": "Trigger memory elements 0: No trigger memory 1-64: Number of trigger memory elements>64: Values greater than 64 are interpreted as 64 These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "TMSA",
+          "description": "Trigger memory start address. Start address of trigger memory in message RAM (32-bit word address, see Figure 737 ). These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111111100"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111100000000000000000000011"
+        }
+      ]
+    },
+    {
+      "name": "TTRMC",
+      "description": "TT reference message configuration register",
+      "offset": "0x104",
+      "fields": [
+        {
+          "name": "XTD",
+          "description": "Extended identifier",
+          "values": [
+            ["0", "11-bit standard identifier"],
+            ["1", "29-bit extended identifierThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "RID",
+          "description": "Reference identifier. Identifier transmitted with referenc e message and used for reference message filtering. Standard or extended reference identifier depending on bit XT D. A standard identifier must be written to ID[28:18]. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b100000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTOCF",
+      "description": "TT operation configuration register",
+      "offset": "0x108",
+      "fields": [
+        {
+          "name": "EVTP",
+          "description": "Event trigger polarity.",
+          "values": [
+            ["0", "Rising edge trigger"],
+            ["1", "Falling edge triggerThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b100000000000000000000000000"
+        },
+        {
+          "name": "ECC",
+          "description": "Enable clock calibration.",
+          "values": [
+            ["0", "Automatic clock calibration in FDCAN level 0, 2 is disabled"],
+            ["1", "Automatic clock calibration in FDCAN level 0, 2 is enabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b10000000000000000000000000"
+        },
+        {
+          "name": "EGTF",
+          "description": "Enable global time filtering.",
+          "values": [
+            ["0", "Global time filtering in FDCAN level 0, 2 is disabled"],
+            ["1", "Global time filtering in FDCAN level 0, 2 is enabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1000000000000000000000000"
+        },
+        {
+          "name": "AWL",
+          "description": "Application watchdog limit. The application watchdog can be disabled by programming AWL to 0x00. 0x00 to FF: Maximum time after which the application has to serve the application watchdog. The application watchdog is incremented once each 256 NTUs. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111110000000000000000"
+        },
+        {
+          "name": "EECS",
+          "description": "Enable external clock synchronization If enabled, TUR configurati on (FDCAN_TURCF.NCL only) may be updated during FDCAN operation.",
+          "values": [
+            ["0", "External clock synchronization in FDCAN level 0, 2 disabled"],
+            ["1", "External clock synchronization in FDCAN level 0, 2 enabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "IRTO",
+          "description": "Initial reference trigger offset. 0x00 to 7F Positive offset, range from 0 to 127 These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111111100000000"
+        },
+        {
+          "name": "LDSDL",
+          "description": "LD of synchronization deviation limit. The synchronization deviation limit SDL is configur ed by its dual logarithm LDSDL with SDL = 2 * (LDSDL + 5). SDL is comprised between 32 and 4096. It should not exceed the clock tolerance given by the CAN bit timing configuration. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b11100000"
+        },
+        {
+          "name": "TM",
+          "description": "Time master.",
+          "values": [
+            ["0", "Time master function disabled"],
+            ["1", "Potential time masterThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "GEN",
+          "description": "Gap enable.",
+          "values": [
+            ["0", "Strictly time-t riggered operation"],
+            ["1", "External event-synchronized time-triggered operationThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "OM",
+          "description": "Operation mode.",
+          "values": [
+            ["00", "Event-driven CAN communication, default"],
+            ["01", "TTCAN level 1"],
+            ["10", "TTCAN level 2"],
+            ["11", "TTCAN level 0These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111000000000000000000000000100"
+        }
+      ]
+    },
+    {
+      "name": "TTMLM",
+      "description": "TT matrix limits register",
+      "offset": "0x10C",
+      "fields": [
+        {
+          "name": "ENTT",
+          "description": "Expected number of Tx triggers 0x000 to FFF Expected number of Tx triggers in one matrix cycle. These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "TXEW",
+          "description": "Tx enable window 0x0 to F Length of Tx enab le window, 1-16 NTU cycles These are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "CSS",
+          "description": "Cycle start synchronization Enables sync pulse output.",
+          "values": [
+            ["00", "No sync pulse"],
+            ["01", "Sync pulse at start of basic cycle"],
+            ["10", "Sync pulse at start of matrix cycle"],
+            ["11", "ReservedThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "CCM",
+          "description": "Cycle count Max",
+          "values": [
+            ["0x00", "1 basic cycle per matrix cycle"],
+            ["0x01", "2 basic cycles per matrix cycle"],
+            ["0x03", "4 basic cycles per matrix cycle"],
+            ["0x07", "8 basic cycles per matrix cycle"],
+            ["0x0F", "16 basic cycles per matrix cycle"],
+            ["0x1F", "32 basic cycles per matrix cycle"],
+            ["0x3F", "64 basic cycles per matrix cycle"],
+            ["Others", "ReservedThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11110000000000001111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TURCF",
+      "description": "TUR configuration register",
+      "offset": "0x110",
+      "fields": [
+        {
+          "name": "ELT",
+          "description": "Enable local time. The local time is started by setting ELT, it remains active until ELT is reset or until the next hardware reset. FDCAN_TURCF.DC is locked when FDCAN_TURCF.ELT = 1. If ELT is written to 0, the readable value stays at 1 until the new value has been synchronized into the CAN clock domain. During this time write access to the other bits of the register is locked.",
+          "values": [
+            ["0", "Local time is stopped, default"],
+            ["1", "Local time is enabledThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "DC",
+          "description": "Denominator configuration. If NC < 7 \u00d7 DC in TTCAN level 1, subsequent time marks in the trigger memory must differ by at least two NTUs. NCL[15:0] : Numerator configuration low. Write access to the TUR numerator configuration low is only possible during configuration with FDCAN_TURCF.ELT = 0 or if FDCAN_TTOCF.EECS (e xternal clock synchronization enabled) is set. When a new value for NCL is written outside TT configuration mode, the new value takes effect when FDCAN_TTOST.WECS is cleared to 0. NCL is locked FDCAN_TTOST.WECS is 1. 0x0000 to FFFF Numerator configuration lowThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1.",
+          "values": [
+            ["0x0000", "Illegal value 0x0001 to"],
+            ["0x3FFF", "Denominator configurationThese are write-protect ed bits, write access is possible only when bit CCE and bit INIT of FDCAN_CCCR register are set to 1."]
+          ],
+          "mask": "0b111111111111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTOCN",
+      "description": "TT operation control register",
+      "offset": "0x114",
+      "fields": [
+        {
+          "name": "5",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 LCKC Res. ESCN NIG TMG FGP GCS TTIE TMC[",
+          "values": [
+            ["1", "0] RTIE SWS["],
+            ["1", "0] SWP ECS SGT r r wr wr wr wr wr wr wr wr wr wr wr wr wr w"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "LCKC",
+          "description": "TT operation control register locked. Set by a write access to register FDCAN_TTOCN. Reset when the updated configuration has been synchronized into the CAN clock domain.",
+          "values": [
+            ["0", "Write access to FDCAN_TTOCN enabled"],
+            ["1", "Write access to FDCAN_TTOCN locked"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ESCN",
+          "description": "External synchronization control If enabled the FDCAN synchronizes its cycle time phase to an external event signaled by a rising edge at event trigger pin (see Section 56.4.17: Synchronization to external time schedule ).",
+          "values": [
+            ["0", "External synchronization disabled"],
+            ["1", "External synchronization enabled"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "NIG",
+          "description": "Next is gap. This bit can only be set when the FDCAN is the ac tual time master and when it is configured for external event-synchronized time-trig gered operation (FDCAN_TTOCF.GEN = 1)",
+          "values": [
+            ["0", "No action, reset by reception of any reference message"],
+            ["1", "Transmit next reference message with Next_is_Gap = 1"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TMG",
+          "description": "Time mark gap.",
+          "values": [
+            ["0", "Reset by each reference message"],
+            ["1", "Next reference message started when regist er time mark interrupt FDCAN_TTIR.RTMI is activated"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "FGP",
+          "description": "Finish gap. Set by the CPU, reset by each reference message",
+          "values": [
+            ["0", "No reference message requested"],
+            ["1", "Application requested start of reference message"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "GCS",
+          "description": "Gap control select",
+          "values": [
+            ["0", "Gap control independent from event trigger"],
+            ["1", "Gap control by input event trigger pin"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "TTIE",
+          "description": "Trigger time mark interrupt pulse enable External time mark events are configured by tr igger memory element TMEX. A trigger time mark interrupt pulse is generated when the trigger memory element becomes active, and the FDCAN is in synchronization state In_Schedule or In_Gap.",
+          "values": [
+            ["0", "Trigger time mark interrupt output fdcan1_tmp for more than one instanc e and fdcan_tmp if only one instance disabled"],
+            ["1", "Trigger time mark interrupt output fdcan1_tmp for more than one instanc e and fdcan_tmp if only one instance enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TMC",
+          "description": "Register time mark compare. When changing the time mark reference (cycle, local, global time), it is recommended to first write TMC = 00, then reconfigure FDCAN_TTTMK, and finally set FDCAN_TMC to the intended time reference.",
+          "values": [
+            ["00", "No register time mark interrupt generated"],
+            ["01", "Register time mark interr upt if time mark = cycle time"],
+            ["10", "Register time mark interr upt if time mark = local time"],
+            ["11", "Register time mark interrupt if time mark = global time"]
+          ],
+          "mask": "0b11000000"
+        },
+        {
+          "name": "RTIE",
+          "description": "Register time mark interrupt pulse enable. Register time mark interrupts are configured by register FDCAN_TTTMK. A register time mark interrupt pulse with the length of one fdcan_tq_ ck period is generated when time referenced by FDCAN_TTOCN.TMC (cycle, local, or global) is equal to FDCAN_TTTMK.TM, independently from the synchronization state.",
+          "values": [
+            ["0", "Register time mark interrupt output disabled"],
+            ["1", "Register time mark interrupt output enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "SWS",
+          "description": "Stop watch source.",
+          "values": [
+            ["00", "Stop watch disabled"],
+            ["01", "Actual value of cycle time is copied to FDCAN_TTCPT.SWV"],
+            ["10", "Actual value of local time is copied to FDCAN_TTCPT.SWV"],
+            ["11", "Actual value of global time is copied to FDCAN_TTCPT.SWV"]
+          ],
+          "mask": "0b11000"
+        },
+        {
+          "name": "SWP",
+          "description": "Stop watch polarity.",
+          "values": [
+            ["0", "Rising edge trigger"],
+            ["1", "Falling edge trigger"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "ECS",
+          "description": "External clock synchronization. Writing a 1 to ECS sets FDCAN_TTOST.WECS if the node is the actual time master. ECS is reset after one APB clock period. The ex ternal clock synchronization takes effect at the start of the next basic cycle.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "SGT",
+          "description": "Set global time. Writing a 1 to SGT sets FDCAN_TTOST.WGDT if t he node is the actual time master. SGT is reset after one APB clock period. The global time pres et takes effect when the node transmits the next reference message with the Master_Ref_Mark modified by the preset value written to FDCAN_TTGTP.",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110100000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTGTP",
+      "description": "TT global time preset register",
+      "offset": "0x118",
+      "fields": [
+        {
+          "name": "CTP",
+          "description": "Cycle time target phase CTP is write-protected while FDCAN_TTOCN.ESCN or FDCAN_TTOST.SPL are set (see Section 56.4.17: Synchronization to external time schedule ). 0x0000 to FFFF defines the target value of cycle time when a rising edge of event trigger is expected",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "TP",
+          "description": "Time preset TP is write-protected while FDCAN_TTOST.WGTD is set. 0x0000 to 7FFF next master reference mark = master reference mark + TP0x8000 reserved0x8001\u2013FFFF Next master reference mark = master reference mark - (0x10000 - TP).",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TTTMK",
+      "description": "TT time mark register",
+      "offset": "0x11C",
+      "fields": [
+        {
+          "name": "TICC",
+          "description": "Time mark cycle code Cycle count for which the time mark is valid. 0b000000x valid for all cycles0b000001c valid every second cycle at cycle count mod2 = c0b00001cc valid every fourth cycle at cycle count mod4 = cc 0b0001ccc valid every eighth cycle at cycle count mod8 = ccc 0b001cccc valid every sixteenth cycle at cycle count mod16 = cccc0b01ccccc valid every thirty-second cycle at cycle count mod32 = ccccc 0b1cccccc valid every sixty-fourth cycle at cycle count mod64 = cccccc",
+          "values": [],
+          "mask": "0b11111110000000000000000"
+        },
+        {
+          "name": "TM",
+          "description": "Time mark 0x0000 to FFFF time mark",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTIR",
+      "description": "TT interrupt register",
+      "offset": "0x120",
+      "fields": [
+        {
+          "name": "CER",
+          "description": "Configuration error Trigger out of order.",
+          "values": [
+            ["0", "No error found in trigger list"],
+            ["1", "Error found in trigger list"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "AW",
+          "description": "Application watchdog",
+          "values": [
+            ["0", "Application watchdog served in time"],
+            ["1", "Application watchdog not served in time"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "WT",
+          "description": "Watch trigger",
+          "values": [
+            ["0", "No missing reference message"],
+            ["1", "Missing reference message (level"],
+            ["0", "cycle time 0xFF00)"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "IWTG",
+          "description": "Initialization watch trigger The initialization is rest arted by resetting IWT. 0 No missing reference me ssage during system startup 1 No system startup due to missing reference message",
+          "values": [],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ELC",
+          "description": "Error level changed Not set when error level changed during initialization.",
+          "values": [
+            ["0", "No change in error level"],
+            ["1", "Error level changed"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "SE2",
+          "description": "Scheduling error 2",
+          "values": [
+            ["0", "No scheduling error 2"],
+            ["1", "Scheduling error 2 occurred"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "SE1",
+          "description": "Scheduling error 1",
+          "values": [
+            ["0", "No scheduling error 1"],
+            ["1", "Scheduling error 1 occurred"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TXO",
+          "description": "Tx count overflow",
+          "values": [
+            ["0", "Number of Tx trigger as expected"],
+            ["1", "More Tx trigger th an expected in one cycle"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TXU",
+          "description": "Tx count underflow",
+          "values": [
+            ["0", "Number of Tx trigger as expected"],
+            ["1", "Less Tx trigger than expected in one cycle"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "GTE",
+          "description": "Global time error Synchronization deviation SD exceeds limit spec ified by FDCAN_TTOCF.LDSDL, TTCAN level 0, 2 only.",
+          "values": [
+            ["0", "Synchronization deviation within limit"],
+            ["1", "Synchronization deviation exceeded limit"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "GTD",
+          "description": "Global time discontinuity",
+          "values": [
+            ["0", "No discontinuity of global time"],
+            ["1", "Discontinuity of global time"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "GTW",
+          "description": "Global time wrap",
+          "values": [
+            ["0", "No global time wrap occurred"],
+            ["1", "Global time wrap from 0xFFFF to 0x0000 occurred"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "SWE",
+          "description": "Stop watch event",
+          "values": [["0", "No rising/falling edge at st op watch trigger pin detected 1 :Rising/falling edge at stop watch trigger pin detected"]],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TTMI",
+          "description": "Trigger time mark event internal Internal time mark events are configured by trigger memory element TMIN (see Section 56.4.23 ). Set when the trigger memory element becomes acti ve, and the FDCAN is in synchronization state In_Gap or In_Schedule.",
+          "values": [
+            ["0", "Time mark not reached"],
+            ["1", "Time mark reached (level"],
+            ["0", "cycle time FDCAN_TTOCF.RTO x 0x200) RTMI : Register time mark interrupt Set when time referenced by TTOCN.TMC (cycle, lo cal, or global) is equ al to FDCAN_TTTMK.TM, independently from the synchronization state."],
+            ["0", "Time mark not reached"],
+            ["1", "Time mark reached"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "SOG",
+          "description": "Start of gap 0 No reference message seen with Next_is_Gap bit set 1 Reference message with Next_is_Gap bit set becomes valid",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CSM",
+          "description": "Change of synch ronization mode",
+          "values": [
+            ["0", "No change in master to slave relation or schedule synchronization"],
+            ["1", "Master to slave relation or schedule synchronization changed,also set when FDCAN_TTOST.SPL is reset"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SMC",
+          "description": "Start of matrix cycle",
+          "values": [
+            ["0", "No matrix cycle started since bit has been reset"],
+            ["1", "Matrix cycle started"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SBC",
+          "description": "Start of basic cycle",
+          "values": [
+            ["0", "No basic cycle started since bit has been reset"],
+            ["1", "Basic cycle started"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTIE",
+      "description": "TT interrupt enable register",
+      "offset": "0x124",
+      "fields": [
+        {
+          "name": "CERE",
+          "description": "Configuration error interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "AWE",
+          "description": "Application watchdog interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "WTE",
+          "description": "Watch trigger interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "IWTE",
+          "description": "Initialization watch trigger interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ELCE",
+          "description": "Change error level interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "SE2E",
+          "description": "Scheduling error 2 interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "SE1E",
+          "description": "Scheduling error 1 interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TXOE",
+          "description": "Tx count overflow interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "TXUE",
+          "description": "Tx count underflow interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "GTEE",
+          "description": "Global time error interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "GTDE",
+          "description": "Global time discontinuity interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "GTWE",
+          "description": "Global time wrap interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "SWEE",
+          "description": "Stop watch event interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TTMIE",
+          "description": "Trigger time mark event internal interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RTMIE",
+          "description": "Register time mark interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "SOGE",
+          "description": "Start of gap interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CSME",
+          "description": "Change of synchronization mode interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SMCE",
+          "description": "Start of matrix cycle interrupt enable",
+          "values": [
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled SBCE : Start of basic cycle interrupt enable"],
+            ["0", "TT interrupt disabled"],
+            ["1", "TT interrupt enabled"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTILS",
+      "description": "TT interrupt line select register",
+      "offset": "0x128",
+      "fields": [
+        {
+          "name": "CERL",
+          "description": "Configuration error interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000000000000000000"
+        },
+        {
+          "name": "AWL",
+          "description": "Application watchdog interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100000000000000000"
+        },
+        {
+          "name": "WTL",
+          "description": "Watch trigger interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b10000000000000000"
+        },
+        {
+          "name": "IWTL",
+          "description": "Initialization watch trigger interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000000000000000"
+        },
+        {
+          "name": "ELCL",
+          "description": "Change error level interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100000000000000"
+        },
+        {
+          "name": "SE2L",
+          "description": "Scheduling error 2 interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b10000000000000"
+        },
+        {
+          "name": "SE1L",
+          "description": "Scheduling error 1 interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000000000000"
+        },
+        {
+          "name": "TXOL",
+          "description": "Tx count overflow interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1 TXUL: Tx count underflow interrupt line"],
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "GTEL",
+          "description": "Global time error interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "GTDL",
+          "description": "Global time discontinuity interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "GTWL",
+          "description": "Global time wrap interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "SWEL",
+          "description": "Stop watch event interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TTMIL",
+          "description": "Trigger time mark event internal interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "RTMIL",
+          "description": "Register time mark interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "SOGL",
+          "description": "Start of gap interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CSML",
+          "description": "Change of synchronization mode interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "SMCL",
+          "description": "Start of matrix cycle interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SBCL",
+          "description": "Start of basic cycle interrupt line",
+          "values": [
+            ["0", "TT interrupt assigned to interrupt line 0"],
+            ["1", "TT interrupt assigned to interrupt line 1"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111110000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTOST",
+      "description": "TT operation status register",
+      "offset": "0x12C",
+      "fields": [
+        {
+          "name": "SPL",
+          "description": "Schedule phase lock The bit is valid only when external synchronization is enabled (FDCAN_TTOCN.ESCN = 1). In this case it signals that the difference between cycle time configured by FDCAN_TTGTP.CTP and the cycle time at the rising edge at event trigger pin is less than or equal to 9 NTU (see Section 56.4.17: Synchronization to external time schedule ).",
+          "values": [
+            ["0", "Phase outside range"],
+            ["1", "Phase inside range"]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "WECS",
+          "description": "Wait for external clock synchronization.",
+          "values": [
+            ["0", "No external clock synchronization pending"],
+            ["1", "Node waits for external clock synch ronization to take effect. The bit is reset at the start of the next basic cycle."]
+          ],
+          "mask": "0b1000000000000000000000000000000"
+        },
+        {
+          "name": "AWE",
+          "description": "Application watchdog event The application watchdog is served by reading FDCA N_TTOST. When the watchdog is not served in time, bit AWE is set, all FDCAN communication is stopped, and the FDCAN is set into bus monitoring mode.",
+          "values": [
+            ["0", "Application watchdog served in time"],
+            ["1", "Failed to serve application watchdog in time"]
+          ],
+          "mask": "0b100000000000000000000000000000"
+        },
+        {
+          "name": "WFE",
+          "description": "Wait for event",
+          "values": [
+            ["0", "No gap announced, reset by a refe rence message with Next_is_Gap = 0"],
+            ["1", "Reference message with Next_is_Gap = 1 received"]
+          ],
+          "mask": "0b10000000000000000000000000000"
+        },
+        {
+          "name": "GSI",
+          "description": "Gap started indicator",
+          "values": [
+            ["0", "No gap in schedule, reset by each reference message and for all time slaves"],
+            ["1", "Gap time after basic cycle has started"]
+          ],
+          "mask": "0b1000000000000000000000000000"
+        },
+        {
+          "name": "TMP",
+          "description": "Time master priority 0x0-7 Priority of actual time master",
+          "values": [],
+          "mask": "0b111000000000000000000000000"
+        },
+        {
+          "name": "GFI",
+          "description": "Gap finished indicator Set when the CPU writes FDCAN_TTO CN.FGP, or by a time mark interrupt if TMG = 1, or via input pin (event trigger) if FDCAN_TTO CN.GCS = 1. Not set by Ref_Trigger_Gap or when Gap is finished by another node sending a reference message.",
+          "values": [
+            ["0", "Reset at the end of each reference message"],
+            ["1", "Gap finished by FDCAN"]
+          ],
+          "mask": "0b100000000000000000000000"
+        },
+        {
+          "name": "WGTD",
+          "description": "Wait for global time discontinuity",
+          "values": [
+            ["0", "No global time preset pending"],
+            ["1", "Node waits for the global time preset to take effect. The bit is reset when the node has transmitted a reference message with Disc_Bit = 1 or after it received a reference message."]
+          ],
+          "mask": "0b10000000000000000000000"
+        },
+        {
+          "name": "RTO",
+          "description": "Reference trigger offset The reference trigger offset value is a signed intege r with a range from -127 (0x81) to 127 (0x7F). There is no notification when the lower limit of-127 is reached. In case the FDCAN becomes time master (MS[1:0] = 11), the reset of RTO is delayed due to synchronization between user and CAN clock domain. For time slaves the value configured by FDCAN_TTOCF.IRTO is read. 0x00-FF Actual reference trigger offset value",
+          "values": [],
+          "mask": "0b1111111100000000"
+        },
+        {
+          "name": "QCS",
+          "description": "Quality of clock speed Only relevant in TTCAN level 0 and level 2, otherwise fixed to 1.",
+          "values": [
+            ["0", "Local clock speed not synchroni zed to time master clock speed"],
+            ["1", "Synchronization deviation \u2264 SDL QGTP : Quality of global time phase Only relevant in TTCAN level 0 and level 2, otherwise fixed to 0."],
+            ["0", "Global time not valid"],
+            ["1", "Global time in pha se with time master"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "SYS",
+          "description": "Synchronization state",
+          "values": [
+            ["00", "Out of Synchronization"],
+            ["01", "Synchronizing to FDCAN communication"],
+            ["10", "Schedule suspended by gap (In_Gap)"],
+            ["11", "Synchronized to schedule (In_Schedule)"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "MS",
+          "description": "Master state",
+          "values": [
+            ["00", "Master_Off, no master properties relevant"],
+            ["01", "Operating as time Slave"],
+            ["10", "Operating as backup time master"],
+            ["11", "Operating as current time master"]
+          ],
+          "mask": "0b1100"
+        },
+        {
+          "name": "EL",
+          "description": "Error level",
+          "values": [
+            ["00", "Severity 0 - No error"],
+            ["01", "Severity 1 - Warning"],
+            ["10", "Severity 2 - error"],
+            ["11", "Severity 3 - Severe error"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TURNA",
+      "description": "TUR numerator actual register",
+      "offset": "0x130",
+      "fields": [
+        {
+          "name": "NAV",
+          "description": "Numerator actual value",
+          "values": [
+            ["0x0EFFF", "illegal value 0x0F000 to 20FFF: actual numerator value"],
+            ["0x21000", "illegal value"]
+          ],
+          "mask": "0b111111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTLGT",
+      "description": "TT local and global time register",
+      "offset": "0x134",
+      "fields": [
+        {
+          "name": "GT",
+          "description": "Global time Non-fractional part of the sum of the no de local time and its local offset (see Section 56.4.12 ). 0x0000 to FFFF Global time value of FDCAN network",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "LT",
+          "description": "Local time Non-fractional part of local time, incremented once each local NTU (see Section 56.4.12 ). 0x0000 to FFFF Local time value of FDCAN node",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "TTCTC",
+      "description": "TT cycle time and count register",
+      "offset": "0x138",
+      "fields": [
+        {
+          "name": "CC",
+          "description": "Cycle count 0x00 to 3F Number of actual basic cycle in the system matrix",
+          "values": [],
+          "mask": "0b1111110000000000000000"
+        },
+        {
+          "name": "CT",
+          "description": "Cycle time Non-fractional part of the difference of the node local time and Ref_Mark (see Section 56.4.12 ). 0x0000 to FFFF: cycle time value of FDCAN basic cycle",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111110000000000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTCPT",
+      "description": "TT capture time register",
+      "offset": "0x13C",
+      "fields": [
+        {
+          "name": "SWV",
+          "description": "Stop watch value On a rising / falling edge (as configured via FDCA N_TTOCN.SWP) at the stop watch trigger pin, when FDCAN_TTOCN.SWS] is different from 00 and FDCAN_TTIR.SWE is 0, the actual time value as selected by FDCAN_TTOCN.SWS (cycle, local, global) is copied to SWV and TFDCAN_TIR.SWE is set to 1.Ca pturing of the next stop watch value is enabled by resetting FDCAN_TTIR.SWE. 0x0000 to FFFF Captured stop watch value",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "CCV",
+          "description": "Cycle count value Cycle count value captured together with SWV. 0x00 to 3F: captured cycle count value",
+          "values": [],
+          "mask": "0b111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111000000"
+        }
+      ]
+    },
+    {
+      "name": "TTCSM",
+      "description": "TT cycle sync mark register",
+      "offset": "0x140",
+      "fields": [
+        {
+          "name": "CSM",
+          "description": "Cycle sync mark The cycle sync mark is measured in cycle time . It is updated when the reference message becomes valid and retains its value until the next reference message becomes valid. 0x0000 to FFFF Ca ptured cycle time",
+          "values": [],
+          "mask": "0b1111111111111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        }
+      ]
+    },
+    {
+      "name": "TTTS",
+      "description": "TT trigger select register",
+      "offset": "0x300",
+      "fields": [
+        {
+          "name": "EVTSEL",
+          "description": "Event trigger input selection These bits are used to select the input to be used as event trigger",
+          "values": [
+            ["00", "fdcan1_evt0"],
+            ["01", "fdcan1_evt1"],
+            ["10", "fdcan1_evt2"],
+            ["11", "fdcan1_evt3"]
+          ],
+          "mask": "0b110000"
+        },
+        {
+          "name": "SWTDEL",
+          "description": "Stop watch trigger input selection These bits are used to select the i nput to be used as stop watch trigger",
+          "values": [
+            ["00", "fdcan1_swt0"],
+            ["01", "fdcan1_swt1"],
+            ["10", "fdcan1_swt2"],
+            ["11", "fdcan1_swt3"]
+          ],
+          "mask": "0b11"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111001100"
+        }
+      ]
+    }
+  ]
+}

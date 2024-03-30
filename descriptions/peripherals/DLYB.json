@@ -1,0 +1,76 @@
+{
+  "DLYB": [
+    {
+      "name": "CR",
+      "description": "control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "SEN",
+          "description": "Sampler length enable bit",
+          "values": [
+            ["0", "Sampler length and register access to UNI T[6:0] and SEL[3:0] di sabled, output clock enabled."],
+            ["1", "Sampler length and register access to UNIT[6:0] and SEL[3:0] enabled, output clock disabled."]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "DEN",
+          "description": "Delay block enable bit",
+          "values": [
+            ["0", "DLYB disabled."],
+            ["1", "DLYB enabled."]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    },
+    {
+      "name": "CFGR",
+      "description": "configuration register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "LNGF",
+          "description": "Length valid flag This flag indicates when the delay line length value contained in LNG[1",
+          "values": [
+            ["1", "0] is valid after UNIT[6:0] bits changed."],
+            ["0", "Length value in LNG is not valid."],
+            ["1", "Length value in LNG is valid."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "LNG",
+          "description": "Delay line length value These bits reflect the 12 unit delay values sampled at the rising edge of the input clock. The value is only valid when LNGF = 1.",
+          "values": [],
+          "mask": "0b1111111111110000000000000000"
+        },
+        {
+          "name": "UNIT",
+          "description": "Delay of a unit delay cell. These bits can only be written when SEN = 1. Unit delay = initial delay + UNIT[6:0] x delay step",
+          "values": [],
+          "mask": "0b111111100000000"
+        },
+        {
+          "name": "SEL",
+          "description": "Phase for the output clock. These bits can only be written when SEN = 1. Output clock phase = input cl ock + SEL[3:0] x unit delay",
+          "values": [],
+          "mask": "0b1111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1110000000000000000000011110000"
+        }
+      ]
+    }
+  ]
+}

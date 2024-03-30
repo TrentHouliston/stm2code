@@ -1,0 +1,451 @@
+{
+  "SWPMI": [
+    {
+      "name": "CR",
+      "description": "configuration/control register",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "SWPTEN",
+          "description": "Single wire protocol master transceiver enable This bit is used to enable the transceiver and control the SWPMI_IO with SWPMI (refer to Section 53.3.3: SWP initialization and activation ).",
+          "values": [
+            ["0", "SPWMI_IO pin is controlled by GPIO controller"],
+            ["1", "SWPMI_IO transceiver is controlled by SWPMI"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DEACT",
+          "description": "Single wire protocol mast er interface deactivate This bit is used to request the SWP DEACTIVATED state. Setting this bit has the same effect as clearing the SWPACT, except that a possible incoming RESUME by slave will keep the SWP in the ACTIVATED state.",
+          "values": [],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SWPACT",
+          "description": "Single wire protocol master interface activate This bit is used to activate the SWP bus (refer to Section 53.3.3: SWP initialization and activation ).",
+          "values": [
+            ["0", "SWPMI_IO is pulled down to ground, SW P bus is switched to DEACTIVATED state"],
+            ["1", "SWPMI_IO is released, SWP bu s is switched to SUSPENDED state To be able to set SWPACT bit, DEACT bit must be have been cleared previously."]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "LPBK",
+          "description": "Loopback mode enable This bit is used to enable the loopback mode This bit cannot be written while SWPACT bit is set.",
+          "values": [
+            ["0", "Loopback mode is disabled"],
+            ["1", "Loopback mode is enabled"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "TXMODE",
+          "description": "Transmission buffering mode This bit is used to choose the transmission buffering mode. This bit is relevant only when TXDMA bit is set (refer to Table 445: Buffer modes selection for transmission/reception ). This bit cannot be written while SWPACT bit is set. RXMODE : Reception buffering mode This bit is used to choose the reception bufferi ng mode. This bit is relevant only when TXDMA bit is set (refer to Table 445: Buffer modes selection for transmission/reception ). This bit cannot be written while SWPACT bit is set.",
+          "values": [
+            ["0", "SWPMI is configured in Single software buffer mode for transmission"],
+            ["1", "SWPMI is configured in Multi software buffer mode for transmission."],
+            ["0", "SWPMI is configured in Single software buffer mode for reception"],
+            ["1", "SWPMI is configured in Multi software buffer mode for reception."]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "TXDMA",
+          "description": "Transmission DMA enable This bit is used to enable the DMA mode in transmission TXDMA is automatically cleared if the payl oad size of the transmitted frame is given as 0x00 (in the least significant byte of TDR fo r the first word of a frame). TXDMA is also automatically cleared on underrun events (when TXUNRF flag is set in the SWP_ISR register)",
+          "values": [
+            ["0", "DMA is disabled for transmission"],
+            ["1", "DMA is enabled for transmission"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RXDMA",
+          "description": "Reception DMA enable This bit is used to enable the DMA mode in reception",
+          "values": [
+            ["0", "DMA is disabled for reception"],
+            ["1", "DMA is enabled for receptionTable 445. Buffer modes select ion for transmission/reception Buffer mode No software buffer Single software buffer Multi software bufferRXMODE/TXMODE x 0 1 RXDMA/TXDMA 0 1 1"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111001111000000"
+        }
+      ]
+    },
+    {
+      "name": "BRR",
+      "description": "Bitrate register",
+      "offset": "0x04",
+      "fields": [
+        {
+          "name": "BR",
+          "description": "Bitrate prescaler This field must be programmed to set SW P bus bitrate, taking into account the Fswpmi_ker_ck programmed in the RCC (Reset and Clock Control), according to the following formula: FSWP= Fswpmi_ker_ck / ((BR[7:0]+1)x4) The programmed bitrate must stay within the following range: from 100 kbit/s up to 2 Mbit/s. BR[7:0] cannot be written while SWPACT bit is set in the SWPMI_CR register.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111100000000"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "Interrupt and Status register",
+      "offset": "0x0C",
+      "fields": [
+        {
+          "name": "RDYF",
+          "description": "transceiver ready flag This bit is set by hardware as soon as transceiver is ready. After setting the SWPTEN bit in SWPMI_CR register to enable the SWPMI_IO transce iver, software must wa it for this flag to be set before setting the SWPACT bit to activate the SWP bus.",
+          "values": [
+            ["0", "transceiver not ready"],
+            ["1", "transceiver ready"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "DEACTF",
+          "description": "DEACTIVATED flag This bit is a status flag, acknowledging the request to enter the DEACTIVATED mode.",
+          "values": [
+            ["0", "SWP bus is in ACTIVATED or SUSPENDED state"],
+            ["1", "SWP bus is in DEACTIVATED state If a RESUME by slave state is detected by th e SWPMI while DEACT bit is set by software, the SRF flag will be set, DEACTF will not be set and SWP will move in ACTIVATED state."]
+          ],
+          "mask": "0b10000000000"
+        },
+        {
+          "name": "SUSP",
+          "description": "SUSPEND flag This bit is a status flag, reporting the SWP bus state",
+          "values": [
+            ["0", "SWP bus is in ACTIVATED state"],
+            ["1", "SWP bus is in SUSPENDED or DEACTIVATED state"]
+          ],
+          "mask": "0b1000000000"
+        },
+        {
+          "name": "SRF",
+          "description": "Slave resume flag This bit is set by hardware to indicate a RESUME by slave detection. It is cleared by software, writing 1 to CSRF bi t in the SWPMI_ICR register.",
+          "values": [
+            ["0", "No Resume by slave state detected"],
+            ["1", "A Resume by slave state has been detected during the SWP bus SUSPENDED state"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TCF",
+          "description": "Transfer complete flag This flag is set by hardware as soon as both transmission and reception are completed and SWP is switched to the SUSPENDED state. It is cleared by software, writing 1 to CTCF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "Transmission or reception is not completed"],
+            ["1", "Both transmission and reception are comp leted and SWP is switched to the SUSPENDED state"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TXE",
+          "description": "Transmit data register empty This flag indicates the tr ansmit data register status",
+          "values": [
+            ["0", "Data written in transmit data regi ster SWPMI_TDR is not transmitted yet"],
+            ["1", "Data written in transmit data regi ster SWPMI_TDR has been transmitted and SWPMI_TDR can be written to again RXNE : Receive data register not empty This flag indicates the receive data register status"],
+            ["0", "Data is not received in the SWPMI_RDR register"],
+            ["1", "Received data is ready to be read in the SWPMI_RDR register"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "TXUNRF",
+          "description": "Transmit underrun error flag This flag is set by hardware to indicate an underrun during the payload transmission i.e. SWPMI_TDR has not been written in time by th e software or the DMA. It is cleared by software, writing 1 to the CTXUNRF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "No underrun error in transmission"],
+            ["1", "Underrun error in transmission detected"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RXOVRF",
+          "description": "Receive overrun error flag This flag is set by hardware to indicate an overrun during the pay load reception, i.e. SWPMI_RDR has not be read in time by the software or the DMA. It is cleared by software, writing 1 to CRXOVRF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "No overrun in reception"],
+            ["1", "Overrun in reception detected"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RXBERF",
+          "description": "Receive CRC error flag This flag is set by hardware to indicate a CRC error in the received frame. It is set synchronously with RXBFF flag. It is cleared by software, writing 1 to CRXBERF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "No CRC error in reception"],
+            ["1", "CRC error in reception detected"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TXBEF",
+          "description": "Transmit buffer empty flag This flag is set by hardware to indicate that no more SWPMI_TDR update is required to complete the current frame transm ission. It is cleared by softwar e, writing 1 to CTXBEF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "Frame transmission buffer no yet emptied"],
+            ["1", "Frame transmission buffer has been emptied"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RXBFF",
+          "description": "Receive buff er full flag This flag is set by hardware when the final word for the frame under reception is available in SWPMI_RDR. It is cleared by software, writing 1 to CRXBFF bit in the SWPMI_ICR register.",
+          "values": [
+            ["0", "The last word of the frame under reception has not yet arrived in SWPMI_RDR"],
+            ["1", "The last word of the frame under reception has arrived in SWPMI_RDR"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111000000000000"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "Interrupt Flag Clear register",
+      "offset": "0x10",
+      "fields": [
+        {
+          "name": "CRDYF",
+          "description": "Clear transceiver ready flag Writing 1 to this bit clears the RDYF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "CSRF",
+          "description": "Clear slave resume flag Writing 1 to this bit clears the SRF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "CTCF",
+          "description": "Clear transfer complete flag Writing 1 to this bit clears the TCF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "CTXUNRF",
+          "description": "Clear transmit underrun error flag Writing 1 to this bit clears the TX UNRF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b10000"
+        },
+        {
+          "name": "CRXOVRF",
+          "description": "Clear receive overrun error flag Writing 1 to this bit clears the RXBOCREF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "CRXBERF",
+          "description": "Clear receive CRC error flag Writing 1 to this bit cl ears the RXBERF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b100"
+        },
+        {
+          "name": "CTXBEF",
+          "description": "Clear transmit buffer empty flag Writing 1 to this bit clears the TXBEF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "CRXBFF",
+          "description": "Clear receive buffer full flag Writing 1 to this bit clears the RXBFF flag in the SWPMI_ISR register Writing 0 to this bit does not have any effect",
+          "values": [],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11001100000"
+        }
+      ]
+    },
+    {
+      "name": "IER",
+      "description": "Interrupt Enable register",
+      "offset": "0x14",
+      "fields": [
+        {
+          "name": "RDYIE",
+          "description": "Transceiver ready interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "A SWPMI interrupt is generated whenever RDYF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b100000000000"
+        },
+        {
+          "name": "SRIE",
+          "description": "Slave resume interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated wheneve r SRF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b100000000"
+        },
+        {
+          "name": "TCIE",
+          "description": "Transmit complete interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whenever TCF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b10000000"
+        },
+        {
+          "name": "TIE",
+          "description": "Transmit interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated wheneve r TXE flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b1000000"
+        },
+        {
+          "name": "RIE",
+          "description": "Receive interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whenever RXNE flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b100000"
+        },
+        {
+          "name": "TXUNREIE",
+          "description": "Transmit underrun error interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whene ver TXBUNRF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b10000"
+        },
+        {
+          "name": "RXOVREIE",
+          "description": "Receive overrun error interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whenever RXBOVRF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b1000"
+        },
+        {
+          "name": "RXBEIE",
+          "description": "Receive CRC error interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whene ver RXBERF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b100"
+        },
+        {
+          "name": "TXBEIE",
+          "description": "Transmit buffer empty interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whenever TXBEF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "RXBFIE",
+          "description": "Receive buffer full interrupt enable",
+          "values": [
+            ["0", "Interrupt is inhibited"],
+            ["1", "An SWPMI interrupt is generated whenever RXBFF flag is set in the SWPMI_ISR register"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b111111111111111111110011000000000"
+        }
+      ]
+    },
+    {
+      "name": "RFL",
+      "description": "Receive Frame Length register",
+      "offset": "0x18",
+      "fields": [
+        {
+          "name": "RFL",
+          "description": "Receive frame length RFL[4:0] is the number of data bytes in the payload of the received frame. The two least significant bits RFL[1:0] give the number of relevant bytes for the last SWPMI_RDR register read.",
+          "values": [],
+          "mask": "0b11111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111100000"
+        }
+      ]
+    },
+    {
+      "name": "TDR",
+      "description": "Transmit data register",
+      "offset": "0x1C",
+      "fields": [
+        {
+          "name": "TD",
+          "description": "Transmit data Contains the data to be transmitted. Writing to this register triggers the SOF trans mission or the next payload data transmission, and clears the TXE flag.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "RDR",
+      "description": "Receive data register",
+      "offset": "0x20",
+      "fields": []
+    },
+    {
+      "name": "OR",
+      "description": "Option register",
+      "offset": "0x24",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res.SWP_ CLASSSWP_ TBYP rw rw",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "SWP_CLASS",
+          "description": "SWP class selection This bit is used to select the SWP class (refer to Section 53.3.3: SWP initialization and activation ).",
+          "values": [
+            ["0", "Class C: SWPMI_IO uses directly VDD voltage to operate in class C. This configuration must be selected when VDD is in the range [1.62 V to 1.98 V]"],
+            ["1", "Class B: SWPMI_IO uses an internal voltage regulator to operate in class B. This configuration must be selected when VDD is in the range [2.70 V to 3.30 V]"]
+          ],
+          "mask": "0b10"
+        },
+        {
+          "name": "SWP_TBYP",
+          "description": "SWP transceiver bypass This bit is used to bypass the internal tr ansceiver (SWPMI_IO), and connect an external transceiver.",
+          "values": [
+            ["0", "Internal transceiver is enabled. The external interface for SWPMI is SWPMI_IO (SWPMI_RX, SWPMI_TX and SWPMI_SUSPEND signals are not available on GPIOs)"],
+            ["1", "Internal transceiver is disabled. SW PMI_RX, SWPMI_TX and SWPMI_SUSPEND signals are available as alternate function on GPIOs. This configuration is selected to connect an external transceiver"]
+          ],
+          "mask": "0b1"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111100"
+        }
+      ]
+    }
+  ]
+}

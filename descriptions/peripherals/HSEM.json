@@ -1,0 +1,166 @@
+{
+  "HSEM": [
+    {
+      "name": "R",
+      "description": "register semaphore x",
+      "offset": "0x00",
+      "fields": [
+        {
+          "name": "LOCK",
+          "description": "Lock indication This bit can be written and read by software.",
+          "values": [
+            ["0", "On write free semaphore (only when MASTERID and PROCID match), on read semaphore is free."],
+            ["1", "On write try to lock semaphore, on read semaphore is locked."]
+          ],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "MASTERID",
+          "description": "Semaphore MASTERID Written by software - When the semaphore is free and the LOCK bit is at the same time written to 1 and the MASTERID matches the AHB bus master ID. - When the semaphore is unlocked (LOCK written to 0 and AHB bus master ID matched MASTERID, the MASTERID is cleared to 0. - When the semaphore is unlocked (LOCK bit written to 0 or AHB bus master ID does not match MASTERID, the MASTERID is not affected. - Write when LOCK bit is already 1 (semaphore locked), the MASTERID is not affected.- An authorized read returns the stored MASTERID value.",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "PROCID",
+          "description": "Semaphore PROCID Written by software -When the semaphore is free and the LOCK is written to 1, and the MASTERID matches the AHB bus master ID, PROCID is set to the written data. - When the semaphore is unlocked, LOCK written to 0 and AHB bus master ID matched MASTERID, the PROCID is cleared to 0. - When the semaphore is unlocked, LOCK bit written to 0 and AHB bus master ID does not match MASTERID, the PROCID is not affected. - Write when LOCK bit is already 1 (semaphore locked), the PROCID is not affected.- An authorized read returns the stored PROCID value.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111111111000000000000"
+        }
+      ],
+      "array": [32]
+    },
+    {
+      "name": "RLR",
+      "description": "read lock register semaphore x",
+      "offset": "0x80",
+      "fields": [
+        {
+          "name": "LOCK",
+          "description": "Lock indication This bit is read only by software at this address. - When the semaphore is free: A read with a valid AHB bus master ID locks the semaphore and returns 1.- When the semaphore is locked:A read with a valid AHB bus master ID returns 1 (the MASTERID and PROCID reflect the already locked semaphore information).",
+          "values": [],
+          "mask": "0b10000000000000000000000000000000"
+        },
+        {
+          "name": "MASTERID",
+          "description": "Semaphore MASTERID This field is read only by software at this address. On a read, when the semaphore is free, the hardware sets the MASTERID to the AHB bus master ID reading the semaphore. The MASTERID of the AHB bus master locking the semaphore is read. On a read when the semaphore is locked, this field returns the MASTERID of the AHB bus master that has locked the semaphore.",
+          "values": [],
+          "mask": "0b111100000000"
+        },
+        {
+          "name": "PROCID",
+          "description": "Semaphore processor ID This field is read only by software at this address. - On a read when the semaphore is free:A read with a valid AHB bus master ID locks the semaphore and hardware sets the PROCID to 0. - When the semaphore is locked:A read with a valid AHB bus master ID returns the PROCID of the AHB bus master that has locked the semaphore.",
+          "values": [],
+          "mask": "0b11111111"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111111111000000000000"
+        }
+      ],
+      "array": [32]
+    },
+    {
+      "name": "IER",
+      "description": "interrupt enable register",
+      "offset": "0x100",
+      "fields": [
+        {
+          "name": "ISE",
+          "description": "Interrupt semaphore x enable bit (x = 0 to 31) This bit is read and written by software. 0: Interrupt generation for semaphore x disabled (masked)1: Interrupt generation for semaphore x enabled (not masked)",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "ICR",
+      "description": "interrupt clear register",
+      "offset": "0x104",
+      "fields": [
+        {
+          "name": "ISC",
+          "description": "Interrupt semaphore x clear bit (x = 0 to 31) This bit is written by software, and is always read 0. 0: Interrupt semaphore x status ISFx and masked status MISFx not affected. 1: Interrupt semaphore x status ISFx and masked status MISFx cleared.",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "ISR",
+      "description": "interrupt status register",
+      "offset": "0x108",
+      "fields": []
+    },
+    {
+      "name": "MISR",
+      "description": "interrupt status register",
+      "offset": "0x10C",
+      "fields": [
+        {
+          "name": "MISF",
+          "description": "Masked interrupt semaphore x status bit after enable (mask) (x = 0 to 31) This bit is set by hardware and read only by soft ware. This bit is cleared by software writing the corresponding HSEM_ICR bit. This bit is re ad as 0 when semaphore x status is masked in HSEM_IER bit x. 0: interrupt semaphore x status after masking not pending1: interrupt semaphore x status after masking pending",
+          "values": [],
+          "mask": "0b11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "CR",
+      "description": "clear register",
+      "offset": "0x140",
+      "fields": [
+        {
+          "name": "1",
+          "description": "031 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 KEY[15:0] wwwwwwwwwwwwwwww 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. MASTERID[3:0] Res. Res. Res. Res. Res. Res. Res. Res. wwww",
+          "values": [],
+          "mask": "0b1000"
+        },
+        {
+          "name": "KEY",
+          "description": "Semaphore clear key This field can be written by software and is always read 0. If this key value does not match HSEM _KEYR.KEY, semaphores are not affected. If this key value matches H SEM_KEYR.KEY, all semaphores matching the MASTERID are cleared to the free state.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111000011111111"
+        }
+      ]
+    },
+    {
+      "name": "KEYR",
+      "description": "clear semaphore key register",
+      "offset": "0x144",
+      "fields": [
+        {
+          "name": "1",
+          "description": "831 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 KEY[15:0] rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw rw 1 5 1 4 1 3 1 2 1 1 1 0 9876543210 Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res. Res.",
+          "values": [],
+          "mask": "0b10"
+        },
+        {
+          "name": "KEY",
+          "description": "Semaphore clear key This field can be written and read by software. Key value to match when clearing semaphores.",
+          "values": [],
+          "mask": "0b11111111111111110000000000000000"
+        },
+        {
+          "name": "Reserved",
+          "description": "must be kept at reset value.",
+          "values": [],
+          "mask": "0b1111111111111111"
+        }
+      ]
+    }
+  ]
+}
