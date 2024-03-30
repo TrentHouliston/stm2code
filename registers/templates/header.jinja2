@@ -1,0 +1,28 @@
+#ifndef HARDWARE_REGISTER_{{- peripheral_name.upper() -}}_HPP
+#define HARDWARE_REGISTER_{{- peripheral_name.upper() -}}_HPP
+
+#include <cstdint>
+
+namespace hardware::sfr::{{- peripheral_name.lower() }} {
+
+    {% for group_name, registers in peripheral.items() %}
+    struct {{ group_name }} {
+        {% for register in registers -%}
+        /// {{ register.description }}
+        {%- if 'type' in register -%}
+        {{ register.type }} {{ register.name }}[{{ register.size }}];
+        {%- else %}
+        struct {
+        {%- for field in register.fields %}
+            /// {{ field.description }}
+            uint32_t {{ field.name }} : {{ field.mask }};
+        {%- endfor %}
+        } {{ register.name }};
+        {% endif -%}
+        {%- endfor %}
+    };
+    {% endfor %}
+
+} // namespace hardware::sfr::{{ peripheral_name.lower() }}
+
+#endif // HARDWARE_REGISTER_{{ peripheral_name.upper() }}_HPP

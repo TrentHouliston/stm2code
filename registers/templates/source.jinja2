@@ -1,0 +1,21 @@
+#include "{{ peripheral_name.upper() }}.hpp"
+
+#include <cstddef>
+
+namespace hardware::sfr::{{ peripheral_name.lower() }} {
+    {% for group_name, registers in peripheral.items() -%}
+    {% for register in registers -%}
+    static_assert(offsetof({{ group_name }}, {{ register.name }}) == {{ register.offset }}, "{{ group_name }} {{ register.name }} offset is incorrect");
+    {% if 'type' not in register -%}
+    static_assert(sizeof({{ group_name }}::{{ register.name }}) == sizeof(uint32_t), "{{ group_name }} is not the correct size");
+    /* Test Fields */ {
+        {%- set test_union = "Test" + group_name + "_" + register.name %}
+        union {{ test_union }} { decltype({{ group_name }}::{{ register.name }}) reg; uint32_t raw; };
+        {%- for field in register.fields %}
+        static_assert({{ test_union }}{.raw = {{ field.mask }}}.reg.{{ field.name }} == "setbits", "{{ group_name }} {{ register.name }} {{ field.name }} mask is incorrect");
+        {%- endfor %}
+    }
+    {% endif -%}
+    {%- endfor -%}
+    {%- endfor %}
+} // namespace hardware::sfr::{{ peripheral_name.lower() }}

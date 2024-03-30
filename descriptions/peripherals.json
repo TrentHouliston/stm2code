@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "descriptions/peripherals.json",
+  "title": "Peripheral",
+  "description": "A description of the registers in a peripheral registers and their fields.",
+  "type": "object",
+  "properties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+        "offset": { "type": "string", "pattern": "^0x[0-9a-fA-F]+$" },
+        "description": { "type": "string" },
+        "access": { "type": "integer", "enum": [8, 16, 32] },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+              "mask": { "type": "string", "pattern": "^0b[01]+$" },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [{ "type": "string", "pattern": "^0b[01]+$" }, { "type": "string" }]
+                }
+              }
+            },
+            "required": ["name", "mask", "access"]
+          }
+        }
+      },
+      "required": ["name", "offset", "fields"]
+    }
+  }
+}
