@@ -2,33 +2,17 @@ import re
 from itertools import groupby
 
 
-def get_group_name(peripheral_name, regs):
-    # The monitor registers in RAMECC
-    if peripheral_name == "RAMECC" and any(r["name"] == "MCR" for r in regs):
-        return "MONITOR"
-    # Channel registers in MDMA
-    elif peripheral_name == "MDMA" and any(r["name"] == "CISR" for r in regs):
-        return "CHANNEL"
-    # Stream registers in DMA
-    elif peripheral_name == "DMA" and any(r["name"] == "SCR" for r in regs):
-        return "STREAM"
-    # Channel registers in BDMA
-    elif peripheral_name == "BDMA" and any(r["name"] == "CCR" for r in regs):
-        return "CHANNEL"
-    # Channel registers in DFSDM
-    elif peripheral_name == "DFSDM" and any(r["name"] == "CHCFGR1" for r in regs):
-        return "CHANNEL"
-    # Filter registers in DFSDM
-    elif peripheral_name == "DFSDM" and any(r["name"] == "FLTCR1" for r in regs):
-        return "FILTER"
-    # Layer registers in LTDC
-    elif peripheral_name == "LTDC" and any(r["name"] == "LCR" for r in regs):
-        return "LAYER"
+def get_group_name(regs):
 
-    print(peripheral_name, regs)
-    import pdb
+    # Get the first word of the description for each register
+    vs = [r["description"].split(" ")[0] for r in regs]
 
-    pdb.set_trace()
+    # Check they are all the same word
+    if len(set(vs)) != 1:
+        raise ValueError(f"Group name mismatch {vs}")
+
+    # Return the first word of the description as the group name
+    return vs[0].upper()
 
 
 def group(peripherals):
@@ -89,7 +73,7 @@ def group(peripherals):
                             # TODO you just removed the information you could use to validate the offset of the subfields from the main field
                             # TODO put that information back on here somewhere so that you can work out where it should be in the main group
 
-                        new_group_name = get_group_name(peripheral_name, regs)
+                        new_group_name = get_group_name(regs)
 
                         # Create a field that references the new group
                         output.append(
